@@ -18,10 +18,10 @@ export const config = {
       { name: "--color-light", light: "#ffffff", dark: "#000000" },
     ],
     fonts: [
-      { name: "--font-primary", value: "Nunito" },
-      { name: "--font-secondary", value: "Nunito" },
-      { name: "--font-tertiary", value: "Playfair Display" },
-      { name: "--font-quaternary", value: "Roboto Mono" },
+      { name: "--font-primary", value: "Jost" },
+      { name: "--font-secondary", value: "Roboto" },
+      { name: "--font-tertiary", value: "Mali" },
+      { name: "--font-quaternary", value: "Poppins" },
     ],
   },
 };

@@ -1,0 +1,175 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+{% assign builderMode = true %}
+
+<section data-id="pageproduct" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <div class="direct mb:35px">Home > <a href="#">{{ heading.text }}</a> <a href="#"> > Bamino Lementum De Cras Hamo Dincidunts</a></div>
+
+    <div class="row">
+
+      <div class="col-lg-6 d:flex fld:column ai:center">
+        <img class="w:100%" src="../../../img/insta1.png" alt="">
+        <button class="w:490px h:60px lh:44px bgc:transparent c:black bd:1px_solid_color-gray4 ai:center jc:center mt:35px"> <i class="far fa-question mr:10px"> </i>Ask an expert</button>
+      </div>
+      <div class="col-lg-6">
+        <div class="vdoan-page-product__product-info">
+          <h3 class="fz:25px">Lorem ipsum dolor sit amet</h3>
+          <div class="mt:15px mb:20px">
+            <i class="far fa-star c:#FEAA01 fz:24px"></i>
+            <i class="far fa-star c:#FEAA01 fz:24px"></i>
+            <i class="far fa-star c:#FEAA01 fz:24px"></i>
+            <i class="far fa-star c:#FEAA01 fz:24px"></i>
+            <i class="far fa-star c:#FEAA01 fz:24px"></i>
+            No reviews
+          </div>
+          <p class="mb:30px">Vendor: Ella - Halothemes</p>
+          <p class="mb:30px">SKU:</p>
+          <p class="mb:30px">Availability: 10 in stock</p>
+          <p class="mb:30px">Product Type</p>
+          <h3 class="mb:30px fz:25px">$49.00</h3>
+          <span>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et...</span>
+          <p class="mb:15px mt:30px">Color : Black</p>
+          <div class="d:flex mb:45px">
+            <img class="w:100px h:130px mr:10px bd:1px_solid_color-dark" src="../../../img/insta1.png" alt="">
+            <img class="w:100px h:130px mr:10px" src="../../../img/insta1.png" alt="">
+            <img class="w:100px h:130px mr:10px" src="../../../img/insta1.png" alt="">
+            <img class="w:100px h:130px mr:10px" src="../../../img/insta1.png" alt="">
+          </div>
+          <div class="vdoan-page-product__size mb:30px">
+            <div class="vdoan-page-product__size-box d:inline-block w:70px h:30px bd:1px_solid_color-gray3 ta:center lh:30px">XS</div>
+            <div class="vdoan-page-product__size-box d:inline-block w:70px h:30px bd:1px_solid_black ta:center lh:30px bgc:#EBEBEB bd:none!">S</div>
+            <div class="vdoan-page-product__size-box d:inline-block w:70px h:30px bd:1px_solid_black ta:center lh:30px bgc:#EBEBEB bd:none!">M</div>
+            <div class="vdoan-page-product__size-box d:inline-block w:70px h:30px bd:1px_solid_black ta:center lh:30px bgc:#EBEBEB bd:none!">L</div>
+            <div class="vdoan-page-product__size-box d:inline-block w:70px h:30px bd:1px_solid_black ta:center lh:30px bgc:#EBEBEB bd:none!">XL</div>
+          </div>
+          <div class="d:flex ai:center">
+            <input class="w:85px! h:50px bdrs:0px! ta:center" type="number" value="1">
+            <button class="vdoan-btn__primary mah:50px ml:10px mr:10px">ADD TO CART</button>
+            <div class="w:50px h:50px bd:1px_solid_black d:flex ai:center jc:center mr:10px">
+              <i class="far fa-heart"></i>
+            </div>
+            <div class="w:50px h:50px bd:1px_solid_black d:flex ai:center jc:center">
+              <i class="fas fa-share-alt"></i>
+            </div>
+          </div>
+          <div class="d:flex ai:center mt:20px">
+            <input class="mr:10px" type="checkbox"> <p>I Agree With The Tearms & Conditions</p>
+          </div>
+
+          <button class="w:490px h:60px lh:44px bgc:transparent c:black bd:1px_solid_color-gray4 ai:center jc:center mt:35px">BUY IT NOW</button>
+          <div class="d:flex mt:20px ai:center">
+            <a href="#"><i class="fas fa-eye mr:10px"></i></a>
+            <p> 250 customers are viewing this product</p>
+          </div>
+          <ul class="bdt:1px_solid_#DEDEE9 mt:30px pt:30px">
+            <li class="fz:15px"> <i class="fas fa-check"></i> PICKUP AVAILABLE AT LOS ANGELES</li>
+            <li class="fz:15px pl:18px mt:30px">Usually ready in 4 hours</li>
+            <li class="fz:15px pl:18px mt:30px">View store info</li>
+          </ul>
+          <div>
+            <a href="#"><h3 class="fz:15px bdt:1px_solid_#DEDEE9 mt:30px pt:30px"><i class="fas fa-plus mr:15px"></i>SHIPPING & RETURNS</h3></a>
+          </div>
+          <div>
+            <a href="#"><h3 class="fz:15px bdt:1px_solid_#DEDEE9 bdb:1px_solid_#DEDEE9 mt:30px pt:30px pb:30px"><i class="fas fa-plus mr:15px"></i>CUSTOM PRODUCT TAB</h3></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="vdoan-page-product__description">
+        <h2 class="ta:center mt:90px fz:35px mb:30px">Description</h2>
+        <p class="ta:center fz:15px mb:30px">
+          At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque <br/>corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui <br/>officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+        </p>
+      </div>
+      <div class="col-lg-12 d:flex ">
+        <div class="w:50% ta:center">
+          <img class="w:500px h:467px" src="../../../img/insta1.png" alt="">
+        </div>
+        <div class="d:flex fld:column jc:center ai:center w:50% ta:center">
+          <h5 class="fz:15px">LAMCORPER OSTIQUE AMATTIS</h5>
+          <h2 class="fz:45px">100% Hand-made</h2>
+          <p class="fz:15px">Temporibus autem quibusdam et aut officiis debitis aut rerum <br/>necessitatibus saepe eveniet ut et voluptates repudiandae sint et <br/>molestiae non recusandae.</p>
+        </div>
+      </div>
+      <div class="col-lg-12 d:flex">
+        <div class="d:flex fld:column jc:center ai:center w:50% ta:center">
+          <h5 class="fz:15px">LAMCORPER OSTIQUE AMATTIS</h5>
+          <h2 class="fz:45px">Wiloke Shop</h2>
+          <p class="fz:15px">Temporibus autem quibusdam et aut officiis debitis aut rerum <br/>necessitatibus saepe eveniet ut et voluptates repudiandae sint et <br/>molestiae non recusandae.</p>
+        </div>
+        <div class="w:50% ta:center">
+          <img class="w:500px h:467px" src="../../../img/insta1.png" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {% assign comment = blogs[content.collection] %}
+      <h2 class="ta:center fz:35px mt:90px">Review({{comment.articles[0].comments.length}})</h2>
+      <div class="col-lg-6 pr:100px">
+        <h4 class="fz:20px">{{comment.articles[0].comments.length}} REVIEW FOR TRAIL RUNNING SHOE</h4>
+        {% for item in comment.articles[0].comments %}
+          <div class="d:flex mt:20px mb:5px ">
+            <img class="w:60px h:60px bdrs:30px" src="../../../img/insta1.png" alt="">
+            <div class="ml:10px w:90%">
+              <h5 class="fz:15px">{{item.author}} <span class="fz:12px c:color-gray3 fw:400"> - {{item.created_at}}</span></h5>
+              <p class="fz:14px c:color-gray5">{{item.content}}</p>
+              <div class="mt:3px">
+                <i class="fas fa-star c:#FFAE35"></i>
+                <i class="fas fa-star c:#FFAE35"></i>
+                <i class="fas fa-star c:#FFAE35"></i>
+                <i class="fas fa-star c:#FFAE35"></i>
+                <i class="fas fa-star c:#FFAE35"></i>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="col-lg-6">
+        <h3 class="fz:20px">WRITE REVIEW</h2>
+        <h3 class="fz:15px mt:20px">NAME</h2>
+        <input class="bgc:#F2F2F7! c:#929292 bd:none!" type="text" placeholder="Enter your name">
+        <h2 class="fz:15px mt:20px">EMAIL</h2>
+        <input class="bgc:#F2F2F7! c:#929292 bd:none!" type="text" placeholder="wiloke@example.com">
+        <h2 class="fz:15px mt:20px">RATING</h2>
+        <div class="mt:3px">
+          <i class="fas fa-star c:#C4C4C4"></i>
+          <i class="fas fa-star c:#C4C4C4"></i>
+          <i class="fas fa-star c:#C4C4C4"></i>
+          <i class="fas fa-star c:#C4C4C4"></i>
+          <i class="fas fa-star c:#C4C4C4"></i>
+        </div>
+        <h2 class="fz:15px mt:20px">BODY Review(1500)</h2>
+        <textarea class="bgc:#F2F2F7! c:#929292 bd:none!" name="" id="" cols="30" rows="6" placeholder="Write your comments here"></textarea>
+        <button class="vdoan-btn__primary mt:30px ml:0px">SUBMIT REVIEW</button><br/>
+        <input class="fl:left mt:10px" type="checkbox"> <p class="fz:11px fl:left ml:5px mt:10px">Write your comments here </p>
+      </div>
+    </div>
+    <div class="row jc:center pt:90px">
+      <div class="col-lg-10 ta:center bgc:color-dark pt:50px pb:50px">
+        <h3 class="c:color-light fz:20px">Sample Quote</h3>
+        <p class="c:color-light fz:15px">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores <br/>et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est <br/>laborum et dolorum fuga.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% include '../../home/bestSeller/render.twig' %}
+<section class="bgc:#F2F2F7 h:300px d:flex fld:column ai:center jc:center ta:center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 d:flex fld:column ai:center jc:center ta:center">
+         <h2 class="fz:35px mb:25px">Sign-up for LogoNews</h2>
+         <p class="fz:15px mb:10px">Stay informed about the latest style advice and product launches.<br/> Learn more about our emails and our Privacy Policy.</p>
+         <div class="d:flex ai:center jc:center ta:center">
+          <input class="h:40px" type="text" placeholder="Email address">
+          <button class="vdoan-btn__primary h:40px p:5px_15px_5px_15px ml:10px">SUBSCRIBE</button>
+         </div>
+
+      </div>
+    </div>
+  </div>
+</section>

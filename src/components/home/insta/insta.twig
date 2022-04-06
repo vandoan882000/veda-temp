@@ -1,0 +1,25 @@
+
+{% set uniqueId = "id_a3f47db4-fa2c-468c-b0a7-f6353fc7158c" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+<section data-id="insta" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <h3 class="page-section__header" css="{{ heading.design }}">{{ heading.text }}</h3>
+		<p class="insta__description ta:center mt:-24px mb:35px c:color-dark fw:400 lh:23px ff:font-secondary">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur<br/>
+			adipisci velit sed quia non numquam eius modi tempora incidunto.</p>
+    <div class="row ai:center jc:center">
+      {% for item in content %}
+        <div class="col-xs-12 col-sm-10 col-md-6 col-lg-3">
+          <div class="insta d:flex jc:center cur:pointer ml:-10px mr:-10px">
+            <img class="insta__img" src={{item.srcImg | img_url('')}} alt="insta">
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>

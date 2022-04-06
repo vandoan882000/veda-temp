@@ -1,0 +1,41 @@
+
+{% set uniqueId = "id_1a6abb7c-c88a-40dc-898b-56020a111ca6" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set builderMode = true %}
+
+<section data-id="accountcontainer" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <p class="direct mb:15px">Home > <a href="#">{{ heading.text }}</a></p>
+    <h3 class="login__title mb:30px" style="text-align: center;">Login</h3>
+    <p class="login__description mb:55px" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing
+    </p>
+    {% set collection = collections[content.collection] %}
+    <div class="row jc:center">
+      <div class="col-lg-5">
+				<div class="register pr:100px">
+					<div class="register__content">
+						<h4 class="register__title mb:25px">New Customer</h4>
+						<p class="register__description mb:40px">Sign up for early Sale access plus tailored
+							<br/>new arrivals, trends and promotions. To opt<br/>
+							out, click unsubscribe in our emails.</p>
+						<button class="vdoan-btn__primary" style="width: 100%;margin: 0;">Register</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="sign-in">
+					<h3 class="sign-in__title">Log In</h3>
+					<input type="mail" placeholder="Email"/>
+					<input type="text" placeholder="Password"/>
+					<a class="td:underline mt:10px" href="#">Forgot password?</a>
+					<button class="vdoan-btn__primary mt:20px" style="width: 100%;">Sign In</button>
+				</div>
+			</div>
+    </div>
+
+  </div>
+</section>

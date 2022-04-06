@@ -1,0 +1,58 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+{% assign builderMode = true %}
+
+<footer data-id="footers" class="veda-section mih:435px bgc:color-dark p:60px ff:font-secondary c:color-light" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  {% assign collection = collections["402146787549"] %}
+  <div class="container">
+    <div class="row jc:center">
+      <div class="col-xs-9 col-sm-6 col-md-5 col-lg-3">
+        <div class="nvd-footer__logo ff:font-tertiary fw:700 fz:35px lh:46px pb:20px c:color-light">{{heading.title}}</div>
+        <ul class="nvd-footer-list fw:700 pb:25px pl:0 list-style:none pb:20px">
+          <li class="nvd-footer-list__list pb:20px c:color-light"><a href="tel:+1234567890" class="nvd-footer-list__link op:0.7 c:color-light fw:400">Call Us: +123-456-7890</a></li>
+          <li class="nvd-footer-list__list pb:20px c:color-light"><a href="mailto:Info@example.com" class="nvd-footer-list__link op:0.7 c:color-light fw:400">Info@example.com</a></a></li>
+          <li class="nvd-footer-list__list pb:20px c:color-light"> <a class="nvd-footer-list__link op:0.7 c:color-light fw:400">Monday till Friday 10 to 6 EST</a></li>
+        </ul>
+      </div>
+      <div  class="col-xs-9 col-sm-6 col-md-5 col-lg-3">
+        <h3 class="nvd-footer-list__heading c:color-light fz:14px mb:25px">{{customers.title}}</h3>
+        <ul class="nvd-footer-list fw:700 pb:25px pl:0 list-style:none">
+          {% for item in customers.items %}
+            <li class="nvd-footer-list__list pb:20px c:color-light"><a class="nvd-footer-list__link op:0.7 c:color-light fw:400" href="#">{{item.name}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div  class="col-xs-9 col-sm-6 col-md-5 col-lg-3">
+        <h3 class="nvd-footer-list__heading c:color-light fz:14px mb:25px">{{our_shop.title}}</h3>
+        <ul class="nvd-footer-list fw:700 pb:25px pl:0 list-style:none">
+          {% for item in our_shop.items %}
+            <li class="nvd-footer-list__list pb:20px c:color-light"><a class="nvd-footer-list__link op:0.7 c:color-light fw:400" href="#">{{item.name}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div  class="col-xs-9 col-sm-6 col-md-5 col-lg-3">
+        <h3 class="nvd-footer-list__heading c:color-light fz:14px mb:25px">{{new_letter.title}}</h3>
+        <ul class="nvd-footer-list fw:700 pb:25px pl:0 list-style:none">
+          <li class="nvd-footer-list__list pb:20px c:color-light"><a class="nvd-footer-list__link op:0.7 c:color-light fw:400" href="#">{{new_letter.name}}</a></li>
+        </ul>
+        <div class="nvd-footer__input d:flex w:236px h:40px c:color-dark bd:none bgc:white">
+          <input class="w:162px h:38px bd:none! o:none d:inline-block pl:5px bgc:white" placeholder="Email address" type="text">
+          <div class="btn-join w:74px h:41px fz:12px fw:600 bgc:#3540DF c:color-light cur:pointer d:inline-block pos:relative">
+            <div class="pos:absolute t:50% l:50% trf:translate(-50%,-50%)">Join</div>
+          </div>
+        </div>
+        <div class="nvd-footer__about h:25px d:flex ai:center mt:20px">
+          {% for item in new_letter.icons %}
+            {{item.icon}}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <p class="nvd-footer__copy-right ta:center op:0.7 fz:12px">© 2021 BuildApp | All Rights Reserved</p>
+      </div>
+    </div>
+  </div>
+</footer>

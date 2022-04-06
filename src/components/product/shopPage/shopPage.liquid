@@ -1,0 +1,267 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+{% assign builderMode = true %}
+
+<section data-id="shoppage" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container pt:35px">
+    <p class="direct">Home > <a href="#">{{ heading.text }}</a></p>
+    <div class="view-as mb:40px d:flex ai:center mt:30px">
+      View as :
+      <a href="#"><i class="shop-page__view shop-page__view1 far fa-list-alt"></i></a>
+      <a href="#"><i class="shop-page__view shop-page__view2 fas fa-th c:color-dark"></i></a>
+      <div class="d:flex whs:nowrap ai:center ml:400px">
+        <p class="mr:10px">Sort by</p>
+        <select class="h:40px w:190px" name="" id="">
+           <option value="a">Featured</option>
+           <option value="a">Best selling</option>
+           <option value="a">Alphabetically, A-Z</option>
+           <option value="a">Alphabetically, Z-A</option>
+           <option value="a">Price, high to low</option>
+           <option value="a">Date, old to new</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt:20px">
+      <div class="col-lg-8 shop-page1">
+        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 pr:90px" component="content">
+          {% assign collection = collections[content.collection] %}
+
+          {% for product in collection.products limit: 8 %}
+            <div class="product-card">
+              <div class="product-card__img">
+                <div class="pet-product-card__image">
+                  <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">
+                    <img src="{{ product.featured_image.src | img_url: '400x' }}" alt="{{ product.title }}">
+                  </a>
+                </div>
+                <div class="product-card__add">
+                  <a href="#">{{content.add_to_cart_text}}</a>
+                </div>
+                <div class="product-card__state">
+                  {% if product.compare_at_price > product.price and content.sale.enable %}
+                    <div class="product-card__sale">
+                      <p>{{ content.sale.text }}</p>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="product-card__status">
+                  <div class="product-card__icon-bg" data-tooltip="Add to wishlist"  data-tooltip-position="left">
+                    <i class="far fa-heart"></i>
+                  </div>
+                  <div class="product-card__icon-bg--hidden" data-tooltip="Quick view"  data-tooltip-position="left">
+                    <i class="far fa-eye"></i>
+                  </div>
+                  <div class="product-card__icon-bg--hidden" data-tooltip="Compare to other products" data-tooltip-position="left">
+                    <i class="fas fa-compress"></i>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="product-card__content">
+                <div class="product-card__brand">{{product.vendor}}</div>
+                <a class="product-card__name" href="#">{{product.title}}</a>
+                <a class="product-card__price" href="#">
+                  <ins class="product-card__cost">${{ product.price }}</ins>
+                  {% if product.compare_at_price > product.price %}
+                    <del class="product-card__cost--before">${{ product.compare_at_price }}</del>
+                  {% endif %}
+                </a>
+                {% for option in product.options_with_values %}
+                    {% if option.name == 'Color' or option.name == 'Colour' %}
+                      <script class="product-card__colors" type="application/json">{{ option.values | json }}</script>
+                      <script type="application/json">{{ product.variants | json }}</script>
+                    {% endif %}
+                {% endfor %}
+                <div class="product-card__color">
+                  <div class="circle__active--yellow"></div>
+                  <div class="circle--blue"></div>
+                  <div class="circle--violet"></div>
+                  <div class="circle--plus">+1</div>
+                  </div>
+
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+      <div class="col-lg-4">
+        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
+          <div class="product-box">
+            {% for item in product_box %}
+              {% if item.type == "search" %}
+                <div class="product-box__search mb:30px">
+                  <h2 class="product-box__title">Search</h2>
+                  <div class="product-box__box__search d:flex ai:center">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Tìm kiếm">
+                  </div>
+                </div>
+              {% endif %}
+              {% if item.type == "refine" %}
+                <div class="product-box__refine mb:30px">
+                  <h2 class="product-box__title">Refine By</h2>
+                  <div class="product-box__content">
+                    {% for item in item.item %}
+                      <div class="product-box__box-refine">
+                        {{item.name}}
+                        <i class="fas fa-times"></i>
+                      </div>
+                    {% endfor %}
+                    <a class="c:color-dark" href="#">Clear All</a>
+                  </div>
+
+                </div>
+              {% endif %}
+              {% if item.type == "category" %}
+                <div class="product-box__category mb:30px">
+                  <h2 class="product-box__title">Categories</h2>
+                  <ul class="list:unset pl:15px">
+                    {% for item in item.item %}
+                      <li>
+                        <a class="c:color-dark" href="#">{{item.name}}</a>
+                      </li>
+                    {% endfor %}
+
+                  </ul>
+                </div>
+              {% endif %}
+              {% if item.type == "color" %}
+                <div class="product-box__color mb:30px">
+                  <h2 class="product-box__title">Màu sắc</h2>
+                  <div class="product-box__content">
+                    <div class="circle__active--yellow"></div>
+                    <div class="circle--blue"></div>
+                    <div class="circle--violet"></div>
+                    <div class="circle--blue bgc:red"></div>
+                    <div class="circle--blue bgc:green"></div>
+                    <div class="circle--blue bgc:black"></div>
+                    <div class="circle--blue"></div>
+                    <div class="circle--violet"></div>
+                    <div class="circle--blue bgc:red"></div>
+                    <div class="circle--blue bgc:green"></div>
+                    <div class="circle--blue bgc:black"></div>
+                  </div>
+
+                </div>
+              {% endif %}
+              {% if item.type == "size" %}
+                <div class="product-box__size mb:30px">
+                  <h2 class="product-box__title">Size</h2>
+                  <div class="product-box__content-size">
+                    {% for item in item.item %}
+                      <div class="size">{{item.name}}</div>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endif %}
+              {% if item.type == "filter" %}
+                <div class="product-box__filter mb:30px">
+                  <h2 class="product-box__title">Filter</h2>
+                  <input type="range" multiple min="0" step="1" max="10" data-values="1 9">
+                </div>
+              {% endif %}
+              {% if item.type == "availability" %}
+                <div class="product-box__availability mb:30px">
+                  <h2 class="product-box__title">Availability</h2>
+                  <ul class="list:unset pl:15px">
+                    {% for item in item.item %}
+                      <li>
+                        <a class="c:color-dark" href="#">{{item.name}}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+              {% if item.type == "tag" %}
+                <div class="product-box__tag mb:30px">
+                  <h2 class="product-box__title">Tags</h2>
+                  <div class="product-box__content">
+                    {% for item in item.item %}
+                      <div class="product-box__box-tag">{{item.name}}</div>
+                    {% endfor %}
+                  </div>
+
+                </div>
+              {% endif %}
+            {% endfor %}
+
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-8 pl:40px shop-page2">
+        <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 pr:90px" component="content">
+          {% assign collection = collections[content.collection] %}
+
+          {% for product in collection.products limit: 4 %}
+            <div class="product-card fld:row ">
+              <div class="product-card__img w:30%">
+                <div class="pet-product-card__image">
+                  <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">
+                    <img src="{{ product.featured_image.src | img_url: '250x' }}" alt="{{ product.title }}">
+                  </a>
+                </div>
+
+                <div class="product-card__state">
+                  {% if product.compare_at_price > product.price and content.sale.enable %}
+                    <div class="product-card__sale">
+                      <p>{{ content.sale.text }}</p>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="product-card__status">
+                  <div class="product-card__icon-bg" data-tooltip="Add to wishlist" data-tooltip-position="left">
+                    <i class="far fa-heart"></i>
+                  </div>
+                  <div class="product-card__icon-bg--hidden" data-tooltip="Quick view" data-tooltip-position="left">
+                    <i class="far fa-eye"></i>
+                  </div>
+                  <div class="product-card__icon-bg--hidden" data-tooltip="Compare to other products" data-tooltip-position="left">
+                    <i class="fas fa-compress"></i>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="product-card__content w:70% ai:flex-start h:100% jc:flex-start pl:30px">
+                <div class="product-card__brand">{{product.vendor}}</div>
+                <a class="product-card__name" href="#">{{product.title}}</a>
+                <a class="product-card__price" href="#">
+                  <ins class="product-card__cost">${{ product.price }}</ins>
+                  {% if product.compare_at_price > product.price %}
+                    <del class="product-card__cost--before">${{ product.compare_at_price }}</del>
+                  {% endif %}
+                </a>
+                <div class="product-card__color">
+                  <div class="circle__active--yellow"></div>
+                  <div class="circle--blue"></div>
+                  <div class="circle--violet"></div>
+                  <div class="circle--plus">+1</div>
+                  </div>
+                <div class="ta:left mt:30px">
+                  {{collection.description}}
+                </div>
+                <div class="product-card__add pos:static trf:translateY(0) mt:25px w:250px">
+                  <a href="#">{{content.add_to_cart_text}}</a>
+                </div>
+
+
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+</section>

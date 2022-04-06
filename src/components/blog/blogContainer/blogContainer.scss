@@ -1,0 +1,22 @@
+$uniqueId: 'blogcontainer';
+$container: "[data-id='#{$uniqueId}']";
+.blog {
+  padding-bottom: 15px;
+  font-size: 15px;
+}
+.blog__infor i {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.blog__infor p {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.blog__title {
+  font-size: 35px;
+}
+.blog__description {
+  font-family: var(--font-secondary);
+}

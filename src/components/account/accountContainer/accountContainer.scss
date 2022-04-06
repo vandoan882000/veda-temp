@@ -1,0 +1,41 @@
+$uniqueId: 'accountcontainer';
+$container: "[data-id='#{$uniqueId}']";
+
+
+.login__title {
+  font-size: 35px;
+  font-weight: 500;
+}
+.login__description {
+  margin-top: -25px;
+  font-size: 25px;
+}
+.sign-in {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+.register {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.register__title {
+  font-size: 20px;
+  font-weight: 400;
+}
+.register__description {
+  font-size: 15px;
+}
+.sign-in input{
+  width: 500px;
+  height: 50px;
+  margin-bottom: 15px;
+  border: 1px solid var(--color-gray3);
+  padding-left: 16px;
+}
+.sign-in__title {
+  font-size: 25px;
+  font-weight: 400;
+}

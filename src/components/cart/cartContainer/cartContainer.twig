@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_3f10c2f7-3641-44ec-b353-07f606f9edcf" %}
+{% set uniqueId = "id_6d0fa415-82e1-431a-9c86-7e918e0316d2" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -8,71 +8,20 @@
 <section data-id="cartcontainer" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <p class="direct mb:15px">Home > <a href="#">{{ heading.text }}</a></p>
-    <div class="row jc:center">
-      <div class="col-lg-12">
-        <div class="nvd-cart-header">
-          <div class="nvd-cart-header__title">Shopping Cart</div>
-          <div class="nvd-cart-header__description">
-            These products are limited, checkout within:</div>
-          <div class="nvd-cart-header__times core-countdown" data-options="{ timestamp: 1651000000744 }">
-            <div class="nvd-cart-header__time-number core-countdown__days">1</div>
-            <div class="nvd-cart-header__time">days</div>
-            <div class="nvd-cart-header__time-number core-countdown__hours">17</div>
-            <div class="nvd-cart-header__time">hrs</div>
-            <div class="nvd-cart-header__time-number core-countdown__minutes">30</div>
-            <div class="nvd-cart-header__time">mins</div>
-            <div class="nvd-cart-header__time-number core-countdown__seconds">23</div>
-            <div class="nvd-cart-header__time">secs</div>
-          </div>
-          <div class="nvd-cart-header__state">Buy $69.00 more to enjoy FREE Shipping</div>
-          <input class="nvd-cart-header__range" type="range">
-        </div>
-
-			</div>
-
-			<div class="col-lg-10 d:flex fld:column ai:center" >
-				<table>
-          <thead>
-            <tr>
-              <th style="width:400px;font-size: 15px;">Product</th>
-              <th style="width:200px;font-size: 15px;">Price</th>
-              <th style="width:280px;font-size: 15px;">Quantity</th>
-              <th style="font-size: 15px;">Total</th>
-            </tr>
-          </thead>
-					<tbody>
-          </tbody>
-
-        </table>
-
-			</div>
-      <div class="col-lg-10 d:flex">
-        <div class="w:33% pr:100px">
-          <h3 class="fz:15px">Add note for seller</h3>
-          <textarea name="" id="" cols="25" rows="7"></textarea>
-        </div>
-        <div class="w:33%">
-          <h3 class="fz:15px">Estimate shipping rates</h3>
-          <p class="fz:15px mt:10px mb:10px">Country/region</p>
-          <select name="" id="">
-            <option value="United States">United States</option>
-          </select>
-          <p class="fz:15px mt:30px mb:10px">State</p>
-          <select name="" id="">
-            <option value="Alabama">Alabama</option>
-          </select>
-          <p class="fz:15px mt:30px mb:10px">ZIP code</p>
-          <input type="text">
-          <button class="vdoan-btn__primary mt:30px w:100% bgc:color-light c:color-dark bd:1px_solid_color-dark ml:0px bdrs:0px">Calulatate shipping rates</button>
-        </div>
-        <div class="w:33% pl:90px">
-          <h3 class="fz:15px">SUBTOTAL: <span class="fl:right fz:20px">$96.00</span></h3>
-          <p class="mt:20px">Taxes and shipping calculated at checkout</p>
-          <button class="vdoan-btn__primary mt:30px ml:0px w:100% bdrs:0px">CHECK OUT</button>
-        </div>
-      </div>
+    <div class="nvd-cart-header__title">Shopping Cart</div>
+    <div class="nvd-cart-header__description">These products are limited, checkout within:</div>
+    <div class="nvd-cart-header__times core-countdown" data-options="{ timestamp: 1651000000744 }">
+      <div class="nvd-cart-header__time-number core-countdown__days">1</div>
+      <div class="nvd-cart-header__time">days</div>
+      <div class="nvd-cart-header__time-number core-countdown__hours">17</div>
+      <div class="nvd-cart-header__time">hrs</div>
+      <div class="nvd-cart-header__time-number core-countdown__minutes">30</div>
+      <div class="nvd-cart-header__time">mins</div>
+      <div class="nvd-cart-header__time-number core-countdown__seconds">23</div>
+      <div class="nvd-cart-header__time">secs</div>
     </div>
+    <div class="nvd-cart-header__state">Buy $69.00 more to enjoy FREE Shipping</div>
+    <input class="nvd-cart-header__range" type="range">
 
   </div>
 </section>

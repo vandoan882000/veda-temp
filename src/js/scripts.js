@@ -1,4 +1,5 @@
-// import "./home/products/products.js";
+import "./home/products/products.js";
+import "./home/menu/menu.js";
 // import "./cart/cartContainer/cartContainer.js";
 // import "./product/shopPage/shopPage.js";
 function createMenu({

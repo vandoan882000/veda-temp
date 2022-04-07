@@ -1,10 +1,10 @@
 
-{% set uniqueId = "id_32dd7d2e-a328-4117-8998-00734bd2d382" %}
+{% set uniqueId = "id_8315247d-4dcb-40f2-94a9-492a3d6ae2eb" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
-{% set builderMode = true %}
+
 
 <section data-id="products" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
@@ -18,6 +18,7 @@
 
           {% for product in collection.products | slice(0, 8) %}
             <div class="product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
+              <script class="product-card__data" type="application/json">{{ product | json_encode()}}</script>
               <div class="product-card__img w:100% pos:relative ov:hidden">
                 <div class="pet-product-card__image">
                   <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">

@@ -17,10 +17,10 @@ $container: "[data-id='#{$uniqueId}']";
 //   height: 60px;
 //   list-style: none;
 // }
-// .vdoan-menu__list {
-//   display: inline-block;
-//   border-right: 0.5px solid var(--color-light);
-// }
+.vdoan-menu__list {
+  display: inline-block;
+  border-right: 0.5px solid var(--color-light);
+}
 .vdoan-menu .vdoan-menu__list:nth-last-child(1){
   border: none;
 }

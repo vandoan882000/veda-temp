@@ -1,17 +1,17 @@
 
-{% set uniqueId = "id_308060cc-3f4e-4266-b0de-cc3cb705592e" %}
+{% set uniqueId = "id_207b4590-45f4-4df5-ac81-7ac837d5ed91" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
-{% set builderMode = true %}
-<nav class="nav" id="nav">
+
+<nav data-id="header" class="nav" id="nav">
   <div class="container maw:100% p:0">
     <div class="row bgc:black" >
       <div class="col-md-8 col-lg-8">
         <ul class="vdoan-{{menu1.name}} vdoan-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none">
           {% for item in menu1.list %}
-            <li class="vdoan-menu__list d:inline-block bdrs:0.5px_solid_color-light">
+            <li class="vdoan-menu__list d:inline-block bdr:1px_solid_color-light">
               <a href={{item.href}} class="vdoan-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light">{{item.name}}</a>
             </li>
           {% endfor %}
@@ -20,9 +20,17 @@
       <div class="col-md-4 col-lg-4" >
         <div class="vdoan-menu__option h:100% d:flex jc:flex-end ai:center c:color-light fz:20px pr:10px">
           <a href="/login.html"><i class="far fa-user ml:10px mr:10px cur:pointer c:color-light"></i></a>
-          <a href="#"><i class="far fa-box-up ml:10px mr:10px cur:pointer c:color-light"></i></a>
-          <a href="/wishlist.html"><i class="far fa-heart ml:10px mr:10px cur:pointer c:color-light"></i></a>
-          <a href="/mycart.html"><i class="fas fa-shopping-cart ml:10px mr:10px cur:pointer c:color-light"></i></a>
+          <span class="menu__card-compare pos:relative cur:pointer">
+            <i class="far fa-box-up ml:10px mr:10px cur:pointer c:color-light"></i>
+          </span>
+          <a href="/wishlist.html" class="pos:relative">
+            <i class="far fa-heart ml:10px mr:10px cur:pointer c:color-light"></i>
+            <div class="menu__wish-list d:flex jc:center ai:center c:color-light pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500">0</div>
+          </a>
+          <a href="/mycart.html" class="pos:relative">
+            <i class="fas fa-shopping-cart ml:10px mr:10px cur:pointer c:color-light"></i>
+            <div class="menu__cart d:flex jc:center ai:center c:color-light c:color-dark:h pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500">0</div>
+          </a>
         </div>
       </div>
     </div>
@@ -67,7 +75,9 @@
             <li>
               <div class="vdoan-menu-mobile__option pl:40px">
                 <a href="/login.html"><i class="far fa-user"></i></a>
-                <a href="#"><i class="far fa-box-up"></i></a>
+                <a href="#">
+                  <i class="far fa-box-up"></i>
+                </a>
                 <a href="/wishlist.html"><i class="far fa-heart"></i></a>
                 <a href="/mycart.html"><i class="fas fa-shopping-cart"></i></a>
               </div>
@@ -77,14 +87,6 @@
         </div>
 
       </div>
-      <!-- <div class="col-xs-12 col-sm-12 col-md-12" >
-        <div class="vdoan-menu-mobile__option">
-          <a href="/login.html"><i class="far fa-user"></i></a>
-          <a href="#"><i class="far fa-box-up"></i></a>
-          <a href="/wishlist.html"><i class="far fa-heart"></i></a>
-          <a href="/mycart.html"><i class="fas fa-shopping-cart"></i></a>
-        </div>
-      </div> -->
     </div>
     <div class="row" style="background-color: white;margin: 0;">
       <div class="col-xs-12 col-sm-12 col-md-12" style="margin: 0;">

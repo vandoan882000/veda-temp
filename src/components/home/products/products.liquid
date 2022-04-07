@@ -16,6 +16,7 @@
 
           {% for product in collection.products limit: 8 %}
             <div class="product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
+              <script class="product-card__data" type="application/json">{{ product | json }}</script>
               <div class="product-card__img w:100% pos:relative ov:hidden">
                 <div class="pet-product-card__image">
                   <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">

@@ -2,6 +2,7 @@
 
 
 {% block body %}
-  {% include "./components/home/bestSeller/render.twig" %}
+  {% include "./components/home/hero/render.twig" with {data : hero} %}
+  {% include "./components/home/categories/render.twig" %}
 {% endblock %}
 

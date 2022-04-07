@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_14ec397e-c9af-4d34-85e2-175e92ecbc0d" %}
+{% set uniqueId = "id_0e215e21-37cf-4e92-9805-208faa4c7a76" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -13,10 +13,10 @@
       <div class="col-md-12">
         {% set collection = collections[content.collection] %}
           <div class="c:white">
-            <div class="vdoan-banner__content jc:flex-start">
-              <p class="vdoan-banner__text">{{content.title}}</p>
-              <div class="vdoan-banner__title">INSTILEY</div>
-              <p class="vdoan-banner__description">
+            <div class="vdoan-banner__content jc:flex-start d:flex fld:column ai:center w:50% ta:center z:9">
+              <p class="vdoan-banner__text fw:500 fz:20px">{{content.title}}</p>
+              <div class="vdoan-banner__title fw:700 fz:50px">INSTILEY</div>
+              <p class="vdoan-banner__description ff:font-secondary mb:30px">
                 {{content.description}}
               </p>
               <div class="vdoan-btn__container">

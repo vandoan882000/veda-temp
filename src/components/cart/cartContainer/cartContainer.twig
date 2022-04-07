@@ -1,27 +1,10 @@
 
-{% set uniqueId = "id_6d0fa415-82e1-431a-9c86-7e918e0316d2" %}
+{% set uniqueId = "id_cbe4c82f-dec9-4b01-a657-cc051c77b3fb" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 <section data-id="cartcontainer" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
-  <div class="container">
-    <div class="nvd-cart-header__title">Shopping Cart</div>
-    <div class="nvd-cart-header__description">These products are limited, checkout within:</div>
-    <div class="nvd-cart-header__times core-countdown" data-options="{ timestamp: 1651000000744 }">
-      <div class="nvd-cart-header__time-number core-countdown__days">1</div>
-      <div class="nvd-cart-header__time">days</div>
-      <div class="nvd-cart-header__time-number core-countdown__hours">17</div>
-      <div class="nvd-cart-header__time">hrs</div>
-      <div class="nvd-cart-header__time-number core-countdown__minutes">30</div>
-      <div class="nvd-cart-header__time">mins</div>
-      <div class="nvd-cart-header__time-number core-countdown__seconds">23</div>
-      <div class="nvd-cart-header__time">secs</div>
-    </div>
-    <div class="nvd-cart-header__state">Buy $69.00 more to enjoy FREE Shipping</div>
-    <input class="nvd-cart-header__range" type="range">
-
-  </div>
+  CART
 </section>

@@ -1,10 +1,10 @@
 
-{% set uniqueId = "id_5e283256-e562-4521-9adf-b1223854aab9" %}
+{% set uniqueId = "id_cc3e7b06-81b4-4bcd-bf64-3a43fed2e8a8" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
-{% set builderMode = true %}
+
 
 <section data-id="bestseller" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>

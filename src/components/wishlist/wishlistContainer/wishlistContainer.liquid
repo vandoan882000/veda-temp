@@ -2,7 +2,7 @@
 {% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
 {% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
-{% assign builderMode = true %}
+
 
 <section data-id="products" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>

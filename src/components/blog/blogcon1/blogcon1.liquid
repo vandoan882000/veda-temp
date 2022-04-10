@@ -28,25 +28,25 @@
       </div>
       <div class="col-lg-4">
         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
-          <div class="product-box">
+          <div class="product-box w:100% h:auto bd:1px_solid_color-gray3 p:70px_20px_30px_20px">
             {% for item in product_box %}
               {% if item.type == "search" %}
                 <div class="product-box__search mb:15px">
-                  <h2 class="product-box__title mb:15px">Search</h2>
-                  <div class="product-box__box__search d:flex ai:center">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Tìm kiếm">
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Search</h2>
+                  <div class="product-box__box-search d:flex ai:center pl:10px bd:1px_solid_color-gray4">
+                    <i class="fas fa-search cur:pointer"></i>
+                    <input class="h:40px w:90% bd:none! o:none" type="text" placeholder="Tìm kiếm">
                   </div>
                 </div>
               {% endif %}
               {% if item.type == "popular-post" %}
                 <div class="product-box__popular-post mt:10px mb:10px">
-                  <h2 class="product-box__title mb:10px">Popular Post</h2>
-                  <div class="product-box__content">
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Popular Post</h2>
+                  <div class="product-box__content fz:15px">
                     {% for item in item.item %}
-                      <div class="product-box__box-post mb:30px">
+                      <div class="product-box__box-post mb:30px d:flex jc:center ai:center">
                         <img src={{item.srcImg | img_url: ''}} alt="">
-                        <p>{{item.title}}</p>
+                        <p class="ml:20px fw:500">{{item.title}}</p>
                       </div>
                     {% endfor %}
                   </div>
@@ -55,7 +55,7 @@
               {% endif %}
               {% if item.type == "tag" %}
                 <div class="product-box__tag mb:15px">
-                  <h2 class="product-box__title">Tags</h2>
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Tags</h2>
                   <div class="product-box__content">
                     {% for item in blog.all_tags %}
                       <div class="product-box__box-tag">{{item}}</div>
@@ -66,12 +66,12 @@
               {% endif %}
               {% if item.type == "newsletter" %}
                 <div class="product-box__newsletter">
-                  <h2 class="product-box__title">Newsletter Signup</h2>
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Newsletter Signup</h2>
                   <div class="product-box__content">
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint.</p>
-                    <div class="product-box__box-newsletter mt:10px">
-                      <input type="text" placeholder="Your email">
-                      <button class="btn bdrs:0">GET!</button>
+                    <p class="fz:13px">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint.</p>
+                    <div class="product-box__box-newsletter mt:10px d:flex flw:nowrap w:100% h:40px bd:1px_solid_color-gray4">
+                      <input class="bd:none! o:none w:70% h:100%" type="text" placeholder="Your email">
+                      <button class="btn bdrs:0 w:30% h:100% bgc:color-dark c:color-light bd:none">GET!</button>
                     </div>
                   </div>
                 </div>

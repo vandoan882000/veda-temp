@@ -1,13 +1,15 @@
-{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
-{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
-{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
-');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+
+{% set uniqueId = "id_25333a04-fd34-47b0-a54d-a4b93f6b52b7" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 <section data-id="cartcontainer" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <p class="direct mb:15px">Home > <a href="#">{{ heading.text }}</a></p>
-    {% assign collection = collections[content.collection] %}
+    {% set collection = collections[content.collection] %}
     <div class="row jc:center">
       <div class="col-lg-12">
         <div class="nvd-cart-header">
@@ -40,15 +42,14 @@
               <th style="font-size: 15px;">Total</th>
             </tr>
           </thead>
-					<tbody>
+					<tbody class="card-cart__tbody">
 
-            {% for item in collection.products limit: 4%}
+            {% for item in collection.products | slice(0, 4)%}
               <tr class="card-cart">
                 <td class="card-cart__content">
                   <a href="#" class="core-image-cover d:block w:140px" css="--aspect-ratio: 4/4">
-                    <img src={{item.featured_image.url | img_url: '140x'}} alt="product-card">
+                    <img src={{item.featured_image.url | img_url('140x')}} alt="product-card">
                   </a>
-
                   <div class="card-cart__name">
                     <div class="card-cart__title c:color-dark mb:10px">{{item.title}}</div>
                     <p class="mb:10px">Color: Light Blue</p>

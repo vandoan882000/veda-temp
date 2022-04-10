@@ -22,5 +22,6 @@
   },
   "emmet.includeLanguages": {
       "twig": "html"
-  }
+  },
+  "docwriter.style": "JSDoc"
 }

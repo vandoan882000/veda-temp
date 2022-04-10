@@ -1,10 +1,10 @@
 
-{% set uniqueId = "id_1cadbf64-fb4b-46a4-86fe-b7c048b58b69" %}
+{% set uniqueId = "id_17e932d3-403f-457d-a481-5bdf666d9bf4" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
-{% set builderMode = true %}
+
 
 <footer data-id="footers" class="veda-section mih:435px bgc:color-dark p:60px ff:font-secondary c:color-light" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>

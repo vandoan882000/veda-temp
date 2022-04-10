@@ -2,19 +2,20 @@ const uniqueId = "products";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 
-class AddCompare {
-  constructor() {
-
+class AddStore {
+  constructor(storeName,elName) {
+    this.storeName = storeName;
+    this.elName = elName;
     this.init();
   }
 
-  handleAddCompare() {
+  handleAdd() {
     const listCard = container.querySelectorAll(".product-card");
     listCard.forEach(cartEl => {
-      const btnCompare = cartEl.querySelector(".fa-compress");
+      const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
       btnCompare.addEventListener("click", () => {
         const data = cartEl.querySelector(".product-card__data");
-        window.veda.utils.store.set("doanCompare", (compare) => {
+        window.veda.utils.store.set(""+this.storeName, (compare) => {
           const check = compare.find(item => item.id === JSON.parse(data.textContent).id);
           if(!!check) {
             return [...compare];
@@ -28,17 +29,22 @@ class AddCompare {
     })
   }
   initStore() {
-    window.veda.utils.store.create("doanCompare", {
+    window.veda.utils.store.create(this.storeName, {
       initialState: [],
       useStorage: true
     });
   }
   init() {
     this.initStore();
-    this.handleAddCompare();
+    this.handleAdd();
   }
 }
-new AddCompare();
+if(!!container) {
+  new AddStore("doanCompare","fa-compress");
+  new AddStore("doanWishList","fa-heart");
+  new AddStore("doanCart","product-card__add");
+}
+
 
 
 

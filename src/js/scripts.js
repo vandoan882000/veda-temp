@@ -1,6 +1,6 @@
 import "./home/products/products.js";
 import "./home/menu/menu.js";
-// import "./cart/cartContainer/cartContainer.js";
+import "./cart/sectionCart/sectionCart.js";
 // import "./product/shopPage/shopPage.js";
 function createMenu({
   createMenuButton
@@ -113,10 +113,8 @@ function sizeScreen() {
   function init() {
     initMenu();
     window.addEventListener('resize', resizeScreen );
-    // console.log(buttonMenu);
   }
   init();
 }
 
 sizeScreen();
-console.log("123");

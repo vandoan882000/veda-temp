@@ -5,7 +5,7 @@
 
 <nav data-id="header" class="nav" id="nav">
   <div class="container maw:100% p:0">
-    <div class="row bgc:black" >
+    <div class="row bgc:color-gray9" >
       <div class="col-md-8 col-lg-8">
         <ul class="vdoan-{{menu1.name}} vdoan-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none">
           {% for item in menu1.list %}
@@ -17,34 +17,36 @@
       </div>
       <div class="col-md-4 col-lg-4" >
         <div class="vdoan-menu__option h:100% d:flex jc:flex-end ai:center c:color-light fz:20px pr:10px">
+          <div class="core-toggle-theme">asda</div>
           <a href="/login.html"><i class="far fa-user ml:10px mr:10px cur:pointer c:color-light"></i></a>
-          <span class="menu__card-compare pos:relative cur:pointer">
+          <span class="pos:relative cur:pointer">
             <i class="far fa-box-up ml:10px mr:10px cur:pointer c:color-light"></i>
+            <div class="menu__card-compare d:flex jc:center ai:center c:color-light pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500"></div>
           </span>
           <a href="/wishlist.html" class="pos:relative">
             <i class="far fa-heart ml:10px mr:10px cur:pointer c:color-light"></i>
-            <div class="menu__wish-list d:flex jc:center ai:center c:color-light pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500">0</div>
+            <div class="menu__wish-list d:flex jc:center ai:center c:color-light pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500"></div>
           </a>
           <a href="/mycart.html" class="pos:relative">
             <i class="fas fa-shopping-cart ml:10px mr:10px cur:pointer c:color-light"></i>
-            <div class="menu__cart d:flex jc:center ai:center c:color-light c:color-dark:h pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500">0</div>
+            <div class="menu__cart d:flex jc:center ai:center c:color-light c:color-dark:h pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500"></div>
           </a>
         </div>
       </div>
     </div>
-    <div class="row bgc:white m:0">
+    <div class="row bgc:color-light m:0">
       <div class="col-md-8 col-lg-8 m:0">
         <ul class="vdoan-{{menu2.name}} vdoan-{{menu2.name}}--2 d:flex ai:center m:0 pl:60px h:60px list-style:none">
           {% for item in menu2.list %}
             <li class="vdoan-menu__list">
-              <a href={{item.href}} class="vdoan-menu__link--secondary c:black w:100% pl:20px pr:20px fw:600 fz:13px lh:19px cur:pointer">{{item.name}}</a>
+              <a href={{item.href}} class="vdoan-menu__link--secondary c:color-gray9 w:100% pl:20px pr:20px fw:600 fz:13px lh:19px cur:pointer">{{item.name}}</a>
             </li>
           {% endfor %}
         </ul>
       </div>
       <div class="col-md-4 col-lg-4 m:0">
         <div class="vdoan-menu__search-container d:flex jc:flex-end ai:center h:100%">
-          <div class="vdoan-menu__search d:flex w:260px h:38px c:black bd:1px_solid_#DEDEE9">
+          <div class="vdoan-menu__search d:flex w:260px h:38px c:color-gray9 bd:1px_solid_#DEDEE9">
             <input class="w:220px h:35px bd:none! o:none d:inline-block pl:10px" placeholder="Search" type="text">
             <div class="btn-search w:38px h:36px fz:22px bgc:color-dark c:color-light cur:pointer d:inline-block pos:relative">
               <i class="fas fa-search pos:absolute t:50% l:50% trf:translate(-50%,-50%)"></i>
@@ -61,7 +63,7 @@
 
 <nav class="nav-mobile" id="nav-mobile">
   <div class="container maw:100% p:0">
-    <div class="row bgc:black ml:0 mr:0 "   >
+    <div class="row bgc:color-gray9 ml:0 mr:0 "   >
       <div class="col-xs-12 col-sm-12 col-md-12 h:60px! ovy:hidden">
         <div class="vdoan-menu-mobile__container-overflow">
           <ul class="vdoan-{{menu1.name}}-mobile vdoan-{{menu1.name}}-mobile--1 m:0 list-style:none d:flex ai:center p:15px_0px_15px_0px">

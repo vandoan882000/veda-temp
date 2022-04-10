@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_8315247d-4dcb-40f2-94a9-492a3d6ae2eb" %}
+{% set uniqueId = "id_377de959-121d-4bf3-861f-7ca834f60aa9" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -36,13 +36,13 @@
                   {% endif %}
                 </div>
                 <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                  <div class="product-card__icon-bg" data-tooltip="Add to wishlist" data-tooltip-position="left">
+                  <div class="product-card__icon-bg cur:pointer" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-active-text="Added">
                     <i class="far fa-heart"></i>
                   </div>
-                  <div class="product-card__icon-bg--hidden" data-tooltip="Quick view" data-tooltip-position="left">
+                  <div class="product-card__icon-bg--hidden cur:pointer" data-tooltip="Quick view" data-tooltip-position="left">
                     <i class="far fa-eye"></i>
                   </div>
-                  <div class="product-card__icon-bg--hidden" data-tooltip="Compare to other products" data-tooltip-position="left">
+                  <div class="product-card__icon-bg--hidden cur:pointer" data-tooltip="Compare to other products" data-tooltip-position="left">
                     <i class="fas fa-compress"></i>
                   </div>
                 </div>

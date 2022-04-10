@@ -1,10 +1,10 @@
 
-{% set uniqueId = "id_0e215e21-37cf-4e92-9805-208faa4c7a76" %}
+{% set uniqueId = "id_12dcbcb9-6b21-45f5-91c6-454bad0f3ab4" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
-{% set builderMode = true %}
+
 
 <section data-id="hero1" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}" >
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>

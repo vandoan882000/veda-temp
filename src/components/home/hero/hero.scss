@@ -44,62 +44,9 @@ $container: "[data-id='#{$uniqueId}']";
   display: flex;
   justify-content: flex-end;
 }
-.vdoan-banner--product {
-  min-height: 275px;
-  color: var(--color-light);
-}
-.vdoan-banner--product .banner__content{
-  padding: 5px 100px 0px 100px;
-}
 .vdoan-banner--secondary {
   color: var(--color-light);
 }
-.vdoan-banner__stickey {
-  position: absolute;
-  top: 40px;
-  left: 15px;
-  width: 257px;
-  height: 80px;
-
-}
-.vdoan-banner__rectangle {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 257px;
-  height: 80px;
-  background: linear-gradient(121.91deg, #B21B1B 31.24%, #E85151 384.84%);
-  transform: matrix(0.97, -0.23, 0.23, 0.97, 0, 0);
-  font-weight: 400;
-  font-size: 43px;
-  text-align: center;
-  z-index: 1;
-  letter-spacing: 0.065em;
-
-}
-.vdoan-banner__triangle--left {
-  position: absolute;
-  top: 40px;
-  left: 13px;
-  width: 80px;
-  height: 80px;
-  border-bottom: 80px solid #531515;
-  border-right: 80px solid transparent;
-  transform: matrix(0.9, -0.1, 0.3, 0.97, 1, 1) rotate(21deg);
-
-}
-
-.vdoan-banner__triangle--right {
-  position: absolute;
-  top: 2px;
-  right: 8px;
-  width: 30px;
-  height: 80px;
-  border-bottom: 80px solid #531515;
-  border-left: 80px solid transparent;
-  transform: matrix(0.9, -0.3, 0.23, 0.97, 1, 1) rotate(-21deg);
-}
-
 @media (min-width: 768px) {
   .vdoan-banner__content {
     width: 50%;

@@ -91,35 +91,35 @@
       </div>
       <div class="col-lg-4">
         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
-          <div class="product-box">
+          <div class="product-box w:100% h:auto bd:1px_solid_color-gray3 p:70px_20px_30px_20px">
             {% for item in product_box %}
               {% if item.type == "search" %}
-                <div class="product-box__search mb:30px">
-                  <h2 class="product-box__title">Search</h2>
-                  <div class="product-box__box__search d:flex ai:center">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Tìm kiếm">
+                <div class="product-box__search mb:15px">
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Search</h2>
+                  <div class="product-box__box-search d:flex ai:center pl:10px bd:1px_solid_color-gray4">
+                    <i class="fas fa-search cur:pointer"></i>
+                    <input class="h:40px w:90% bd:none! o:none" type="text" placeholder="Tìm kiếm">
                   </div>
                 </div>
               {% endif %}
               {% if item.type == "refine" %}
-                <div class="product-box__refine mb:30px">
-                  <h2 class="product-box__title">Refine By</h2>
+                <div class="product-box__refine mb:30px pos:relative">
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Refine By</h2>
                   <div class="product-box__content">
                     {% for item in item.item %}
-                      <div class="product-box__box-refine">
+                      <div class="product-box__box-refine pos:relative d:inline-block bd:1px_solid_color-gray4 w:fit-content p:5px_25px_5px_5px cur:pointer c:color-gray4">
                         {{item.name}}
-                        <i class="fas fa-times"></i>
+                        <i class="far fa-times pos:absolute t:50% r:1% trf:translate(-50%,-50%) cur:pointer"></i>
                       </div>
                     {% endfor %}
-                    <a class="c:color-dark" href="#">Clear All</a>
+                    <a class="c:color-dark pos:absolute t:5px r:0" href="#">Clear All</a>
                   </div>
 
                 </div>
               {% endif %}
               {% if item.type == "category" %}
                 <div class="product-box__category mb:30px">
-                  <h2 class="product-box__title">Categories</h2>
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Categories</h2>
                   <ul class="list:unset pl:15px">
                     {% for item in item.item %}
                       <li>
@@ -132,7 +132,7 @@
               {% endif %}
               {% if item.type == "color" %}
                 <div class="product-box__color mb:30px">
-                  <h2 class="product-box__title">Màu sắc</h2>
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Màu sắc</h2>
                   <div class="product-box__content">
                     <div class="circle__active--yellow"></div>
                     <div class="circle--blue"></div>
@@ -151,23 +151,23 @@
               {% endif %}
               {% if item.type == "size" %}
                 <div class="product-box__size mb:30px">
-                  <h2 class="product-box__title">Size</h2>
-                  <div class="product-box__content-size">
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Size</h2>
+                  <div class="product-box__content-size d:flex">
                     {% for item in item.item %}
-                      <div class="size">{{item.name}}</div>
+                      <div class="size w:40px bd:1px_solid_color-gray4 p:5px m:5px ta:center cur:pointer">{{item.name}}</div>
                     {% endfor %}
                   </div>
                 </div>
               {% endif %}
               {% if item.type == "filter" %}
                 <div class="product-box__filter mb:30px">
-                  <h2 class="product-box__title">Filter</h2>
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Filter</h2>
                   <input type="range" multiple min="0" step="1" max="10" data-values="1 9">
                 </div>
               {% endif %}
               {% if item.type == "availability" %}
                 <div class="product-box__availability mb:30px">
-                  <h2 class="product-box__title">Availability</h2>
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Availability</h2>
                   <ul class="list:unset pl:15px">
                     {% for item in item.item %}
                       <li>
@@ -179,10 +179,10 @@
               {% endif %}
               {% if item.type == "tag" %}
                 <div class="product-box__tag mb:30px">
-                  <h2 class="product-box__title">Tags</h2>
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px">Tags</h2>
                   <div class="product-box__content">
                     {% for item in item.item %}
-                      <div class="product-box__box-tag">{{item.name}}</div>
+                      <div class="product-box__box-tag d:inline-block bd:1px_solid_color-gray4 p:5px m:5px ta:center cur:pointer">{{item.name}}</div>
                     {% endfor %}
                   </div>
 

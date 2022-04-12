@@ -28,6 +28,7 @@ const config = {
   },
 };
 let watcher = watch(config.input, { recursive: true });
+const output = isDev ? config.output.dev : config.output.prod;
 
 /**
  * Compile all scss files in the src/scss folder and output them to the build/css folder
@@ -44,7 +45,7 @@ function compileScss(cb) {
       .pipe(sassGlob())
       .pipe(sass())
       .pipe(sourcemaps.write())
-      .pipe(gulp.dest(`${config.output.dev}/${config.styles}`))
+      .pipe(gulp.dest(`${output}/${config.styles}`))
       .pipe(browserSync.stream());
   }
   gulp
@@ -54,7 +55,7 @@ function compileScss(cb) {
     ])
     .pipe(sassGlob())
     .pipe(sass().on("error", sass.logError))
-    .pipe(gulp.dest(`${config.output.prod}/${config.styles}`))
+    .pipe(gulp.dest(`${output}/${config.styles}`))
     .pipe(browserSync.stream());
   cb();
 }
@@ -96,6 +97,12 @@ function compileLiquidToTwig() {
           liquid: content,
           settings: [],
         });
+        content = content.replace(/<megamenu.*<\/megamenu>/g, (value) => {
+          const id = value
+            .replace(/<megamenu\s*data-id="\{\{\s+/g, "")
+            .replace(/\s+\}\}"><\/megamenu>/g, "");
+          return `{% include "../../megamenu/" ~ ${id} ~ "/" ~ ${id} ~ ".twig" %}`;
+        });
         fs.writeFileSync(twigFileName, content);
       } catch (err) {
         console.log(err);
@@ -113,7 +120,7 @@ function compileTwig(cb) {
     gulp
       .src(`${config.input}/*.twig`)
       .pipe(twig({ data: getJSON(), errorLogToConsole: true }))
-      .pipe(gulp.dest(isDev ? config.output.dev : config.output.prod))
+      .pipe(gulp.dest(output))
       .pipe(browserSync.stream());
   } catch (err) {
     console.log(err);
@@ -136,13 +143,7 @@ function compileJs(cb) {
         ignore: `${config.input}/${config.shared}/**/*.data.js`,
       }
     )
-    .pipe(
-      gulp.dest(
-        isDev
-          ? `${config.output.dev}/${config.js}`
-          : `${config.output.prod}/${config.js}`
-      )
-    );
+    .pipe(gulp.dest(`${output}/${config.js}`));
   cb();
 }
 
@@ -153,13 +154,7 @@ function compileJs(cb) {
 function copyImages(cb) {
   gulp
     .src(`${config.input}/${config.img}/**/*`)
-    .pipe(
-      gulp.dest(
-        isDev
-          ? `${config.output.dev}/${config.img}`
-          : `${config.output.prod}/${config.img}`
-      )
-    );
+    .pipe(gulp.dest(`${output}/${config.img}`));
   cb();
 }
 
@@ -168,7 +163,6 @@ function copyImages(cb) {
  * directory.
  */
 function atomicCss() {
-  const output = isDev ? config.output.dev : config.output.prod;
   const writeFile = () => {
     const twigFiles = glob.sync(`${config.input}/**/*.twig`);
     for (let i = 0; i < twigFiles.length; i++) {
@@ -228,7 +222,7 @@ function handleBrowserSync(cb) {
   browserSync.init({
     port: config.port,
     server: {
-      baseDir: isDev ? config.output.dev : config.output.prod,
+      baseDir: output,
     },
     logConnections: true,
     logFileChanges: true,
@@ -263,7 +257,8 @@ const handleWatcherClose = (cb) => {
  * gulp.series function.
  */
 function dev() {
-  fs.removeSync(config.output.dev);
+  fs.removeSync(output);
+  process.env.NODE_ENV = "development";
   return gulp.series(
     handleBrowserSync,
     gulp.parallel(
@@ -284,7 +279,7 @@ function dev() {
  * @returns The build function returns a gulp.parallel task.
  */
 function build() {
-  fs.removeSync(config.output.prod);
+  fs.removeSync(output);
   return gulp.parallel(
     compileScss,
     copyImages,

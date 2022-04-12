@@ -38,6 +38,12 @@ const data = {
       lg: 4
     }
   },
+  compare_popup: {
+    product_enable: true,
+    product_title: "Product",
+    rating_enable: true,
+    rating_title: "Rating"
+  },
   menu1: {
     name : "menu",
     bgColor: "#000000",
@@ -93,7 +99,14 @@ const data = {
       },
       {
         name :"BULK EDITOR",
-        href: "#"
+        href: "#",
+        hasMegaMenu: true,
+        children: [
+          {
+            megaMenuEnabled: true,
+            megaMenuId: "megamenu1",
+          },
+        ],
       }
     ],
     type: "search"

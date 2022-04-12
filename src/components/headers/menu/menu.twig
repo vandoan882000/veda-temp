@@ -1,12 +1,15 @@
-{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
-{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
-{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
-');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+
+{% set uniqueId = "id_36abdacc-751d-4146-abcf-e48dbefa22c1" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 <nav data-id="header" class="nav" id="nav">
   <div class="container maw:100% p:0">
     <div class="row bgc:color-gray9" >
       <div class="col-md-8 col-lg-8">
+        <script class="compare-popup-data" type="application/json">{{ compare_popup | json_encode()}}</script>
         <ul class="vdoan-{{menu1.name}} vdoan-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none">
           {% for item in menu1.list %}
             <li class="vdoan-menu__list d:inline-block bdr:1px_solid_color-light">
@@ -17,20 +20,20 @@
       </div>
       <div class="col-md-4 col-lg-4" >
         <div class="vdoan-menu__option h:100% d:flex jc:flex-end ai:center c:color-light fz:20px pr:10px">
-          <div class="core-toggle-theme">asda</div>
+          <div class="core-toggle-theme cur:pointer">mode</div>
           <a href="/login.html"><i class="far fa-user ml:10px mr:10px cur:pointer c:color-light"></i></a>
           <span class="pos:relative cur:pointer">
             <i class="far fa-box-up ml:10px mr:10px cur:pointer c:color-light"></i>
-            <div class="menu__card-compare d:flex jc:center ai:center c:color-light pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500"></div>
+            <div class="menu__card-compare"></div>
           </span>
           <a href="/wishlist.html" class="pos:relative">
             <i class="far fa-heart ml:10px mr:10px cur:pointer c:color-light"></i>
-            <div class="menu__wish-list d:flex jc:center ai:center c:color-light pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500"></div>
+            <div class="menu__wish-list"></div>
           </a>
-          <a href="/mycart.html" class="pos:relative">
+          <span class="pos:relative">
             <i class="fas fa-shopping-cart ml:10px mr:10px cur:pointer c:color-light"></i>
-            <div class="menu__cart d:flex jc:center ai:center c:color-light c:color-dark:h pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500"></div>
-          </a>
+            <div class="menu__cart"></div>
+          </span>
         </div>
       </div>
     </div>
@@ -40,6 +43,23 @@
           {% for item in menu2.list %}
             <li class="vdoan-menu__list">
               <a href={{item.href}} class="vdoan-menu__link--secondary c:color-gray9 w:100% pl:20px pr:20px fw:600 fz:13px lh:19px cur:pointer">{{item.name}}</a>
+              {#
+                <ul>
+                  {% if item.children | length > 0 %}
+                    {% for item in item.children %}
+                      {% if item.megaMenuEnabled %}
+                        <li>
+                          {% include "../../megamenu/" ~ item.megaMenuId ~ "/" ~ item.megaMenuId ~ ".twig" %}
+                        </li>
+                      {% else %}
+                        <li>sdfsdf</li>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+              </ul>
+              #}
+
+
             </li>
           {% endfor %}
         </ul>
@@ -57,9 +77,6 @@
     </div>
   </div>
 </nav>
-
-
-
 
 <nav class="nav-mobile" id="nav-mobile">
   <div class="container maw:100% p:0">

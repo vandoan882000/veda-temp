@@ -45,12 +45,14 @@ class AddStore {
       if(hasItem) {
         if(btnCompare.hasAttribute("data-tooltip")) {
           btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-active-text"));
-          btnCompare.style.backgroundColor = "black";
+          btnCompare.style.backgroundColor = "#f23333";
+          btnCompare.style.color = "#fff";
         }
       } else {
         if(btnCompare.hasAttribute("data-tooltip")) {
           btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-text"));
           btnCompare.style.backgroundColor = "white";
+          btnCompare.style.color = "black";
         }
       }
 
@@ -133,99 +135,6 @@ class AddStore {
     this.handleAdd();
   }
 }
-// class AddStore {
-//   constructor(storeName,elName) {
-//     this.storeName = storeName;
-//     this.elName = elName;
-//     this.el = container.querySelector(".row");
-//     this.init();
-//     store.subscribe(storeName,this.init.bind(this));
-//   }
-//   getData() {
-//     return store.get(""+this.storeName);
-//   }
-//   handleChangeStatus() {
-//     const {data} = this.getData();
-//     const listCard = container.querySelectorAll(".product-card");
-//     listCard.forEach(cartEl => {
-//       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
-//       const dataEl = cartEl.querySelector(".product-card__data");
-//       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
-//       if(hasItem) {
-//         if(btnCompare.hasAttribute("data-tooltip")) {
-//           btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-active-text"));
-//           btnCompare.style.backgroundColor = "black";
-//         }
-//       }
-//       else {
-//         if(btnCompare.hasAttribute("data-tooltip")) {
-//           btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-text"));
-//           btnCompare.style.backgroundColor = "white";
-//         }
-//       }
-
-//     })
-//   }
-//   handleAdd() {
-//     const {data} = this.getData();
-//     const listCard = container.querySelectorAll(".product-card");
-//     this.handleChangeStatus();
-//     listCard.forEach(cartEl => {
-//       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
-//       const dataEl = cartEl.querySelector(".product-card__data");
-//       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
-//       if(hasItem) {
-//         function addClick() {
-//           store.set(""+this.storeName, (items) => {
-//             return {
-//               ...items,
-//               data: [...data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)]
-//             };
-//           })(this.storeName+"/Add");
-//         }
-//         btnCompare.addEventListener("click", addClick);
-//         return () => {
-//           btnCompare.addEventListener("click", addClick);
-//         }
-//       }
-//       else {
-//         addClick1() {
-//           store.set(""+this.storeName, (items) => {
-//             return {
-//               ...items,
-//                 data: [...items.data,JSON.parse(dataEl.textContent)]
-//             };
-//           })(this.storeName+"/Add");
-//         }
-//         btnCompare.addEventListener("click", addClick1);
-//         return () => {
-//           btnCompare.removeEventListener("click", addClick1)
-//         }
-//       }
-
-
-//     })
-//   }
-
-//   initStore() {
-//     store.create(this.storeName, {
-//       initialState: {
-//         visible: false,
-//         data: []
-//       },
-//       useStorage: true
-//     });
-//   }
-//   render() {
-
-//   }
-//   init() {
-//     let curr = this.handleAdd();
-//     if(curr) {
-//       console.log(curr);
-//     }
-//   }
-// }
 class AddStoreCart {
   constructor(storeName,elName) {
     this.storeName = storeName;
@@ -314,7 +223,7 @@ class AddStoreCart {
   }
 }
 if(!!container) {
-  new AddStore("doanCompare","fa-compress");
+  new AddStore("doanCompare","fa-exchange");
   new AddStore("doanWishList","fa-heart");
   new AddStoreCart("doanCart","product-card__add");
 }

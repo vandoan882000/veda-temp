@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_69e43483-dd1d-413b-a423-f6efc5b93857" %}
+{% set uniqueId = "id_1ff7bd99-95fa-44e1-a56d-a90b9987d330" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -28,68 +28,79 @@
     </div>
     <div class="row mt:20px">
       <div class="col-lg-8 shop-page1">
-        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 pr:90px" component="content">
+        <div class="row">
           {% set collection = collections[content.collection] %}
-
+          <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>
           {% for product in collection.products | slice(0, 8) %}
-            <div class="product-card">
-              <div class="product-card__img">
-                <div class="pet-product-card__image">
-                  <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">
-                    <img src="{{ product.featured_image.src | img_url('400x')}}" alt="{{ product.title }}">
-                  </a>
-                </div>
-                <div class="product-card__add">
-                  <a href="#">{{content.add_to_cart_text}}</a>
-                </div>
-                <div class="product-card__state">
-                  {% if product.compare_at_price > product.price and content.sale.enable %}
-                    <div class="product-card__sale">
-                      <p>{{ content.sale.text }}</p>
-                    </div>
-                  {% endif %}
-                </div>
-                <div class="product-card__status">
-                  <div class="product-card__icon-bg" data-tooltip="Add to wishlist"  data-tooltip-position="left">
-                    <i class="far fa-heart"></i>
+            <div class="col-lg-4">
+              <div class="product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
+                <script class="product-card__data" type="application/json">{{ product | json_encode()}}</script>
+                <div class="product-card__img w:100% pos:relative ov:hidden">
+                  <div class="pet-product-card__image">
+                    <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">
+                      <img class="product-card__image" src="{{ product.featured_image.src | img_url('400x')}}" alt="{{ product.title }}">
+                    </a>
                   </div>
-                  <div class="product-card__icon-bg--hidden" data-tooltip="Quick view"  data-tooltip-position="left">
-                    <i class="far fa-eye"></i>
+                  <div class="product-card__add-content pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px">
+                    <a class="product-card__add cur:pointer pos:absolute td:none w:100% h:100% va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light">{{content.add_to_cart_text}}</a>
                   </div>
-                  <div class="product-card__icon-bg--hidden" data-tooltip="Compare to other products" data-tooltip-position="left">
-                    <i class="fas fa-compress"></i>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="product-card__content">
-                <div class="product-card__brand">{{product.vendor}}</div>
-                <a class="product-card__name" href="#">{{product.title}}</a>
-                <a class="product-card__price" href="#">
-                  <ins class="product-card__cost">${{ product.price }}</ins>
-                  {% if product.compare_at_price > product.price %}
-                    <del class="product-card__cost--before">${{ product.compare_at_price }}</del>
-                  {% endif %}
-                </a>
-                {% for option in product.options_with_values %}
-                    {% if option.name == 'Color' or option.name == 'Colour' %}
-                      <script class="product-card__colors" type="application/json">{{ option.values | json_encode()}}</script>
-                      <script type="application/json">{{ product.variants | json_encode()}}</script>
+                  <div class="product-card__state pos:absolute t:5px l:5px d:flex">
+                    {% if product.compare_at_price > product.price and content.sale.enable %}
+                      <div class="product-card__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                        <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text }}</p>
+                      </div>
                     {% endif %}
-                {% endfor %}
-                <div class="product-card__color">
-                  <div class="circle__active--yellow"></div>
-                  <div class="circle--blue"></div>
-                  <div class="circle--violet"></div>
-                  <div class="circle--plus">+1</div>
                   </div>
+                  <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                    <div class="product-card__icon-bg cur:pointer" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Added to wishlist">
+                      <i class="fal fa-heart"></i>
+                    </div>
+                    <div class="product-card__icon-bg--hidden cur:pointer" data-tooltip="Quick view" data-tooltip-position="left" >
+                      <i class="far fa-eye"></i>
+                    </div>
+                    <div class="product-card__icon-bg--hidden cur:pointer" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to compare" data-tooltip-active-text="Added to compare">
+                      <i class="fas fa-compress"></i>
+                    </div>
+                  </div>
+                </div>
 
+
+                <div class="product-card__content d:flex fld:column jc:center ai:center">
+                  <div class="product-card__brand c:color-gray5 mt:11px">{{product.vendor}}</div>
+                  <a class="product-card__name fz:16px mt:15px c:color-dark" href="#">{{product.title}}</a>
+                  <a class="product-card__price mt:14px" href="#">
+                    <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}</ins>
+                    {% if product.compare_at_price > product.price %}
+                      <del class="product-card__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}</del>
+                    {% endif %}
+                  </a>
+                  {#
+                  {% for option in product.options_with_values %}
+                      {% if option.name == 'Color' or option.name == 'Colour' %}
+                        <script class="product-card__colors" type="application/json">{{ option.values | json_encode()}}</script>
+                        <script type="application/json">{{ product.variants | json_encode()}}</script>
+                      {% endif %}
+                  {% endfor %}
+                  #}
+
+                  <div class="product-card__color d:flex">
+                    <div class="circle__active--yellow"></div>
+                    <div class="circle--blue"></div>
+                    <div class="circle--violet"></div>
+                    <div class="circle--plus">+1</div>
+                    </div>
+
+                </div>
               </div>
             </div>
           {% endfor %}
-        </div>
 
+          <div class="col-md-12">
+            <div class="row row-cols-lg-{{ content.column.lg }} row-cols-md-3 row-cols-sm-2 row-cols-1" component="content">
+
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-lg-4">
         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
@@ -99,7 +110,7 @@
                 <div class="product-box__search mb:15px">
                   <h2 class="product-box__title fz:20px fw:500 mb:15px">Search</h2>
                   <div class="product-box__box-search d:flex ai:center pl:10px bd:1px_solid_color-gray4">
-                    <i class="fas fa-search cur:pointer"></i>
+                    <i class="fal fa-search cur:pointer"></i>
                     <input class="h:40px w:90% bd:none! o:none" type="text" placeholder="Tìm kiếm">
                   </div>
                 </div>
@@ -197,6 +208,7 @@
 
         </div>
       </div>
+      {#
       <div class="col-lg-8 pl:40px shop-page2">
         <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 pr:90px" component="content">
           {% set collection = collections[content.collection] %}
@@ -260,6 +272,8 @@
         </div>
 
       </div>
+      #}
+
 
 
     </div>

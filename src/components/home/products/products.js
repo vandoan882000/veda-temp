@@ -2,6 +2,27 @@ const uniqueId = "products";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store , map } = veda.utils;
+store.create("doanCompare", {
+  initialState: {
+    visible: false,
+    data: []
+  },
+  useStorage: true
+});
+store.create("doanWishList", {
+  initialState: {
+    visible: false,
+    data: []
+  },
+  useStorage: true
+});
+store.create("doanCart", {
+  initialState: {
+    visible: false,
+    data: []
+  },
+  useStorage: true
+});
 class AddStore {
   constructor(storeName,elName) {
     this.storeName = storeName;

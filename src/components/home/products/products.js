@@ -29,13 +29,14 @@ class AddStore {
     this.elName = elName;
     this.el = container.querySelector(".row");
     this.init();
-    store.subscribe(storeName,this.handleChangeStatus.bind(this));
+    const _this = this;
+    store.subscribe(storeName, this.handleChangeStatus.bind(this));
   }
   getData() {
     return store.get(""+this.storeName);
   }
   handleChangeStatus() {
-    const {data} = this.getData();
+    const { data } = this.getData();
     const listCard = container.querySelectorAll(".product-card");
     listCard.forEach(cartEl => {
       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
@@ -46,8 +47,7 @@ class AddStore {
           btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-active-text"));
           btnCompare.style.backgroundColor = "black";
         }
-      }
-      else {
+      } else {
         if(btnCompare.hasAttribute("data-tooltip")) {
           btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-text"));
           btnCompare.style.backgroundColor = "white";
@@ -57,33 +57,61 @@ class AddStore {
     })
   }
   handleAdd() {
-    const {data} = this.getData();
     const listCard = container.querySelectorAll(".product-card");
     this.handleChangeStatus();
     listCard.forEach(cartEl => {
       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
       const dataEl = cartEl.querySelector(".product-card__data");
-      let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
-      if(hasItem) {
-        btnCompare.addEventListener("click", () => {
-          store.set(""+this.storeName, (items) => {
-              return {
-                ...items,
-                data: [...data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)]
-              };
-          })(this.storeName+"/Add");
-        });
-      }
-      else {
-        btnCompare.addEventListener("click", () => {
-          store.set(""+this.storeName, (items) => {
-              return {
-                ...items,
-                  data: [...items.data,JSON.parse(dataEl.textContent)]
-              };
-          })(this.storeName+"/Add");
-        });
-      }
+
+      btnCompare.addEventListener("click", () => {
+        const newItem = JSON.parse(dataEl.textContent);
+        const { id: newId } = newItem;
+        store.set(`${this.storeName}`, (state) => {
+          const dataHasNewItem = state.data.filter(item => item.id === newId);
+          // Neu ma trong mang data da co chua san pham nay roi
+          // thi khi ta bam vao nut compare se xoa di
+          if (dataHasNewItem.length > 0) {
+            return {
+              ...state,
+              data: state.data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)
+            };
+          }
+          // Neu trong data chua co product do thi ta se them vao
+          return {
+            ...state,
+            data: [...state.data, newItem]
+          };
+        })('toggle');
+      });
+
+      // if(hasItem) {
+
+      //   btnCompare.addEventListener("click", () => {
+      //     console.log("prev",hasItem);
+      //     hasItem = !hasItem;
+      //     store.set(""+this.storeName, (items) => {
+      //         return {
+      //           ...items,
+      //           data: [...data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)]
+      //         };
+      //     })(this.storeName+"/Add");
+      //     console.log("af",hasItem);
+      //   });
+
+      // }
+      // else {
+      //   btnCompare.addEventListener("click", () => {
+      //     console.log("prev",hasItem);
+      //     hasItem = !hasItem;
+      //     store.set(""+this.storeName, (items) => {
+      //         return {
+      //           ...items,
+      //             data: [...items.data,JSON.parse(dataEl.textContent)]
+      //         };
+      //     })(this.storeName+"/Add");
+      //     console.log("af",hasItem);
+      //   });
+      // }
 
 
     })
@@ -105,6 +133,99 @@ class AddStore {
     this.handleAdd();
   }
 }
+// class AddStore {
+//   constructor(storeName,elName) {
+//     this.storeName = storeName;
+//     this.elName = elName;
+//     this.el = container.querySelector(".row");
+//     this.init();
+//     store.subscribe(storeName,this.init.bind(this));
+//   }
+//   getData() {
+//     return store.get(""+this.storeName);
+//   }
+//   handleChangeStatus() {
+//     const {data} = this.getData();
+//     const listCard = container.querySelectorAll(".product-card");
+//     listCard.forEach(cartEl => {
+//       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
+//       const dataEl = cartEl.querySelector(".product-card__data");
+//       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
+//       if(hasItem) {
+//         if(btnCompare.hasAttribute("data-tooltip")) {
+//           btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-active-text"));
+//           btnCompare.style.backgroundColor = "black";
+//         }
+//       }
+//       else {
+//         if(btnCompare.hasAttribute("data-tooltip")) {
+//           btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-text"));
+//           btnCompare.style.backgroundColor = "white";
+//         }
+//       }
+
+//     })
+//   }
+//   handleAdd() {
+//     const {data} = this.getData();
+//     const listCard = container.querySelectorAll(".product-card");
+//     this.handleChangeStatus();
+//     listCard.forEach(cartEl => {
+//       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
+//       const dataEl = cartEl.querySelector(".product-card__data");
+//       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
+//       if(hasItem) {
+//         function addClick() {
+//           store.set(""+this.storeName, (items) => {
+//             return {
+//               ...items,
+//               data: [...data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)]
+//             };
+//           })(this.storeName+"/Add");
+//         }
+//         btnCompare.addEventListener("click", addClick);
+//         return () => {
+//           btnCompare.addEventListener("click", addClick);
+//         }
+//       }
+//       else {
+//         addClick1() {
+//           store.set(""+this.storeName, (items) => {
+//             return {
+//               ...items,
+//                 data: [...items.data,JSON.parse(dataEl.textContent)]
+//             };
+//           })(this.storeName+"/Add");
+//         }
+//         btnCompare.addEventListener("click", addClick1);
+//         return () => {
+//           btnCompare.removeEventListener("click", addClick1)
+//         }
+//       }
+
+
+//     })
+//   }
+
+//   initStore() {
+//     store.create(this.storeName, {
+//       initialState: {
+//         visible: false,
+//         data: []
+//       },
+//       useStorage: true
+//     });
+//   }
+//   render() {
+
+//   }
+//   init() {
+//     let curr = this.handleAdd();
+//     if(curr) {
+//       console.log(curr);
+//     }
+//   }
+// }
 class AddStoreCart {
   constructor(storeName,elName) {
     this.storeName = storeName;
@@ -326,39 +447,3 @@ if(!!container) {
 // })
 
 
-// handleAdd() {
-//   const {data} = this.getData();
-//   const listCard = container.querySelectorAll(".product-card");
-//   this.handleChangeStatus();
-//   listCard.forEach(cartEl => {
-//     const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
-//     const dataEl = cartEl.querySelector(".product-card__data");
-//     let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
-//     if(hasItem) {
-//       function addClick() {
-//         store.set(""+this.storeName, (items) => {
-//           return {
-//             ...items,
-//             data: [...data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)]
-//           };
-//        })(this.storeName+"/Add");
-//       }
-//       btnCompare.addEventListener("click", addClick);
-//       btnCompare.addEventListener("click", addClick);
-//     }
-//     else {
-//       function addClick1() {
-//         store.set(""+this.storeName, (items) => {
-//           return {
-//             ...items,
-//               data: [...items.data,JSON.parse(dataEl.textContent)]
-//           };
-//         })(this.storeName+"/Add");
-//       }
-//       btnCompare.addEventListener("click", addClick1);
-//       return btnCompare.removeEventListener("click", addClick1)
-//     }
-
-
-//   })
-// }

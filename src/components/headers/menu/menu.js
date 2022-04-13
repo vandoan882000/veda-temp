@@ -428,6 +428,7 @@ class Counter extends Component {
 
   render() {
     const { store, actions, kt ,id, cls} = this.props;
+    console.log(this.props)
     return html`
       <div onClick=${this.handleClick.bind(this)} id=${id} class=${cls}>${kt}acsa</div>
     `
@@ -436,4 +437,4 @@ class Counter extends Component {
 
 const CounterWithStore = withStore('count')(Counter);
 
-//render(html`<${CounterWithStore} id=${1} kt=${123} cls=${"cls"}/>`,document.querySelector(".acbxyz"));
+//render(html`<${CounterWithStore} id=${"a1"} kt=${123} cls=${"cls"}/>`,document.querySelector(".acbxyz"));

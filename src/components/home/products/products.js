@@ -303,3 +303,41 @@ if(!!container) {
 //     // console.log(variants);
 //   })
 // })
+
+
+// handleAdd() {
+//   const {data} = this.getData();
+//   const listCard = container.querySelectorAll(".product-card");
+//   this.handleChangeStatus();
+//   listCard.forEach(cartEl => {
+//     const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
+//     const dataEl = cartEl.querySelector(".product-card__data");
+//     let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
+//     if(hasItem) {
+//       function addClick() {
+//         store.set(""+this.storeName, (items) => {
+//           return {
+//             ...items,
+//             data: [...data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)]
+//           };
+//        })(this.storeName+"/Add");
+//       }
+//       btnCompare.addEventListener("click", addClick);
+//       btnCompare.addEventListener("click", addClick);
+//     }
+//     else {
+//       function addClick1() {
+//         store.set(""+this.storeName, (items) => {
+//           return {
+//             ...items,
+//               data: [...items.data,JSON.parse(dataEl.textContent)]
+//           };
+//         })(this.storeName+"/Add");
+//       }
+//       btnCompare.addEventListener("click", addClick1);
+//       return btnCompare.removeEventListener("click", addClick1)
+//     }
+
+
+//   })
+// }

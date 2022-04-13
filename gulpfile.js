@@ -97,6 +97,7 @@ function compileLiquidToTwig() {
           liquid: content,
           settings: [],
         });
+        content = content.replace(/<(\/|)shopify>/g, "");
         content = content.replace(/<megamenu.*<\/megamenu>/g, (value) => {
           const id = value
             .replace(/<megamenu\s*data-id="\{\{\s+/g, "")

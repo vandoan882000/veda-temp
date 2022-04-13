@@ -4,6 +4,7 @@ const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store, map ,objectParse } = veda.utils;
 veda.plugins.themeToggle(container);
 const PREFIX = 'doan';
+
 store.create(PREFIX+"Compare", {
   initialState: {
     visible: false,
@@ -85,12 +86,12 @@ class ComparePopop {
     });
   }
   handleRemoveCompare(event) {
-    store.set(PREFIX+ this.storeName,compare => {
+    store.set(PREFIX + this.storeName,compare => {
       return {
         ...compare,
-        data: compare.data.filter(item => item.id !== event.currentTarget.id)
+        data: compare.data.filter(item => item.id !== event.currentTarget.getAttribute("data-id"))
       }
-    })(this.storeName+"/remove");
+    })(this.storeName + "/remove");
   }
   handleDOM() {
     const { visible , data } = this.getData();
@@ -143,6 +144,7 @@ class ComparePopop {
           <div class="close t:0 r:0 cur:pointer w:20px h:20px bgc:red pos:absolute ta:center">X</div>
           <div class="d:flex fld:column ai:center jc:center">
             <h2 class="fz:35px mt:85px">Compare</h2>
+            <div class="acbxyz"></div>
             <div class="fz:25px lh:32px mt:7px mb:80px">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
             <div class="w:100% d:flex">
               <div class="w:11% z:99">
@@ -191,7 +193,7 @@ class ComparePopop {
                             </a>
                           </div>
                           <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                            <div id=${item.id} class="product-card__icon-bg cur:pointer" data-tooltip="Remove Compare" data-tooltip-position="left">
+                            <div data-id=${item.id} class="product-card__icon-bg cur:pointer" data-tooltip="Remove Compare" data-tooltip-position="left">
                               <i class="remove-compare fas fa-times"></i>
                             </div>
                           </div>
@@ -294,11 +296,11 @@ class CartPopop {
       }
     });
   }
-  handleRemoveCompare(event) {
+  handleRemoveCart(event) {
     store.set(PREFIX + this.storeName,compare => {
       return {
         ...compare,
-        data: compare.data.filter(item => item.id !== event.currentTarget.id)
+        data: compare.data.filter(item => item.id !== event.currentTarget.getAttribute("data-id"))
       }
     })(this.storeName+"/remove");
   }
@@ -311,9 +313,9 @@ class CartPopop {
       })
     }
     if (visible) {
-      const removeCompare = document.querySelectorAll('.remove-compare');
-      removeCompare.forEach(removeEl => {
-        removeEl.parentNode.addEventListener("click", this.handleRemoveCompare.bind(this));
+      const removeCart = document.querySelectorAll('.doan-remove-cart');
+      removeCart.forEach(removeEl => {
+        removeEl.addEventListener("click", this.handleRemoveCart.bind(this));
       })
     }
     else {
@@ -352,25 +354,39 @@ class CartPopop {
     return /*html*/`
       <div class="d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="menu-cart__container w:350px h:800px bgc:#fff ov:auto pos:absolute t:0 r:0 trf:translateX(100%) trs:all_0.3s">
-          <div class="close pos:absolute t:0 r:0 w:25px h:25px fz:25px cur:pointer"><i class="far fa-times"></i></div>
-          <div><h4 class="fz:20px ml:15px">SHOPPING CART</h4></div>
-          <div class="d:flex fld:column jc:center">
-            ${map(data,item => {
-              return /*html*/`<div class=" d:flex fld:row pt:10px ml:10px mr:10px bdb:1px_solid_color-gray4 pb:10px">
-                <div><img class="w:100px h:100px" src=${item.featured_image.url} alt="" /></div>
-                <div class="pl:10px">
-                  <div>${item.title}</div>
-                  <div>${item.vendor}</div>
-                  <div>$${item.price}</div>
-                </div>
-              </div>`
-            })}
-            <div>
-              <div class="d:flex jc:space-between"><div class="ml:10px">Subtotal:</div><div class="mr:10px">$1234</div></div>
-              <input type="checkbox"/> I agree with the terms and conditions
+        <div class="menu-cart__container w:350px mah:800px bgc:#fff ov:auto pos:absolute t:0 r:0 trf:translateX(100%) trs:all_0.3s pb:20px">
+          <div class="close pos:absolute t:5px r:10px w:25px h:25px fz:25px cur:pointer"><i class="far fa-times"></i></div>
+          <div><h4 class="fz:20px ml:15px mt:10px">SHOPPING CART</h4></div>
+          <div class="d:flex fld:column jc:flex-start mah:90%">
+            <div class="d:flex fld:column jc:flex-start mah:80%">
+              ${map(data,item => {
+                return /*html*/`<div class=" d:flex fld:row pt:10px ml:10px mr:10px bdb:1px_solid_color-gray4 pb:10px">
+                  <div><img class="w:100px h:100px" src=${item.featured_image.url} alt="" /></div>
+                  <div class="pl:10px">
+                    <div class="fw:600">${item.title}</div>
+                    <div>${item.vendor}</div>
+                    <div>$${item.price}</div>
+                    <div class="d:flex w:90px h:30px bd:1px_solid_color-gray3 bdrs:15px mt:5px
+                    mb:10px">
+                      <div class="w:20px h:100% ta:center cur:pointer fw:600 fz:20px lh:30px">-</div>
+                      <div class="w:50px h:100% ta:center lh:30px fw:600">1</div>
+                      <div class="w:20px h:100% ta:center cur:pointer fw:600 fz:20px lh:30px">+</div>
+                    </div>
+                    <button class="doan-edit-cart"><i class="fas fa-edit"></i></button>
+                    <button data-id=${item.id} class="doan-remove-cart"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+                </div>`
+              })}
             </div>
-            <a href="mycart.html" class="close ta:center">View cart</a>
+            <div>
+              <div class="d:flex jc:space-between mt:20px mb:10px"><div class="ml:10px fw:600">Subtotal:</div><div class="mr:10px fw:600">$1234</div></div>
+              <input class="ml:10px" type="checkbox"/> I agree with the terms and conditions
+            </div>
+            <div class="d:flex jc:center mt:10px h:40px">
+              <a href="mycart.html" class="close ta:center w:90% bd:1px_solid_color-gray4 bdrs:20px bgc:#43aeee c:color-light lh:40px">View cart</a>
+            </div>
+
+
           </div>
 
         </div>
@@ -401,3 +417,23 @@ new ComparePopop("Compare","menu__card-compare");
 new CartPopop("Cart","menu__cart");
 
 
+const {Component, html, withStore, render} = veda.utils.csr;
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+  }
+  handleClick() {
+    console.log("test");
+  }
+
+  render() {
+    const { store, actions, kt ,id, cls} = this.props;
+    return html`
+      <div onClick=${this.handleClick.bind(this)} id=${id} class=${cls}>${kt}acsa</div>
+    `
+  }
+}
+
+const CounterWithStore = withStore('count')(Counter);
+
+//render(html`<${CounterWithStore} id=${1} kt=${123} cls=${"cls"}/>`,document.querySelector(".acbxyz"));

@@ -110,7 +110,7 @@ class ComparePopop {
   }
   getWidth() {
     const { data } = this.getData();
-    if (data.length > 4) {
+    if (data.length >= 4) {
       return '25%';
     }
     if (data.length === 1) {
@@ -438,3 +438,4 @@ class Counter extends Component {
 const CounterWithStore = withStore('count')(Counter);
 
 //render(html`<${CounterWithStore} id=${"a1"} kt=${123} cls=${"cls"}/>`,document.querySelector(".acbxyz"));
+

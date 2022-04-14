@@ -4,33 +4,32 @@
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
 
 
-<section data-id="accountcontainer" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="accountcontainer" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <p class="direct mb:15px">Home > <a href="#">{{ heading.text }}</a></p>
-    <h3 class="login__title mb:30px" style="text-align: center;">Login</h3>
-    <p class="login__description mb:55px" style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipiscing
+    <div class="direct fz:15px c:color-gray4 mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
+    <h3 class="login__title mb:30px ta:center fz:35px fw:500 ff:font-primary fw:500">Log In</h3>
+    <p class="login__description mb:55px ta:center mt:-25px fz:25px ff:font-primary fw:400">Lorem ipsum dolor sit amet, consectetur adipiscing
     </p>
     {% assign collection = collections[content.collection] %}
-    <div class="row jc:center">
+    <div class="row jc:center pb:80px">
       <div class="col-lg-5">
-				<div class="register pr:100px">
+				<div class="register pr:100px w:90% d:flex fld:column ai:flex-end">
 					<div class="register__content">
-						<h4 class="register__title mb:25px">New Customer</h4>
-						<p class="register__description mb:40px">Sign up for early Sale access plus tailored
-							<br/>new arrivals, trends and promotions. To opt<br/>
-							out, click unsubscribe in our emails.</p>
-						<button class="vdoan-btn__primary" style="width: 100%;margin: 0;">Register</button>
+						<h4 class="register__title mb:25px fz:20px ff:font-primary fw:400">New Customer</h4>
+						<p class="register__description mb:40px ff:font-primary fw:400 fz:15px c:color-dark">Sign up for early Sale access plus tailored<br/>new arrivals, trends and promotions. To opt<br/>out, click unsubscribe in our emails.</p>
+						<button class="vdoan-btn__primary bgc:color-dark bd:none! c:color-light p:20px_114px_20px_114px cur:pointer m:5px_5px_5px_5px fw:500 bdrs:0px! ff:font-primary fz:15px lts:0.15px w:100% m:0!">Register</button>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-5">
-				<div class="sign-in">
-					<h3 class="sign-in__title">Log In</h3>
-					<input type="mail" placeholder="Email"/>
-					<input type="text" placeholder="Password"/>
-					<a class="td:underline mt:10px" href="#">Forgot password?</a>
-					<button class="vdoan-btn__primary mt:20px" style="width: 100%;">Sign In</button>
+				<div class="sign-in w:500px d:flex fld:column">
+					<h3 class="sign-in__title mb:20px fz:25px ff:font-primary fw:400">Log In</h3>
+					<input class="w:500px! h:50px bd:1px_solid_color-gray3! pl:16px! c:color-gray3! bdrs:0px!" type="text" placeholder="Email"/>
+          <div class="mb:20px!"></div>
+					<input class="w:500px! h:50px mb:25px! bd:1px_solid_color-gray3 pl:16px! c:color-gray3 bdrs:0px!" type="password" placeholder="Password"/>
+					<a class="td:underline mt:10px mb:40px c:color-dark fz:15px ff:font-primary fw:400" href="#">Forgot password?</a>
+					<button class="vdoan-btn__primary ff:font-primary bgc:color-dark bd:none! c:color-light p:20px_86px_20px_86px cur:pointer m:5px_5px_5px_5px fw:500 bdrs:0px! fz:15px lts:0.15px w:100% m:0!" style="width: 100%;">Sign In</button>
 				</div>
 			</div>
     </div>

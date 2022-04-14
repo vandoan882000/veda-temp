@@ -26,13 +26,13 @@ const data = {
     type: "primary",
     heading: "INSTILEY",
     description:
-      "Neque porro quisquam est qui dolorem ipsum quia dolor <br/>sit amet consectetur adipisci velit sed quia non numquam <br/>eius modi tempora incidunto.",
+      "Neque porro quisquam est qui dolorem ipsum quia dolor<br/> sit amet consectetur adipisci velit sed.",
     button: [
       {
         name: "SHOP MEN",
       },
     ],
-    color: "black",
+    color_light: true,
     direction: "left",
     review_app: {
       enable: true,

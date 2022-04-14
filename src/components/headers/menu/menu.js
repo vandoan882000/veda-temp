@@ -1,7 +1,10 @@
 const uniqueId = "header";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
-const { store, map ,objectParse } = veda.utils;
+const { store, map ,objectParse, VQuery: $$ } = veda.utils;
+
+
+
 veda.plugins.themeToggle(container);
 const PREFIX = 'doan';
 
@@ -423,11 +426,12 @@ new ComparePopop("Compare","menu__card-compare");
 new CartPopop("Cart","menu__cart");
 
 
-const {Component, html, withStore, render} = veda.utils.csr;
+const { Component, html, withStore, render} = veda.utils.csr;
 class Counter extends Component {
   constructor(props) {
     super(props);
   }
+
   handleClick() {
     console.log("test");
   }

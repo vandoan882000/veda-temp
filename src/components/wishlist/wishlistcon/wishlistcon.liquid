@@ -4,16 +4,18 @@
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
 
 
-<section data-id="wishlist" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="wishlist"  css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <p class="direct mb:15px">Home > <a href="#">{{ heading.text }}</a></p>
+    <div class="direct fz:15px c:color-gray4 mt:30px mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
+    <div class="fw:500 fz:35px c:color-dark mt:-5px mb:75px">Wish Lists</div>
     <div class="row">
       <div class="col-md-12">
         <div class="row row-cols-lg-{{ content.column.lg }} row-cols-md-3 row-cols-sm-2 row-cols-1" component="content">
           {% assign collection = collections[content.collection] %}
 
           {% for product in collection.products limit: 16 %}
+          <div class="col-lg-3 mt:0px!">
             <div class="product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
               <script class="product-card__data" type="application/json">{{ product | json }}</script>
               <div class="product-card__img w:100% pos:relative ov:hidden">
@@ -23,7 +25,7 @@
                   </a>
                 </div>
                 <div class="product-card__add-content pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px">
-                  <a class="product-card__add cur:pointer pos:absolute td:none w:100% h:100% va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light">{{content.add_to_cart_text}}</a>
+                  <a class="product-card__add cur:pointer fz:17px pos:absolute td:none w:100% h:100% va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light">{{content.add_to_cart_text}}</a>
                 </div>
                 <div class="product-card__state pos:absolute t:5px l:5px d:flex">
                   {% if product.compare_at_price > product.price and content.sale.enable %}
@@ -33,21 +35,21 @@
                   {% endif %}
                 </div>
                 <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                  <div class="product-card__icon-bg cur:pointer" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Added to wishlist">
-                    <i class="far fa-heart"></i>
+                  <div class="product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove to wishlist">
+                    <i class="fal fa-heart"></i>
                   </div>
-                  <div class="product-card__icon-bg--hidden cur:pointer" data-tooltip="Quick view" data-tooltip-position="left" >
-                    <i class="far fa-eye"></i>
+                  <div class="product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-position="left" >
+                    <i class="fal fa-eye"></i>
                   </div>
-                  <div class="product-card__icon-bg--hidden cur:pointer" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to compare" data-tooltip-active-text="Added to compare">
-                    <i class="fas fa-compress"></i>
+                  <div class="product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to compare" data-tooltip-active-text="Remove to compare">
+                    <i class="fal fa-exchange"></i>
                   </div>
                 </div>
               </div>
 
 
               <div class="product-card__content d:flex fld:column jc:center ai:center">
-                <div class="product-card__brand c:color-gray5 mt:11px">{{product.vendor}}</div>
+                <div class="product-card__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
                 <a class="product-card__name fz:16px mt:15px c:color-dark" href="#">{{product.title}}</a>
                 <a class="product-card__price mt:14px" href="#">
                   <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}</ins>
@@ -65,15 +67,23 @@
                 {%- endcomment -%}
 
                 <div class="product-card__color d:flex">
-                  <div class="circle__active--yellow"></div>
-                  <div class="circle--blue"></div>
-                  <div class="circle--violet"></div>
-                  <div class="circle--plus">+1</div>
+                  <div class="yasmina-circle__active w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box bgc:#FFD860 bd:1px_solid_color-dark"></div>
+                  <div class="yasmina-circle w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box bgc:#C3DEE4 bd:1px_solid_color-gray2"></div>
+                  <div class="yasmina-circle w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box bgc:#8667DE bd:1px_solid_color-gray2"></div>
+                  <div class="yasmina-circle--plus w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box fw:600 fz:16px color:color-dark">+1</div>
                   </div>
 
               </div>
             </div>
+          </div>
           {% endfor %}
+        </div>
+        <div class="d:flex jc:center mt:40px">
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_color-dark bgc:color-dark c:color-light cur:pointer mr:5px fw:600">1</div>
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">2</div>
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">3</div>
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">4</div>
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px"><i class="fas fa-long-arrow-right"></i></div>
         </div>
       </div>
     </div>

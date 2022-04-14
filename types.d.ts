@@ -2,8 +2,7 @@ type Logger = (actionName: string) => void;
 type Unsubscibe = () => void;
 type VNode = any;
 type Colors = ["aliceblue","antiquewhite","aqua","aquamarine","azure","beige","bisque","black","blanchedalmond","blue","blueviolet","brown","burlywood","cadetblue","chartreuse","chocolate","coral","cornflowerblue","cornsilk","crimson","cyan","darkblue","darkcyan","darkgoldenrod","darkgray","darkgreen","darkgrey","darkkhaki","darkmagenta","darkolivegreen","darkorange","darkorchid","darkred","darksalmon","darkseagreen","darkslateblue","darkslategray","darkslategrey","darkturquoise","darkviolet","deeppink","deepskyblue","dimgray","dimgrey","dodgerblue","firebrick","floralwhite","forestgreen","fuchsia","gainsboro","ghostwhite","gold","goldenrod","gray","green","greenyellow","grey","honeydew","hotpink","indianred","indigo","ivory","khaki","lavender","lavenderblush","lawngreen","lemonchiffon","lightblue","lightcoral","lightcyan","lightgoldenrodyellow","lightgray","lightgreen","lightgrey","lightpink","lightsalmon","lightseagreen","lightskyblue","lightslategray","lightslategrey","lightsteelblue","lightyellow","lime","limegreen","linen","magenta","maroon","mediumaquamarine","mediumblue","mediumorchid","mediumpurple","mediumseagreen","mediumslateblue","mediumspringgreen","mediumturquoise","mediumvioletred","midnightblue","mintcream","mistyrose","moccasin","navajowhite","navy","oldlace","olive","olivedrab","orange","orangered","orchid","palegoldenrod","palegreen","paleturquoise","palevioletred","papayawhip","peachpuff","peru","pink","plum","powderblue","purple","red","rosybrown","royalblue","saddlebrown","salmon","sandybrown","seagreen","seashell","sienna","silver","skyblue","slateblue","slategray","slategrey","snow","springgreen","steelblue","tan","teal","thistle","tomato","turquoise","violet","wheat","white","whitesmoke","yellow","yellowgreen"];
-// @ts-ignore
-declare abstract class Component<P = {}, S = {}> {
+declare abstract class Comp<P = {}, S = {}> {
 	componentWillMount?(): void;
 	componentDidMount?(): void;
 	componentWillUnmount?(): void;
@@ -27,8 +26,52 @@ declare abstract class Component<P = {}, S = {}> {
 	): void;
 	componentDidCatch?(error: any, errorInfo: any): void;
 }
-declare abstract class PureComponent<P = {}, S = {}> extends Component<P,S> {
+declare abstract class PureComp<P = {}, S = {}> extends Comp<P,S> {
   isPureReactComponent: boolean;
+}
+interface OffsetReturn {
+  top: number;
+  left: number;
+}
+
+interface VQueryReturn<T extends HTMLElement> {
+  attr(attrName: string): string;
+  attr(attrName: string, value: string): VQueryReturn<T>;
+  removeAttr(attrName: string): VQueryReturn<T>;
+  css(styles: CSSStyleDeclaration): VQueryReturn<T>
+  removeCss(property: keyof CSSStyleDeclaration): VQueryReturn<T>;
+  hasClass(className: string): boolean;
+  getClass(): string[];
+  addClass(className: string): VQueryReturn<T>;
+  toggleClass(className: string): VQueryReturn<T>;
+  removeClass(className: string): VQueryReturn<T>;
+  html(): string;
+  html(value: string): VQueryReturn<T>;
+  text(): string;
+  text(value: string): VQueryReturn<T>;
+  on<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): VQueryReturn<T>;
+  on(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): VQueryReturn<T>;
+  off<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): VQueryReturn<T>;
+  off(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): VQueryReturn<T>;
+  val(): string;
+  val(value: string): VQueryReturn<T>;
+  width(): number;
+  width(value: string | number): VQueryReturn<T>;
+  height(): number;
+  height(value: string | number): VQueryReturn<T>;
+  getBoundingClientRect(): DOMRect;
+  offset(): OffsetReturn;
+  insert(where: InsertPosition, element: Element | string): VQueryReturn<T>;
+  append(node: Node): VQueryReturn<T>;
+  next(): Element;
+  prev(): Element;
+  parent(): ParentNode;
+  children(): Element;
+  children(index: number): HTMLCollection;
+  childNodes(): NodeListOf<ChildNode>;
+  before(...nodes: (string | Node)[]): VQueryReturn<T>;
+  after(...nodes: (string | Node)[]): VQueryReturn<T>;
+  closest(selector: string): VQueryReturn<T>;
 }
 
 interface MobileMenuOptions {
@@ -76,13 +119,14 @@ declare interface Veda {
       html(template: TemplateStringsArray, ...values: any[]): VNode;
       render(tree: VNode, parent: HTMLElement): void;
       createPortal(vnode: VNode, container: Element): VNode;
-      Component: Component;
-      PureComponent: PureComponent;
-    }
+      Component: typeof Comp;
+      PureComponent: typeof PureComp;
+    },
+    offset(element: Element): OffsetReturn;
+    VQuery: <T extends HTMLElement>(selector: string | T) => VQueryReturn<T>;
   }
   plugins: {
     /** Masonry
-     * @example
      * ```js
      * const masonry = veda.plugins.masonry('.masonry', {
      *  defaultColumn: 3,
@@ -113,21 +157,20 @@ declare interface Veda {
      }): void;
 
     /** Theme toggle
-     * @example
      * ```html
+     * // Liquid Example
      * <button class="core-toggle-theme">Theme light | dark</button>
      * ```
      * ```js
-     * // Javascript
+     * // Javascript Example
      * veda.plugins.themeToggle(container);
      * ```
      */
     themeToggle(container: HTMLElement): void;
 
     /** Countdown
-     * @example
      * ```html
-     * // Liquid
+     * // Liquid Example
      * <div class="core-countdown" data-options="{ timestamp: {{countdown}} }">
      *   <div>Days</div>
      *   <div class="core-countdown__days"></div>
@@ -140,16 +183,15 @@ declare interface Veda {
      * </div>
      * ```
      * ```js
-     * // Javascript
+     * // Javascript Example
      * veda.plugins.countdown(container);
      * ```
      */
     countdown(container: HTMLElement): void;
 
     /** Swiper
-     * @example
      * ```html
-     * // Liquid
+     * // Liquid Example
      * <div
      *   class="core-swiper swiper"
      *   data-options="{
@@ -174,16 +216,15 @@ declare interface Veda {
      * </div>
      * ```
      * ```js
-     * // Javascript
+     * // Javascript Example
      * veda.plugins.swiper(container);
      * ```
      */
     swiper(container: HTMLElement): void;
 
     /** Tabs
-     * @example
      * ```html
-     * // Liquid
+     * // Liquid Example
      * <div component="tabs" class="core-tabs {{variant}}">
      *   <div class="core-tabs__nav">
      *     {% for tab in tabs %}
@@ -205,18 +246,16 @@ declare interface Veda {
     tabs(container: HTMLElement): void;
 
     /** Collapse
-     * @example
      * ```js
-     * // Javascript
+     * // Javascript Example
      * veda.plugins.collapse(container);
      * ```
      */
     collapse(container: HTMLElement): void;
 
     /** Image Zoom
-     * @example
      * ```html
-     * // Liquid
+     * // Liquid Example
      * <div
      *   class="core-image-zoom"
      *   data-image-zoom-src="{{ image.src }}"
@@ -229,14 +268,13 @@ declare interface Veda {
      * </div>
      * ```
      * ```js
-     * // Javascript
+     * // Javascript Example
      * veda.plugins.imageZoom(container);
      * ```
      */
     imageZoom(container: HTMLElement): void;
 
-    /** Image Zoom
-     * @example
+    /** Mobile Menu
      * ```js
      * veda.plugins.mobileMenu(container, {
      *   navSelector: ".pet-nav",

@@ -182,7 +182,25 @@ const data = {
         ,
         {
           name: "Linh Tinh"
+        },
+        {
+          name: "Simple"
+        },
+        {
+          name: "Stock"
+        },
+        {
+          name: "Hãy tìm key đi"
         }
+        ,
+        {
+          name: "Item"
+        }
+        ,
+        {
+          name: "Iec"
+        }
+
       ]
     },
     {

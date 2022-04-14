@@ -59,10 +59,10 @@ const data = {
         },
         published_at: "2022-03-18T16:02:34+07:00",
         tags: "",
-        title: "STYLE ADVICE ALL MEN SHOULD HEAR",
+        title: "Style advice all men should hear",
         updated_at: "2022-03-18T16:04:38+07:00",
         content:
-          '<meta charset="utf-8"><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec gravida tincidunt euismod. Mauris lacus mi, vulputate eget sem vitae, imperdiet consectetur urna. In ante sapien, mattis eu nisi ut, malesuada fringilla massa. Ut pulvinar, quam quis interdum convallis, sem dolor ullamcorper lacus, vel tristique felis nunc in risus. Duis ex dolor, commodo vitae metus ac, egestas tincidunt turpis. Morbi leo quam, ornare molestie pellentesque interdum, euismod ut magna. Aliquam tincidunt orci vulputate interdum varius. In posuere cursus bibendum. Aliquam hendrerit magna turpis, eu ullamcorper ipsum tincidunt id. Vestibulum pulvinar pharetra leo et auctor. Cras eget lacinia tellus. Donec ut pretium nulla, porta dignissim lorem. In malesuada condimentum rutrum. Nunc finibus nibh nec nibh ornare finibus. Aenean a tortor sit amet metus aliquet tincidunt. Nulla facilisi. Vestibulum faucibus ipsum ipsum, ut gravida odio pellentesque sit amet. Aliquam facilisis, tortor in consectetur gravida, est diam feugiat arcu, non interdum leo velit et tellus. Etiam rutrum vehicula hendrerit. Nam suscipit, ligula eget dignissim cursus, urna lectus posuere erat, ut egestas odio sem sollicitudin neque. Donec eleifend egestas sapien, non finibus mauris dapibus ac. Donec sed metus elementum, gravida augue a, dignissim nisl. Sed elementum non sapien vitae hendrerit.</span>',
+          '<meta charset="utf-8"><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec gravida tincidunt euismod. Mauris lacus mi, vulputate eget sem vitae, imperdiet consectetur urna. In ante sapien, mattis eu nisi ut, malesuada fringilla massa. Ut pulvinar, quam quis interdum convallis, sem dolor ullamcorper lacus, vel tristique felis nunc in risus. Duis ex dolor, commodo vitae metus ac, egestas tincidunt turpis...</span>',
       },
       {
         body_html:
@@ -128,7 +128,7 @@ const data = {
       },
       {
         body_html:
-          '<meta charset="utf-8"><span>Until the Digital Age, typography was a specialized occupation. Digitization opened up typography to new generations of previously unrelated designers and lay users, and David Jury, head of graphic design at Colchester Institute in England, states that “typography is now something everybody does. As the capability to create typography has become ubiquitous, the application of principles and best practices developed over generations of skilled workers and professionals has diminished. Ironically, at a time when scientific techniques.</span>',
+          '<span>Until the Digital Age, typography was a specialized occupation. Digitization opened up typography to new generations of previously unrelated designers and lay users, and David Jury, head of graphic design at Colchester Institute in England, states that “typography is now something everybody does. As the capability to create typography has become ubiquitous, the application of principles and best practices developed over generations of skilled workers and professionals has diminished. Ironically, at a time when scientific techniques.</span>',
         blog_id: 86107357405,
         user_id: 71512260829,
         summary_html: "",
@@ -176,7 +176,7 @@ const data = {
           updated_at: "Fri Mar 18 09:36:21 UTC 2022",
           aspect_ratio: 1.5,
           media_type: "image",
-          src: "https://cdn.shopify.com/s/files/1/0550/4260/5277/articles/ezgif-4-ffe8ca1961.jpg?v=1647593746",
+          src: "https://cdn.shopify.com/s/files/1/0550/4260/5277/articles/dark-black-bitcoins-2210x1473.jpg?v=1647594155",
           width: 1296,
           height: 864,
           attached_to_variant: false,
@@ -238,17 +238,17 @@ const data = {
           updated_at: "Fri Mar 18 09:36:21 UTC 2022",
           aspect_ratio: 1.4982659,
           media_type: "image",
-          src: "https://cdn.shopify.com/s/files/1/0550/4260/5277/articles/ezgif-4-dca9eb45e1.jpg?v=1647593644",
+          src: "https://cdn.shopify.com/s/files/1/0550/4260/5277/articles/dark-black-bitcoins-2210x1473.jpg?v=1647594155",
           width: 1296,
           height: 865,
           attached_to_variant: false,
         },
         published_at: "2022-03-18T15:55:56+07:00",
         tags: ["Beauty", "Fashion"],
-        title: "SPRING – SUMMER TRENDING 2020",
+        title: "SPring – Summer trending 2022",
         updated_at: "2022-03-18T15:55:56+07:00",
         content:
-          '<meta charset="utf-8">\n<div class="post-content mt__50 inl_cnt_js">\n<article id="post-386064351371" class="post-386064351371 post type-post rtet4">\n<p>Until the Digital Age, typography was a specialized occupation. Digitization opened up typography to new generations of previously unrelated designers and lay users, and David Jury, head of graphic design at Colchester Institute in England, states that “typography is now something everybody does. As the capability to create typography has become ubiquitous, the application of principles and best practices developed over generations of skilled workers and professionals has diminished. Ironically, at a time when scientific techniques.</p>\n</article>\n</div>\n<div class="tag-comment mt__40">\n<div class="row al_center">\n<div class="post-tags col-12 col-md tc tl_md"></div>\n</div>\n</div>',
+          '<meta charset="utf-8"><span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec gravida tincidunt euismod. Mauris lacus mi, vulputate eget sem vitae, imperdiet consectetur urna. In ante sapien, mattis eu nisi ut, malesuada fringilla massa. Ut pulvinar, quam quis interdum convallis, sem dolor ullamcorper lacus, vel tristique felis nunc in risus. Duis ex dolor, commodo vitae metus ac, egestas tincidunt turpis...</span>',
       },
     ],
     articles_count: 4,

@@ -151,7 +151,9 @@ class ComparePopop {
                 <table class="compare-container__table bd:1px_solid_color-gray3">
                 <tbody>
                   ${this.compareData.product_enable?`<tr>
-                  <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:423px">${this.compareData.product_title}</td>
+                  <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px ${data.length===1?"h:627px":"h:423px"}">${this.compareData.product_title}
+
+                  </td>
                   </tr>`:""}
                   ${this.compareData.rating_enable?`<tr>
                   <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">${this.compareData.rating_title}</td>
@@ -184,7 +186,7 @@ class ComparePopop {
                 <table class="compare-container__table bd:1px_solid_color-gray3 w:auto">
                 <tbody>
                   ${this.compareData.product_enable?`<tr>
-                    ${map(data, item => /*html*/`<td class="bd:1px_solid_color-gray3 miw:270px padding:35px_10px_35px_10px h:423px" style="width: ${this.getWidth()}">
+                    ${map(data, item => /*html*/`<td class="bd:1px_solid_color-gray3 miw:270px padding:35px_10px_35px_10px ${data.length===1?"h:627px":"h:423px"}" style="width: ${this.getWidth()}">
                       <div class="product-card d:flex fld:column ai:center ta:center">
                         <div class="product-card__img w:100% pos:relative ov:hidden">
                           <div class="pet-product-card__image">
@@ -354,14 +356,18 @@ class CartPopop {
     return /*html*/`
       <div class="d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="menu-cart__container w:350px mah:800px bgc:#fff ov:auto pos:absolute t:0 r:0 trf:translateX(100%) trs:all_0.3s pb:20px">
+        <div class="menu-cart__container w:350px h:100% bgc:#fff ov:auto pos:absolute t:0 r:0 trf:translateX(100%) trs:all_0.3s pb:20px">
           <div class="close pos:absolute t:5px r:10px w:25px h:25px fz:25px cur:pointer"><i class="far fa-times"></i></div>
           <div><h4 class="fz:20px ml:15px mt:10px">SHOPPING CART</h4></div>
-          <div class="d:flex fld:column jc:flex-start mah:90%">
-            <div class="d:flex fld:column jc:flex-start mah:80%">
+          <div class="d:flex fld:column jc:flex-start h:90%">
+            <div class="d:flex fld:column jc:flex-start h:80% ovx:auto">
               ${map(data,item => {
                 return /*html*/`<div class=" d:flex fld:row pt:10px ml:10px mr:10px bdb:1px_solid_color-gray4 pb:10px">
-                  <div><img class="w:100px h:100px" src=${item.featured_image.url} alt="" /></div>
+                  <div class="w:100px">
+                    <a class="core-image-cover d:block w:100%" css="--aspect-ratio: 3/5">
+                      <img src=${item.featured_image.url} alt="image-cart" />
+                    </a>
+                  </div>
                   <div class="pl:10px">
                     <div class="fw:600">${item.title}</div>
                     <div>${item.vendor}</div>

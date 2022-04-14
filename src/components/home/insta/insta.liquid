@@ -6,14 +6,16 @@
 <section data-id="insta" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <h3 class="page-section__header" css="{{ heading.design }}">{{ heading.text }}</h3>
-		<p class="insta__description ta:center mt:-24px mb:35px c:color-dark fw:400 lh:23px ff:font-secondary">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur<br/>
+    <h3 class="page-section__header ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+		<p class="insta__description ta:center mt:-24px mb:35px c:color-dark fw:400 lh:23px fz:14px ff:font-secondary lts:0.15px">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur<br/>
 			adipisci velit sed quia non numquam eius modi tempora incidunto.</p>
     <div class="row ai:center jc:center">
       {% for item in content %}
         <div class="col-xs-12 col-sm-10 col-md-6 col-lg-3">
-          <div class="insta d:flex jc:center cur:pointer ml:-10px mr:-10px">
-            <img class="insta__img" src={{item.srcImg | img_url: ''}} alt="insta">
+          <div class="insta d:flex jc:center cur:pointer">
+            <a href="#" class="core-image-cover d:block w:100%" css="--aspect-ratio: 0.86">
+              <img class="insta__img" src={{item.srcImg | img_url: ''}} alt="insta">
+            </a>
           </div>
         </div>
       {% endfor %}

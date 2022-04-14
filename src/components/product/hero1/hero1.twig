@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_3b20773a-c8d2-4a82-a226-6b5420f52c8d" %}
+{% set uniqueId = "id_cfbe1b1c-710b-43fe-b152-e75e99a19556" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -22,10 +22,10 @@
               <div class="vdoan-btn__container">
                 {% for item in content.button %}
                   {% if content.color == "black" %}
-                    <button class="vdoan-btn__primary">{{item.name}}</button>
+                    <button class="vdoan-btn__primary bgc:color-dark bd:none! c:color-light p:20px_40px_20px_40px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px!">{{item.name}}</button>
                   {% endif %}
                   {% if content.color == "white" %}
-                    <button class="vdoan-btn__secondary">{{item.name}}</button>
+                    <button class="vdoan-btn__secondary bgc:color-light bd:none! c:color-dark p:20px_40px_20px_40px cur:pointer ml:5px mr:5px fw:600 bdrs:0px!">{{item.name}}</button>
                   {% endif %}
                 {% endfor %}
               </div>

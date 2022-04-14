@@ -32,7 +32,7 @@ const data = {
         name: "SHOP NOW",
       },
     ],
-    color: "black",
+    color_light: true,
     direction: "left",
     review_app: {
       enable: true,

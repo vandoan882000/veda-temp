@@ -20,10 +20,10 @@
               <div class="vdoan-btn__container">
                 {% for item in content.button %}
                   {% if content.color == "black" %}
-                    <button class="vdoan-btn__primary">{{item.name}}</button>
+                    <button class="vdoan-btn__primary bgc:color-dark bd:none! c:color-light p:20px_40px_20px_40px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px!">{{item.name}}</button>
                   {% endif %}
                   {% if content.color == "white" %}
-                    <button class="vdoan-btn__secondary">{{item.name}}</button>
+                    <button class="vdoan-btn__secondary bgc:color-light bd:none! c:color-dark p:20px_40px_20px_40px cur:pointer ml:5px mr:5px fw:600 bdrs:0px!">{{item.name}}</button>
                   {% endif %}
                 {% endfor %}
               </div>

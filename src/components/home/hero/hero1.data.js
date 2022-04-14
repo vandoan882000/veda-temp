@@ -32,7 +32,7 @@ const data = {
         name: "SHOP MEN",
       },
     ],
-    color: "white",
+    color_dark: true,
     direction: "right",
     review_app: {
       enable: true,

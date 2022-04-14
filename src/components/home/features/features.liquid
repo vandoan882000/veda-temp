@@ -3,16 +3,16 @@
 {% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
 
-<section data-id="features" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="features" class="veda-section pt:40px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
-  <div class="container">
-    <h3 class="page-section__header" css="{{ heading.design }}">{{ heading.text }}</h3>
+  <div class="container mb:20px">
+    <h3 class="page-section__header ta:center mb:45px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row jc:center">
       {% for item in content %}
       <div class="col-xs-12 col-sm-7 col-md-6 col-lg-4">
         <div class="vdoan-trend mih:295px pos:relative ov:hidden">
           <a class="d:block" href="#" ><img class="vdoan-trend__img w:100% h:100% t:0 l:0" src={{item.srcImg | img_url: ''}} alt="trend"></a>
-          <div class="vdoan-trend__content--{{item.type}}">
+          <div class="vdoan-trend__content--{{item.type}} pos:absolute bgc:color-dark fw:600 fz:45px lh:65px p:10px_20px_10px_20px c:color-light">
             <div>{{item.name}}</div>
           </div>
         </div>

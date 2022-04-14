@@ -9,7 +9,7 @@ const data = {
     overlay: "transparent",
   },
   heading: {
-    title: "LOGO",
+    title: "YASMINA",
     design: "",
   },
   customers: {
@@ -57,10 +57,10 @@ const data = {
   },
   new_letter: {
     title: "NEW LETTTER",
-    name: "Get 15% off your first purchaxse! Plus, be the first to know about sales, new product launches!",
+    name: "Get 15% off your first purchaxse! Plus,<br/> be the first to know about sales, new<br/> product launches!",
     icons: [
       {
-        icon: "<i class='fab fa-facebook-f'></i>"
+        icon: "<i class='fab fa-facebook-f '></i>"
       },
       {
         icon: "<i class='fab fa-instagram'></i>"

@@ -50,7 +50,7 @@ const data = {
     color: "#FFFFFF",
     list: [
       {
-        name :"LOGO",
+        name :"YASMINA",
         href: "#"
       },
       {

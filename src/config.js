@@ -22,6 +22,8 @@ export const config = {
       { name: "--font-secondary", value: "Roboto" },
       { name: "--font-tertiary", value: "Mali" },
       { name: "--font-quaternary", value: "Poppins" },
+      { name: "--font-quinary", value: "Spartan" },
     ],
   },
 };
+//Tertiary(3) quaternary (4), quinary (5), senary (6), septenary (7), octonary (8), nonary (9), and denary (10).

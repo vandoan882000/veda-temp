@@ -9,7 +9,7 @@ const data = {
     overlay: "transparent",
   },
   heading: {
-    text: "Trending",
+    text: "Trending Hot",
     design: "",
   },
   content: [

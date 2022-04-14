@@ -4,11 +4,11 @@
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
 
 
-<section data-id="categories" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="categories" class="veda-section pb:10px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="row">
-      <h3 class="page-section__header" css="{{ heading.design }}">{{ heading.text }}</h3>
+      <h3 class="page-section__header ta:center mb:25px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>
       <div class="col-md-12">
         <div component="content" class="row row-cols-lg-{{ content.column.lg }} row-cols-md-3 row-cols-sm-2 row-cols-1">
           {% assign collection = collections[content.collection] %}
@@ -17,7 +17,7 @@
               <div class="vdoan-category pos:relative w:100% h:210px ov:hidden z:2 cur:pointer">
                 <a href="#"><img class="pos:absolute t:0 l:0 z:-1 w:100% h:100% trs:all_0.3s" src={{cate.url}} alt="category"></a>
                 <div class="vdoan-category__title pos:absolute t:50% l:50% trf:translate(-50%,-50%) c:color-light-freeze w:100% fw:700 fz:17px tt:uppercase ta:center z:9">{{cate.title}}</div>
-                <div class="vdoan-overlay bgc:color-dark op:0.3 w:100% h:100% v:hidden"></div>
+                <div class="vdoan-overlay bgc:color-dark op:0 w:100% h:100% trs:all_0.5s"></div>
               </div>
             </div>
           {% endfor %}

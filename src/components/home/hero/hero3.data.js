@@ -35,7 +35,7 @@ const data = {
         name: "SHOP MEN",
       },
     ],
-    color: "black",
+    color_lisht: true,
     direction: "left",
     review_app: {
       enable: true,

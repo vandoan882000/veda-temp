@@ -3,11 +3,17 @@
 {% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
 
-<section data-id="megamenu2" class="pet-section pos:relative z:1bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="giftsection" class="p:0px_60px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <div class="bgc:color-light pt:50px pb:50px">
-      Mega menu 2
+    <div class="row mt:0px">
+      {% for item in content %}
+        <div class="col-xs-12 col-sm-6 col-md-16 col-lg-3 mt:0px">
+          <div class="gift d:flex h:84px jc:center ai:center fw:500">
+            <a class="cur:pointer w:100% c:color-dark fz:17px fw:500" href="#"><i class="{{item.icon}} pr:15px fz:23px fw:400"></i><span>{{item.name}}</span></a>
+          </div>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>

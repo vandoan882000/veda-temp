@@ -193,7 +193,7 @@ class ComparePopop {
                       <div class="product-card d:flex fld:column ai:center ta:center">
                         <div class="product-card__img w:100% pos:relative ov:hidden">
                           <div class="pet-product-card__image">
-                            <a href="#" class="core-image-cover d:block bd:none!" css="--aspect-ratio: 3/4">
+                            <a href="#" class="veda-image-cover d:block bd:none!" css="--aspect-ratio: 3/4">
                               <img class="product-card__image bd:none!" src="${ item.featured_image.src}" alt="">
                             </a>
                           </div>
@@ -367,7 +367,7 @@ class CartPopop {
               ${map(data,item => {
                 return /*html*/`<div class=" d:flex fld:row pt:10px ml:10px mr:10px bdb:1px_solid_color-gray4 pb:10px">
                   <div class="w:100px">
-                    <a class="core-image-cover d:block w:100%" css="--aspect-ratio: 3/5">
+                    <a class="veda-image-cover d:block w:100%" css="--aspect-ratio: 3/5">
                       <img src=${item.featured_image.url} alt="image-cart" />
                     </a>
                   </div>

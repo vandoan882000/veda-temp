@@ -1,12 +1,12 @@
 
-{% set uniqueId = "id_28cfc2a9-351f-4c5d-a6ac-b0e29e8be840" %}
+{% set uniqueId = "id_c79c1646-885b-4e38-97db-073071bd9498" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 <section data-id="megamenu1" class="pet-section pos:relative z:1bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="bgc:color-light pt:50px pb:50px">
       Mega menu 1

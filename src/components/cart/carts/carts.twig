@@ -1,12 +1,12 @@
 
-{% set uniqueId = "id_31cec25a-16d7-4b9d-801d-5318d8b8fef9" %}
+{% set uniqueId = "id_e0856d4b-09ab-4318-ae97-5ca9740ae2be" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 <section data-id="cartcontainer" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="direct fz:15px c:color-gray4 mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     {% set collection = collections[content.collection] %}
@@ -16,14 +16,14 @@
           <div class="nvd-cart-header__title mb:30px fz:35px fw:500">Shopping Cart</div>
           <div class="nvd-cart-header__description mb:30px fz:25px">
             These products are limited, checkout within:</div>
-          <div class="nvd-cart-header__times mb:30px d:flex jc:center ai:center w:500px h:100px bd:1px_solid_color-gray4 core-countdown" data-options="{ timestamp: 1651000000744 }">
-            <div class="nvd-cart-header__time-number fz:35px fw:900 core-countdown__days">1</div>
+          <div class="nvd-cart-header__times mb:30px d:flex jc:center ai:center w:500px h:100px bd:1px_solid_color-gray4 veda-countdown" data-options="{ timestamp: 1651000000744 }">
+            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__days">1</div>
             <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px">days</div>
-            <div class="nvd-cart-header__time-number fz:35px fw:900 core-countdown__hours">17</div>
+            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__hours">17</div>
             <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px">hrs</div>
-            <div class="nvd-cart-header__time-number fz:35px fw:900 core-countdown__minutes">30</div>
+            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__minutes">30</div>
             <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px">mins</div>
-            <div class="nvd-cart-header__time-number fz:35px fw:900 core-countdown__seconds">23</div>
+            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__seconds">23</div>
             <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px">secs</div>
           </div>
           <div class="nvd-cart-header__state fz:20px mb:30px">Buy $69.00 more to enjoy FREE Shipping</div>
@@ -46,7 +46,7 @@
             {% for item in collection.products | slice(0, 4)%}
               <tr class="card-cart bdb:1px_solid_color-gray4 fz:15px">
                 <td class="card-cart__content pt:30px pb:30px d:flex">
-                  <a href="#" class="core-image-cover d:block w:140px" css="--aspect-ratio: 4/4">
+                  <a href="#" class="veda-image-cover d:block w:140px" css="--aspect-ratio: 4/4">
                     <img src={{item.featured_image.url | img_url('140x')}} alt="product-card">
                   </a>
                   <div class="card-cart__name pl:20px c:color-primary">

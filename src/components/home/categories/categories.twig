@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_c02c56a9-03ae-4b35-a713-005333c13b6d" %}
+{% set uniqueId = "id_c3db854e-a925-4c7a-be62-f02f4c831979" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -7,7 +7,7 @@
 
 
 <section data-id="categories" class="veda-section pb:10px" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="row">
       <h3 class="page-section__header ta:center mb:25px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>

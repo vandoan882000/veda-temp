@@ -9,7 +9,7 @@ const data = {
     overlay: "transparent",
   },
   heading: {
-    text: "Best Seller",
+    text: "BestSeller Products",
     design: "",
   },
   sidebar: {
@@ -30,6 +30,7 @@ const data = {
       text: "Sale",
       design: "",
     },
+    add_to_cart_text: "Add to cart",
     column: {
       xs: 1,
       sm: 2,

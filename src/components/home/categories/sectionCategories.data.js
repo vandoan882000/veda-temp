@@ -64,7 +64,6 @@ const data = {
       text: "Sale",
       design: "",
     },
-    add_to_cart_text: "Add to cart",
     column: {
       xs: 1,
       sm: 2,

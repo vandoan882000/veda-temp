@@ -19,7 +19,7 @@ class CartRender {
         return`
         <tr class="card-cart">
           <td class="card-cart__content">
-            <a href="#" class="core-image-cover d:block w:140px bd:none!" css="--aspect-ratio: 4/4">
+            <a href="#" class="veda-image-cover d:block w:140px bd:none!" css="--aspect-ratio: 4/4">
               <img src=${item.featured_image.url} alt="product-card">
             </a>
             <div class="card-cart__name">

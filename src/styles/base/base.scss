@@ -88,7 +88,7 @@ img:not([src]) {
   background-position: 50% 50%;
 }
 
-.core-overlay {
+.veda-overlay {
   position: absolute;
   top: 0;
   right: 0;
@@ -98,7 +98,7 @@ img:not([src]) {
   pointer-events: none;
 }
 
-.core-image-cover {
+.veda-image-cover {
   position: relative;
   background-size: cover;
   background-position: 50% 50%;
@@ -117,14 +117,14 @@ img:not([src]) {
   }
 }
 
-.core-embed-responsive {
+.veda-embed-responsive {
   position: relative;
   display: block;
   height: 0;
   padding: 0;
   overflow: hidden;
   padding-bottom: calc((1 / (var(--aspect-ratio, 1.777))) * 100%);
-  .core-embed-responsive__item,
+  .veda-embed-responsive__item,
   iframe,
   embed,
   object {
@@ -142,7 +142,7 @@ img:not([src]) {
   animation-iteration-count: infinite;
 }
 
-.core-btn {
+.veda-btn {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -162,16 +162,16 @@ img:not([src]) {
   }
 }
 
-.core-btn--sm {
+.veda-btn--sm {
   padding: 6px 15px;
   font-size: 14px;
 }
 
-.core-btn--lg {
+.veda-btn--lg {
   padding: 14px 30px;
 }
 
-.core-btn--primary {
+.veda-btn--primary {
   background-color: var(--color-primary);
   color: var(--color-light);
   &:hover {
@@ -180,7 +180,7 @@ img:not([src]) {
   }
 }
 
-.core-btn--secondary {
+.veda-btn--secondary {
   background-color: var(--color-secondary);
   color: var(--color-light);
   &:hover {
@@ -189,7 +189,7 @@ img:not([src]) {
   }
 }
 
-.core-btn--tertiary {
+.veda-btn--tertiary {
   background-color: var(--color-tertiary);
   color: var(--color-light);
   &:hover {
@@ -198,7 +198,7 @@ img:not([src]) {
   }
 }
 
-.core-btn--quaternary {
+.veda-btn--quaternary {
   background-color: var(--color-quaternary);
   color: var(--color-light);
   &:hover {
@@ -207,7 +207,7 @@ img:not([src]) {
   }
 }
 
-.core-btn--border {
+.veda-btn--border {
   border: 1px solid var(--color-gray2);
   background-color: transparent;
   color: var(--color-gray9);
@@ -215,7 +215,7 @@ img:not([src]) {
     background-color: transparent;
   }
 
-  &.core-btn--primary {
+  &.veda-btn--primary {
     border-color: var(--color-primary);
     &:hover {
       border-color: var(--color-primary);
@@ -223,7 +223,7 @@ img:not([src]) {
     }
   }
 
-  &.core-btn--secondary {
+  &.veda-btn--secondary {
     border-color: var(--color-secondary);
     &:hover {
       border-color: var(--color-secondary);
@@ -232,7 +232,7 @@ img:not([src]) {
   }
 
 
-  &.core-btn--tertiary {
+  &.veda-btn--tertiary {
     border-color: var(--color-tertiary);
     &:hover {
       border-color: var(--color-tertiary);
@@ -240,7 +240,7 @@ img:not([src]) {
     }
   }
 
-  &.core-btn--quaternary {
+  &.veda-btn--quaternary {
     border-color: var(--color-quaternary);
     &:hover {
       border-color: var(--color-quaternary);

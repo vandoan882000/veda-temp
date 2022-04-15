@@ -5,7 +5,7 @@
 
 
 <section data-id="shoppage" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container pt:35px">
     <div class="direct fz:15px c:color-gray4">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     <div class="view-as mb:20px d:flex ai:center mt:30px fz:15px c:color-dark">
@@ -35,7 +35,7 @@
                 <script class="product-card__data" type="application/json">{{ product | json }}</script>
                 <div class="product-card__img w:100% pos:relative ov:hidden">
                   <div class="pet-product-card__image">
-                    <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">
+                    <a href="#" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
                       <img class="product-card__image" src="{{ product.featured_image.src | img_url: '400x' }}" alt="{{ product.title }}">
                     </a>
                   </div>
@@ -228,7 +228,7 @@
             <div class="product-card fld:row ">
               <div class="product-card__img w:30%">
                 <div class="pet-product-card__image">
-                  <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">
+                  <a href="#" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
                     <img src="{{ product.featured_image.src | img_url: '250x' }}" alt="{{ product.title }}">
                   </a>
                 </div>

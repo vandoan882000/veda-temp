@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_c4a71512-d940-4e4b-8063-1521109685b6" %}
+{% set uniqueId = "id_1a16f973-aac3-4461-b911-c269e512e8e0" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -7,7 +7,7 @@
 
 
 <section data-id="accountcontainer" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="direct fz:15px c:color-gray4 mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     <h3 class="login__title mb:30px ta:center fz:35px fw:500 ff:font-primary fw:500">Log In</h3>

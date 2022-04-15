@@ -5,7 +5,7 @@
 
 
 <section data-id="bestseller" class="pt:80px" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <h3 class="page-section__header ta:center mb:45px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row">
@@ -17,7 +17,7 @@
             <script class="product-card__data" type="application/json">{{ product | json }}</script>
             <div class="product-card__img w:100% pos:relative ov:hidden">
               <div class="pet-product-card__image">
-                <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">
+                <a href="#" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
                   <img class="product-card__image" src="{{ product.featured_image.src | img_url: '400x' }}" alt="{{ product.title }}">
                 </a>
               </div>

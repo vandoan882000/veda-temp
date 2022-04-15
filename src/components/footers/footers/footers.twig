@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_4d84fe58-2de5-4e4d-b327-d487b0566742" %}
+{% set uniqueId = "id_8ad07f61-f927-4381-ba43-7fe396d8ffc6" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -7,7 +7,7 @@
 
 
 <footer data-id="footers" class="veda-section mih:435px bgc:color-dark pt:55px pb:80px ff:font-secondary c:color-light" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   {% set collection = collections["402146787549"] %}
   <div class="container">
     <div class="row jc:center">

@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_9138352c-066c-4604-9ce2-17dd6132dcc4" %}
+{% set uniqueId = "id_8b085605-6950-40df-a078-41f26a7b2914" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -8,7 +8,7 @@
 
 <section data-id="bestseller" class="pt:80px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
-  <div class="container">
+  <div class="container pb:40px">
     <h3 class="page-section__header ta:center mb:45px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row">
       {% set collection = collections[content.collection] %}
@@ -78,5 +78,20 @@
       {% endfor %}
     </div>
 
+  </div>
+</section>
+<section class="bgc:#F2F2F7 h:300px d:flex fld:column ai:center jc:center ta:center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 d:flex fld:column ai:center jc:center ta:center">
+         <h2 class="fz:35px mb:25px ff:font-primary fw:500">Sign-up for LogoNews</h2>
+         <p class="fz:15px mb:10px ff:font-secondary fw:400">Stay informed about the latest style advice and product launches.<br/> Learn more about our emails and our Privacy Policy.</p>
+         <div class="d:flex ai:center jc:center ta:center">
+          <input class="h:40px w:283px! bdrs:0px!" type="text" placeholder="Email address">
+          <button class="vdoan-btn__primary h:40px p:10px_20px_10px_20px ml:10px bgc:color-dark c:color-light fz:12px ff:font-primary fw:700 bd:1px_solid_color-dark bdrs:0px">SUBSCRIBE</button>
+         </div>
+
+      </div>
+    </div>
   </div>
 </section>

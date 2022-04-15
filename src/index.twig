@@ -1,7 +1,7 @@
 {% extends "./abstracts/layout.twig" %}
 
 {% block body %}
-
+  {% include "./components/home/giftsection/render.twig" %}
   {% include "./components/home/hero/render.twig" with {data : hero} %}
   {% include "./components/home/categories/render.twig" %}
   {% include "./components/home/products/render.twig" %}

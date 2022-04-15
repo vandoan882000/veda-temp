@@ -12,4 +12,6 @@ $container: "[data-id='#{$uniqueId}']";
 .nvd-footer__about [class^="fa"]:hover {
   color: var(--color-light);
 }
-
+.nvd-footer__input input::placeholder {
+  font-size: 12px;
+}

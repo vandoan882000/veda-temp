@@ -92,6 +92,16 @@ interface MobileMenuReturn {
   init(): void;
   destroy(): void;
 }
+interface MessageOptions {
+  content: string;
+  icon?: string;
+  duration?: number;
+  delay?: number;
+  className?: string;
+  style?: CSSStyleDeclaration,
+  onShow?: () => void;
+  onHide?: () => void;
+}
 
 declare interface Veda {
   utils: {
@@ -124,6 +134,7 @@ declare interface Veda {
     },
     offset(element: Element): OffsetReturn;
     VQuery: <T extends HTMLElement>(selector: string | T) => VQueryReturn<T>;
+    delay(ms?: number): Promise<undefined>;
   }
   plugins: {
     /** Masonry
@@ -159,7 +170,7 @@ declare interface Veda {
     /** Theme toggle
      * ```html
      * // Liquid Example
-     * <button class="core-toggle-theme">Theme light | dark</button>
+     * <button class="veda-toggle-theme">Theme light | dark</button>
      * ```
      * ```js
      * // Javascript Example
@@ -171,15 +182,15 @@ declare interface Veda {
     /** Countdown
      * ```html
      * // Liquid Example
-     * <div class="core-countdown" data-options="{ timestamp: {{countdown}} }">
+     * <div class="veda-countdown" data-options="{ timestamp: {{countdown}} }">
      *   <div>Days</div>
-     *   <div class="core-countdown__days"></div>
+     *   <div class="veda-countdown__days"></div>
      *   <div>Hours</div>
-     *   <div class="core-countdown__hours"></div>
+     *   <div class="veda-countdown__hours"></div>
      *   <div>Minutes</div>
-     *   <div class="core-countdown__minutes"></div>
+     *   <div class="veda-countdown__minutes"></div>
      *   <div>Seconds</div>
-     *   <div class="core-countdown__seconds"></div>
+     *   <div class="veda-countdown__seconds"></div>
      * </div>
      * ```
      * ```js
@@ -193,26 +204,26 @@ declare interface Veda {
      * ```html
      * // Liquid Example
      * <div
-     *   class="core-swiper swiper"
+     *   class="veda-swiper swiper"
      *   data-options="{
      *     speed: 400,
      *     spaceBetween: 30
      *   }"
      * >
-     *   <div class="core-swiper-wrapper swiper-wrapper">
+     *   <div class="veda-swiper-wrapper swiper-wrapper">
      *     {% for swiper in swipers %}
      *       <div component="swipers" class="swiper-slide">{{swiper.text}}</div>
      *     {% endfor %}
      *   </div>
-     *   <div class="core-swiper-button core-swiper-button-pill core-swiper-button-abs">
-     *     <div class="core-swiper-button-prev">
+     *   <div class="veda-swiper-button veda-swiper-button-pill veda-swiper-button-abs">
+     *     <div class="veda-swiper-button-prev">
      *       <i class="fal fa-angle-left"></i>
      *     </div>
-     *     <div class="core-swiper-button-next">
+     *     <div class="veda-swiper-button-next">
      *       <i class="fal fa-angle-right"></i>
      *     </div>
      *   </div>
-     *   <div class="core-swiper-pagination"></div>
+     *   <div class="veda-swiper-pagination"></div>
      * </div>
      * ```
      * ```js
@@ -225,15 +236,15 @@ declare interface Veda {
     /** Tabs
      * ```html
      * // Liquid Example
-     * <div component="tabs" class="core-tabs {{variant}}">
-     *   <div class="core-tabs__nav">
+     * <div component="tabs" class="veda-tabs {{variant}}">
+     *   <div class="veda-tabs__nav">
      *     {% for tab in tabs %}
-     *       <div class="core-tabs__link {{tab.active ? 'core-tabs__link--active' : ''}}">{{tab.label}}</div>
+     *       <div class="veda-tabs__link {{tab.active ? 'veda-tabs__link--active' : ''}}">{{tab.label}}</div>
      *     {% endfor %}
      *   </div>
-     *   <div class="core-tabs__content">
+     *   <div class="veda-tabs__content">
      *     {% for tab in tabs %}
-     *       <div class="core-tabs__pane">{{tab.text}}</div>
+     *       <div class="veda-tabs__pane">{{tab.text}}</div>
      *     {% endfor %}
      *   </div>
      * </div>
@@ -257,7 +268,7 @@ declare interface Veda {
      * ```html
      * // Liquid Example
      * <div
-     *   class="core-image-zoom"
+     *   class="veda-image-zoom"
      *   data-image-zoom-src="{{ image.src }}"
      *   data-image-zoom="6"
      * >
@@ -276,13 +287,14 @@ declare interface Veda {
 
     /** Mobile Menu
      * ```js
+     * // Javascript Example
      * veda.plugins.mobileMenu(container, {
-     *   navSelector: ".pet-nav",
-     *   menuSelector: ".pet-nav__menu",
-     *   linkSelector: ".pet-nav__link",
-     *   subMenuSelector: ".pet-nav__sub-list",
-     *   backClassName: "pet-nav__list-item-back p:15px c:color-gray9 bdb:1px_solid_color-gray2",
-     *   closeClassName: "pet-nav__close p:8px_15px c:color-gray9 bdb:1px_solid_color-gray2",
+     *   navSelector: ".veda-nav",
+     *   menuSelector: ".veda-nav__menu",
+     *   linkSelector: ".veda-nav__link",
+     *   subMenuSelector: ".veda-nav__sub-list",
+     *   backClassName: "veda-nav__list-item-back p:15px c:color-gray9 bdb:1px_solid_color-gray2",
+     *   closeClassName: "veda-nav__close p:8px_15px c:color-gray9 bdb:1px_solid_color-gray2",
      * });
      * function checkResponsive() {
      *   if (window.innerWidth > 992) {
@@ -296,6 +308,39 @@ declare interface Veda {
      * ```
      */
      mobileMenu(container: HTMLElement, options: MobileMenuOptions): MobileMenuReturn;
+
+    /** Create Message
+     * ```js
+     * const { VQuery: $$ } = veda.utils;
+     * const { createMessage } = veda.plugins;
+     * const message = createMessage();
+     *
+     * $$(".button1").on("click", () => {
+     *   message.info("Lorem ipsum dolor sit amet");
+     * });
+     *
+     * $$(".button2").on("click", () => {
+     *   message.error({
+     *     content: "Test full options",
+     *     duration: 100,
+     *     delay: 3000,
+     *     icon: '<i class="fas fa-times"></i>',
+     *     onShow() {
+     *       console.log("show");
+     *     },
+     *     onHide() {
+     *       console.log("hide");
+     *     }
+     *   });
+     * });
+     * ```
+     */
+     createMessage(): {
+      info(content: string | MessageOptions): void;
+      success(content: string | MessageOptions): void;
+      warning(content: string | MessageOptions): void;
+      error(content: string | MessageOptions): void;
+    };
   }
 }
 

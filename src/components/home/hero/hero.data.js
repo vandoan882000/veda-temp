@@ -42,12 +42,6 @@ const data = {
       enable: true,
       app: "product_reviews", // "product_reviews" or "rivyo_reviews" or "loox_reviews""
     },
-    sale: {
-      enable: true,
-      text: "Sale",
-      design: "",
-    },
-    add_to_cart_text: "Add to cart",
     column: {
       xs: 1,
       sm: 2,

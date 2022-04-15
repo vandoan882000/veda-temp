@@ -2,6 +2,9 @@ import "./home/products/products.js";
 import "./headers/menu/menu.js";
 import "./wishlist/wishlistcon/wishlist.js";
 import "./cart/carts/carts.js";
+
+
+
 // import "./product/shopPage/shopPage.js";
 // function createMenu({
 //   createMenuButton

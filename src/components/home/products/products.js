@@ -2,6 +2,10 @@ const uniqueId = "products";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store , map } = veda.utils;
+const message = veda.plugins.createMessage();
+
+
+
 store.create("doanCompare", {
   initialState: {
     visible: false,
@@ -73,12 +77,14 @@ class AddStore {
           // Neu ma trong mang data da co chua san pham nay roi
           // thi khi ta bam vao nut compare se xoa di
           if (dataHasNewItem.length > 0) {
+            message.error(`Remove from ${this.storeName}`);
             return {
               ...state,
               data: state.data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)
             };
           }
           // Neu trong data chua co product do thi ta se them vao
+          message.info(`Add to ${this.storeName}`);
           return {
             ...state,
             data: [...state.data, newItem]
@@ -247,7 +253,7 @@ if(!!container) {
 //          <script class="product-card__data" type="application/json">${JSON.stringify(item)}</script>
 //           <div class="product-card__img w:100% pos:relative ov:hidden">
 //             <div class="pet-product-card__image h:400px">
-//               <a href="#" class="core-image-cover d:block h:100%" >
+//               <a href="#" class="veda-image-cover d:block h:100%" >
 //                 <img class="product-card__image" src="${ item.featured_image.src}_400x" alt="${ item.title }">
 //               </a>
 //             </div>

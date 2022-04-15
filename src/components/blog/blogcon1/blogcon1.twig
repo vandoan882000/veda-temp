@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_4f7d0ef9-a98d-416a-8bb0-3000e5e7feb3" %}
+{% set uniqueId = "id_943d6772-64f3-4c48-bc12-d0352e64ca83" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -7,7 +7,7 @@
 
 
 <section data-id="blogcontainer" class="pt:35px" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container maw:1360px">
     <div class="direct fz:15px c:color-gray4 mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     <div class="row">
@@ -79,7 +79,7 @@
                   <div class="product-box__content">
                     <p class="fz:13px ff:font-secondary c:color-dark">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint.</p>
                     <div class="product-box__box-newsletter mt:10px d:flex flw:nowrap w:100% h:43px bd:1px_solid_color-gray3 mt:20px">
-                      <input class="bd:none! o:none w:70% h:100%" type="text" placeholder="Your email">
+                      <input class="bd:none! o:none w:70% h:100% bdend:1px_solid_gray3!" type="text" placeholder="Your email">
                       <button class="btn bdrs:0 w:30% h:100% bgc:color-dark c:color-light bd:none">GET!</button>
                     </div>
                   </div>
@@ -95,3 +95,4 @@
 
   </div>
 </section>
+

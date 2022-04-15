@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_fbe66d59-dc83-4c8e-87e7-108c38b008af" %}
+{% set uniqueId = "id_70e67e7c-fad4-4993-b01f-e360b2f1f8c5" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -7,7 +7,7 @@
 
 
 <section data-id="wishlist"  css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="direct fz:15px c:color-gray4 mt:30px mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     <div class="fw:500 fz:35px c:color-dark mt:-5px mb:75px">Wish Lists</div>
@@ -22,7 +22,7 @@
               <script class="product-card__data" type="application/json">{{ product | json_encode()}}</script>
               <div class="product-card__img w:100% pos:relative ov:hidden">
                 <div class="pet-product-card__image">
-                  <a href="#" class="core-image-cover d:block" css="--aspect-ratio: 3/4">
+                  <a href="#" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
                     <img class="product-card__image" src="{{ product.featured_image.src | img_url('400x')}}" alt="{{ product.title }}">
                   </a>
                 </div>

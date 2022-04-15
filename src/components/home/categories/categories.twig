@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_c3db854e-a925-4c7a-be62-f02f4c831979" %}
+{% set uniqueId = "id_986fd576-03db-4db7-865d-e56758016b1b" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -10,7 +10,7 @@
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="row">
-      <h3 class="page-section__header ta:center mb:25px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>
+      <h3 class="page-section__header ff:font-primary ta:center mb:25px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>
       <div class="col-md-12">
         <div component="content" class="row row-cols-lg-{{ content.column.lg }} row-cols-md-3 row-cols-sm-2 row-cols-1">
           {% set collection = collections[content.collection] %}

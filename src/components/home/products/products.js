@@ -27,6 +27,10 @@ store.create("doanCart", {
   },
   useStorage: true
 });
+store.create("doanCurrentProduct", {
+  initialState: {},
+  useStorage: true
+});
 class AddStore {
   constructor(storeName,elName) {
     this.storeName = storeName;
@@ -228,9 +232,50 @@ class AddStoreCart {
     this.handleAdd();
   }
 }
+class AddStoreCurrentProduct {
+  constructor(storeName,elName) {
+    this.storeName = storeName;
+    this.elName = elName;
+    this.el = container.querySelector(".row");
+    this.init();
+    const _this = this;
+  }
+  getData() {
+    return store.get(`${PREFIX}${this.storeName}`);
+  }
+  handleAdd() {
+    const listCard = container.querySelectorAll(".product-card");
+    listCard.forEach(cartEl => {
+      const btnCompare = cartEl.querySelector("."+this.elName);
+      const dataEl = cartEl.querySelector(".product-card__data");
+
+      btnCompare.addEventListener("click", () => {
+        const newItem = JSON.parse(dataEl.textContent);
+        const { id: newId } = newItem;
+        store.set(`${PREFIX}${this.storeName}`, (state) => newItem);
+      });
+
+
+    })
+  }
+  initStore() {
+    store.create(`${PREFIX}${this.storeName}`, {
+      initialState: {},
+      useStorage: true
+    });
+  }
+  render() {
+
+  }
+  init() {
+    this.initStore();
+    this.handleAdd();
+  }
+}
 if(!!container) {
-  new AddStore("Compare","fa-exchange");
+  new AddStore("Compare","fa-repeat");
   new AddStore("WishList","fa-heart");
+  new AddStoreCurrentProduct("CurrentProduct","product-card__name");
   new AddStoreCart("Cart","product-card__add");
 }
 

@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_d3272e66-fc38-43c7-8ee4-42f52e5aa0a5" %}
+{% set uniqueId = "id_750b71c7-dedc-4644-9756-527c984f1aa7" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -9,7 +9,7 @@
 <section data-id="bestseller" class="pt:80px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container pb:40px">
-    <h3 class="page-section__header ta:center mb:45px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>
+    <h3 class="page-section__header ff:font-primary ta:center mb:45px fz:40px fw:600" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row">
       {% set collection = collections[content.collection] %}
       <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>
@@ -41,7 +41,7 @@
                   <i class="fal fa-eye"></i>
                 </div>
                 <div class="product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
-                  <i class="fal fa-exchange"></i>
+                  <i class="fal fa-repeat"></i>
                 </div>
               </div>
             </div>
@@ -49,7 +49,7 @@
 
             <div class="product-card__content d:flex fld:column jc:center ai:center">
               <div class="product-card__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
-              <a class="product-card__name fz:16px mt:15px c:color-dark" href="#">{{product.title}}</a>
+              <a class="product-card__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
               <a class="product-card__price mt:14px" href="#">
                 <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}</ins>
                 {% if product.compare_at_price > product.price %}

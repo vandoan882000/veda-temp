@@ -227,7 +227,7 @@ class AddStoreCart {
   }
 }
 if(!!container) {
-  new AddStore("Compare","fa-exchange");
+  new AddStore("Compare","fa-repeat");
   new AddStore("WishList","fa-heart");
   new AddStoreCart("Cart","product-card__add");
 }

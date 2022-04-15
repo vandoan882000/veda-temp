@@ -1,12 +1,12 @@
 
-{% set uniqueId = "id_70e67e7c-fad4-4993-b01f-e360b2f1f8c5" %}
+{% set uniqueId = "id_1ab900f2-3d99-407e-b0d3-3a22bd638a70" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
-<section data-id="wishlist"  css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="products"  css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="direct fz:15px c:color-gray4 mt:30px mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
@@ -37,13 +37,13 @@
                   {% endif %}
                 </div>
                 <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                  <div class="product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove to wishlist">
+                  <div class="product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
                     <i class="fal fa-heart"></i>
                   </div>
                   <div class="product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-position="left" >
                     <i class="fal fa-eye"></i>
                   </div>
-                  <div class="product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to compare" data-tooltip-active-text="Remove to compare">
+                  <div class="product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
                     <i class="fal fa-exchange"></i>
                   </div>
                 </div>

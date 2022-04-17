@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_7215d685-f176-425d-ad83-bdbd2704e8b9" %}
+{% set uniqueId = "id_118b469d-3748-4cbd-a731-c4ac9b2ca5a9" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -56,14 +56,6 @@
                   <del class="product-card__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}</del>
                 {% endif %}
               </a>
-              {#
-              {% for option in product.options_with_values %}
-                  {% if option.name == 'Color' or option.name == 'Colour' %}
-                    <script class="product-card__colors" type="application/json">{{ option.values | json_encode()}}</script>
-                    <script type="application/json">{{ product.variants | json_encode()}}</script>
-                  {% endif %}
-              {% endfor %}
-              #}
 
               <div class="product-card__color d:flex">
                 <div class="yasmina-circle__active w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box bgc:#FFD860 bd:1px_solid_color-dark"></div>
@@ -90,7 +82,6 @@
           <input class="h:40px w:283px! bdrs:0px!" type="text" placeholder="Email address">
           <button class="vdoan-btn__primary h:40px p:10px_20px_10px_20px ml:10px bgc:color-dark c:color-light fz:12px ff:font-primary fw:700 bd:1px_solid_color-dark bdrs:0px">SUBSCRIBE</button>
          </div>
-
       </div>
     </div>
   </div>

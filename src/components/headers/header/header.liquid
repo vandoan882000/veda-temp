@@ -1,0 +1,111 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+
+<header data-id="header" class="pos:relative z:10 bgc:color-light bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+  <div class="container">
+    <div class="d:flex ai:center jc:space-between pt:20px pb:20px fld:column@+md">
+      <div class="flx:1 d:flex ai:center fz:15px fw:400 ta:left c:color-gray9 mb:20px@+md">
+        <div class="fw:400 fz:pfs(15px,30px) c:color-primary mr:20px">
+          {{ top_bar.address_icon }}
+        </div>
+        <div>{{ top_bar.address }}</div>
+      </div>
+      <a href="{{ shop.domain }}">
+        <img src="{{ top_bar.logo }}" alt="">
+      </a>
+      <div class="flx:1"></div>
+    </div>
+  </div>
+  <div class="h:1px bgc:color-gray2"></div>
+  <div class="container">
+    <nav class="pet-nav d:flex ai:center jc:space-between mih:70px">
+      {% if navigation.menu %}
+        <ul class="pet-nav__menu d:flex">
+          {% for item in navigation.menu %}
+            {% assign hasMegaMenu = item.hasMegaMenu %}
+            {% if hasMegaMenu %}
+              <li class="pet-nav__list-item pet-nav__list-item--has-megamenu{{ hasMegaMenu ? '' : '  pos:relative' }}">
+            {% else %}
+              <li class="pet-nav__list-item pos:relative">
+            {% endif %}
+              <a class="pet-nav__link pos:relative d:flex ai:center p:25px pt:10px pb:10px h:80px fz:15px fw:700 c:color-gray9 c:color-primary|h trs:0.3s" href="{{ item.href }}">
+                {% if item.iconEnabled %}
+                  <span class="mr:8px">{{ item.icon }}</span>
+                {% endif %}
+                <span>{{ item.label }}</span>
+                {% if navigation.arrow and item.children | length > 0 %}
+                  <span class="pet-nav__arrow ml:5px c:color-gray9 fz:20px"><i class="fal fa-angle-down"></i></span>
+                {% endif %}
+              </a>
+              {% if item.children | length > 0 %}
+                {% if hasMegaMenu %}
+                  <ul class="pet-nav__sub-list pet-nav__sub-list--megamenu pos:absolute t:100% l:0 z:999 w:100% trs:0.3s">
+                {% else %}
+                  <ul class="pet-nav__sub-list pos:absolute t:100% l:0 z:999 w:220px bd:1px_solid_color-gray2 bdrs:10px trs:0.3s bgc:color-light">
+                {% endif %}
+                {% for item in item.children %}
+                    <li class="pet-nav__list-item pos:relative bdb:1px_solid_color-gray2 bdb:0|lc">
+                      {% if item.megaMenuEnabled %}
+                        <div class="pet-nav__megamenu">
+                          <megamenu data-id="{{ item.megaMenuId }}"></megamenu>
+                        </div>
+                      {% else %}
+                        <a class="pet-nav__link pos:relative d:flex ai:center jc:space-between p:15px fz:15px fw:700 c:color-gray9 c:color-primary|h trs:0.3s" href="{{ item.href }}">
+                          <span>
+                            {% if item.iconEnabled %}
+                              <span class="mr:8px">{{ item.icon }}</span>
+                            {% endif %}
+                            <span>{{ item.label }}</span>
+                          </span>
+                          {% if navigation.arrow and item.children | length > 0 %}
+                            <span class="fz:20px"><i class="fal fa-angle-right"></i></span>
+                          {% endif %}
+                        </a>
+                        {% if item.children | length > 0 %}
+                          <ul class="pet-nav__sub-list pos:absolute t:0 l:100% z:999 w:220px bd:1px_solid_color-gray2 bdrs:10px trs:0.3s bgc:color-light">
+                            {% for item in item.children %}
+                              {% assign hasMegaMenu = item.hasMegaMenu %}
+                              <li class="pet-nav__list-item bdb:1px_solid_color-gray2 bdb:0|lc">
+                                <a class="pet-nav__link pos:relative d:flex ai:center p:15px fz:15px fw:700 c:color-gray9 c:color-primary|h trs:0.3s" href="{{ item.href }}">
+                                  {% if item.iconEnabled %}
+                                    <span class="mr:8px">{{ item.icon }}</span>
+                                  {% endif %}
+                                  <span>{{ item.label }}</span>
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <div class="d:flex jc:center">
+        {% if search.enable %}
+          <div class="d:flex pos:relative">
+            <div class="c:color-gray6 pos:absolute t:50% l:10px trf:translateY(-50%)">{{ search.icon }}</div>
+            <input class="w:135px! w:200px!|focus trs:0.3s! bdrs:10px! h:40px! p:0_15px_0_35px! fz:15px! color:color-gray6||ph!" type="text" placeholder="{{ search.placeholder }}">
+          </div>
+        {% endif %}
+        {% if wishlist.enable %}
+          <div class="fz:25px c:color-gray9 c:color-primary|h ml:16px cur:pointer test1">
+            {{ wishlist.icon }}
+          </div>
+        {% endif %}
+        {% if cart.enable %}
+          <div class="fz:25px c:color-gray9 c:color-primary|h ml:16px cur:pointer test2" data-use-mini-cart="{{ cart.use_mini_cart }}">
+            {{ cart.icon }}
+          </div>
+        {% endif %}
+      </div>
+    </nav>
+  </div>
+</header>

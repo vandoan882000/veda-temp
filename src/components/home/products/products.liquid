@@ -55,21 +55,11 @@
                   <del class="product-card__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}</del>
                 {% endif %}
               </a>
-              {%- comment -%}
-              {% for option in product.options_with_values %}
-                  {% if option.name == 'Color' or option.name == 'Colour' %}
-                    <script class="product-card__colors" type="application/json">{{ option.values | json }}</script>
-                    <script type="application/json">{{ product.variants | json }}</script>
-                  {% endif %}
-              {% endfor %}
-              {%- endcomment -%}
 
-              <div class="product-card__color d:flex">
-                <div class="yasmina-circle__active w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box bgc:#FFD860 bd:1px_solid_color-dark"></div>
-                <div class="yasmina-circle w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box bgc:#C3DEE4 bd:1px_solid_color-gray2"></div>
-                <div class="yasmina-circle w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box bgc:#8667DE bd:1px_solid_color-gray2"></div>
-                <div class="yasmina-circle--plus w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box fw:600 fz:16px color:color-dark">+1</div>
-                </div>
+              <div class="yasmina-product-card__colors d:flex">
+                <script class="yasmina-product-card__options-json" type="application/json">{{ product.options_with_values | json }}</script>
+              </div>
+              <script class="yasmina-product-card__variants-json" type="application/json">{{ product.variants | json }}</script>
 
             </div>
           </div>

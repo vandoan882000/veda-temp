@@ -7,11 +7,11 @@ const {map , store} = veda.utils;
 class CartRender {
   constructor() {
     this.el = document.querySelector(".card-cart__tbody");
-    store.subscribe('doanCart', this.init.bind(this));
+    store.subscribe('yasminaCart', this.init.bind(this));
     this.init();
   }
   getData() {
-    return store.get("doanCart");
+    return store.get("yasminaCart");
   }
   render() {
     const {data} = this.getData();

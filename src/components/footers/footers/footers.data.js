@@ -20,65 +20,21 @@ const data = {
         { label: "Shipping and Delivery", href: "#" },
         { label: "Returns", href: "#" },
         { label: "Size Charts", href: "#" },
-        { label: "Dog Supplement & animal", href: "#" },
-        { label: "Cat Toys", href: "#" },
-        { label: "Fruits & Vegetables", href: "#" },
-        { label: "Meats & Seafood", href: "#" },
+        { label: "Email Signup", href: "#" }
       ],
     },
     {
-      title: "Menu 2",
+      title: "OUR SHOP",
       links: [
-        { label: "Lorem ipsum 1", href: "#" },
-        { label: "Lorem ipsum 2", href: "#" },
-        { label: "Lorem ipsum 3", href: "#" },
-        { label: "Lorem ipsum 4", href: "#" },
+        { label: "New Arrivals", href: "#" },
+        { label: "Top Trending", href: "#" },
+        { label: "Autumn Collection", href: "#" },
+        { label: "Back in Stock", href: "#" },
+        { label: "Bikini Tops", href: "#" },
+        { label: "Back in Stock", href: "#" },
       ]
     },
   ],
-  customers: {
-    title: "CUSTOMER",
-    items: [
-      {
-        name: "Custom Service",
-      },
-      {
-        name: "Shipping and Delivery",
-      },
-      {
-        name: "Returns",
-      },
-      {
-        name: "Size Charts",
-      },
-      {
-        name: "Email Signup",
-      },
-    ],
-  },
-  our_shop: {
-    title: "OUR SHOP",
-    items: [
-      {
-        name: "New Arrivals",
-      },
-      {
-        name: "Top Trending",
-      },
-      {
-        name: "Autumn Collection",
-      },
-      {
-        name: "Back in Stock",
-      },
-      {
-        name: "Bikini Tops",
-      },
-      {
-        name: "Bikini Bottoms",
-      },
-    ],
-  },
   new_letter: {
     title: "NEW LETTTER",
     name: "Get 15% off your first purchaxse! Plus,<br/> be the first to know about sales, new<br/> product launches!",

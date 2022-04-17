@@ -14,10 +14,10 @@
           {% assign collection = collections[content.collection] %}
           {% for cate in content.images limit: 8 %}
             <div class="col">
-              <div class="vdoan-category pos:relative w:100% h:210px ov:hidden z:2 cur:pointer">
+              <div class="yasmina-category pos:relative w:100% h:210px ov:hidden z:2 cur:pointer">
                 <a href="#"><img class="pos:absolute t:0 l:0 z:-1 w:100% h:100% trs:all_0.3s" src={{cate.url}} alt="category"></a>
-                <div class="vdoan-category__title pos:absolute t:50% l:50% trf:translate(-50%,-50%) c:color-light-freeze w:100% fw:700 fz:17px tt:uppercase ta:center z:9">{{cate.title}}</div>
-                <div class="vdoan-overlay bgc:color-dark op:0 w:100% h:100% trs:all_0.5s"></div>
+                <div class="yasmina-category__title pos:absolute t:50% l:50% trf:translate(-50%,-50%) c:color-light-freeze w:100% fw:700 fz:17px tt:uppercase ta:center z:9">{{cate.title}}</div>
+                <div class="yasmina-overlay bgc:color-dark op:0 w:100% h:100% trs:all_0.5s"></div>
               </div>
             </div>
           {% endfor %}

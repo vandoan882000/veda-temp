@@ -1,13 +1,13 @@
 $uniqueId: "categories";
 $container: "[data-id='#{$uniqueId}']";
 
-.vdoan-category:hover .vdoan-category__title {
+.yasmina-category:hover .yasmina-category__title {
   text-decoration: underline;
 }
-.vdoan-category:hover img{
+.yasmina-category:hover img{
   transform: scale(1.1);
 }
-.vdoan-category:hover .vdoan-overlay {
+.yasmina-category:hover .yasmina-overlay {
   opacity: 0.3;
 }
 

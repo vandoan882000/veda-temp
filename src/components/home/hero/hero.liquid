@@ -8,36 +8,36 @@
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-lg-12 col-md-12">
         <div component="content" class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12">
           {% assign collection = collections[content.collection] %}
-          <div class="vdoan-banner vdoan-banner--{{content.direction}} {{content.color_dark?"c:color-dark":"c:color-light"}} mih:626px pos:relative ml:-15px mr:-15px">
-            <div class="vdoan-banner__content d:flex fld:column jc:center ai:center w:50% ta:center z:9">
-              <p class="vdoan-banner__text fw:500 fz:20px">{{content.title}}</p>
-              <div class="vdoan-banner__title c:{{content.color}} fw:700 fz:50px">INSTILEY</div>
-              <p class="vdoan-banner__description ff:font-secondary mb:30px fz:14px lh:23px fw:400 lts:0.15px">
+          <div class="yasmina-banner yasmina-banner--{{content.direction}} {{content.color_dark?"c:color-dark":"c:color-light"}} mih:626px pos:relative ml:-15px mr:-15px">
+            <div class="yasmina-banner__content d:flex fld:column jc:center ai:center w:100%  w:50%@md ta:center z:9">
+              <p class="yasmina-banner__text fw:500 fz:20px">{{content.title}}</p>
+              <div class="yasmina-banner__title c:{{content.color}} fw:700 fz:50px">INSTILEY</div>
+              <p class="yasmina-banner__description ff:font-secondary mb:30px fz:14px lh:23px fw:400 lts:0.15px">
                 {{content.description}}
               </p>
               {% if content.button | length == 1 %}
-              <div class="vdoan-btn__container">
+              <div class="yasmina-btn__container">
                 {% for item in content.button %}
                   {% if content.color_dark %}
-                    <button class="vdoan-btn__primary bgc:color-dark bd:none! c:color-light p:20px_86px_20px_86px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
+                    <button class="yasmina-btn__primary bgc:color-dark bd:none! c:color-light p:20px_86px_20px_86px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
                   {% endif %}
                   {% if content.color_light %}
-                    <button class="vdoan-btn__secondary bgc:color-light bd:none! c:color-dark p:20px_86px_20px_86px cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
+                    <button class="yasmina-btn__secondary bgc:color-light bd:none! c:color-dark p:20px_86px_20px_86px cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
                   {% endif %}
                 {% endfor %}
               </div>
               {% endif %}
               {% if content.button | length > 1 %}
-              <div class="vdoan-btn__container">
+              <div class="yasmina-btn__container">
                 {% for item in content.button %}
                   {% if content.color_dark %}
-                    <button class="vdoan-btn__primary bgc:color-dark bd:none! c:color-light p:20px_42px_20px_42px w:198px h:60px ta:center cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:14px lts:0.15px">{{item.name}}</button>
+                    <button class="yasmina-btn__primary bgc:color-dark bd:none! c:color-light p:20px_42px_20px_42px w:198px h:60px ta:center cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:14px lts:0.15px">{{item.name}}</button>
                   {% endif %}
                   {% if content.color_light %}
-                    <button class="vdoan-btn__secondary bgc:color-light bd:none! c:color-dark p:20px_42px_20px_42px w:198px h:60px ta:center cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:14px lts:0.15px">{{item.name}}</button>
+                    <button class="yasmina-btn__secondary bgc:color-light bd:none! c:color-dark p:20px_42px_20px_42px w:198px h:60px ta:center cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:14px lts:0.15px">{{item.name}}</button>
                   {% endif %}
                 {% endfor %}
               </div>
@@ -45,10 +45,10 @@
 
             </div>
             {% if banner.stickey %}
-              <div class="vdoan-banner__stickey">
-                <div class="vdoan-banner__rectangle">{{content.stickey}}</div>
-                <div class="vdoan-banner__triangle--left"></div>
-                <div class="vdoan-banner__triangle--right"></div>
+              <div class="yasmina-banner__stickey">
+                <div class="yasmina-banner__rectangle">{{content.stickey}}</div>
+                <div class="yasmina-banner__triangle--left"></div>
+                <div class="yasmina-banner__triangle--right"></div>
               </div>
 
             {% endif %}

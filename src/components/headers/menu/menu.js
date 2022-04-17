@@ -6,7 +6,7 @@ const { store, map ,objectParse, VQuery: $$ } = veda.utils;
 
 
 veda.plugins.themeToggle(container);
-const PREFIX = 'doan';
+const PREFIX = 'yasmina';
 
 store.create(PREFIX+"Compare", {
   initialState: {
@@ -318,7 +318,7 @@ class CartPopop {
       })
     }
     if (visible) {
-      const removeCart = document.querySelectorAll('.doan-remove-cart');
+      const removeCart = document.querySelectorAll('.yasmina-remove-cart');
       removeCart.forEach(removeEl => {
         removeEl.addEventListener("click", this.handleRemoveCart.bind(this));
       })
@@ -381,8 +381,8 @@ class CartPopop {
                       <div class="w:50px h:100% ta:center lh:30px fw:600">1</div>
                       <div class="w:20px h:100% ta:center cur:pointer fw:600 fz:20px lh:30px">+</div>
                     </div>
-                    <button class="doan-edit-cart"><i class="fas fa-edit"></i></button>
-                    <button data-id=${item.id} class="doan-remove-cart"><i class="fas fa-trash-alt"></i></button>
+                    <button class="yasmina-edit-cart"><i class="fas fa-edit"></i></button>
+                    <button data-id=${item.id} class="yasmina-remove-cart"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>`
               })}

@@ -12,6 +12,30 @@ const data = {
     title: "YASMINA",
     design: "",
   },
+  navigation: [
+    {
+      title: "CUSTOMER",
+      links: [
+        { label: "Custom Service", href: "#" },
+        { label: "Shipping and Delivery", href: "#" },
+        { label: "Returns", href: "#" },
+        { label: "Size Charts", href: "#" },
+        { label: "Dog Supplement & animal", href: "#" },
+        { label: "Cat Toys", href: "#" },
+        { label: "Fruits & Vegetables", href: "#" },
+        { label: "Meats & Seafood", href: "#" },
+      ],
+    },
+    {
+      title: "Menu 2",
+      links: [
+        { label: "Lorem ipsum 1", href: "#" },
+        { label: "Lorem ipsum 2", href: "#" },
+        { label: "Lorem ipsum 3", href: "#" },
+        { label: "Lorem ipsum 4", href: "#" },
+      ]
+    },
+  ],
   customers: {
     title: "CUSTOMER",
     items: [

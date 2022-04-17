@@ -3,31 +3,31 @@ const uniqueId = "products";
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store , map } = veda.utils;
 const message = veda.plugins.createMessage();
-const PREFIX = 'doan';
+const PREFIX = 'yasmina';
 
 
-store.create("doanCompare", {
+store.create("yasminaCompare", {
   initialState: {
     visible: false,
     data: []
   },
   useStorage: true
 });
-store.create("doanWishList", {
+store.create("yasminaWishList", {
   initialState: {
     visible: false,
     data: []
   },
   useStorage: true
 });
-store.create("doanCart", {
+store.create("yasminaCart", {
   initialState: {
     visible: false,
     data: []
   },
   useStorage: true
 });
-store.create("doanCurrentProduct", {
+store.create("yasminaCurrentProduct", {
   initialState: {},
   useStorage: true
 });
@@ -45,10 +45,10 @@ class AddStore {
   }
   handleChangeStatus() {
     const { data } = this.getData();
-    const listCard = container.querySelectorAll(".product-card");
+    const listCard = container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
-      const dataEl = cartEl.querySelector(".product-card__data");
+      const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
       if(hasItem) {
         if(btnCompare.hasAttribute("data-tooltip")) {
@@ -67,11 +67,11 @@ class AddStore {
     })
   }
   handleAdd() {
-    const listCard = container.querySelectorAll(".product-card");
+    const listCard = container.querySelectorAll(".yasmina-product-card");
     this.handleChangeStatus();
     listCard.forEach(cartEl => {
       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
-      const dataEl = cartEl.querySelector(".product-card__data");
+      const dataEl = cartEl.querySelector(".yasmina-product-card__data");
 
       btnCompare.addEventListener("click", () => {
         const newItem = JSON.parse(dataEl.textContent);
@@ -158,10 +158,10 @@ class AddStoreCart {
   }
   handleAdd() {
     const {data} = this.getData();
-    const listCard = container.querySelectorAll(".product-card");
+    const listCard = container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
       const btnCart = cartEl.querySelector("."+this.elName);
-      const dataEl = cartEl.querySelector(".product-card__data");
+      const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
       btnCart.parentNode.addEventListener("click", () => {
         if(hasItem) {
@@ -244,10 +244,10 @@ class AddStoreCurrentProduct {
     return store.get(`${PREFIX}${this.storeName}`);
   }
   handleAdd() {
-    const listCard = container.querySelectorAll(".product-card");
+    const listCard = container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
       const btnCompare = cartEl.querySelector("."+this.elName);
-      const dataEl = cartEl.querySelector(".product-card__data");
+      const dataEl = cartEl.querySelector(".yasmina-product-card__data");
 
       btnCompare.addEventListener("click", () => {
         const newItem = JSON.parse(dataEl.textContent);
@@ -272,13 +272,6 @@ class AddStoreCurrentProduct {
     this.handleAdd();
   }
 }
-if(!!container) {
-  new AddStore("Compare","fa-repeat");
-  new AddStore("WishList","fa-heart");
-  new AddStoreCurrentProduct("CurrentProduct","product-card__name");
-  new AddStoreCart("Cart","product-card__add");
-}
-
 class CardColors {
   constructor(el) {
     /** @type {HTMLElement} */
@@ -349,7 +342,7 @@ class CardColors {
     const { variants, selectedColor } = this.state;
     const variant = variants.find(variant => variant.options.map(item => item.toLowerCase()).includes(selectedColor));
     const { src } = variant.image;
-    const imgEl = this.el.closest('.product-card').querySelector('.product-card__image');
+    const imgEl = this.el.closest('.yasmina-product-card').querySelector('.yasmina-product-card__image');
     imgEl.src = src;
   }
 
@@ -380,9 +373,15 @@ class CardColors {
   }
 }
 if(!!container) {
+  new AddStore("Compare","fa-repeat");
+  new AddStore("WishList","fa-heart");
+ //new AddStoreCurrentProduct("CurrentProduct","yasmina-product-card__name");
+  new AddStoreCart("Cart","yasmina-product-card__add");
   const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
   colorWrapEls.forEach(el => new CardColors(el));
 }
+
+
 
 
 

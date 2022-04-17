@@ -1,20 +1,20 @@
 $uniqueId: "hero";
 $container: "[data-id='#{$uniqueId}']";
 
-// .vdoan-banner {
+// .yasmina-banner {
 //   min-height: 626px;
 //   position: relative;
 //   margin-left: -15px;
 //   margin-right: -15px;
 // }
-// .vdoan-banner img {
+// .yasmina-banner img {
 //   position: absolute;
 //   top:0;
 //   width: 100%;
 //   height: 100%;
 //   z-index: -1;
 // }
-// .vdoan-banner__content {
+// .yasmina-banner__content {
 //   display: flex;
 //   flex-direction: column;
 //   justify-content: center;
@@ -23,31 +23,31 @@ $container: "[data-id='#{$uniqueId}']";
 //   text-align: center;
 //   z-index: 9;
 // }
-// .vdoan-banner__text {
+// .yasmina-banner__text {
 //   font-weight: 500;
 //   font-size: 20px;
 // }
-// .vdoan-banner__title {
+// .yasmina-banner__title {
 //   font-weight: 700;
 //   font-size: 50px;
 // }
-// .vdoan-banner__description {
+// .yasmina-banner__description {
 //   font-family: var(--font-secondary);
 //   margin-bottom: 30px;
 // }
-.vdoan-banner--left {
+.yasmina-banner--left {
   display: flex;
   justify-content: flex-start;
 }
-.vdoan-banner--right {
+.yasmina-banner--right {
   display: flex;
   justify-content: flex-end;
 }
-.vdoan-banner--secondary {
+.yasmina-banner--secondary {
   color: var(--color-light);
 }
 @media (min-width: 768px) {
-  .vdoan-banner__content {
+  .yasmina-banner__content {
     width: 50%;
   }
 }

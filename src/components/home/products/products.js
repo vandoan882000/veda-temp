@@ -379,9 +379,10 @@ class CardColors {
     this.handleDOM();
   }
 }
+if(!!container) {
+  const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
+  colorWrapEls.forEach(el => new CardColors(el));
+}
 
-const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
-
-colorWrapEls.forEach(el => new CardColors(el));
 
 

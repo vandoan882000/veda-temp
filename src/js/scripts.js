@@ -2,7 +2,7 @@ import "./home/products/products.js";
 import "./headers/menu/menu.js";
 import "./wishlist/wishlistcon/wishlist.js";
 import "./cart/carts/carts.js";
-import "./home/bestSeller/bestseller.js";
+import "./home/homebs/homebs.js";
 import "./pageproducts/pageproduct/pageproduct.js";
 import "./product/shopPage/shopPage.js";
 

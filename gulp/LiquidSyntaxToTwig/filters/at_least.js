@@ -23,7 +23,7 @@ Twig.extendFilter("at_least", function (value, args) {
       })
     );
   try {
-    return JSON.stringify(_value < _min ? _min : _value);
+    return _value < _min ? _min : _value;
   } catch (err) {
     var _err = err;
     throw new Error(

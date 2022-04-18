@@ -23,7 +23,7 @@ Twig.extendFilter("plus", function (value, args) {
       })
     );
   try {
-    return JSON.stringify(_number1 + _number2);
+    return _number1 + _number2;
   } catch (err) {
     var _err = err;
     throw new Error(

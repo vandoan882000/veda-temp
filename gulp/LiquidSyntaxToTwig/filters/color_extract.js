@@ -46,25 +46,25 @@ Twig.extendFilter("color_extract", function (value, args) {
   }
   try {
     if (_extractValue === "alpha") {
-      return JSON.stringify(color.alpha());
+      return color.alpha();
     }
     if (_extractValue === "red") {
-      return JSON.stringify(color.red());
+      return color.red();
     }
     if (_extractValue === "green") {
-      return JSON.stringify(color.green());
+      return color.green();
     }
     if (_extractValue === "blue") {
-      return JSON.stringify(color.blue());
+      return color.blue();
     }
     if (_extractValue === "hue") {
-      return JSON.stringify(color.hue());
+      return color.hue();
     }
     if (_extractValue === "saturation") {
-      return JSON.stringify(color.saturationl() * 100);
+      return color.saturationl() * 100;
     }
     if (_extractValue === "lightness") {
-      return JSON.stringify(color.lightness());
+      return color.lightness();
     }
     return translation_1.i18n.t("twig_error.filters.color_extract.example", {
       message: "",

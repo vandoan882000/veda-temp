@@ -2,7 +2,23 @@ type Logger = (actionName: string) => void;
 type Unsubscibe = () => void;
 type VNode = any;
 type Colors = ["aliceblue","antiquewhite","aqua","aquamarine","azure","beige","bisque","black","blanchedalmond","blue","blueviolet","brown","burlywood","cadetblue","chartreuse","chocolate","coral","cornflowerblue","cornsilk","crimson","cyan","darkblue","darkcyan","darkgoldenrod","darkgray","darkgreen","darkgrey","darkkhaki","darkmagenta","darkolivegreen","darkorange","darkorchid","darkred","darksalmon","darkseagreen","darkslateblue","darkslategray","darkslategrey","darkturquoise","darkviolet","deeppink","deepskyblue","dimgray","dimgrey","dodgerblue","firebrick","floralwhite","forestgreen","fuchsia","gainsboro","ghostwhite","gold","goldenrod","gray","green","greenyellow","grey","honeydew","hotpink","indianred","indigo","ivory","khaki","lavender","lavenderblush","lawngreen","lemonchiffon","lightblue","lightcoral","lightcyan","lightgoldenrodyellow","lightgray","lightgreen","lightgrey","lightpink","lightsalmon","lightseagreen","lightskyblue","lightslategray","lightslategrey","lightsteelblue","lightyellow","lime","limegreen","linen","magenta","maroon","mediumaquamarine","mediumblue","mediumorchid","mediumpurple","mediumseagreen","mediumslateblue","mediumspringgreen","mediumturquoise","mediumvioletred","midnightblue","mintcream","mistyrose","moccasin","navajowhite","navy","oldlace","olive","olivedrab","orange","orangered","orchid","palegoldenrod","palegreen","paleturquoise","palevioletred","papayawhip","peachpuff","peru","pink","plum","powderblue","purple","red","rosybrown","royalblue","saddlebrown","salmon","sandybrown","seagreen","seashell","sienna","silver","skyblue","slateblue","slategray","slategrey","snow","springgreen","steelblue","tan","teal","thistle","tomato","turquoise","violet","wheat","white","whitesmoke","yellow","yellowgreen"];
-declare abstract class Comp<P = {}, S = {}> {
+
+type ComponentChild = VNode | object | string | number | bigint | boolean | null | undefined;
+type ComponentChildren = ComponentChild[] | ComponentChild;
+type Key = string | number | any;
+type RefObject<T> = { current: T | null };
+type RefCallback<T> = (instance: T | null) => void;
+type Ref<T> = RefObject<T> | RefCallback<T>;
+interface Attributes {
+  key?: Key;
+  jsx?: boolean;
+}
+interface ErrorInfo {
+  componentStack?: string;
+}
+type RenderableProps<P, RefType = any> = P &
+	Readonly<Attributes & { children?: ComponentChildren; ref?: Ref<RefType> }>;
+interface Comp<P = {}, S = {}> {
 	componentWillMount?(): void;
 	componentDidMount?(): void;
 	componentWillUnmount?(): void;
@@ -24,7 +40,38 @@ declare abstract class Comp<P = {}, S = {}> {
 		previousState: Readonly<S>,
 		snapshot: any
 	): void;
-	componentDidCatch?(error: any, errorInfo: any): void;
+	componentDidCatch?(error: any, errorInfo: ErrorInfo): void;
+}
+
+declare abstract class Comp<P, S> {
+	constructor(props?: P, context?: any);
+	static displayName?: string;
+	static defaultProps?: any;
+	static contextType?: any;
+	static getDerivedStateFromProps?(
+		props: Readonly<object>,
+		state: Readonly<object>
+	): object | null;
+	static getDerivedStateFromError?(error: any): object | null;
+	state: Readonly<S>;
+	props: RenderableProps<P>;
+	context: any;
+	base?: Element | Text;
+	setState<K extends keyof S>(
+		state:
+			| ((
+					prevState: Readonly<S>,
+					props: Readonly<P>
+			  ) => Pick<S, K> | Partial<S> | null)
+			| (Pick<S, K> | Partial<S> | null),
+		callback?: () => void
+	): void;
+	forceUpdate(callback?: () => void): void;
+	abstract render(
+		props?: RenderableProps<P>,
+		state?: Readonly<S>,
+		context?: any
+	): ComponentChild;
 }
 declare abstract class PureComp<P = {}, S = {}> extends Comp<P,S> {
   isPureReactComponent: boolean;
@@ -102,6 +149,16 @@ interface MessageOptions {
   onShow?: () => void;
   onHide?: () => void;
 }
+interface NotificationOptions {
+  content: string | VNode;
+  closeButton: string | VNode;
+  duration?: number;
+  delay?: number;
+  className?: string;
+  style?: CSSStyleDeclaration,
+  onShow?: () => void;
+  onHide?: () => void;
+}
 
 declare interface Veda {
   utils: {
@@ -128,6 +185,7 @@ declare interface Veda {
       withStore(stateNames: string | string[]): (Component: any) => void;
       html(template: TemplateStringsArray, ...values: any[]): VNode;
       render(tree: VNode, parent: HTMLElement): void;
+      renderWithElement(tree: VNode, className: string): void;
       createPortal(vnode: VNode, container: Element): VNode;
       Component: typeof Comp;
       PureComponent: typeof PureComp;
@@ -135,6 +193,7 @@ declare interface Veda {
     offset(element: Element): OffsetReturn;
     VQuery: <T extends HTMLElement>(selector: string | T) => VQueryReturn<T>;
     delay(ms?: number): Promise<undefined>;
+    createRootElement<T extends HTMLElement>(className: string): T;
   }
   plugins: {
     /** Masonry
@@ -340,6 +399,36 @@ declare interface Veda {
       success(content: string | MessageOptions): void;
       warning(content: string | MessageOptions): void;
       error(content: string | MessageOptions): void;
+    };
+
+    /** Create Notification
+     * ```js
+     * const { VQuery: $$ } = veda.utils;
+     * const { createNotification } = veda.plugins;
+     * const notification = createNotification();
+     *
+     * $$(".button1").on("click", () => {
+     *   notification.push("Lorem ipsum dolor sit amet");
+     * });
+     *
+     * $$(".button2").on("click", () => {
+     *   notification.push({
+     *     placement: "top-right",
+     *     content: "Test full options",
+     *     duration: 100,
+     *     delay: 3000,
+     *     onShow() {
+     *       console.log("show");
+     *     },
+     *     onHide() {
+     *       console.log("hide");
+     *     }
+     *   });
+     * });
+     * ```
+     */
+     createNotification(): {
+      push(content: string | NotificationOptions): void;
     };
   }
 }

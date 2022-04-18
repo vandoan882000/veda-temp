@@ -25,7 +25,7 @@ Twig.extendFilter("color_lighten", function (value, args) {
       })
     );
   try {
-    return JSON.stringify((0, polished_1.lighten)(_lightenValue / 100, value));
+    return (0, polished_1.lighten)(_lightenValue / 100, value);
   } catch (err) {
     var _err = err;
     throw new Error(

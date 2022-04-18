@@ -34,7 +34,7 @@ Twig.extendFilter("where", function (value, args) {
         ? item[property] === objectPropertyValue
         : !!item[property];
     });
-    return JSON.stringify(_value);
+    return _value;
   } catch (err) {
     var _err = err;
     throw new Error(

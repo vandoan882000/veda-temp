@@ -46,11 +46,9 @@ Twig.extendFilter("color_mix", function (value, args) {
     );
   }
   try {
-    return JSON.stringify(
-      color
-        .mix((0, color_1.default)(_colorValue), _weightValue / 100)
-        .toString()
-    );
+    return color
+      .mix((0, color_1.default)(_colorValue), _weightValue / 100)
+      .toString();
   } catch (err) {
     var _err = err;
     throw new Error(

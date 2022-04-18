@@ -24,7 +24,7 @@ Twig.extendFilter("color_contrast", function (value, args) {
       })
     );
   try {
-    return JSON.stringify((0, polished_1.getContrast)(value, _color));
+    return (0, polished_1.getContrast)(value, _color);
   } catch (err) {
     var _err = err;
     throw new Error(

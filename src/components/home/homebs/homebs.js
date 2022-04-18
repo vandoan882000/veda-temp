@@ -82,42 +82,13 @@ class AddStore {
             };
           }
           // Neu trong data chua co product do thi ta se them vao
-          message.info(`Add to ${this.storeName}`);
+          message.success(`Add to ${this.storeName}`);
           return {
             ...state,
             data: [...state.data, newItem]
           };
         })('toggle');
       });
-
-      // if(hasItem) {
-
-      //   btnCompare.addEventListener("click", () => {
-      //     console.log("prev",hasItem);
-      //     hasItem = !hasItem;
-      //     store.set(""+this.storeName, (items) => {
-      //         return {
-      //           ...items,
-      //           data: [...data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)]
-      //         };
-      //     })(this.storeName+"/Add");
-      //     console.log("af",hasItem);
-      //   });
-
-      // }
-      // else {
-      //   btnCompare.addEventListener("click", () => {
-      //     console.log("prev",hasItem);
-      //     hasItem = !hasItem;
-      //     store.set(""+this.storeName, (items) => {
-      //         return {
-      //           ...items,
-      //             data: [...items.data,JSON.parse(dataEl.textContent)]
-      //         };
-      //     })(this.storeName+"/Add");
-      //     console.log("af",hasItem);
-      //   });
-      // }
 
 
     })
@@ -195,17 +166,10 @@ class AddStoreCart {
             })
             .finally(() => {
               btnCart.innerHTML = defaultHtml;
-              message.info(`Add to ${this.storeName}`);
+              message.success(`Add to ${this.storeName}`);
             })
         }
 
-        // store.set(`${PREFIX}${this.storeName}`, (items) => {
-
-        //     return {
-        //       ...items,
-        //       data: [...data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)]
-        //     };
-        // })(this.storeName+"/Add");
       });
     })
   }

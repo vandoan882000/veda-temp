@@ -23,7 +23,7 @@ Twig.extendFilter("times", function (value, args) {
       })
     );
   try {
-    return JSON.stringify(_factor1 * _factor2);
+    return _factor1 * _factor2;
   } catch (err) {
     var _err = err;
     throw new Error(

@@ -23,7 +23,7 @@ Twig.extendFilter("modulo", function (value, args) {
       })
     );
   try {
-    return JSON.stringify(_dividend % _modulo_number);
+    return _dividend % _modulo_number;
   } catch (err) {
     var _err = err;
     throw new Error(

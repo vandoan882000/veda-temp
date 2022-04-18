@@ -2,7 +2,7 @@ const uniqueId = "cartcontainer";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 
-//veda.plugins.countdown(container);
+
 const {map , store} = veda.utils;
 class CartRender {
   constructor() {
@@ -47,6 +47,7 @@ class CartRender {
   }
 }
 if(!!container) {
+  veda.plugins.countdown(container);
   new CartRender();
 }
 

@@ -25,7 +25,7 @@ Twig.extendFilter("divided_by", function (value, args) {
       })
     );
   try {
-    return JSON.stringify(_dividend / _divisor);
+    return _dividend / _divisor;
   } catch (err) {
     var _err = err;
     throw new Error(

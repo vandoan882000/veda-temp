@@ -28,10 +28,12 @@ Twig.extendFilter("map", function (value, args) {
     );
   }
   try {
-    var _value = value.filter(function (item) {
-      return !!item[property];
-    });
-    return JSON.stringify(_value);
+    var _value = value
+      .filter(function (item) {
+        return !!item[property];
+      })
+      .map((item) => item[property]);
+    return _value;
   } catch (err) {
     var _err = err;
     throw new Error(

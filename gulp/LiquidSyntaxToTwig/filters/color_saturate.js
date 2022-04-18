@@ -40,7 +40,7 @@ Twig.extendFilter("color_saturate", function (value, args) {
     );
   }
   try {
-    return JSON.stringify(color.saturate(_saturateValue / 100).toString());
+    return color.saturate(_saturateValue / 100).toString();
   } catch (err) {
     var _err = err;
     throw new Error(

@@ -59,7 +59,7 @@ Twig.extendFilter("color_modify", function (value, args) {
       );
     }
     try {
-      return JSON.stringify(color.red(_newValue).toString());
+      return color.red(_newValue).toString();
     } catch (err) {
       var _err = err;
       throw new Error(
@@ -81,7 +81,7 @@ Twig.extendFilter("color_modify", function (value, args) {
       );
     }
     try {
-      return JSON.stringify(color.green(_newValue).toString());
+      return color.green(_newValue).toString();
     } catch (err) {
       var _err = err;
       throw new Error(
@@ -100,7 +100,7 @@ Twig.extendFilter("color_modify", function (value, args) {
       );
     }
     try {
-      return JSON.stringify(color.blue(_newValue).toString());
+      return color.blue(_newValue).toString();
     } catch (err) {
       var _err = err;
       throw new Error(
@@ -119,7 +119,7 @@ Twig.extendFilter("color_modify", function (value, args) {
       );
     }
     try {
-      return JSON.stringify(color.hue(_newValue).toString());
+      return color.hue(_newValue).toString();
     } catch (err) {
       var _err = err;
       throw new Error(
@@ -142,7 +142,7 @@ Twig.extendFilter("color_modify", function (value, args) {
       );
     }
     try {
-      return JSON.stringify(color.saturationl(_newValue / 100).toString());
+      return color.saturationl(_newValue / 100).toString();
     } catch (err) {
       var _err = err;
       throw new Error(

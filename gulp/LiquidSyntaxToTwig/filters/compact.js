@@ -14,7 +14,7 @@ Twig.extendFilter("compact", function (value) {
     return item !== null;
   });
   try {
-    return JSON.stringify(_value);
+    return _value;
   } catch (err) {
     var _err = err;
     throw new Error(

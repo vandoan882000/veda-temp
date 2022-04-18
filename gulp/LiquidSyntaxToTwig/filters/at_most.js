@@ -23,7 +23,7 @@ Twig.extendFilter("at_most", function (value, args) {
       })
     );
   try {
-    return JSON.stringify(_value > _max ? _max : _value);
+    return _value > _max ? _max : _value;
   } catch (err) {
     var _err = err;
     throw new Error(

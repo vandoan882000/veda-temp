@@ -23,7 +23,7 @@ Twig.extendFilter("minus", function (value, args) {
       })
     );
   try {
-    return JSON.stringify(_subtrahend - _minus_number);
+    return _subtrahend - _minus_number;
   } catch (err) {
     var _err = err;
     throw new Error(

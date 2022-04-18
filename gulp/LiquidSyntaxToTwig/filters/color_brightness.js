@@ -17,7 +17,7 @@ Twig.extendFilter("color_brightness", function (value) {
       green = _a.green,
       blue = _a.blue;
     var brightness = (red * 299 + green * 587 + blue * 114) / 1000;
-    return JSON.stringify(brightness);
+    return brightness;
   } catch (err) {
     var _err = err;
     throw new Error(

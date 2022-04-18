@@ -3,7 +3,7 @@
 {% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
 
-<section data-id="cartcontainer" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="cartcontainer" class="" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="direct fz:15px c:color-gray4 mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
@@ -73,27 +73,27 @@
 			</div>
       <div class="col-lg-10 d:flex">
         <div class="w:33% pr:100px">
-          <h3 class="fz:15px">Add note for seller</h3>
-          <textarea name="" id="" cols="25" rows="7"></textarea>
+          <h3 class="fz:15px fw:500">Add note for seller</h3>
+          <textarea class="fz:13px fw:400" name="" id="" cols="25" rows="7"></textarea>
         </div>
         <div class="w:33%">
-          <h3 class="fz:15px">Estimate shipping rates</h3>
+          <h3 class="fz:15px fw:500">Estimate shipping rates</h3>
           <p class="fz:15px mt:10px mb:10px">Country/region</p>
-          <select name="" id="">
+          <select class="fz:15px fw:400" name="" id="">
             <option value="United States">United States</option>
           </select>
-          <p class="fz:15px mt:30px mb:10px">State</p>
-          <select name="" id="">
+          <p class="fz:15px mt:30px mb:10px fw:400">State</p>
+          <select class="fz:15px fw:400" name="" id="">
             <option value="Alabama">Alabama</option>
           </select>
-          <p class="fz:15px mt:30px mb:10px">ZIP code</p>
+          <p class="fz:15px mt:30px mb:10px fw:400">ZIP code</p>
           <input type="text">
-          <button class="vdoan-btn__primary mt:30px w:100% bgc:color-light c:color-dark bd:1px_solid_color-dark ml:0px bdrs:0px">Calulatate shipping rates</button>
+          <button class="vdoan-btn__primary mt:30px w:100% bgc:color-light c:color-dark bd:1px_solid_color-dark ml:0px bdrs:0px p:13px_0px_13px_0px fz:15px fw:500">Calulatate shipping rates</button>
         </div>
         <div class="w:33% pl:90px">
-          <h3 class="fz:15px">SUBTOTAL: <span class="fl:right fz:20px">$96.00</span></h3>
-          <p class="mt:20px">Taxes and shipping calculated at checkout</p>
-          <button class="vdoan-btn__primary mt:30px ml:0px w:100% bdrs:0px">CHECK OUT</button>
+          <h3 class="fz:15px fw:500">SUBTOTAL: <span class="fl:right fz:20px fw:500">$96.00</span></h3>
+          <p class="mt:20px fz:12px fw:400">Taxes and shipping calculated at checkout</p>
+          <button class="vdoan-btn__primary mt:30px ml:0px w:100% bdrs:0px bgc:color-dark c:color-light fz:15px fw:500 p:16px_0_16px_0 bd:1px_solid_color-dark">CHECK OUT</button>
         </div>
       </div>
     </div>

@@ -10,18 +10,18 @@
     <div class="direct fz:15px c:color-gray4">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     <div class="view-as mb:20px d:flex ai:center mt:30px fz:15px c:color-dark">
       View as:
-      <a href="#" class="bd:1px_solid p:0px_5px_0px_5px c:color-gray2! ml:10px"><i class="shop-page__view shop-page__view1 fal fa-list"></i></a>
+      <a href="#" class="bd:1px_solid p:0px_5px_0px_5px c:color-gray2 ml:10px"><i class="shop-page__view shop-page__view1 fal fa-list"></i></a>
       <a href="#" class="bd:1px_solid p:0px_5px_0px_5px c:color-dark ml:10px"><i class="shop-page__view shop-page__view2 fas fa-th c:color-dark"></i></a>
       <div class="d:flex whs:nowrap ai:center ml:400px">
         <p class="mr:10px fz:15px fw:500">Sort by</p>
-        <select class="h:40px w:190px" name="" id="">
-           <option value="a">Featured</option>
-           <option value="a">Best selling</option>
-           <option value="a">Alphabetically, A-Z</option>
-           <option value="a">Alphabetically, Z-A</option>
-           <option value="a">Price, high to low</option>
-           <option value="a">Date, old to new</option>
-        </select>
+        <select class="w:190px h:43px">
+          <option value="1">Featured</option>
+          <option value="2">Best selling</option>
+          <option value="3">Alphabetically, A-Z</option>
+          <option value="4">Alphabetically, Z-A</option>
+          <option value="5">Price, high to low</option>
+          <option value="6">Date, old to new</option>
+       </select>
       </div>
     </div>
     <div class="row mt:20px">
@@ -103,7 +103,7 @@
                   <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Search</h2>
                   <div class="product-box__box-search d:flex ai:center pl:10px bd:1px_solid_color-gray3">
                     <i class="fal fa-search cur:pointer"></i>
-                    <input class="h:40px w:90% bd:none! o:none" type="text" placeholder="Tìm kiếm">
+                    <input class="h:40px w:90% bd:none! o:none c:color-gray4 fz:15px c:color-gray4||placeholder fz:15px||placeholder" type="text" placeholder="Tìm kiếm">
                   </div>
                 </div>
               {% endif %}

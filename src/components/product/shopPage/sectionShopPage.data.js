@@ -149,7 +149,7 @@ const data = {
           name: "In stock"
         },
         {
-          name: "Out of stosck"
+          name: "Out of stock"
         }
       ]
     },

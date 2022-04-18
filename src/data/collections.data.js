@@ -3531,15 +3531,8 @@ const data = {
             name: "Size",
             position: 1,
             values: [
-              "24 x 32",
-              "25 x 32",
-              "26 x 32",
-              "27 x 32",
-              "28 x 32",
-              "29 x 32",
-              "30 x 32",
-              "31 x 32",
-              "32 x 32",
+              "S",
+              "M"
             ],
             selected_value: "24 x 32",
           },

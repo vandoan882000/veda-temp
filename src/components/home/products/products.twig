@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_9933703d-08c1-4d1a-b35e-59f89f120f68" %}
+{% set uniqueId = "id_6f7368e3-9291-4c81-966f-992b5e1787dd" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -68,10 +68,8 @@
         </div>
       {% endfor %}
 
-      <div class="col-md-12">
-        <div class="row row-cols-lg-{{ content.column.lg }} row-cols-md-3 row-cols-sm-2 row-cols-1 d:flex ai:center jc:center" component="content">
-          <button class="yasmina-btn__primary bgc:color-dark bd:none! c:color-light p:20px_86px_20px_86px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px">LOAD MORE</button>
-        </div>
+      <div class="col-md-12 ta:center f:flex ai:center">
+        <button class="yasmina-btn__primary bgc:color-dark bd:none! c:color-light p:20px_86px_20px_86px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px w:272px whs:nowrap">LOAD MORE</button>
       </div>
     </div>
   </div>

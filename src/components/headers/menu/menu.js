@@ -111,15 +111,37 @@ class ComparePopop {
       })
     }
   }
+  getWidthMax() {
+    const { data } = this.getData();
+    if (data.length >= 4) {
+      return `${(1068 * 25 / 100) * data.length}px`;
+    }
+    if (data.length === 1) {
+      return `${(1068 * 50 / 100) * data.length}px`;
+    }
+    return `${(1068 *(100 / data.length) /100) * data.length}px`;
+  }
   getWidth() {
     const { data } = this.getData();
     if (data.length >= 4) {
-      return '25%';
+      return `${1068 * 25 / 100}px`;
     }
     if (data.length === 1) {
-      return '50%';
+      return `${1068 * 50 / 100}px`;
     }
-    return `${100 / data.length}%`;
+    return `${1068 * (100 / data.length) /100}px`;
+  }
+  getHeight() {
+    const { data } = this.getData();
+    if (data.length >= 4) {
+      return `380px`;
+    }
+    if (data.length == 3) {
+      return `442px`;
+    }
+    if (data.length <= 2) {
+      return `575px`;
+    }
   }
   render() {
     const { visible , data } = this.getData();
@@ -143,7 +165,7 @@ class ComparePopop {
     return /*html*/`
       <div class="compare-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:1200px h:800px bgc:#fff mt:120px ov:auto pos:relative">
+        <div class="w:1218px h:800px bgc:#fff mt:120px ov:auto pos:relative">
           <div class="close t:0 r:0 cur:pointer w:20px h:20px bgc:red pos:absolute ta:center">X</div>
           <div class="d:flex fld:column ai:center jc:center">
             <h2 class="fz:35px mt:85px">Compare</h2>
@@ -151,112 +173,72 @@ class ComparePopop {
             <div class="fz:25px lh:32px mt:7px mb:80px">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
             <div class="w:100% d:flex">
               <div class="w:11% z:99">
-                <table class="compare-container__table bd:1px_solid_color-gray3">
-                <tbody>
-                  ${this.compareData.product_enable?`<tr>
-                  <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px ${data.length===1?"h:627px":"h:423px"}">${this.compareData.product_title}
-
-                  </td>
-                  </tr>`:""}
-                  ${this.compareData.rating_enable?`<tr>
-                  <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">${this.compareData.rating_title}</td>
-                  </tr>`:""}
-                  <tr>
-                    <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Description</td>
-                  </tr>
-                  <tr>
-                    <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Availability</td>
-                  </tr>
-                  <tr>
-                    <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Product Type</td>
-                  </tr>
-                  <tr>
-                    <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">SKU</td>
-                  </tr>
-                  <tr>
-                    <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Size</td>
-                  </tr>
-                  <tr>
-                    <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Color</td>
-                  </tr>
-                  <tr>
-                    <td class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Option</td>
-                  </tr>
-                </tbody>
-              </table>
+                ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px" style="height: ${this.getHeight()}">
+                 ${this.compareData.product_title}
+                </div>`:''}
+                ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">
+                  ${this.compareData.rating_title}
+                </div>`:''}
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Description</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Availability</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Product Type</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">SKU</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Size</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Color</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Option</div>
               </div>
-              <div class="w:89% ov:auto ml:-6px">
-                <table class="compare-container__table bd:1px_solid_color-gray3 w:auto">
-                <tbody>
-                  ${this.compareData.product_enable?`<tr>
-                    ${map(data, item => /*html*/`<td class="bd:1px_solid_color-gray3 miw:270px padding:35px_10px_35px_10px ${data.length===1?"h:627px":"h:423px"}" style="width: ${this.getWidth()}">
-                      <div class="product-card d:flex fld:column ai:center ta:center">
-                        <div class="product-card__img w:100% pos:relative ov:hidden">
-                          <div class="pet-product-card__image">
-                            <a href="#" class="veda-image-cover d:block bd:none!" css="--aspect-ratio: 3/4">
-                              <img class="product-card__image bd:none!" src="${ item.featured_image.src}" alt="">
-                            </a>
-                          </div>
-                          <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                            <div data-id=${item.id} class="product-card__icon-bg cur:pointer" data-tooltip="Remove Compare" data-tooltip-position="left">
-                              <i class="remove-compare fas fa-times"></i>
-                            </div>
+              <div class="w:89% ov:auto">
+                <div class="maw:3000px d:flex w:auto flw:wrap" style="width:${this.getWidthMax()}">
+                  ${map(data,item => `
+                  <div class="d:flex fld:column" style="width: ${this.getWidth()}">
+                    ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px w:100%" style="min-height: ${this.getHeight()}">
+                    <div class="yasmina-product-card d:flex fld:column ai:center ta:center">
+                      <div class="product-card__img w:100% pos:relative ov:hidden">
+                        <div class="pet-product-card__image">
+                          <a href="#" class="veda-image-cover d:block bd:none!" css="--aspect-ratio: 3/4">
+                            <img class="product-card__image bd:none!" src="${ item.featured_image.src}" alt="">
+                          </a>
+                        </div>
+                        <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                          <div data-id=${item.id} class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Remove Compare" data-tooltip-position="left">
+                            <i class="remove-compare fal fa-times"></i>
                           </div>
                         </div>
-                        <div class="product-card__content d:flex fld:column jc:center ai:center">
-                          <div class="product-card__brand c:color-gray5 mt:11px">${item.vendor}</div>
-                            <a class="product-card__name fz:16px mt:15px c:color-dark bd:none!" href="#">${item.title}</a>
-                            <a class="product-card__price mt:14px bd:none!" href="#">
-                              <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none bd:none!">$${item.price }</ins>
-                            </a>
-                          </div>
-                          <div class="product-card__add pos:static trf:translateY(0) mt:25px w:250px">
-                            <a class="pos:absolute td:none w:100% h:100% va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light" href="#">ADD TO CART</a>
-                          </div>
+                      </div>
+                      <div class="product-card__content d:flex fld:column jc:center ai:center">
+                        <div class="product-card__brand c:color-gray5 mt:11px">${item.vendor}</div>
+                          <a class="product-card__name fz:16px mt:15px c:color-dark bd:none!" href="#">${item.title}</a>
+                          <a class="product-card__price mt:14px bd:none!" href="#">
+                            <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none bd:none!">$${item.price }</ins>
+                          </a>
                         </div>
-                    </td>`)}
-                  </tr>
-                  `:""}
+                      </div>
+                  </div>`:''}
+                  ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center">
+                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
+                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
+                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
+                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
+                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
+                  </div>`:''}
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">Description</div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" >Availability</div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">${item.type}</div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">SKU</div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">
 
-                  ${this.compareData.rating_enable?`<tr>
-                    ${map(data, item => `<td class="bd:1px_solid_color-gray3 miw:270px va:top padding:35px_10px_35px_10px ta:center h:98px">
-                        <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                        <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                        <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                        <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                        <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                    </td>`)}
-                  </tr>`
-                  :""}
-                  <tr>
-                    ${map(data, item => `<td class="bd:1px_solid_color-gray3 miw:270px va:top padding:35px_10px_35px_10px ta:center h:98px">a</td>`)}
-                  </tr>
-                  <tr>
-                    ${map(data, item => `<td class="bd:1px_solid_color-gray3 miw:270px va:top padding:35px_10px_35px_10px h:98px">${item.type}</td>`)}
-                  </tr>
-                  <tr>
-                    ${map(data, item => `<td class="bd:1px_solid_color-gray3 miw:270px va:top padding:35px_10px_35px_10px h:98px">${item.handle}</td>`)}
-                  </tr>
-                  <tr>
-                    ${map(data, item => `<td class="bd:1px_solid_color-gray3 miw:270px va:top padding:35px_10px_35px_10px h:98px">${item.handle}</td>`)}
-                  </tr>
-                  <tr>
-                    ${map(data, item => `<td class="bd:1px_solid_color-gray3 miw:270px va:top padding:35px_10px_35px_10px h:98px">${item.handle}</td>`)}
-                  </tr>
-                  <tr>
-                    ${map(data, item => `<td class="bd:1px_solid_color-gray3 miw:270px va:top padding:35px_10px_35px_10px h:98px">${item.handle}</td>`)}
-                  </tr>
-                  <tr>
-                    ${map(data, item => `<td class="bd:1px_solid_color-gray3 miw:270px va:top padding:35px_10px_35px_10px h:98px">${item.handle}</td>`)}
-                  </tr>
-                </tbody>
-              </table>
+                  </div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">
+
+                  </div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">Option</div>
+                  </div>
+                `)}
+                </div>
+
               </div>
             </div>
-
-
           </div>
-
         </div>
       </div>
     `
@@ -290,7 +272,7 @@ class CartPopop {
   }
 
   getData() {
-    return store.get(PREFIX+this.storeName);
+    return store.get(PREFIX + this.storeName);
   }
 
   handleTogglePopup() {
@@ -311,7 +293,7 @@ class CartPopop {
   }
   handleDOM() {
     const { visible , data } = this.getData();
-    const closeEl = document.querySelectorAll('.close');
+    const closeEl = document.querySelectorAll('.close-cart');
     if (closeEl) {
       closeEl.forEach(elClose => {
         elClose.addEventListener('click', this.handleTogglePopup.bind(this));
@@ -345,9 +327,9 @@ class CartPopop {
     if(data.length === 0) {
       return /*html */`
       <div class="d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
-      <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+      <div class="close-cart pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
       <div class="menu-cart__container w:350px h:800px bgc:#fff ov:auto pos:absolute t:0 r:0 trf:translateX(100%) trs:all_0.3s">
-        <div class="pos:absolute t:0 r:0">X</div>
+      <div class="close-cart pos:absolute t:5px r:10px w:25px h:25px fz:25px cur:pointer"><i class="far fa-times"></i></div>
         <div class="d:flex fld:column ai:center jc:center">
           <h2 class="fz:35px mt:85px">Cart Empty</h2>
         </div>
@@ -358,9 +340,9 @@ class CartPopop {
 
     return /*html*/`
       <div class="d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
-        <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+        <div class="close-cart pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
         <div class="menu-cart__container w:350px h:100% bgc:#fff ov:auto pos:absolute t:0 r:0 trf:translateX(100%) trs:all_0.3s pb:20px">
-          <div class="close pos:absolute t:5px r:10px w:25px h:25px fz:25px cur:pointer"><i class="far fa-times"></i></div>
+          <div class="close-cart pos:absolute t:5px r:10px w:25px h:25px fz:25px cur:pointer"><i class="far fa-times"></i></div>
           <div><h4 class="fz:20px ml:15px mt:10px">SHOPPING CART</h4></div>
           <div class="d:flex fld:column jc:flex-start h:90%">
             <div class="d:flex fld:column jc:flex-start h:80% ovx:auto">
@@ -392,7 +374,7 @@ class CartPopop {
               <input class="ml:10px" type="checkbox"/> I agree with the terms and conditions
             </div>
             <div class="d:flex jc:center mt:10px h:40px">
-              <a href="mycart.html" class="close ta:center w:90% bd:1px_solid_color-gray4 bdrs:20px bgc:#43aeee c:color-light lh:40px">View cart</a>
+              <a href="mycart.html" class="close-cart ta:center w:90% bd:1px_solid_color-gray4 bdrs:20px bgc:#43aeee c:color-light lh:40px">View cart</a>
             </div>
 
 

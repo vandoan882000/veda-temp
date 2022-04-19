@@ -569,8 +569,3 @@ if(!!container) {
   const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
   colorWrapEls.forEach(el => new CardColors(el));
 }
-
-
-
-
-

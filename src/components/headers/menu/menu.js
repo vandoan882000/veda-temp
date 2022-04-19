@@ -165,8 +165,8 @@ class ComparePopop {
     return /*html*/`
       <div class="compare-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+        <div class="close t:10% r:10% cur:pointer w:30px h:30px bgc:red pos:absolute ta:center"><i class="far fa-times c:color-gray9 fz:25px lh:30px"></i></div>
         <div class="w:1218px h:800px bgc:#fff mt:120px ov:auto pos:relative">
-          <div class="close t:0 r:0 cur:pointer w:20px h:20px bgc:red pos:absolute ta:center"><i class="far fa-times"></i></div>
           <div class="d:flex fld:column ai:center jc:center">
             <h2 class="fz:35px mt:85px">Compare</h2>
             <div class="acbxyz"></div>

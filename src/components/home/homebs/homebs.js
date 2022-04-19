@@ -293,6 +293,7 @@ class CardColors {
 if(!!container) {
   new AddStore("Compare","fa-repeat");
   new AddStore("WishList","fa-heart");
+  //new QuickViewPopop("QuickView","fa-eye");
   new AddStoreCart("Cart","yasmina-product-card__add");
   const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
   colorWrapEls.forEach(el => new CardColors(el));

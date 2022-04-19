@@ -308,11 +308,14 @@ class QuickViewPopop {
     })
   }
   handleDOM() {
-    // const { visible , data } = this.getData();
+    const { visible , data } = this.getData();
     const closeEl = document.querySelector('.close-quickview');
 
     if (closeEl) {
       closeEl.addEventListener('click', this.handleTogglePopup.bind(this));
+    }
+    if(visible) {
+      new QuickViewCardColors("yasmina-quickview-colors");
     }
     // if (visible) {
     //   const removeCompare = document.querySelectorAll('.remove-compare');
@@ -327,20 +330,27 @@ class QuickViewPopop {
     if (!visible) {
       return ''
     }
+
     return /*html */`
       <div class="compare-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close-quickview pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
         <div class="w:930px h:590px bgc:#fff mt:120px ov:auto">
           <div class="d:flex ai:center jc:center w:100% h:100%">
             <div class="veda-image-cover w:400px h:100%" css="--aspect-ratio: 3/4">
-              <img class="yasmina-product-card__image w:100%" src="${ data.featured_image.src}" alt="${ data.title }">
+              <img class="yasmina-quickview-image w:100%" src="${ data.featured_image.src}" alt="${ data.title }">
             </div>
             <div class="w:530px h:100% pl:30px">
-              <div class="fw:500 fz:30px c:color-gray9">${data.title}</div>
-              <div>${data.price}</div>
-              <div>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti et...</div>
-              <div>View details</div>
-              <div>Color: Yellow</div>
+              <div class="fw:500 fz:30px c:color-gray9 mt:26px">${data.title}</div>
+              <div class="fw:400 fz:25px c:color-gray9 mt:5px">$${data.price}</div>
+              <div class="fw:400 fz:14px ff:font-secondary c:color-gray4 mt:17px">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti et...</div>
+              <div class="mt:18px td:underline cur:pointer"><a href="#" class="fw:400 fz:15px c:color-gray9!">View details</a></div>
+              <div class="fw:500 fz:15px mt:23px">Color: Yellow</div>
+              <div class="yasmina-quickview-colors d:flex"></div>
+              <div class="fw:500 fz:15px mt:12px">Quantity</div>
+              <div class="d:flex mt:9px">
+                <input class="w:84px! h:50px! fz:15px fw:300 c:color-gray9 bdrs:0px! ta:center" type="number" value="1" />
+                <button class="yasmina-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:17px_70px_17px_70px cur:pointer m:0px_5px_0px_10px fw:500 bdrs:0px! fz:15px lts:0.15px w:272px h:50px whs:nowrap">ADD TO CART</button>
+              </div>
             </div>
           </div>
         </div>
@@ -348,6 +358,98 @@ class QuickViewPopop {
       `
 
 
+  }
+
+  init() {
+    this.el.innerHTML = this.render();
+    this.handleDOM();
+  }
+}
+class QuickViewCardColors {
+  constructor(el) {
+    /** @type {HTMLElement} */
+    this.el = document.querySelector(`.${el}`);
+    this.data = this.getData().data;
+    /** @type {HTMLElement | null} */
+    this.state = {
+      colors: [],
+      selectedColor: '',
+      variants: []
+    }
+    this.mounted();
+    this.init();
+  }
+
+  static map(arr, callback) {
+    return arr.map(callback).join('')
+  }
+  getData() {
+    return store.get(PREFIX+"QuickView");
+  }
+  setState(state) {
+    if (typeof state === 'function') {
+      this.state = { ...this.state, ...state(this.state) }
+    } else {
+      this.state = { ...this.state, ...state }
+    }
+  }
+
+  mounted() {
+    console.log(this.data);
+    const newData = this.data.options_with_values.find(item => /Colou?r/g.test(item.name)) || {};
+    const variants = this.data.variants;
+    this.setState(prevState => ({
+      colors: newData.values || prevState.colors,
+      selectedColor: newData.selected_value || prevState.selectedColor,
+      variants: variants || prevState.variants
+    }));
+  }
+
+
+  checkColor(color) {
+    return veda.utils.getColorNames().includes(color.toLowerCase());
+  }
+
+  render() {
+    const { colors, selectedColor } = this.state;
+    return CardColors.map(colors, color => {
+      if (!this.checkColor(color)) {
+        return ``;
+      }
+      const active = color.toLowerCase() === selectedColor.toLowerCase();
+      return `
+        <div class="yasmina-product-card__colors-item w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box ${active ? 'bd:1px_solid_color-dark' : 'bd:1px_solid_color-gray2'}" style="background-color: ${color.toLowerCase()}"></div>
+      `
+    })
+  }
+
+  updateImage() {
+    const { variants, selectedColor } = this.state;
+    const variant = variants.find(variant => variant.options.map(item => item.toLowerCase()).includes(selectedColor));
+    const { src } = variant.image;
+    const imgEl = document.querySelector(".yasmina-quickview-image");
+    imgEl.src = src;
+  }
+
+  handleClick(event) {
+    const currentEl = event.currentTarget;
+    const colorEls = this.el.querySelectorAll('.yasmina-product-card__colors-item');
+    this.setState({
+      selectedColor: currentEl.style.backgroundColor
+    });
+    this.update();
+    this.updateImage();
+  }
+
+  handleDOM() {
+    const colorEls = this.el.querySelectorAll('.yasmina-product-card__colors-item');
+    colorEls.forEach(colorEl => {
+      colorEl.addEventListener('click', this.handleClick.bind(this));
+    })
+  }
+
+  update() {
+    this.init();
   }
 
   init() {

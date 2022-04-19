@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_04198f01-8acb-49e3-8c98-392503439bbd" %}
+{% set uniqueId = "id_ed0ad2e7-87ef-4fb2-a64d-8eb69c4b5929" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -11,7 +11,7 @@
     <div class="row mt:0px">
       {% for item in content %}
         <div class="col-xs-12 col-sm-6 col-md-16 col-lg-3 mt:0px">
-          <div class="yasmina-gift d:flex h:84px jc:center ai:center fw:500">
+          <div class="yasmina-gift d:flex h:84px jc:center ai:center fw:500" component="gift">
             <a class="cur:pointer w:100% c:color-dark fz:17px fw:500" href="#"><i class="{{item.icon}} pr:15px fz:23px fw:400"></i><span>{{item.name}}</span></a>
           </div>
         </div>

@@ -31,6 +31,13 @@ store.create("yasminaCurrentProduct", {
   initialState: {},
   useStorage: true
 });
+store.create(PREFIX+"QuickView", {
+  initialState: {
+    visible: false,
+    data: {}
+  },
+  useStorage: true
+});
 class AddStore {
   constructor(storeName,elName) {
     this.storeName = storeName;
@@ -72,7 +79,6 @@ class AddStore {
     listCard.forEach(cartEl => {
       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
-
       btnCompare.addEventListener("click", () => {
         const newItem = JSON.parse(dataEl.textContent);
         const { id: newId } = newItem;
@@ -235,6 +241,120 @@ class AddStoreCurrentProduct {
     this.handleAdd();
   }
 }
+class QuickViewPopop {
+  constructor(storeName, classEl) {
+    this.storeName = storeName;
+    this.classEl = classEl;
+    this.el = this.createComparePortal();
+    this.mounted();
+    this.init();
+    this.handleAdd();
+    store.subscribe(PREFIX+this.storeName, this.init.bind(this));
+  }
+  mounted() {
+    this.compareBtnEl = container.querySelectorAll("."+this.classEl);
+    this.compareBtnEl.forEach(btnEl => {
+      btnEl.parentNode.addEventListener("click", () => {
+        this.handleTogglePopup();
+      });
+    })
+
+  }
+
+  createComparePortal() {
+    const rootEl = document.querySelector('#root');
+    const el = document.createElement('div');
+    rootEl.appendChild(el);
+    return el;
+  }
+
+  getData() {
+    return store.get(PREFIX+this.storeName);
+  }
+
+  handleTogglePopup() {
+    store.set(PREFIX+ this.storeName,items => {
+      return {
+        ...items,
+        visible : !items.visible
+      }
+    });
+  }
+  // handleRemoveCompare(event) {
+  //   store.set(PREFIX + this.storeName,compare => {
+  //     return {
+  //       ...compare,
+  //       data: compare.data.filter(item => item.id !== event.currentTarget.getAttribute("data-id"))
+  //     }
+  //   })(this.storeName + "/remove");
+  // }
+  handleAdd() {
+    const listCard = container.querySelectorAll(".yasmina-product-card");
+    listCard.forEach(cartEl => {
+      const btnCompare = cartEl.querySelector("."+this.classEl).parentNode;
+      const dataEl = cartEl.querySelector(".yasmina-product-card__data");
+      btnCompare.addEventListener("click", () => {
+        const newItem = JSON.parse(dataEl.textContent);
+        const { id: newId } = newItem;
+
+        store.set(`${PREFIX}${this.storeName}`, (state) => {
+          return {
+            ...state,
+            data: {...newItem}
+          };
+        })('toggle');
+      });
+
+    })
+  }
+  handleDOM() {
+    // const { visible , data } = this.getData();
+    const closeEl = document.querySelector('.close-quickview');
+
+    if (closeEl) {
+      closeEl.addEventListener('click', this.handleTogglePopup.bind(this));
+    }
+    // if (visible) {
+    //   const removeCompare = document.querySelectorAll('.remove-compare');
+    //   removeCompare.forEach(removeEl => {
+    //     removeEl.parentNode.addEventListener("click", this.handleRemoveCompare.bind(this));
+    //   })
+    // }
+  }
+
+  render() {
+    const { visible , data } = this.getData();
+    if (!visible) {
+      return ''
+    }
+    return /*html */`
+      <div class="compare-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
+        <div class="close-quickview pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+        <div class="w:930px h:590px bgc:#fff mt:120px ov:auto">
+          <div class="d:flex ai:center jc:center w:100% h:100%">
+            <div class="veda-image-cover w:400px h:100%" css="--aspect-ratio: 3/4">
+              <img class="yasmina-product-card__image w:100%" src="${ data.featured_image.src}" alt="${ data.title }">
+            </div>
+            <div class="w:530px h:100% pl:30px">
+              <div class="fw:500 fz:30px c:color-gray9">${data.title}</div>
+              <div>${data.price}</div>
+              <div>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti et...</div>
+              <div>View details</div>
+              <div>Color: Yellow</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      `
+
+
+  }
+
+  init() {
+    this.el.innerHTML = this.render();
+    this.handleDOM();
+  }
+}
 class CardColors {
   constructor(el) {
     /** @type {HTMLElement} */
@@ -340,6 +460,7 @@ if(!!container) {
   new AddStore("WishList","fa-heart");
  //new AddStoreCurrentProduct("CurrentProduct","yasmina-product-card__name");
   new AddStoreCart("Cart","yasmina-product-card__add");
+  new QuickViewPopop("QuickView","fa-eye");
   const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
   colorWrapEls.forEach(el => new CardColors(el));
 }

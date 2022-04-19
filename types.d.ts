@@ -113,12 +113,15 @@ interface VQueryReturn<T extends HTMLElement> {
   next(): Element;
   prev(): Element;
   parent(): ParentNode;
-  children(): Element;
-  children(index: number): HTMLCollection;
+  children(): VQueryReturn<T>;
+  children(index: number): VQueryReturn<T>;
   childNodes(): NodeListOf<ChildNode>;
   before(...nodes: (string | Node)[]): VQueryReturn<T>;
   after(...nodes: (string | Node)[]): VQueryReturn<T>;
   closest(selector: string): VQueryReturn<T>;
+  find(selector: string): VQueryReturn<T>;
+  each(callback: (el: VQueryReturn<T>, index: number, els: HTMLElement[]) => void): VQueryReturn<T>;
+  contains(selector: string): boolean;
 }
 
 interface MobileMenuOptions {
@@ -150,6 +153,7 @@ interface MessageOptions {
   onHide?: () => void;
 }
 interface NotificationOptions {
+  placement: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   content: string | VNode;
   closeButton: string | VNode;
   duration?: number;
@@ -159,6 +163,7 @@ interface NotificationOptions {
   onShow?: () => void;
   onHide?: () => void;
 }
+type SelectDestroy = () => void;
 
 declare interface Veda {
   utils: {
@@ -191,7 +196,7 @@ declare interface Veda {
       PureComponent: typeof PureComp;
     },
     offset(element: Element): OffsetReturn;
-    VQuery: <T extends HTMLElement>(selector: string | T) => VQueryReturn<T>;
+    VQuery: <T extends HTMLElement>(selector: string | T, context: T | VQueryReturn<T>) => VQueryReturn<T>;
     delay(ms?: number): Promise<undefined>;
     createRootElement<T extends HTMLElement>(className: string): T;
   }
@@ -366,7 +371,7 @@ declare interface Veda {
      * window.addEventListener("resize", checkResponsive);
      * ```
      */
-     mobileMenu(container: HTMLElement, options: MobileMenuOptions): MobileMenuReturn;
+    mobileMenu(container: HTMLElement, options: MobileMenuOptions): MobileMenuReturn;
 
     /** Create Message
      * ```js
@@ -394,7 +399,7 @@ declare interface Veda {
      * });
      * ```
      */
-     createMessage(): {
+    createMessage(): {
       info(content: string | MessageOptions): void;
       success(content: string | MessageOptions): void;
       warning(content: string | MessageOptions): void;
@@ -427,9 +432,32 @@ declare interface Veda {
      * });
      * ```
      */
-     createNotification(): {
+    createNotification(): {
       push(content: string | NotificationOptions): void;
     };
+
+
+    /** Select
+     * ```html
+     * // Liquid Example
+     * <div class="veda-select">
+     *   <div class="veda-select__view">
+     *     <div class="veda-select__label"></div>
+     *   </div>
+    *    <div class="veda-select__options">
+     *     <div class="veda-select__option" value="html" selected>Html</div>
+     *     <div class="veda-select__option" value="photoshop">Photoshop</div>
+     *   </div>
+     * </div>
+     * ```
+     * ```js
+     * // Javascript Example
+     * veda.plugins.select(container);
+     * // Or
+     * const destroy = veda.plugins.select(container);
+     * ```
+     */
+    select(container: HTMLElement, options: { onChange: (value: string) => void }): SelectDestroy;
   }
 }
 

@@ -56,9 +56,9 @@
                 <td class="pt:30px pb:30px"><p class="card-cart__price c:color-dark">${{item.price}}</p></td>
                 <td class="pt:30px pb:30px">
                   <div class="card-cart__quantity d:flex w:fit-content bd:1px_solid_color-gray4">
-                    <button class="card-cart__sub c:color-dark w:30px h:40px bd:none o:none bgc:transparent cur:pointer">-</button>
+                    <button class="card-cart__sub c:color-dark w:30px h:40px bd:none o:none bgc:transparent cur:pointer bgc:transparent!|h c:color-dark!|h">-</button>
                     <input type="text" class="card-cart__value w:60px h:40px bd:none o:none ta:center" value="1"/>
-                    <button class="card-cart__add c:color-dark w:30px h:40px bd:none o:none bgc:transparent cur:pointer">+</button>
+                    <button class="card-cart__add c:color-dark w:30px h:40px bd:none o:none bgc:transparent bgc:transparent!|h cur:pointer c:color-dark!|h">+</button>
                   </div>
                 </td>
                 <td class="pt:30px pb:30px">
@@ -74,26 +74,40 @@
       <div class="col-lg-10 d:flex">
         <div class="w:33% pr:100px">
           <h3 class="fz:15px fw:500">Add note for seller</h3>
-          <textarea class="fz:13px fw:400" name="" id="" cols="25" rows="7"></textarea>
+          <textarea class="fz:13px fw:400 c:color-gray3" name="" id="" cols="25" rows="7" placeholder="Special instrutions for seller"></textarea>
         </div>
         <div class="w:33%">
           <h3 class="fz:15px fw:500">Estimate shipping rates</h3>
-          <p class="fz:15px mt:10px mb:10px">Country/region</p>
-          <select class="fz:15px fw:400" name="" id="">
-            <option value="United States">United States</option>
-          </select>
+          <p class="fz:15px mt:10px mb:10px fw:400">Country/region</p>
+          <div class="veda-select">
+            <div class="veda-select__view w:282px h:43px bd:1px_solid_color-gray3 pl:15px cur:pointer d:flex ai:center">
+              <div class="veda-select__label w:242px cur:pointer d:flex ai:center fz:15px fw:400 c:color-dark"></div>
+              <i class="fal fa-angle-down"></i>
+            </div>
+            <div class="veda-select__options select-custom pos:absolute t:50px w:282px z:100 bgc:color-light bd:1px_solid_color-gray3">
+              <div class="veda-select__option select-custom__item w:280px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="United States" selected>United States</div>
+              <div class="veda-select__option select-custom__item w:280px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="best selling">Best selling</div>
+            </div>
+          </div>
           <p class="fz:15px mt:30px mb:10px fw:400">State</p>
-          <select class="fz:15px fw:400" name="" id="">
-            <option value="Alabama">Alabama</option>
-          </select>
+          <div class="veda-select">
+            <div class="veda-select__view w:282px h:43px bd:1px_solid_color-gray3 pl:15px cur:pointer d:flex ai:center">
+              <div class="veda-select__label w:242px cur:pointer d:flex ai:center fz:15px fw:400 c:color-dark"></div>
+              <i class="fal fa-angle-down"></i>
+            </div>
+            <div class="veda-select__options select-custom pos:absolute t:50px w:282px z:100 bgc:color-light bd:1px_solid_color-gray3">
+            <div class="veda-select__option select-custom__item w:280px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="Alabama" selected>Alabama</div>
+            <div class="veda-select__option select-custom__item w:280px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="best selling">Best selling</div>
+          </div>
+          </div>
           <p class="fz:15px mt:30px mb:10px fw:400">ZIP code</p>
-          <input type="text">
-          <button class="vdoan-btn__primary mt:30px w:100% bgc:color-light c:color-dark bd:1px_solid_color-dark ml:0px bdrs:0px p:13px_0px_13px_0px fz:15px fw:500">Calulatate shipping rates</button>
+          <input class="w:282px! h:43px bdrs:0px! " type="text">
+          <button class="vdoan-btn__primary mt:30px w:282px bgc:color-light c:color-dark bd:1px_solid_color-dark ml:0px bdrs:0px p:13px_0px_13px_0px fz:15px fw:500 bgc:color-light!|h c:color-dark!|h bd:1px_solid_color-dark!|h">Calulatate shipping rates</button>
         </div>
         <div class="w:33% pl:90px">
           <h3 class="fz:15px fw:500">SUBTOTAL: <span class="fl:right fz:20px fw:500">$96.00</span></h3>
           <p class="mt:20px fz:12px fw:400">Taxes and shipping calculated at checkout</p>
-          <button class="vdoan-btn__primary mt:30px ml:0px w:100% bdrs:0px bgc:color-dark c:color-light fz:15px fw:500 p:16px_0_16px_0 bd:1px_solid_color-dark">CHECK OUT</button>
+          <button class="vdoan-btn__primary mt:30px ml:0px w:100% bdrs:0px bgc:color-dark c:color-light fz:15px fw:500 p:16px_0_16px_0 bd:1px_solid_color-dark bgc:color-dark!|h bd:1px_solid_color-dark!|h">CHECK OUT</button>
         </div>
       </div>
     </div>

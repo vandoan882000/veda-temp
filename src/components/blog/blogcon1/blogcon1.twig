@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_08ed6221-916d-4391-a895-5c0881691e93" %}
+{% set uniqueId = "id_98301273-e1c2-441f-be73-dfc61648e21c" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -17,13 +17,13 @@
           <div class="blog pr:30px pb:55px fz:15px">
             <img src={{item.image.src | img_url('769x')}} alt="Blog Img">
             <div class="blog__infor mt:20px">
-              <p class="d:inline-block ml:5px mr:5px c:color-dark"><i class="far fa-clock d:inline-block ml:5px mr:5px"></i>{{item.image.updated_at}}</p>
-              <p class="d:inline-block ml:5px mr:5px c:color-dark"><i class="fas fa-archive d:inline-block ml:5px mr:5px"></i>Tips & Tricks</p>
-              <p class="d:inline-block ml:5px mr:5px c:color-dark"><i class="fab fa-pied-piper-square d:inline-block ml:5px mr:5px"></i>Fashion, store, shopify</p>
+              <a href="#" class="d:inline-block mr:5px c:color-dark"><i class="fal fa-alarm-clock d:inline-block mr:5px cur:pointer"></i>{{item.image.updated_at}}</a>
+              <a href="#" class="d:inline-block ml:5px mr:5px c:color-dark"><i class="fal fa-archive d:inline-block ml:5px mr:5px cur:pointer"></i>Tips & Tricks</a>
+              <a href="#" class="d:inline-block ml:5px mr:5px c:color-dark"><i class="fal fa-gingerbread-man d:inline-block ml:5px mr:5px cur:pointer"></i>Fashion, store, shopify</a>
             </div>
-            <h1 class="blog__title mb:10px mt:10px fz:35px c:color-dark ff:font-primary fw:500">{{item.title}}</h1>
+            <a class="blog__title mb:10px mt:10px fz:35px c:color-dark ff:font-primary fw:500 cur:pointer">{{item.title}}</a>
             <p class="blog__description mb:14px fw:400 ff:font-secondary c:color-dark">{{item.content}}</p>
-            <button class="vdoan-btn__primary bgc:color-dark bd:none! c:color-light p:20px_81px_20px_81px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px ml:0px!">Read More</button>
+            <button class="vdoan-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:20px_81px_20px_81px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px ml:0px!">Read More</button>
           </div>
         {% endfor %}
         <div class="d:flex jc:center">
@@ -31,7 +31,7 @@
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">2</div>
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">3</div>
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">4</div>
-          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px"><i class="fas fa-long-arrow-right"></i></div>
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px"><i class="far fa-arrow-right"></i></div>
         </div>
       </div>
       <div class="col-lg-4">
@@ -80,7 +80,7 @@
                     <p class="fz:13px ff:font-secondary c:color-dark">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint.</p>
                     <div class="product-box__box-newsletter mt:10px d:flex flw:nowrap w:100% h:43px bd:1px_solid_color-gray3 mt:20px">
                       <input class="bd:none! o:none w:70% h:100% bdend:1px_solid_gray3!" type="text" placeholder="Your email">
-                      <button class="btn bdrs:0 w:30% h:100% bgc:color-dark c:color-light bd:none">GET!</button>
+                      <button class="btn bdrs:0 w:30% h:100% bgc:color-dark bgc:color-dark!|h c:color-light bd:none">GET!</button>
                     </div>
                   </div>
                 </div>

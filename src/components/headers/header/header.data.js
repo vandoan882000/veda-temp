@@ -12,6 +12,31 @@ const data = {
     address_icon: '<i class="far fa-map-marker-alt"></i>',
     address: "523 Sylvan Ave Mountain View, CA 94041",
     logo: "img/logo.png",
+    brand: [
+      {
+        name: "YASMINA",
+        href: "#"
+      },
+      {
+        name: "GENTLEMAN",
+        href: "#"
+      }
+      ,
+      {
+        name: "Belle Doll",
+        href: "#"
+      }
+      ,
+      {
+        name: "Amber.",
+        href: "#"
+      }
+      ,
+      {
+        name: "GLASSY",
+        href: "#"
+      }
+    ]
   },
   cart: {
     enable: true,
@@ -33,12 +58,12 @@ const data = {
       {
         label: "Home",
         iconEnabled: false,
-        href: "#",
+        href: "/",
       },
       {
-        label: "Shop",
+        label: "Product",
         iconEnabled: false,
-        href: "#",
+        href: "product.html",
         hasMegaMenu: true,
         children: [
           {
@@ -50,7 +75,7 @@ const data = {
       {
         label: "Blog",
         iconEnabled: false,
-        href: "#",
+        href: "/blog.html",
         children: [
           {
             label: "Blog 1",
@@ -78,12 +103,17 @@ const data = {
         ],
       },
       {
-        label: "Product",
+        label: "Trend",
         iconEnabled: false,
         href: "#",
       },
       {
-        label: "Page",
+        label: "New In",
+        iconEnabled: false,
+        href: "#",
+      },
+      {
+        label: "Bulk Edittor",
         iconEnabled: false,
         href: "#",
       },

@@ -57,7 +57,7 @@
                   placeholder="Email address"
                 />
                 <button
-                  class="btn-join d:flex ai:center jc:center w:74px h:40px fz:12px fw:600 bgc:#3540DF c:color-light cur:pointer pos:relative fz:12px fw:600 bd:1px_solid_#3540DF bdrs:0px"
+                  class="btn-join d:flex ai:center jc:center w:74px h:40px fz:12px fw:600 bgc:#3540DF bgc:#3540DF!|h c:color-light cur:pointer pos:relative fz:12px fw:600 bd:1px_solid_#3540DF bd:1px_solid_#3540DF!|h bdrs:0px"
                   type="submit"
                   aria-label="dasdas"
                 >
@@ -69,15 +69,6 @@
             {% endif %}
           </div>
         {% endform %}
-        {%- comment -%}
-          <div class="nvd-footer__input d:flex w:fit-content h:40px c:color-dark bd:none bgc:white">
-
-          <input class="w:162px maw:162px h:38px bd:none! o:none pl:5px bgc:white fz:12px c:color-gray4 fz:12px||placeholder" placeholder="Email address" type="text">
-          <div class="btn-join d:flex ai:center jc:center w:74px h:40px fz:12px fw:600 bgc:#3540DF c:color-light cur:pointer pos:relative">
-            <div class="fz:12px fw:600">Join</div>
-          </div>
-        </div>
-        {%- endcomment -%}
 
         <div class="nvd-footer__about h:25px d:flex ai:center mt:20px">
           {% for item in new_letter.icons %}

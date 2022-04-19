@@ -6,21 +6,6 @@
 <header data-id="header" class="pos:relative z:10 bgc:color-light bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <div class="d:flex ai:center jc:space-between pt:20px pb:20px fld:column@+md">
-      <div class="flx:1 d:flex ai:center fz:15px fw:400 ta:left c:color-gray9 mb:20px@+md">
-        <div class="fw:400 fz:pfs(15px,30px) c:color-primary mr:20px">
-          {{ top_bar.address_icon }}
-        </div>
-        <div>{{ top_bar.address }}</div>
-      </div>
-      <a href="{{ shop.domain }}">
-        <img src="{{ top_bar.logo }}" alt="">
-      </a>
-      <div class="flx:1"></div>
-    </div>
-  </div>
-  <div class="h:1px bgc:color-gray2"></div>
-  <div class="container">
     <nav class="pet-nav d:flex ai:center jc:space-between mih:70px">
       {% if navigation.menu %}
         <ul class="pet-nav__menu d:flex">

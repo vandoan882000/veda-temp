@@ -9,14 +9,28 @@
     <h3 class="page-section__header ff:font-primary ta:center mb:45px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row jc:center">
       {% for item in content %}
-      <div class="col-xs-12 col-sm-7 col-md-6 col-lg-4">
-        <div class="yasmina-trend mih:295px pos:relative ov:hidden">
-          <a class="d:block" href="#" ><img class="yasmina-trend__img w:100% h:100% t:0 l:0" src={{item.srcImg | img_url: ''}} alt="trend"></a>
-          <div class="yasmina-trend__content--{{item.type}} pos:absolute bgc:color-dark fw:600 fz:45px lh:65px p:10px_20px_10px_20px c:color-light">
-            <div>{{item.name}}</div>
+        <div class="col-xs-12 col-sm-7 col-md-6 col-lg-4">
+          <div class="yasmina-trend mih:295px pos:relative ov:hidden" component="trending">
+            <a class="d:block" href="#" >
+              <img class="yasmina-trend__img w:100% h:100% t:0 l:0" src={{item.srcImg | img_url: ''}} alt="trend">
+            </a>
+            {% if item.type == "left" %}
+              <div class="yasmina-trend__content pos:absolute b:20% l:10% bgc:color-dark fw:600 fz:pfs(45px,35px) lh:65px p:10px_20px_10px_20px c:color-light">
+                <div>{{item.name}}</div>
+              </div>
+            {% endif %}
+            {% if item.type == "center" %}
+              <div class="yasmina-trend__content pos:absolute t:50% l:50% trf:translate(-50%,-50%) w:max-content bgc:color-dark fw:600 fz:pfs(45px,35px) lh:65px p:10px_20px_10px_20px c:color-light">
+                <div>{{item.name}}</div>
+              </div>
+            {% endif %}
+            {% if item.type == "right" %}
+              <div class="yasmina-trend__content pos:absolute t:20% r:10% bgc:color-dark fw:600 fz:pfs(45px,35px) lh:65px p:10px_20px_10px_20px c:color-light">
+                <div>{{item.name}}</div>
+              </div>
+            {% endif %}
           </div>
         </div>
-      </div>
       {% endfor %}
     </div>
 

@@ -48,6 +48,11 @@ class CartRender {
 }
 if(!!container) {
   veda.plugins.countdown(container);
+  veda.plugins.select(container, {
+    onChange: (value) => {
+      console.log(value);
+    }
+  });
   new CartRender();
 }
 

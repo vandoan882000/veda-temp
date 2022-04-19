@@ -247,19 +247,8 @@ class QuickViewPopop {
     this.classEl = classEl;
     this.el = this.createComparePortal();
     this.initStore();
-    this.mounted();
-    this.init();
     this.handleAdd();
     store.subscribe(PREFIX+this.storeName, this.init.bind(this));
-  }
-  mounted() {
-    this.compareBtnEl = container.querySelectorAll("."+this.classEl);
-    this.compareBtnEl.forEach(btnEl => {
-      btnEl.parentNode.addEventListener("click", () => {
-        this.handleTogglePopup();
-      });
-    })
-
   }
 
   createComparePortal() {
@@ -297,13 +286,18 @@ class QuickViewPopop {
       btnCompare.addEventListener("click", () => {
         const newItem = JSON.parse(dataEl.textContent);
         const { id: newId } = newItem;
-
         store.set(`${PREFIX}${this.storeName}`, (state) => {
           return {
             ...state,
             data: {...newItem}
           };
         })('toggle');
+        store.set(PREFIX+ this.storeName,items => {
+          return {
+            ...items,
+            visible : !items.visible
+          }
+        });
       });
 
     })
@@ -335,8 +329,8 @@ class QuickViewPopop {
     });
   }
   render() {
-    console.log("vi",this.getData());
     const { visible , data } = this.getData();
+    console.log("data",data);
     if (!visible) {
       return ''
     }
@@ -347,7 +341,7 @@ class QuickViewPopop {
         <div class="w:930px h:590px bgc:#fff mt:120px ov:auto">
           <div class="d:flex ai:center jc:center w:100% h:100%">
             <div class="veda-image-cover w:400px h:100%" css="--aspect-ratio: 3/4">
-              <img class="yasmina-quickview-image w:100%" src="${ data.featured_image.src}" alt="${ data.title }">
+              <img class="yasmina-quickview-image w:100%" src="${ data.featured_image.src ? data.featured_image.src :""}" alt="${ data.title }">
             </div>
             <div class="w:530px h:100% pl:30px">
               <div class="fw:500 fz:30px c:color-gray9 mt:26px">${data.title}</div>
@@ -405,7 +399,6 @@ class QuickViewCardColors {
   }
 
   mounted() {
-    console.log(this.data);
     const newData = this.data.options_with_values.find(item => /Colou?r/g.test(item.name)) || {};
     const variants = this.data.variants;
     this.setState(prevState => ({

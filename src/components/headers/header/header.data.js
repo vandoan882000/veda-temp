@@ -56,12 +56,12 @@ const data = {
     arrow: true,
     menu: [
       {
-        label: "Home",
+        label: "HOME",
         iconEnabled: false,
         href: "/",
       },
       {
-        label: "Product",
+        label: "PRODUCT",
         iconEnabled: false,
         href: "product.html",
         hasMegaMenu: true,
@@ -73,7 +73,7 @@ const data = {
         ],
       },
       {
-        label: "Blog",
+        label: "BLOG",
         iconEnabled: false,
         href: "/blog.html",
         children: [
@@ -103,7 +103,7 @@ const data = {
         ],
       },
       {
-        label: "Trend",
+        label: "TREND",
         iconEnabled: false,
         href: "#",
       },

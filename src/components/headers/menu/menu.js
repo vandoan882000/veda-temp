@@ -191,7 +191,7 @@ class ComparePopop {
                 <div class="maw:3000px d:flex w:auto flw:wrap" style="width:${this.getWidthMax()}">
                   ${map(data,item => `
                   <div class="d:flex fld:column" style="width: ${this.getWidth()}">
-                    ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px w:100%" style="min-height: ${this.getHeight()}">
+                    ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 bdstart:0px! miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px w:100%" style="min-height: ${this.getHeight()}">
                     <div class="yasmina-product-card d:flex fld:column ai:center ta:center">
                       <div class="product-card__img w:100% pos:relative ov:hidden">
                         <div class="pet-product-card__image">

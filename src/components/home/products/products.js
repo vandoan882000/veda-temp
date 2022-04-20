@@ -164,7 +164,6 @@ class AddStoreCart {
           })
             .then(res => res.json())
             .then(data => {
-              console.log(data)
               store.set(`${PREFIX}${this.storeName}`, (items) => {
                 return {
                   ...items,
@@ -178,6 +177,7 @@ class AddStoreCart {
             .finally(() => {
               btnCart.innerHTML = defaultHtml;
               message.success(`Add to ${this.storeName}`);
+              hasItem = !hasItem;
             })
         }
 
@@ -248,7 +248,7 @@ class QuickViewPopop {
     this.el = this.createComparePortal();
     this.initStore();
     this.handleAdd();
-    store.subscribe(PREFIX+this.storeName, this.init.bind(this));
+    store.subscribe(`${PREFIX}${this.storeName}`, this.init.bind(this));
   }
 
   createComparePortal() {
@@ -259,9 +259,11 @@ class QuickViewPopop {
   }
 
   getData() {
-    return store.get(PREFIX+this.storeName);
+    return store.get(`${PREFIX}${this.storeName}`);
   }
-
+  getDataCart() {
+    return store.get(`${PREFIX}Cart`);
+  }
   handleTogglePopup() {
     store.set(PREFIX+ this.storeName,items => {
       return {
@@ -281,7 +283,7 @@ class QuickViewPopop {
   handleAdd() {
     const listCard = container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
-      const btnCompare = cartEl.querySelector("."+this.classEl).parentNode;
+      const btnCompare = cartEl.querySelector(`.${this.classEl}`).parentNode;
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       btnCompare.addEventListener("click", () => {
         const newItem = JSON.parse(dataEl.textContent);
@@ -302,15 +304,68 @@ class QuickViewPopop {
 
     })
   }
+  handleAddCart() {
+
+    const dataQuickView = this.getData().data;
+    const dataCart = this.getDataCart().data;
+    const listCard = document.querySelector(".quickview-container");
+    const btnCart = listCard.querySelector(".yasmina-quickview-add-cart");
+    let hasItem = !!dataCart.find(item => item.id === dataQuickView.id);
+      btnCart.addEventListener("click", () => {
+        if(hasItem) {
+          message.error(`Đã có trong giỏ hàng`);
+        }
+        else {
+          const defaultHtml = btnCart.innerHTML;
+          btnCart.innerHTML = 'Loading...';
+          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              "quantity": 31,
+              "title": "new",
+              "price": 19768,
+              "original_price": 10,
+              "discounted_price": 88,
+              "line_price": 4,
+              "original_line_price": 28,
+              "final_price": 49
+            })
+          })
+            .then(res => res.json())
+            .then(data => {
+              console.log(data)
+              store.set(`${PREFIX}${this.storeName}`, (items) => {
+                return {
+                  ...items,
+                  data: [...items.data,dataQuickView]
+                };
+              })(this.storeName + "/Add");
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            .finally(() => {
+              btnCart.innerHTML = defaultHtml;
+              message.success(`Add to cart`);
+            })
+        }
+
+      });
+  }
   handleDOM() {
     const { visible , data } = this.getData();
-    const closeEl = document.querySelector('.close-quickview');
-
+    const closeEl = document.querySelectorAll('.close-quickview');
     if (closeEl) {
-      closeEl.addEventListener('click', this.handleTogglePopup.bind(this));
+      closeEl.forEach(elClose => {
+        elClose.addEventListener('click', this.handleTogglePopup.bind(this));
+      })
     }
     if(visible) {
       new QuickViewCardColors("yasmina-quickview-colors");
+      this.handleAddCart();
     }
     // if (visible) {
     //   const removeCompare = document.querySelectorAll('.remove-compare');
@@ -336,7 +391,7 @@ class QuickViewPopop {
     }
 
     return /*html */`
-      <div class="compare-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
+      <div class="quickview-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close-quickview pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
         <div class="w:930px h:590px bgc:#fff mt:120px ov:auto">
           <div class="d:flex ai:center jc:center w:100% h:100%">
@@ -348,12 +403,12 @@ class QuickViewPopop {
               <div class="fw:400 fz:25px c:color-gray9 mt:5px">$${data.price}</div>
               <div class="fw:400 fz:14px ff:font-secondary c:color-gray4 mt:17px">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti et...</div>
               <div class="mt:18px td:underline cur:pointer"><a href="#" class="fw:400 fz:15px c:color-gray9!">View details</a></div>
-              <div class="fw:500 fz:15px mt:23px">Color: Yellow</div>
+              <div class="yasmina-quickview-color-text fw:500 fz:15px mt:23px">${(data.options_with_values[1]?.name=="Color"||data.options_with_values[1]?.name=="Colour")?`Color: ${data.options_with_values[1].selected_value}`:""}</div>
               <div class="yasmina-quickview-colors d:flex"></div>
               <div class="fw:500 fz:15px mt:12px">Quantity</div>
               <div class="d:flex mt:9px">
-                <input class="w:84px! h:50px! fz:15px fw:300 c:color-gray9 bdrs:0px! ta:center" type="number" value="1" />
-                <button class="yasmina-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:17px_70px_17px_70px cur:pointer m:0px_5px_0px_10px fw:500 bdrs:0px! fz:15px lts:0.15px w:272px h:50px whs:nowrap">ADD TO CART</button>
+                <input class="w:84px! h:50px! fz:15px fw:300 c:color-gray9 bdrs:0px! ta:center" type="number" value="1" min="1" />
+                <button class="yasmina-btn__primary yasmina-quickview-add-cart bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:17px_70px_17px_70px cur:pointer m:0px_5px_0px_10px fw:500 bdrs:0px! fz:15px lts:0.15px w:272px h:50px whs:nowrap">ADD TO CART</button>
               </div>
             </div>
           </div>
@@ -432,6 +487,8 @@ class QuickViewCardColors {
     const { src } = variant.image;
     const imgEl = document.querySelector(".yasmina-quickview-image");
     imgEl.src = src;
+    const colorTextEl = document.querySelector(".yasmina-quickview-color-text");
+    colorTextEl.innerHTML = `Color: ${variant.options[1]}`;
   }
 
   handleClick(event) {

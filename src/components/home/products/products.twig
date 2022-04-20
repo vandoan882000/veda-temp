@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_efda71d1-2521-4ad5-9334-d3e6d0a9ee76" %}
+{% set uniqueId = "id_50ac7f11-0dc5-4f3c-ada8-6e2b9fe8f0a8" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -30,7 +30,7 @@
               <div class="yasmina-product-card__state pos:absolute t:5px l:5px d:flex">
                 {% if product.compare_at_price > product.price and content.sale.enable %}
                   <div class="yasmina-product-card__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
-                    <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text }}</p>
+                    <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
                   </div>
                 {% endif %}
               </div>
@@ -70,6 +70,8 @@
 
       <div class="col-md-12 ta:center f:flex ai:center">
         <button class="yasmina-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:20px_86px_20px_86px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px w:272px whs:nowrap">LOAD MORE</button>
+
+      </div>
       </div>
     </div>
   </div>

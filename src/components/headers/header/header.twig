@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_2f80dfd1-8a06-48eb-8c99-04b2f05d52b2" %}
+{% set uniqueId = "id_0ac3d735-fb96-4212-88b0-831b04eea874" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -7,10 +7,10 @@
 
 <header data-id="header" class="pos:relative z:10 bgc:color-light bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
-  <div class="container">
+  <div class="container maw:100% p:0">
     <nav class="pet-nav d:flex ai:center jc:space-between mih:70px">
       {% if navigation.menu %}
-        <ul class="pet-nav__menu d:flex">
+        <ul class="pet-nav__menu d:flex ai:center m:0 pl:82px h:60px list-style:none">
           {% for item in navigation.menu %}
             {% set hasMegaMenu = item.hasMegaMenu %}
             {% if hasMegaMenu %}
@@ -18,11 +18,11 @@
             {% else %}
               <li class="pet-nav__list-item pos:relative">
             {% endif %}
-              <a class="pet-nav__link pos:relative d:flex ai:center p:25px pt:10px pb:10px h:80px fz:15px fw:700 c:color-gray9 c:color-primary|h trs:0.3s" href="{{ item.href }}">
+              <a class="pet-nav__link pos:relative c:color-gray9 w:100% pl:20px pr:20px fw:600 fz:13px lh:19px cur:pointer" href="{{ item.href }}">
                 {% if item.iconEnabled %}
-                  <span class="mr:8px">{{ item.icon }}</span>
+                  {{ item.icon }}
                 {% endif %}
-                <span>{{ item.label }}</span>
+                {{ item.label }}
                 {% if navigation.arrow and item.children | length > 0 %}
                   <span class="pet-nav__arrow ml:5px c:color-gray9 fz:20px"><i class="fal fa-angle-down"></i></span>
                 {% endif %}

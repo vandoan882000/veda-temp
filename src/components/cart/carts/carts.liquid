@@ -42,7 +42,7 @@
           </thead>
 					<tbody class="card-cart__tbody">
             {% for item in collection.products limit: 4%}
-              <tr class="card-cart avcbcvb bdb:1px_solid_color-gray4 fz:15px">
+              <tr class="card-cart bdb:1px_solid_color-gray4 fz:15px">
                 <td class="card-cart__content pt:30px pb:30px d:flex">
                   <a href="#" class="veda-image-cover d:block w:140px" css="--aspect-ratio: 4/4">
                     <img src={{item.featured_image.url | img_url: '140x'}} alt="product-card">

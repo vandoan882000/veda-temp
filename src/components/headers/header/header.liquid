@@ -6,9 +6,9 @@
 <header data-id="header" class="pos:relative z:10 bgc:color-light bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container maw:100% p:0">
-    <nav class="pet-nav d:flex ai:center jc:space-between mih:70px">
+    <nav class="pet-nav d:flex ai:center jc:space-between mih:60px">
       {% if navigation.menu %}
-        <ul class="pet-nav__menu d:flex ai:center m:0 pl:82px h:60px list-style:none">
+        <ul class="pet-nav__menu d:flex ai:center m:0 pl:92px h:60px list-style:none">
           {% for item in navigation.menu %}
             {% assign hasMegaMenu = item.hasMegaMenu %}
             {% if hasMegaMenu %}
@@ -73,14 +73,19 @@
           {% endfor %}
         </ul>
       {% endif %}
-      <div class="d:flex jc:center">
+      <div class="d:flex jc:center m:0 pr:30px">
         {% if search.enable %}
-          <div class="d:flex pos:relative">
-            <div class="c:color-gray6 pos:absolute t:50% l:10px trf:translateY(-50%)">{{ search.icon }}</div>
-            <input class="w:135px! w:200px!|focus trs:0.3s! bdrs:10px! h:40px! p:0_15px_0_35px! fz:15px! color:color-gray6||ph!" type="text" placeholder="{{ search.placeholder }}">
+          <div class="vdoan-menu__search d:flex w:260px h:38px">
+            <div class="w:222px h:38px bd:1px_solid_color-gray2 ">
+              <input class="bd:none! o:none d:inline-block pl:10px fz:13px c:color-gray6 c:color-gray6|ph" placeholder="Search" type="text">
+            </div>
+            <div class="btn-search w:38px h:38px fz:22px bgc:color-dark c:color-light cur:pointer d:inline-block pos:relative">
+              <i class="fal fa-search pos:absolute t:50% l:50% trf:translate(-50%,-50%) fz:19px"></i>
+            </div>
           </div>
         {% endif %}
-        {% if wishlist.enable %}
+        {%- comment -%}
+          {% if wishlist.enable %}
           <div class="fz:25px c:color-gray9 c:color-primary|h ml:16px cur:pointer test1">
             {{ wishlist.icon }}
           </div>
@@ -90,6 +95,8 @@
             {{ cart.icon }}
           </div>
         {% endif %}
+        {%- endcomment -%}
+
       </div>
     </nav>
   </div>

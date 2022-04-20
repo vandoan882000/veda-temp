@@ -1,4 +1,4 @@
-const uniqueId = "header";
+const uniqueId = "headers";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store, map ,objectParse, VQuery: $$ } = veda.utils;
@@ -322,7 +322,7 @@ class CartPopop {
       //   return ""
       // },1000);
       // clearInterval(timeInterval);
-      return ""
+      return "";
     }
     if(data.length === 0) {
       return /*html */`

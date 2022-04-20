@@ -1,24 +1,25 @@
 
-{% set uniqueId = "id_0511ff26-c394-4f86-b588-d4968924ecfe" %}
+{% set uniqueId = "id_59ddbd5f-33a1-4b1b-b1a8-49b7c0df67d0" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
-<nav data-id="header" class="nav" id="nav">
-  <div class="container maw:100% p:0">
-    <div class="row bgc:color-gray9" >
-      <div class="col-md-8 col-lg-8">
+<nav data-id="headers" class="nav" id="nav">
+  <div class="container d:flex ai:center jc:space-between maw:100% p:0 bgc:color-gray9">
+      <div class="h:60px! ovy:hidden">
         <script class="compare-popup-data" type="application/json">{{ compare_popup | json_encode()}}</script>
-        <ul class="vdoan-{{menu1.name}} vdoan-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none">
-          {% for item in menu1.list %}
-            <li class="vdoan-menu__list d:inline-block bdr:1px_solid_color-light">
-              <a href={{item.href}} class="vdoan-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light">{{item.name}}</a>
-            </li>
-          {% endfor %}
-        </ul>
+        <div class="ovx:auto h:80px">
+          <ul class="vdoan-{{menu1.name}} vdoan-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none">
+            {% for item in menu1.list %}
+              <li class="vdoan-menu__list d:inline-block bdr:1px_solid_color-light">
+                <a href={{item.href}} class="vdoan-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap">{{item.name}}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
-      <div class="col-md-4 col-lg-4 pr:30px" >
+      <div class="pr:30px" >
         <div class="vdoan-menu__option h:100% d:flex jc:flex-end ai:center c:color-light fz:20px pr:10px">
           <div class="veda-toggle-theme cur:pointer mr:10px">mode</div>
           <a href="/login.html"><i class="fal fa-user ml:10px mr:10px cur:pointer c:color-light"></i></a>
@@ -36,47 +37,7 @@
           </span>
         </div>
       </div>
-    </div>
-    <div class="row bgc:color-light m:0">
-      <div class="col-md-8 col-lg-8 m:0">
-        <ul class="vdoan-{{menu2.name}} vdoan-{{menu2.name}}--2 d:flex ai:center m:0 pl:82px h:60px list-style:none">
-          {% for item in menu2.list %}
-            <li class="vdoan-menu__list">
-              <a href={{item.href}} class="vdoan-menu__link--secondary c:color-gray9 w:100% pl:20px pr:20px fw:600 fz:13px lh:19px cur:pointer">{{item.name}}</a>
-              {#
-                <ul>
-                  {% if item.children | length > 0 %}
-                    {% for item in item.children %}
-                      {% if item.megaMenuEnabled %}
-                        <li>
-                          {% include "../../megamenu/" ~ item.megaMenuId ~ "/" ~ item.megaMenuId ~ ".twig" %}
-                        </li>
-                      {% else %}
-                        <li>sdfsdf</li>
-                      {% endif %}
-                    {% endfor %}
-                  {% endif %}
-              </ul>
-              #}
 
-
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="col-md-4 col-lg-4 m:0 pr:30px">
-        <div class="vdoan-menu__search-container d:flex jc:flex-end ai:center h:100%">
-          <div class="vdoan-menu__search d:flex w:260px h:38px">
-            <div class="w:222px h:38px bd:1px_solid_color-gray2 ">
-              <input class="bd:none! o:none d:inline-block pl:10px fz:13px c:color-gray6 c:color-gray6|ph" placeholder="Search" type="text">
-            </div>
-            <div class="btn-search w:38px h:38px fz:22px bgc:color-dark c:color-light cur:pointer d:inline-block pos:relative">
-              <i class="fal fa-search pos:absolute t:50% l:50% trf:translate(-50%,-50%) fz:19px"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </nav>
 
@@ -106,27 +67,6 @@
 
         </div>
 
-      </div>
-    </div>
-    <div class="row" style="background-color: white;margin: 0;">
-      <div class="col-xs-12 col-sm-12 col-md-12" style="margin: 0;">
-        <ul class="vdoan-{{menu2.name}}-mobile vdoan-{{menu2.name}}-mobile--2 m:0 p:15px_0px_15px_0px list-style:none">
-          {% for item in menu2.list %}
-            <li class="vdoan-menu-mobile__list">
-              <a href={{item.href}} class="vdoan-menu-mobile__link--secondary d:block w:100% pt:5px pb:5px fw:600 fz:13px lh:19px cur:pointer ta:center" style="color: black">{{item.name}}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-12" style="margin: 0;">
-        <div class="vdoan-menu-mobile__search-container d:flex jc:center ai:center h:100% p:15px_0">
-          <div class="vdoan-menu-mobile__search d:flex w:260px h:38px c:black bd:1px_solid_#DEDEE9">
-            <input class="w:220px h:35px bd:none! o:none d:inline-block pl:10px" placeholder="Search" type="text">
-            <div class="btn-search w:38px h:36px fz:22px bgc:color-dark c:color-light cur:pointer d:inline-block pos:relative">
-              <i class="fal fa-search pos:absolute t:50% l:50% trf:translate(-50%,-50%)"></i>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>

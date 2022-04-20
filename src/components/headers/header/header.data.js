@@ -108,12 +108,12 @@ const data = {
         href: "#",
       },
       {
-        label: "New In",
+        label: "NEW IN",
         iconEnabled: false,
         href: "#",
       },
       {
-        label: "Bulk Edittor",
+        label: "BULK EDITOR",
         iconEnabled: false,
         href: "#",
       },

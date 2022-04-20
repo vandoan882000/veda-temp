@@ -13,7 +13,11 @@
   opacity: 0;
   visibility: hidden;
 }
-
+.veda-nav__hamburger {
+  color: var(--color-gray9);
+  margin-left: 10px;
+  font-size: 20px;
+}
 .veda-nav--mobile {
   .pet-nav__sub-list,
   .pet-nav__menu {

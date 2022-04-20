@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_65f51334-4c93-4231-a869-d9135e6e0982" %}
+{% set uniqueId = "id_00275097-f7a6-40f3-9812-428110934451" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -52,7 +52,7 @@
               {% if item.type == "popular-post" %}
                 <div class="product-box__popular-post mt:10px mb:10px">
                   <h2 class="product-box__title fz:20px fw:500 mt:15px mb:15px ff:font-primary">Popular Post</h2>
-                  <div class="product-box__content fz:15px">
+                  <div class="product-box__content fz:15px d:flex fld:column ai:flex-start">
                     {% for item in item.item %}
                       <div class="product-box__box-post mb:30px d:flex jc:center ai:center">
                         <img src={{item.srcImg | img_url('')}} alt="">

@@ -64,18 +64,19 @@ const data = {
         label: "PRODUCT",
         iconEnabled: false,
         href: "product.html",
-        hasMegaMenu: true,
-        children: [
-          {
-            megaMenuEnabled: true,
-            megaMenuId: "megamenu1",
-          },
-        ],
+
+
       },
       {
         label: "BLOG",
         iconEnabled: false,
         href: "/blog.html",
+
+      },
+      {
+        label: "TREND",
+        iconEnabled: false,
+        href: "#",
         children: [
           {
             label: "Blog 1",
@@ -103,14 +104,16 @@ const data = {
         ],
       },
       {
-        label: "TREND",
-        iconEnabled: false,
-        href: "#",
-      },
-      {
         label: "NEW IN",
         iconEnabled: false,
         href: "#",
+        hasMegaMenu: true,
+        children: [
+          {
+            megaMenuEnabled: true,
+            megaMenuId: "megamenu1",
+          },
+        ],
       },
       {
         label: "BULK EDITOR",

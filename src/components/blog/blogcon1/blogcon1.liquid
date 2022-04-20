@@ -50,7 +50,7 @@
               {% if item.type == "popular-post" %}
                 <div class="product-box__popular-post mt:10px mb:10px">
                   <h2 class="product-box__title fz:20px fw:500 mt:15px mb:15px ff:font-primary">Popular Post</h2>
-                  <div class="product-box__content fz:15px">
+                  <div class="product-box__content fz:15px d:flex fld:column ai:flex-start">
                     {% for item in item.item %}
                       <div class="product-box__box-post mb:30px d:flex jc:center ai:center">
                         <img src={{item.srcImg | img_url: ''}} alt="">

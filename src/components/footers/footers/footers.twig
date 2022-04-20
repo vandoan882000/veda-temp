@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_229b6a8c-81e0-4ab9-826e-f296e48e5dc9" %}
+{% set uniqueId = "id_e2613c56-e4da-418b-b29b-393cf5a9f122" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -37,7 +37,7 @@
         <form method="post" action="/contact#contact_form" accept-charset="UTF-8" id="contact_form" class="contact-form">
       <input type="hidden" value="customer" name="form_type">
       <input type="hidden" name="utf8" value="✓">
-          <div class="maw:460px m:auto mt:40px pos:relative">
+          <div class="maw:460px m:auto pos:relative">
             {% if form.errors %}
               {% for field in form.errors %}
                 <div>

@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_dde14881-f146-44fa-a2c5-51623ece8e4f" %}
+{% set uniqueId = "id_aebd02d1-3195-4606-a58e-f66a79881be4" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -44,19 +44,19 @@
           <p class="yasmina-page-product__type mb:16px ff:font-primary c:color-dark fz:15px fw:300">Product Type: {{product.type}}</p>
           <h3 class="yasmina-page-product__price mb:25px fz:25px ff:font-primary c:color-dark fw:500">${{product.price}}.00</h3>
           <div class="yasmina-page-product__description ff:font-secondary c:color-dark fz:13px fw:300">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et...</div>
-          <p class="mb:7px mt:29px ff:font-primary c:color-dark fz:15px fw:300">Color : Black</p>
+          <p class="yasmina-page-product-color mb:7px mt:29px ff:font-primary c:color-dark fz:15px fw:300">Color : {{product.options_with_values[1].selected_value}}</p>
           <div class="d:flex mb:45px">
-
             {% for item in product.variants %}
-            <script class="yasmina-page-product-variant-data" type="application/json">{{ item | json_encode()}}</script>
               {% for itemoptioncolor in product.options_with_values %}
                 {% if itemoptioncolor.name == "Color" %}
                   {% if item.options[1] == itemoptioncolor.selected_value %}
                     <div class="veda-image-cover w:90px mr:10px cur:pointer" css="--aspect-ratio: 3/4">
+                      <script class="yasmina-page-product-variant-data" type="application/json">{{ item | json_encode()}}</script>
                       <img class="bd:1px_solid_color-dark yasmina-page-product-image-select"  src="{{ item.image.src | img_url('660x')}}"  alt="">
                     </div>
                   {% else %}
                     <div class="veda-image-cover w:90px mr:10px cur:pointer" css="--aspect-ratio: 3/4">
+                      <script class="yasmina-page-product-variant-data" type="application/json">{{ item | json_encode()}}</script>
                       <img class="yasmina-page-product-image-select" src="{{ item.image.src | img_url('660x')}}"  alt="">
                     </div>
                   {% endif %}
@@ -67,7 +67,7 @@
 
 
           </div>
-          <p class="yasmina-page-product__sizes mb:7px ff:font-primary c:color-dark fz:15px fw:300">Size : XS</p>
+          <p class="yasmina-page-product__sizes mb:7px ff:font-primary c:color-dark fz:15px fw:300">Size : {{product.options_with_values[0].selected_value}}</p>
           <div class="vdoan-page-product__size mb:30px">
             {% for itemoption in product.options_with_values %}
               {% if itemoption.name == "Size" %}

@@ -29,7 +29,7 @@ $container: "[data-id='#{$uniqueId}']";
   visibility: hidden;
   opacity: 0;
 }
-.yasmina-product-card:hover .yasmina-product-card__status .yasmina-product-card__icon-bg--hidden {
+.yasmina-product-card__img:hover .yasmina-product-card__status .yasmina-product-card__icon-bg--hidden {
   visibility: visible;
   opacity: 1;
 }
@@ -41,6 +41,6 @@ $container: "[data-id='#{$uniqueId}']";
   transform: translate(-50%,-50%);
   transition: all 0.3s;
 }
-.yasmina-product-card:hover .yasmina-product-card__add-content {
+.yasmina-product-card__img:hover .yasmina-product-card__add-content {
   transform: translateY(0px);
 }

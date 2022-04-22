@@ -13,6 +13,8 @@ class PageProduct {
   handleChangeImage(event) {
     const img = container.querySelector(".yasmina-page-product__img");
     const currentData = event.currentTarget;
+    const data = event.currentTarget.parentNode.querySelector(".yasmina-page-product-variant-data").textContent;
+    container.querySelector(".yasmina-page-product-color").innerHTML = `Color : ${JSON.parse(data).image.color}`;
     img.src = currentData.src;
     const images = container.querySelectorAll(".yasmina-page-product-image-select");
     images.forEach(image => {

@@ -333,7 +333,6 @@ class QuickViewPopop {
     })
   }
   handleAddCart() {
-
     const dataQuickView = this.getData().data;
     const dataCart = this.getDataCart().data;
     const listCard = document.querySelector(".quickview-container");
@@ -365,7 +364,7 @@ class QuickViewPopop {
             .then(res => res.json())
             .then(data => {
               console.log(data)
-              store.set(`${PREFIX}${this.storeName}`, (items) => {
+              store.set(`${PREFIX}Cart`, (items) => {
                 return {
                   ...items,
                   data: [...items.data,dataQuickView]
@@ -378,6 +377,7 @@ class QuickViewPopop {
             .finally(() => {
               btnCart.innerHTML = defaultHtml;
               message.success(`Add to cart`);
+              hasItem = !hasItem;
             })
         }
 

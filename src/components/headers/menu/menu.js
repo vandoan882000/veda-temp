@@ -380,11 +380,10 @@ class CartPopop {
                     <div>$${item.price}</div>
                     <div class="d:flex w:90px h:30px bd:1px_solid_color-gray3 bdrs:15px mt:5px
                     mb:10px">
-                      <div class="w:20px h:100% ta:center cur:pointer fw:600 fz:20px lh:30px">-</div>
+                      <div class="w:20px h:100% ta:center cur:pointer lh:30px pl:10px"><i class="fal fa-minus fz:13px"></i></div>
                       <div class="w:50px h:100% ta:center lh:30px fw:600">1</div>
-                      <div class="w:20px h:100% ta:center cur:pointer fw:600 fz:20px lh:30px">+</div>
+                      <div class="w:20px h:100% ta:center cur:pointer lh:30px pr:10px"><i class="fal fa-plus fz:13px"></i></div>
                     </div>
-                    <button class="yasmina-edit-cart"><i class="fas fa-edit"></i></button>
                     <button data-id=${item.id} class="yasmina-remove-cart"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>`
@@ -408,6 +407,12 @@ class CartPopop {
   }
   init() {
     const { visible , data } = this.getData();
+    const cartContainer = document.querySelector(".menu-cart__container");
+    if (cartContainer) {
+      if(visible) {
+        cartContainer.style.transform = "translateX(0)";
+      }
+    }
     this.el.innerHTML = this.render();
     if(visible) {
       const timeInterval = setInterval(() =>{

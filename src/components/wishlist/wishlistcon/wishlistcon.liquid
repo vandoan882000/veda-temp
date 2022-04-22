@@ -7,7 +7,7 @@
 <section data-id="products"  css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <div class="direct fz:15px c:color-gray4 mt:30px mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
+    <div class="direct fz:15px c:color-gray4 mt:30px mb:33px"><a href="/" class="c:color-gray4">Home</a> > <a href="/wishlist.html" class="c:color-dark">{{ heading.text }}</a></div>
     <div class="fw:500 fz:35px c:color-dark mt:-5px mb:75px">Wish Lists</div>
     <div class="row">
       <div class="col-md-12">
@@ -25,7 +25,7 @@
                   </a>
                 </div>
                 <div class="yasmina-product-card__add-content pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px">
-                  <a class="yasmina-product-card__add cur:pointer fz:17px pos:absolute td:none w:100% h:100% va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light">{{content.add_to_cart_text}}</a>
+                  <a class="yasmina-product-card__add cur:pointer fz:17px pos:absolute td:none w:100% h:100% va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light! c:color-light!|h">{{content.add_to_cart_text}}</a>
                 </div>
                 <div class="yasmina-product-card__state pos:absolute t:5px l:5px d:flex">
                   {% if product.compare_at_price > product.price and content.sale.enable %}

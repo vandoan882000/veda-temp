@@ -126,11 +126,36 @@ class AddStoreCart {
     this.storeName = storeName;
     this.elName = elName;
     this.el = container.querySelector(".row");
+    this.updateStore();
     this.init();
     // store.subscribe(storeName,this.handleChangeStatus.bind(this));
   }
   getData() {
     return store.get(`${PREFIX}${this.storeName}`);
+  }
+  checkProduct () {
+
+  }
+  updateStore() {
+    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        // store.set(`${PREFIX}${this.storeName}`, (items) => {
+        //   return {
+        //     ...items,
+        //     data: [...data]
+        //     };
+        // })(this.storeName + "/Add");
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
   handleAdd() {
     const {data} = this.getData();
@@ -138,7 +163,8 @@ class AddStoreCart {
     listCard.forEach(cartEl => {
       const btnCart = cartEl.querySelector("."+this.elName);
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
-      let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
+      const newItem = JSON.parse(dataEl.textContent);
+      let hasItem = !!data.find(item => item.id === newItem.id);
       btnCart.parentNode.addEventListener("click", () => {
         if(hasItem) {
           message.error(`Đã có trong giỏ hàng`);
@@ -152,14 +178,16 @@ class AddStoreCart {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              "quantity": 31,
-              "title": "new",
-              "price": 19768,
-              "original_price": 10,
-              "discounted_price": 88,
+              "quantity": 1,
+              "title": `${newItem.title}`,
+              "price": newItem.price,
+              "original_price": newItem.price,
+              "discounted_price": newItem.price,
               "line_price": 4,
-              "original_line_price": 28,
-              "final_price": 49
+              "original_line_price": newItem.price,
+              "final_price": newItem.price,
+              "image": `${newItem.featured_image.url}`,
+              "vendor": `${newItem.vendor}`,
             })
           })
             .then(res => res.json())

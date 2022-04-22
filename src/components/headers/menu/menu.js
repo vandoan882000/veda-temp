@@ -276,12 +276,34 @@ class CartPopop {
   }
 
   handleTogglePopup() {
-    store.set(PREFIX+ this.storeName,items => {
-      return {
-        ...items,
-        visible : !items.visible
-      }
-    });
+    const { visible } = this.getData();
+    if (visible) {
+      const cartContainer = document.querySelector(".menu-cart__container");
+      setTimeout(() => {
+        if(cartContainer) {
+          cartContainer.style.transform = "translateX(100%)";
+        }
+      }, 0);
+      setTimeout(() => {
+        if(cartContainer) {
+          store.set(PREFIX+ this.storeName,items => {
+            return {
+              ...items,
+              visible : !items.visible
+            }
+          });
+        }
+      }, 200);
+    }
+    else {
+      store.set(PREFIX+ this.storeName,items => {
+        return {
+          ...items,
+          visible : !items.visible
+        }
+      });
+    }
+
   }
   handleRemoveCart(event) {
     store.set(PREFIX + this.storeName,compare => {
@@ -314,15 +336,14 @@ class CartPopop {
     const { visible , data } = this.getData();
     const { map } = veda.utils;
     if (!visible) {
-      const cartContainer = document.querySelector(".menu-cart__container");
-      if(cartContainer) {
-        cartContainer.style.transform = "translateX(100%)";
-      }
+      return "";
+
+
       // const timeInterval = setInterval(() =>{
       //   return ""
       // },1000);
       // clearInterval(timeInterval);
-      return "";
+
     }
     if(data.length === 0) {
       return /*html */`

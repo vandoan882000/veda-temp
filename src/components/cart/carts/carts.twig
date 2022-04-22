@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_65d751bf-ac8c-4943-bdef-9cd82dc8cb7a" %}
+{% set uniqueId = "id_dbf3e217-8725-4fc2-b998-24b912c961b1" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -13,61 +13,36 @@
     <div class="row jc:center">
       <div class="col-lg-12">
         <div class="nvd-cart-header d:flex fld:column jc:center ai:center">
-          <div class="nvd-cart-header__title mb:30px fz:35px fw:500">Shopping Cart</div>
-          <div class="nvd-cart-header__description mb:30px fz:25px">
+          <div class="nvd-cart-header__title mb:30px fz:35px fw:500 c:color-gray9">Shopping Cart</div>
+          <div class="nvd-cart-header__description mb:30px fz:25px c:color-gray9">
             These products are limited, checkout within:</div>
-          <div class="nvd-cart-header__times mb:30px d:flex jc:center ai:center w:500px h:100px bd:1px_solid_color-gray4 veda-countdown" data-options="{ timestamp: 1651000000744 }">
-            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__days">1</div>
-            <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px">days</div>
-            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__hours">17</div>
-            <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px">hrs</div>
-            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__minutes">30</div>
-            <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px">mins</div>
-            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__seconds">23</div>
-            <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px">secs</div>
+          <div class="nvd-cart-header__times mb:30px d:flex jc:center ai:center w:500px h:100px  bd:1px_solid_color-gray4 veda-countdown ta:center" data-options="{ timestamp: 1651000000744 }">
+            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__days c:color-gray9">1</div>
+            <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px ml:7px fw:400">days</div>
+            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__hours c:color-gray9">17</div>
+            <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px ml:7px fw:400">hrs</div>
+            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__minutes c:color-gray9">30</div>
+            <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px ml:7px fw:400">mins</div>
+            <div class="nvd-cart-header__time-number fz:35px fw:900 veda-countdown__seconds c:color-gray9">23</div>
+            <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px ml:7px fw:400">secs</div>
           </div>
-          <div class="nvd-cart-header__state fz:20px mb:30px">Buy $69.00 more to enjoy FREE Shipping</div>
+          <div class="nvd-cart-header__state fz:20px mb:30px c:color-gray9">Buy $69.00 more to enjoy FREE Shipping</div>
           <input class="nvd-cart-header__range w:580px" type="range">
         </div>
 
 			</div>
 
 			<div class="col-lg-10 d:flex fld:column ai:center" >
-				<table class="bdcl:collapse">
+				<table class="bdcl:collapse mt:20px">
           <thead>
             <tr>
-              <th class="pb:10px bdb:1px_solid_color-gray4" style="width:400px;font-size: 15px;">Product</th>
-              <th class="pb:10px bdb:1px_solid_color-gray4" style="width:200px;font-size: 15px;">Price</th>
-              <th class="pb:10px bdb:1px_solid_color-gray4" style="width:280px;font-size: 15px;">Quantity</th>
-              <th class="pb:10px bdb:1px_solid_color-gray4" style="font-size: 15px;">Total</th>
+              <th class="pb:10px bdb:1px_solid_color-gray2 fz:15px fw:500 c:color-gray9" style="width:400px;font-size: 15px;">Product</th>
+              <th class="pb:10px bdb:1px_solid_color-gray2 fz:15px fw:500 c:color-gray9" style="width:200px;font-size: 15px;">Price</th>
+              <th class="pb:10px bdb:1px_solid_color-gray2 fz:15px fw:500 c:color-gray9" style="width:280px;font-size: 15px;">Quantity</th>
+              <th class="pb:10px bdb:1px_solid_color-gray2 fz:15px fw:500 c:color-gray9" style="font-size: 15px;">Total</th>
             </tr>
           </thead>
 					<tbody class="card-cart__tbody">
-            {% for item in collection.products | slice(0, 4)%}
-              <tr class="card-cart bdb:1px_solid_color-gray4 fz:15px">
-                <td class="card-cart__content pt:30px pb:30px d:flex">
-                  <a href="#" class="veda-image-cover d:block w:140px" css="--aspect-ratio: 4/4">
-                    <img src={{item.featured_image.url | img_url('140x')}} alt="product-card">
-                  </a>
-                  <div class="card-cart__name pl:20px c:color-primary">
-                    <div class="card-cart__title c:color-dark mb:10px fw:500">{{item.title}}</div>
-                    <p class="mb:10px">Color: Light Blue</p>
-                    <a class="card-cart__remove td:none bd:none" href="#">Remove</a>
-                  </div>
-                </td>
-                <td class="pt:30px pb:30px"><p class="card-cart__price c:color-dark">${{item.price}}</p></td>
-                <td class="pt:30px pb:30px">
-                  <div class="card-cart__quantity d:flex w:fit-content bd:1px_solid_color-gray4">
-                    <button class="card-cart__sub c:color-dark w:30px h:40px bd:none o:none bgc:transparent cur:pointer bgc:transparent!|h c:color-dark!|h">-</button>
-                    <input type="text" class="card-cart__value w:60px h:40px bd:none o:none ta:center" value="1"/>
-                    <button class="card-cart__add c:color-dark w:30px h:40px bd:none o:none bgc:transparent bgc:transparent!|h cur:pointer c:color-dark!|h">+</button>
-                  </div>
-                </td>
-                <td class="pt:30px pb:30px">
-                  <p class="card-cart__total">${{item.price}}</p>
-                </td>
-              </tr>
-            {% endfor %}
           </tbody>
 
         </table>

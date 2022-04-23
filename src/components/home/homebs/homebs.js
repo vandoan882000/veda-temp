@@ -52,17 +52,13 @@ class AddStore {
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
       if(hasItem) {
-        if(btnCompare.hasAttribute("data-tooltip")) {
-          btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-active-text"));
-          btnCompare.style.backgroundColor = "#f23333";
-          btnCompare.style.color = "#fff";
-        }
+        btnCompare.setAttribute("data-tooltip-active",true);
+        btnCompare.style.backgroundColor = "#f23333";
+        btnCompare.style.color = "#fff";
       } else {
-        if(btnCompare.hasAttribute("data-tooltip")) {
-          btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-text"));
-          btnCompare.style.backgroundColor = "white";
-          btnCompare.style.color = "black";
-        }
+        btnCompare.setAttribute("data-tooltip-active",false);
+        btnCompare.style.backgroundColor = "white";
+        btnCompare.style.color = "black";
       }
 
     })

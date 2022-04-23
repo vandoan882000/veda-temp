@@ -268,26 +268,22 @@ declare interface Veda {
      * ```html
      * // Liquid Example
      * <div
-     *   class="veda-swiper swiper"
+     *   class="veda-swiper"
      *   data-options="{
      *     speed: 400,
      *     spaceBetween: 30
      *   }"
      * >
-     *   <div class="veda-swiper-wrapper swiper-wrapper">
-     *     {% for swiper in swipers %}
-     *       <div component="swipers" class="swiper-slide">{{swiper.text}}</div>
-     *     {% endfor %}
-     *   </div>
-     *   <div class="veda-swiper-button veda-swiper-button-pill veda-swiper-button-abs">
-     *     <div class="veda-swiper-button-prev">
-     *       <i class="fal fa-angle-left"></i>
-     *     </div>
-     *     <div class="veda-swiper-button-next">
-     *       <i class="fal fa-angle-right"></i>
+     *   <div className="swiper">
+     *     <div class="veda-swiper-wrapper swiper-wrapper">
+     *       {% for swiper in swipers %}
+     *         <div component="swipers" class="swiper-slide">{{swiper.text}}</div>
+     *       {% endfor %}
      *     </div>
      *   </div>
-     *   <div class="veda-swiper-pagination"></div>
+     *   <div class="swiper-button-prev"></div>
+     *   <div class="swiper-button-next"></div>
+     *   <div class="swiper-pagination"></div>
      * </div>
      * ```
      * ```js
@@ -452,7 +448,11 @@ declare interface Veda {
      * ```
      * ```js
      * // Javascript Example
-     * veda.plugins.select(container);
+     * veda.plugins.select(container, {
+     *   onChange: value => {
+     *     console.log(value);
+     *   }
+     * });
      * // Or
      * const destroy = veda.plugins.select(container);
      * ```

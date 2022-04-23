@@ -371,7 +371,7 @@ class CartPopop {
                 return /*html*/`<div class=" d:flex fld:row pt:10px ml:10px mr:10px bdb:1px_solid_color-gray4 pb:10px">
                   <div class="w:100px">
                     <a class="veda-image-cover d:block w:100%" css="--aspect-ratio: 3/5">
-                      <img src=${item.featured_image.url} alt="image-cart" />
+                      <img src=${item.image} alt="image-cart" />
                     </a>
                   </div>
                   <div class="pl:10px">

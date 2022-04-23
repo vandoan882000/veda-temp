@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_43e8c664-154e-46c3-8c2c-9efb549e50e7" %}
+{% set uniqueId = "id_10fd0c12-9db8-4ce2-8c27-60ff71104ae2" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -34,13 +34,13 @@
                 {% endif %}
               </div>
               <div class="yasmina-product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                <div class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                <div class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
                   <i class="fal fa-heart"></i>
                 </div>
-                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-position="left" >
+                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                   <i class="fal fa-eye"></i>
                 </div>
-                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
                   <i class="fal fa-repeat"></i>
                 </div>
               </div>

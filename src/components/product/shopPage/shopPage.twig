@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_83aaa405-44b0-4c40-b87c-5c8bf21bcd51" %}
+{% set uniqueId = "id_97022b22-e1cb-48eb-b5bf-bf83a37c3e1f" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -14,7 +14,7 @@
       View as:
       <a href="#" class="yasmina-page-product-view-as1 bd:1px_solid p:0px_5px_0px_5px c:color-gray2 c:color-gray2!|h ml:10px"><i class="shop-page__view shop-page__view1 fal fa-list"></i></a>
       <a href="#" class="yasmina-page-product-view-as2 bd:1px_solid p:0px_5px_0px_5px c:color-dark c:color-dark!|h ml:10px"><i class="shop-page__view shop-page__view2 fas fa-th c:color-dark"></i></a>
-      <div data-id="shoppage" class="d:flex whs:nowrap ai:center ml:0px ml:10px@md ml:400px@md pos:relative mt:10px mt:0px@md">
+      <div data-id="shoppage" class="d:flex whs:nowrap ai:center ml:0px ml:10px@md ml:455px@md pos:relative mt:10px mt:0px@md">
         <p class="mr:10px fz:15px fw:500">Sort by</p>
         <div class="veda-select">
           <div class="veda-select__view w:190px h:43px bd:1px_solid_color-gray3 pl:15px cur:pointer d:flex ai:center">
@@ -59,10 +59,10 @@
                     {% endif %}
                   </div>
                   <div class="yasmina-product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                    <div class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                    <div class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
                       <i class="fal fa-heart"></i>
                     </div>
-                    <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-position="left" >
+                    <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                       <i class="fal fa-eye"></i>
                     </div>
                     <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
@@ -110,7 +110,7 @@
               {% if item.type == "search" %}
                 <div class="product-box__search mb:15px">
                   <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Search</h2>
-                  <div class="product-box__box-search d:flex ai:center pl:10px bd:1px_solid_color-gray3">
+                  <div class="product-box__box-search d:flex ai:center pl:10px bd:1px_solid_color-gray2">
                     <i class="fal fa-search cur:pointer"></i>
                     <input class="h:40px w:90% bd:none! o:none c:color-gray4 fz:15px c:color-gray4||placeholder fz:15px||placeholder" type="text" placeholder="Tìm kiếm">
                   </div>
@@ -121,9 +121,9 @@
                   <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Refine By</h2>
                   <div class="product-box__content">
                     {% for item in item.item %}
-                      <div class="product-box__box-refine pos:relative d:inline-block bd:1px_solid_color-gray4 w:fit-content p:2px_25px_2px_5px cur:pointer c:color-gray3 ff:font-primary">
+                      <div class="product-box__box-refine pos:relative d:inline-block bd:1px_solid_color-gray2 w:fit-content p:2px_25px_2px_5px cur:pointer c:color-gray4 ff:font-primary">
                         {{item.name}}
-                        <i class="far fa-times pos:absolute t:50% r:1% trf:translate(-50%,-50%) cur:pointer"></i>
+                        <i class="fal fa-times pos:absolute t:50% r:1% trf:translate(-50%,-50%) cur:pointer"></i>
                       </div>
                     {% endfor %}
                     <a class="c:color-dark pos:absolute t:5px r:0 ff:font-primary" href="#">Clear All</a>
@@ -205,7 +205,7 @@
                   <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Tags</h2>
                   <div class="product-box__content">
                     {% for item in item.item %}
-                      <div class="product-box__box-tag d:inline-block bd:1px_solid_color-gray4 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px">{{item.name}}</div>
+                      <a href="#" class="product-box__box-tag d:inline-block bd:1px_solid_color-gray2 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-gray9 c:color-gray9!||placeholder">{{item.name}}</a>
                     {% endfor %}
                   </div>
 

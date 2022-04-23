@@ -58,17 +58,13 @@ class AddStore {
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
       if(hasItem) {
-        if(btnCompare.hasAttribute("data-tooltip")) {
-          btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-active-text"));
-          btnCompare.style.backgroundColor = "#f23333";
-          btnCompare.style.color = "#fff";
-        }
+        btnCompare.setAttribute("data-tooltip-active",true);
+        btnCompare.style.backgroundColor = "#f23333";
+        btnCompare.style.color = "#fff";
       } else {
-        if(btnCompare.hasAttribute("data-tooltip")) {
-          btnCompare.setAttribute("data-tooltip",btnCompare.getAttribute("data-tooltip-text"));
-          btnCompare.style.backgroundColor = "white";
-          btnCompare.style.color = "black";
-        }
+        btnCompare.setAttribute("data-tooltip-active",false);
+        btnCompare.style.backgroundColor = "white";
+        btnCompare.style.color = "black";
       }
 
     })
@@ -127,15 +123,12 @@ class AddStoreCart {
     this.elName = elName;
     this.el = container.querySelector(".row");
     this.updateStore();
-    this.init();
     // store.subscribe(storeName,this.handleChangeStatus.bind(this));
   }
   getData() {
     return store.get(`${PREFIX}${this.storeName}`);
   }
-  checkProduct () {
 
-  }
   updateStore() {
     fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
       method: 'GET',
@@ -145,13 +138,13 @@ class AddStoreCart {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        // store.set(`${PREFIX}${this.storeName}`, (items) => {
-        //   return {
-        //     ...items,
-        //     data: [...data]
-        //     };
-        // })(this.storeName + "/Add");
+        store.set(`${PREFIX}${this.storeName}`, (items) => {
+          return {
+            ...items,
+            data: [...data]
+            };
+        })(this.storeName + "/Add");
+        this.init();
       })
       .catch(err => {
         console.log(err);
@@ -164,7 +157,7 @@ class AddStoreCart {
       const btnCart = cartEl.querySelector("."+this.elName);
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       const newItem = JSON.parse(dataEl.textContent);
-      let hasItem = !!data.find(item => item.id === newItem.id);
+      let hasItem = !!data.find(item => item.product_id === newItem.id);
       btnCart.parentNode.addEventListener("click", () => {
         if(hasItem) {
           message.error(`Đã có trong giỏ hàng`);
@@ -188,6 +181,7 @@ class AddStoreCart {
               "final_price": newItem.price,
               "image": `${newItem.featured_image.url}`,
               "vendor": `${newItem.vendor}`,
+              "product_id": `${newItem.id}`,
             })
           })
             .then(res => res.json())
@@ -195,7 +189,7 @@ class AddStoreCart {
               store.set(`${PREFIX}${this.storeName}`, (items) => {
                 return {
                   ...items,
-                  data: [...items.data,JSON.parse(dataEl.textContent)]
+                  data: [...items.data, data]
                 };
               })(this.storeName + "/Add");
             })

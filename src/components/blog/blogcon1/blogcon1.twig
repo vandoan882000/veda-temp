@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_00275097-f7a6-40f3-9812-428110934451" %}
+{% set uniqueId = "id_c4ddf736-9eb3-4e4c-adc5-0d175833aafc" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -9,7 +9,7 @@
 <section data-id="blogcontainer" class="pt:35px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container maw:1360px">
-    <div class="direct fz:15px c:color-gray4 mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
+    <div class="direct fz:15px c:color-gray4 mb:33px"><a href="/" class="fz:15px c:color-gray4">Home</a> > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     <div class="row">
       <div class="col-lg-8 pr:50px">
         {% set blog = blogs[content.blog] %}
@@ -54,13 +54,15 @@
                   <h2 class="product-box__title fz:20px fw:500 mt:15px mb:15px ff:font-primary">Popular Post</h2>
                   <div class="product-box__content fz:15px d:flex fld:column ai:flex-start">
                     {% for item in item.item %}
-                      <div class="product-box__box-post mb:30px d:flex jc:center ai:center">
+                      <a href="#" class="product-box__box-post mb:30px d:flex jc:center ai:center">
                         <img src={{item.srcImg | img_url('')}} alt="">
-                        <p class="ml:20px fw:500 c:color-dark fz:15px">{{item.title}}</p>
-                      </div>
+                        <h2 class="ml:20px fw:500 c:color-dark fz:15px">{{item.title}}</h2>
+                      </a>
                     {% endfor %}
                   </div>
-                  <img src="../../img/post4.png" alt="">
+                  <a href="#" class="veda-image-cover d:block" css="--aspect-ratio: 1.6">
+                    <img class="yasmina-product-card__image" src="../../img/post4.png">
+                  </a>
                 </div>
 
               {% endif %}
@@ -69,7 +71,7 @@
                   <h2 class="product-box__title fz:20px mt:20px fw:500 mb:15px ff:font-primary">Tags</h2>
                   <div class="product-box__content">
                     {% for item in item.item %}
-                      <div class="product-box__box-tag d:inline-block bd:1px_solid_color-gray4 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-dark">{{item.name}}</div>
+                      <a href="#" class="product-box__box-tag d:inline-block bd:1px_solid_color-gray2 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-dark c:color-dark!|h">{{item.name}}</a>
                     {% endfor %}
                   </div>
 
@@ -81,7 +83,7 @@
                   <div class="product-box__content">
                     <p class="fz:13px ff:font-secondary c:color-dark">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint.</p>
                     <div class="product-box__box-newsletter mt:10px d:flex flw:nowrap w:100% h:43px bd:1px_solid_color-gray3 mt:20px">
-                      <input class="bd:none! o:none w:70% h:100% bdend:1px_solid_gray3!" type="text" placeholder="Your email">
+                      <input class="bd:none! o:none w:70% h:100% bdend:1px_solid_gray3! c:color-gray3 c:color-gray3!||pl fz:15px!||pl" type="text" placeholder="Your email">
                       <button class="btn bdrs:0 w:30% h:100% bgc:color-dark bgc:color-dark!|h c:color-light bd:none">GET!</button>
                     </div>
                   </div>

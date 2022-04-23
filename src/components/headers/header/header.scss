@@ -15,7 +15,7 @@
 }
 .veda-nav__hamburger {
   color: var(--color-gray9);
-  margin-left: 10px;
+  margin-left: 15px;
   font-size: 20px;
 }
 .veda-nav--mobile {
@@ -35,6 +35,7 @@
     overflow-y: auto;
     border-radius: 0;
     border: 0;
+    padding-left: 0px;
   }
   .pet-nav__sub-list {
     position: absolute;
@@ -43,6 +44,7 @@
   .pet-nav__list-item {
     position: static;
     border-bottom: 1px solid var(--color-gray2);
+    width: 100%;
   }
   .pet-nav__link {
     height: 50px;
@@ -50,6 +52,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px;
+    width: 100%;
   }
   .pet-nav__arrow {
     i {
@@ -60,4 +63,10 @@
 
 .pet-nav__list-item-back {
   height: 50px;
+}
+.veda-nav__close i{
+  font-size: 20px;
+  &:hover {
+    color: var(--color-primary);
+  }
 }

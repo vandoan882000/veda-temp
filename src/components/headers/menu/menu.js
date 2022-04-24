@@ -153,7 +153,7 @@ class ComparePopop {
       return /*html */`
       <div class="compare-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:1200px h:1000px bgc:#fff mt:120px ov:auto">
+        <div class="w:90% w:1200px@md h:1000px bgc:#fff mt:120px ov:auto">
           <div class="d:flex fld:column ai:center jc:center w:100% h:100%">
             <h2>Compare Empty</h2>
             <p>Please add product to compare</p>
@@ -163,35 +163,34 @@ class ComparePopop {
       `
     }
     return /*html*/`
-      <div class="compare-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
+      <div class="compare-container d:flex ai:flex-start jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="close t:10% r:10% cur:pointer w:30px h:30px bgc:red pos:absolute ta:center"><i class="far fa-times c:color-gray9 fz:25px lh:30px"></i></div>
-        <div class="w:1218px h:800px bgc:#fff mt:120px ov:auto pos:relative">
+        <div class="w:90% w:1218px@md h:800px bgc:#fff mt:10% ov:auto pos:relative ml:30px">
           <div class="d:flex fld:column ai:center jc:center">
-            <h2 class="fz:35px mt:85px">Compare</h2>
+            <h2 class="fz:35px mt:60px ta:center fw:500 c:color-gray9">Compare</h2>
             <div class="acbxyz"></div>
-            <div class="fz:25px lh:32px mt:7px mb:80px">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
+            <div class="fz:25px lh:32px mt:7px mb:30px ta:center fw:400 c:color-gray9">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
             <div class="w:100% d:flex">
-              <div class="w:11% z:99">
+              <div class="z:99">
                 ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px" style="height: ${this.getHeight()}">
                  ${this.compareData.product_title}
                 </div>`:''}
-                ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">
+                ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">
                   ${this.compareData.rating_title}
                 </div>`:''}
-                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Description</div>
-                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Availability</div>
-                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Product Type</div>
-                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">SKU</div>
-                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Size</div>
-                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Color</div>
-                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px">Option</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Description</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Availability</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Product Type</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">SKU</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Size</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Color</div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Option</div>
               </div>
-              <div class="w:89% ov:auto">
+              <div class="ov:auto">
                 <div class="maw:3000px d:flex w:auto flw:wrap" style="width:${this.getWidthMax()}">
                   ${map(data,item => `
                   <div class="d:flex fld:column" style="width: ${this.getWidth()}">
-                    ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 bdstart:0px! miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px w:100%" style="min-height: ${this.getHeight()}">
+                    ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 bdstart:0px! miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px w:100%" style="min-height: ${this.getHeight()};border-left:0px;">
                     <div class="yasmina-product-card d:flex fld:column ai:center ta:center">
                       <div class="product-card__img w:100% pos:relative ov:hidden">
                         <div class="pet-product-card__image">
@@ -214,24 +213,24 @@ class ComparePopop {
                         </div>
                       </div>
                   </div>`:''}
-                  ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center">
+                  ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center" style="border-left:0px;border-top:0px;">
                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
                   </div>`:''}
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">Description</div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" >Availability</div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">${item.type}</div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">SKU</div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">Description</div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;" >Availability</div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">${item.type}</div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">SKU</div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">
 
                   </div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">
 
                   </div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark">Option</div>
+                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">Option</div>
                   </div>
                 `)}
                 </div>
@@ -240,6 +239,7 @@ class ComparePopop {
             </div>
           </div>
         </div>
+        <div class="close cur:pointer w:30px h:30px ta:center mt:9%"><i class="far fa-times c:color-gray9 fz:35px c:color-gray9 c:color-primary|h"></i></div>
       </div>
     `
 
@@ -306,12 +306,24 @@ class CartPopop {
 
   }
   handleRemoveCart(event) {
-    store.set(PREFIX + this.storeName,compare => {
-      return {
-        ...compare,
-        data: compare.data.filter(item => item.id !== event.currentTarget.getAttribute("data-id"))
-      }
-    })(this.storeName+"/remove");
+    const currentId  = event.currentTarget.getAttribute("data-id");
+    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
+      method: 'DELETE',
+    })
+      .then(res => res.json())
+      .then(data => {
+        store.set(PREFIX + this.storeName,carts => {
+          return {
+            ...carts,
+            data: carts.data.filter(item => item.id !== currentId)
+          }
+        })(this.storeName+"/remove");
+      })
+      .catch(err => {
+        console.log(err);
+        alert("Delete Cart Error");
+      });
+
   }
   handleDOM() {
     const { visible , data } = this.getData();
@@ -362,7 +374,7 @@ class CartPopop {
     return /*html*/`
       <div class="d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close-cart pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="menu-cart__container w:350px h:100% bgc:#fff ov:auto pos:absolute t:0 r:0 trf:translateX(100%) trs:all_0.3s pb:20px">
+        <div class="menu-cart__container w:95% w:350px@sm h:100% bgc:#fff ov:auto pos:absolute t:0 r:0 trf:translateX(100%) trs:all_0.3s pb:20px">
           <div class="close-cart pos:absolute t:5px r:10px w:25px h:25px fz:25px cur:pointer"><i class="far fa-times"></i></div>
           <div><h4 class="fz:20px ml:15px mt:10px">SHOPPING CART</h4></div>
           <div class="d:flex fld:column jc:flex-start h:90%">

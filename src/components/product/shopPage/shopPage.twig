@@ -1,20 +1,20 @@
 
-{% set uniqueId = "id_97022b22-e1cb-48eb-b5bf-bf83a37c3e1f" %}
+{% set uniqueId = "id_3da379f3-22ba-4f7f-ba18-36b54bb00f50" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
 ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
-<section data-id="products" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="shoppage" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container pt:35px">
     <div class="direct fz:15px c:color-gray4"><a href="/" class="c:color-gray4">Home</a> > <a href="/product.html" class="c:color-dark">{{ heading.text }}</a></div>
     <div class="view-as mb:20px d:flex ai:center mt:30px fz:15px c:color-dark flw:wrap">
       View as:
-      <a href="#" class="yasmina-page-product-view-as1 bd:1px_solid p:0px_5px_0px_5px c:color-gray2 c:color-gray2!|h ml:10px"><i class="shop-page__view shop-page__view1 fal fa-list"></i></a>
-      <a href="#" class="yasmina-page-product-view-as2 bd:1px_solid p:0px_5px_0px_5px c:color-dark c:color-dark!|h ml:10px"><i class="shop-page__view shop-page__view2 fas fa-th c:color-dark"></i></a>
-      <div data-id="shoppage" class="d:flex whs:nowrap ai:center ml:0px ml:10px@md ml:455px@md pos:relative mt:10px mt:0px@md">
+      <a href="#" class="yasmina-page-product-view-as1 p:0px_5px_0px_5px bd:1px_solid_color-gray2 c:color-gray2 c:color-gray2!|h ml:10px"><i class="shop-page__view shop-page__view1 fal fa-list"></i></a>
+      <a href="#" class="yasmina-page-product-view-as2 p:0px_5px_0px_5px bd:1px_solid_color-gray9  c:color-gray9 c:color-gray9!|h ml:10px"><i class="shop-page__view shop-page__view2 fas fa-th"></i></a>
+      <div class="d:flex whs:nowrap ai:center ml:10px ml:455px@md pos:relative mt:10px mt:0px@md">
         <p class="mr:10px fz:15px fw:500">Sort by</p>
         <div class="veda-select">
           <div class="veda-select__view w:190px h:43px bd:1px_solid_color-gray3 pl:15px cur:pointer d:flex ai:center">
@@ -33,8 +33,8 @@
 
       </div>
     </div>
-    <div class="row mt:20px">
-      <div class="col-lg-8 shop-page1 pr:40px">
+    <div data-id="products" class="row mt:20px ">
+      <div class="col-lg-8 shop-page1 pr:40px@md d:block">
         <div class="row">
           {% set collection = collections[content.collection] %}
           <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>
@@ -103,6 +103,67 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-8 pl:40px shop-page2 d:none">
+        <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 pr:90px" component="content">
+          {% set collection = collections[content.collection] %}
+
+          {% for product in collection.products | slice(0, 4) %}
+          <div class="yasmina-product-card d:flex fld:row ai:center ta:center mb:15px pb:15px">
+            <script class="yasmina-product-card__data" type="application/json">{{ product | json_encode()}}</script>
+            <div class="yasmina-product-card__img miw:250px w:250px pos:relative ov:hidden">
+              <div class="pet-product-card__image miw:250px w:250px">
+                <a href="#" class="veda-image-cover d:block miw:250px w:250px" css="--aspect-ratio: 3/4">
+                  <img class="yasmina-product-card__image" src="{{ product.featured_image.src | img_url('250x')}}" alt="{{ product.title }}">
+                </a>
+              </div>
+
+              <div class="yasmina-product-card__state pos:absolute t:5px l:5px d:flex">
+                {% if product.compare_at_price > product.price and content.sale.enable %}
+                  <div class="yasmina-product-card__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                    <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="yasmina-product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                <div class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                  <i class="fal fa-heart"></i>
+                </div>
+                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                  <i class="fal fa-eye"></i>
+                </div>
+                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                  <i class="fal fa-repeat"></i>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="yasmina-product-card__content d:flex fld:column jc:flex-start ai:flex-start h:100% pl:30px">
+              <div class="yasmina-product-card__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
+              <a class="yasmina-product-card__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+              <a class="yasmina-product-card__price mt:14px" href="#">
+                <ins class="yasmina-product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}</ins>
+                {% if product.compare_at_price > product.price %}
+                  <del class="yasmina-product-card__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}</del>
+                {% endif %}
+              </a>
+
+              <div class="yasmina-product-card__colors d:flex">
+                <script class="yasmina-product-card__options-json" type="application/json">{{ product.options_with_values | json_encode()}}</script>
+              </div>
+              <script class="yasmina-product-card__variants-json" type="application/json">{{ product.variants | json_encode()}}</script>
+              <div class="ff:font-secondary fw:300 fz:13px c:color-gray9">
+                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et.
+              </div>
+              <div class="yasmina-product-card__add-content w:100% bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px">
+                <a class="yasmina-product-card__add cur:pointer fz:17px pos:absolute td:none va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light c:color-light!|h whs:nowrap">ADD TO CART</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
       <div class="col-lg-4">
         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
           <div class="product-box maw:452px w:100% h:auto bd:1px_solid_color-gray3 p:15px_20px_30px_20px">
@@ -123,7 +184,7 @@
                     {% for item in item.item %}
                       <div class="product-box__box-refine pos:relative d:inline-block bd:1px_solid_color-gray2 w:fit-content p:2px_25px_2px_5px cur:pointer c:color-gray4 ff:font-primary">
                         {{item.name}}
-                        <i class="fal fa-times pos:absolute t:50% r:1% trf:translate(-50%,-50%) cur:pointer"></i>
+                        <i class="fal fa-times pos:absolute t:50% r:1% trf:translate(-50%,-50%) cur:pointer c:color-gray9 c:color-primary!|h"></i>
                       </div>
                     {% endfor %}
                     <a class="c:color-dark pos:absolute t:5px r:0 ff:font-primary" href="#">Clear All</a>
@@ -205,7 +266,7 @@
                   <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Tags</h2>
                   <div class="product-box__content">
                     {% for item in item.item %}
-                      <a href="#" class="product-box__box-tag d:inline-block bd:1px_solid_color-gray2 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-gray9 c:color-gray9!||placeholder">{{item.name}}</a>
+                      <a href="#" class="product-box__box-tag d:inline-block bd:1px_solid_color-gray2 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-gray9 c:color-gray9!|h ">{{item.name}}</a>
                     {% endfor %}
                   </div>
 
@@ -218,76 +279,6 @@
 
         </div>
       </div>
-      {#
-      <div class="col-lg-8 pl:40px shop-page2">
-        <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 pr:90px" component="content">
-          {% set collection = collections[content.collection] %}
-
-          {% for product in collection.products | slice(0, 4) %}
-            <div class="product-card fld:row ">
-              <div class="product-card__img w:30%">
-                <div class="pet-product-card__image">
-                  <a href="#" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
-                    <img src="{{ product.featured_image.src | img_url('250x')}}" alt="{{ product.title }}">
-                  </a>
-                </div>
-
-                <div class="product-card__state">
-                  {% if product.compare_at_price > product.price and content.sale.enable %}
-                    <div class="product-card__sale">
-                      <p>{{ content.sale.text }}</p>
-                    </div>
-                  {% endif %}
-                </div>
-                <div class="product-card__status">
-                  <div class="product-card__icon-bg" data-tooltip="Add to wishlist" data-tooltip-position="left">
-                    <i class="far fa-heart"></i>
-                  </div>
-                  <div class="product-card__icon-bg--hidden" data-tooltip="Quick view" data-tooltip-position="left">
-                    <i class="far fa-eye"></i>
-                  </div>
-                  <div class="product-card__icon-bg--hidden" data-tooltip="Compare to other products" data-tooltip-position="left">
-                    <i class="fas fa-compress"></i>
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="product-card__content w:70% ai:flex-start h:100% jc:flex-start pl:30px">
-                <div class="product-card__brand">{{product.vendor}}</div>
-                <a class="product-card__name" href="#">{{product.title}}</a>
-                <a class="product-card__price" href="#">
-                  <ins class="product-card__cost">${{ product.price }}</ins>
-                  {% if product.compare_at_price > product.price %}
-                    <del class="product-card__cost--before">${{ product.compare_at_price }}</del>
-                  {% endif %}
-                </a>
-                <div class="product-card__color">
-                  <div class="circle__active--yellow"></div>
-                  <div class="circle--blue"></div>
-                  <div class="circle--violet"></div>
-                  <div class="circle--plus">+1</div>
-                  </div>
-                <div class="ta:left mt:30px">
-                  {{collection.description}}
-                </div>
-                <div class="product-card__add pos:static trf:translateY(0) mt:25px w:250px">
-                  <a href="#">{{content.add_to_cart_text}}</a>
-                </div>
-
-
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-
-      </div>
-      #}
-
-
-
     </div>
-
-
   </div>
 </section>

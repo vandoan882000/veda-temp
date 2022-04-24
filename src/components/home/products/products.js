@@ -59,12 +59,12 @@ class AddStore {
       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
       if(hasItem) {
         btnCompare.setAttribute("data-tooltip-active",true);
-        btnCompare.style.backgroundColor = "#f23333";
-        btnCompare.style.color = "#fff";
+        btnCompare.style.backgroundColor = "#AF0707";
+        btnCompare.style.color = "#ffffff";
       } else {
         btnCompare.setAttribute("data-tooltip-active",false);
-        btnCompare.style.backgroundColor = "white";
-        btnCompare.style.color = "black";
+        btnCompare.style.backgroundColor = "#ffffff";
+        btnCompare.style.color = "#000000";
       }
 
     })
@@ -150,6 +150,7 @@ class AddStoreCart {
         console.log(err);
       })
   }
+
   handleAdd() {
     const {data} = this.getData();
     const listCard = container.querySelectorAll(".yasmina-product-card");
@@ -415,12 +416,12 @@ class QuickViewPopop {
     return /*html */`
       <div class="quickview-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close-quickview pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:930px h:590px bgc:#fff mt:120px ov:auto">
+        <div class="w:90% w:930px@md h:590px bgc:#fff mt:120px ov:auto">
           <div class="d:flex ai:center jc:center w:100% h:100%">
-            <div class="veda-image-cover w:400px h:100%" css="--aspect-ratio: 3/4">
+            <div class="veda-image-cover miw:200px w:400px h:100%" css="--aspect-ratio: 3/4">
               <img class="yasmina-quickview-image w:100%" src="${ data.featured_image.src ? data.featured_image.src :""}" alt="${ data.title }">
             </div>
-            <div class="w:530px h:100% pl:30px">
+            <div class="w:530px h:100% pl:30px ov:auto">
               <div class="fw:500 fz:30px c:color-gray9 mt:26px">${data.title}</div>
               <div class="fw:400 fz:25px c:color-gray9 mt:5px">$${data.price}</div>
               <div class="fw:400 fz:14px ff:font-secondary c:color-gray4 mt:17px">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti et...</div>
@@ -428,9 +429,9 @@ class QuickViewPopop {
               <div class="yasmina-quickview-color-text fw:500 fz:15px mt:23px">${(data.options_with_values[1]?.name=="Color"||data.options_with_values[1]?.name=="Colour")?`Color: ${data.options_with_values[1].selected_value}`:""}</div>
               <div class="yasmina-quickview-colors d:flex"></div>
               <div class="fw:500 fz:15px mt:12px">Quantity</div>
-              <div class="d:flex mt:9px">
-                <input class="w:84px! h:50px! fz:15px fw:300 c:color-gray9 bdrs:0px! ta:center" type="number" value="1" min="1" />
-                <button class="yasmina-btn__primary yasmina-quickview-add-cart bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:17px_70px_17px_70px cur:pointer m:0px_5px_0px_10px fw:500 bdrs:0px! fz:15px lts:0.15px w:272px h:50px whs:nowrap">ADD TO CART</button>
+              <div class="d:flex mt:9px flw:wrap">
+                <input class="w:84px! h:50px! fz:15px fw:300 c:color-gray9 bdrs:0px! ta:center mb:10px! mr:10px!" type="number" value="1" min="1" />
+                <button class="yasmina-btn__primary yasmina-quickview-add-cart bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:17px_70px_17px_70px@md cur:pointer m:0px_5px_0px_10px fw:500 bdrs:0px! fz:15px lts:0.15px w:272px@md h:50px whs:nowrap">ADD TO CART</button>
               </div>
             </div>
           </div>

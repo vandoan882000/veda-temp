@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_aebd02d1-3195-4606-a58e-f66a79881be4" %}
+{% set uniqueId = "id_e101b666-f99f-4e8d-b8d8-128dcb13af0a" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -150,7 +150,7 @@
           <div class="d:flex mt:20px mb:5px ">
             <img class="w:60px h:60px bdrs:30px" src="../../../img/insta1.png" alt="">
             <div class="ml:10px w:90%">
-              <h5 class="fz:15px fw:500 c:color-dark">{{item.author}} <span class="fz:12px c:color-gray3 fw:400"> - {{item.created_at}}</span></h5>
+              <h5 class="fz:15px fw:500 c:color-dark"><a class="fz:15px fw:500 c:color-dark c:color-gray9!|h" href="#">{{item.author}}</a><span class="fz:12px c:color-gray3 fw:400"> - {{item.created_at}}</span></h5>
               <p class="fz:14px c:color-gray5 ff:font-secondary fw:400">{{item.content}}</p>
               <div class="mt:3px">
                 <i class="fas fa-star c:#FFAE35 fz:15px"></i>

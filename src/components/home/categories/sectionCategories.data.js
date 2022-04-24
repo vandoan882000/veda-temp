@@ -9,7 +9,7 @@ const data = {
     overlay: "transparent",
   },
   heading: {
-    text: "Categories",
+    text: "Top Categories",
     design: "",
   },
   sidebar: {

@@ -2,12 +2,7 @@ const uniqueId = "cartcontainer";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const {map , store} = veda.utils;
-store.create("yasminaC", {
-  initialState: {
-    data: []
-  },
-  useStorage: true
-});
+
 
 class CartRender {
   constructor() {
@@ -29,9 +24,9 @@ class CartRender {
     })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         store.set(`yasminaCart`, (items) => {
           return {
+            visible: false,
             data: [...data]
             };
         })("/Add");
@@ -60,6 +55,7 @@ class CartRender {
       .then(data => {
         store.set(`yasminaCart`, (items) => {
           return {
+            ...items,
             data: [...items.data.filter(item => item.id !== data.id)]
           };
         })("CartDelete");
@@ -119,6 +115,12 @@ class CartRender {
   }
 }
 if(!!container) {
+  store.set(`yasminaCart`, (items) => {
+    return {
+      ...items,
+      visible: false,
+      };
+  })("/Add");
   veda.plugins.countdown(container);
   veda.plugins.select(container, {
     onChange: (value) => {

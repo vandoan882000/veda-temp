@@ -303,30 +303,30 @@
   "#339": {
     "prefix": "border-right-color",
     "body": [
-      "bdendc:"
+      "bdrc:"
     ],
-    "description": "bdendc:"
+    "description": "bdrc:"
   },
   "#340": {
     "prefix": "border-right-color: transparent",
     "body": [
-      "bdendc:transparent"
+      "bdrc:transparent"
     ],
-    "description": "bdendc:transparent"
+    "description": "bdrc:transparent"
   },
   "#341": {
     "prefix": "border-right-color: currentColor",
     "body": [
-      "bdendc:currentColor"
+      "bdrc:currentColor"
     ],
-    "description": "bdendc:currentColor"
+    "description": "bdrc:currentColor"
   },
   "#342": {
     "prefix": "border-right-color: none",
     "body": [
-      "bdendc:none"
+      "bdrc:none"
     ],
-    "description": "bdendc:none"
+    "description": "bdrc:none"
   },
   "#490": {
     "prefix": "border-bottom-color",
@@ -359,30 +359,30 @@
   "#641": {
     "prefix": "border-left-color",
     "body": [
-      "bdstartc:"
+      "bdlc:"
     ],
-    "description": "bdstartc:"
+    "description": "bdlc:"
   },
   "#642": {
     "prefix": "border-left-color: transparent",
     "body": [
-      "bdstartc:transparent"
+      "bdlc:transparent"
     ],
-    "description": "bdstartc:transparent"
+    "description": "bdlc:transparent"
   },
   "#643": {
     "prefix": "border-left-color: currentColor",
     "body": [
-      "bdstartc:currentColor"
+      "bdlc:currentColor"
     ],
-    "description": "bdstartc:currentColor"
+    "description": "bdlc:currentColor"
   },
   "#644": {
     "prefix": "border-left-color: none",
     "body": [
-      "bdstartc:none"
+      "bdlc:none"
     ],
-    "description": "bdstartc:none"
+    "description": "bdlc:none"
   },
   "#792": {
     "prefix": "border-spacing1 value2",
@@ -1899,44 +1899,44 @@
   "#1302": {
     "prefix": "filter: grayscale(value)",
     "body": [
-      "grayscale:grayscale(value)"
+      "filter:grayscale(value)"
     ],
-    "description": "grayscale:grayscale(value)"
+    "description": "filter:grayscale(value)"
   },
   "#1303": {
     "prefix": "filter: hue-rotate(value)",
     "body": [
-      "huerotate:hue-rotate(value)"
+      "filter:hue-rotate(value)"
     ],
-    "description": "huerotate:hue-rotate(value)"
+    "description": "filter:hue-rotate(value)"
   },
   "#1304": {
     "prefix": "filter: invert(value)",
     "body": [
-      "invert:invert(value)"
+      "filter:invert(value)"
     ],
-    "description": "invert:invert(value)"
+    "description": "filter:invert(value)"
   },
   "#1305": {
     "prefix": "filter: opacity(value)",
     "body": [
-      "opacity:opacity(value)"
+      "filter:opacity(value)"
     ],
-    "description": "opacity:opacity(value)"
+    "description": "filter:opacity(value)"
   },
   "#1306": {
     "prefix": "filter: saturate(value)",
     "body": [
-      "saturate:saturate(value)"
+      "filter:saturate(value)"
     ],
-    "description": "saturate:saturate(value)"
+    "description": "filter:saturate(value)"
   },
   "#1307": {
     "prefix": "filter: sepia(value)",
     "body": [
-      "sepia:sepia(value)"
+      "filter:sepia(value)"
     ],
-    "description": "sepia:sepia(value)"
+    "description": "filter:sepia(value)"
   },
   "#1308": {
     "prefix": "flex",
@@ -4237,135 +4237,128 @@
   "#1644": {
     "prefix": "transform: matrix(value)",
     "body": [
-      "matrix:matrix(value)"
+      "trf:matrix(value)"
     ],
-    "description": "matrix:matrix(value)"
-  },
-  "#1645": {
-    "prefix": "transform: matrix(value)",
-    "body": [
-      "matrix3d:matrix(value)"
-    ],
-    "description": "matrix3d:matrix(value)"
+    "description": "trf:matrix(value)"
   },
   "#1646": {
     "prefix": "transform: rotate(value)",
     "body": [
-      "rotate:rotate(value)"
+      "trf:rotate(value)"
     ],
-    "description": "rotate:rotate(value)"
+    "description": "trf:rotate(value)"
   },
   "#1647": {
     "prefix": "transform: rotate3d(value1,value2,value3,value4)",
     "body": [
-      "rotate3d:rotate3d(value1,value2,value3,value4)"
+      "trf:rotate3d(value1,value2,value3,value4)"
     ],
-    "description": "rotate3d:rotate3d(value1,value2,value3,value4)"
+    "description": "trf:rotate3d(value1,value2,value3,value4)"
   },
   "#1648": {
     "prefix": "transform: rotateX(value)",
     "body": [
-      "rotatex:rotateX(value)"
+      "trf:rotateX(value)"
     ],
-    "description": "rotatex:rotateX(value)"
+    "description": "trf:rotateX(value)"
   },
   "#1649": {
     "prefix": "transform: rotateY(value)",
     "body": [
-      "rotatey:rotateY(value)"
+      "trf:rotateY(value)"
     ],
-    "description": "rotatey:rotateY(value)"
+    "description": "trf:rotateY(value)"
   },
   "#1650": {
     "prefix": "transform: rotateZ(value)",
     "body": [
-      "rotatez:rotateZ(value)"
+      "trf:rotateZ(value)"
     ],
-    "description": "rotatez:rotateZ(value)"
+    "description": "trf:rotateZ(value)"
   },
   "#1651": {
     "prefix": "transform: scale(value1,value2)",
     "body": [
-      "scale:scale(value1,value2)"
+      "trf:scale(value1,value2)"
     ],
-    "description": "scale:scale(value1,value2)"
+    "description": "trf:scale(value1,value2)"
   },
   "#1652": {
     "prefix": "transform: scale3d(value1,value2,value3)",
     "body": [
-      "scale3d:scale3d(value1,value2,value3)"
+      "trf:scale3d(value1,value2,value3)"
     ],
-    "description": "scale3d:scale3d(value1,value2,value3)"
+    "description": "trf:scale3d(value1,value2,value3)"
   },
   "#1653": {
     "prefix": "transform: scaleX(value)",
     "body": [
-      "scalex:scaleX(value)"
+      "trf:scaleX(value)"
     ],
-    "description": "scalex:scaleX(value)"
+    "description": "trf:scaleX(value)"
   },
   "#1654": {
     "prefix": "transform: scaleY(value)",
     "body": [
-      "scaley:scaleY(value)"
+      "trf:scaleY(value)"
     ],
-    "description": "scaley:scaleY(value)"
+    "description": "trf:scaleY(value)"
   },
   "#1655": {
     "prefix": "transform: skew(value1,value2)",
     "body": [
-      "skew:skew(value1,value2)"
+      "trf:skew(value1,value2)"
     ],
-    "description": "skew:skew(value1,value2)"
+    "description": "trf:skew(value1,value2)"
   },
   "#1656": {
     "prefix": "transform: skewX(value)",
     "body": [
-      "skewx:skewX(value)"
+      "trf:skewX(value)"
     ],
-    "description": "skewx:skewX(value)"
+    "description": "trf:skewX(value)"
   },
   "#1657": {
     "prefix": "transform: skewY(value)",
     "body": [
-      "skewy:skewY(value)"
+      "trf:skewY(value)"
     ],
-    "description": "skewy:skewY(value)"
+    "description": "trf:skewY(value)"
   },
   "#1658": {
     "prefix": "transform: translate(value1,value2)",
     "body": [
-      "translate:translate(value1,value2)"
+      "trf:translate(value1,value2)"
     ],
-    "description": "translate:translate(value1,value2)"
+    "description": "trf:translate(value1,value2)"
   },
   "#1659": {
     "prefix": "transform: translate3d(value1,value2,value3)",
     "body": [
-      "translate3d:translate3d(value1,value2,value3)"
+      "trf:translate3d(value1,value2,value3)"
     ],
-    "description": "translate3d:translate3d(value1,value2,value3)"
+    "description": "trf:translate3d(value1,value2,value3)"
   },
   "#1660": {
     "prefix": "transform: translateX(value)",
     "body": [
-      "translatex:translateX(value)"
+      "trf:translateX(value)"
     ],
-    "description": "translatex:translateX(value)"
+    "description": "trf:translateX(value)"
   },
   "#1661": {
     "prefix": "transform: translateY(value)",
     "body": [
-      "translatey:translateY(value)"
+      "trf:translateY(value)"
     ],
-    "description": "translatey:translateY(value)"
+    "description": "trf:translateY(value)"
   },
   "#1662": {
     "prefix": "transform: translateZ(value)",
     "body": [
-      "translatez:translateZ(value)"
+      "trf:translateZ(value)"
     ],
-    "description": "translatez:translateZ(value)"
+    "description": "trf:translateZ(value)"
   },
   "#1663": {
     "prefix": "transition",

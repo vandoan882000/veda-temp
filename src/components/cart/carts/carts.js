@@ -292,7 +292,7 @@ if(!!container) {
     max: 300,
     multiple: true,
     value: [10, "max"],
-    step: 150,
+    step: 10,
     onChange(value) {
       console.log(value);
     }

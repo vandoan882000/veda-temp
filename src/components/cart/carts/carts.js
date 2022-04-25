@@ -82,6 +82,14 @@ class Range {
   getValue() {
     return this.state.value[this.state.index];
   }
+  valueToPercent(value) {
+    const containerWidth = this.el.offsetWidth;
+    const minValuePercent = (100 * value) / containerWidth;
+    return minValuePercent;
+  }
+  percentToValue(value) {
+    return (this.opts.max * value) / 100;
+  }
   handleDragStart(event) {
     const { target } = event.touches ? event.touches[0] : event;
     if (this.el.contains(target)) {
@@ -97,14 +105,6 @@ class Range {
     }
   }
 
-  valueToPercent(value) {
-    const containerWidth = this.el.offsetWidth;
-    const minValuePercent = (100 * value) / containerWidth;
-    return minValuePercent;
-  }
-  percentToValue(value) {
-    return (this.opts.max * value) / 100;
-  }
   handleDragging(event) {
     const { pageX } = event.touches ? event.touches[0] : event;
     const { isDragging, prevPosition } = this.state;
@@ -119,7 +119,6 @@ class Range {
         this.setValue(valuePercent);
         this.update();
       }
-
     }
   }
 
@@ -133,7 +132,6 @@ class Range {
     if(value1 > 100) {
       this.state.value[0] = 100;
     }
-
     let value2 = this.getValue2();
     if(value2 < 0) {
       this.state.value[1] = 0;
@@ -155,6 +153,9 @@ class Range {
     window.addEventListener("mousedown", this.handleDragStart.bind(this));
     window.addEventListener("mousemove", this.handleDragging.bind(this));
     window.addEventListener("mouseup", this.handleDragEnd.bind(this));
+    window.addEventListener("touchstart", this.handleDragStart.bind(this));
+    window.addEventListener("touchmove", this.handleDragging.bind(this));
+    window.addEventListener("touchend", this.handleDragEnd.bind(this));
   }
 }
 

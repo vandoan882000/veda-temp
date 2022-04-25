@@ -150,7 +150,7 @@
                 <script class="yasmina-product-card__options-json" type="application/json">{{ product.options_with_values | json }}</script>
               </div>
               <script class="yasmina-product-card__variants-json" type="application/json">{{ product.variants | json }}</script>
-              <div class="ff:font-secondary fw:300 fz:13px c:color-gray9">
+              <div class="ff:font-secondary fw:300 fz:13px c:color-gray9`     ">
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et.
               </div>
               <div class="yasmina-product-card__add-content w:100% bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px">
@@ -162,7 +162,7 @@
         </div>
 
       </div>
-      <div class="col-lg-4">
+      <div data-id="yasmina-filter" class="col-lg-4">
         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
           <div class="product-box maw:452px w:100% h:auto bd:1px_solid_color-gray3 p:15px_20px_30px_20px">
             {% for item in product_box %}
@@ -229,11 +229,11 @@
                 </div>
               {% endif %}
               {% if item.type == "brand" %}
-                <div class="product-box__category mb:30px">
-                  <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Categories</h2>
-                  <ul class="list:unset pl:15px">
+                <div class="yasmina-filter__brand mb:30px">
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Brand</h2>
+                  <ul class="yasmina-filter__brand-content list:unset pl:15px">
                     {% for item in item.item %}
-                      <li class="mb:5px">
+                      <li class="yasmina-filter-brand-item mb:5px">
                         <a class="c:color-dark fz:15px ff:font-primary" href="#">{{item.name}}</a>
                       </li>
                     {% endfor %}
@@ -244,7 +244,12 @@
               {% if item.type == "filter" %}
                 <div class="product-box__filter mb:30px">
                   <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Filter</h2>
-                  <input type="range" multiple min="0" step="1" max="10" data-values="1 9">
+                  <div class="range">
+                    <div class="range__drag w:10px h:10px bgc:color-gray9" data-index="0"></div>
+                    <div class="range__drag w:10px h:10px bgc:color-gray9" data-index="1"></div>
+                    <div class="range__progress bgc:color-gray9 h:5px"></div>
+                    <div class="range__bar h:5px"></div>
+                  </div>
                 </div>
               {% endif %}
               {% if item.type == "availability" %}
@@ -260,11 +265,11 @@
                 </div>
               {% endif %}
               {% if item.type == "tag" %}
-                <div class="product-box__tag mb:30px">
+                <div class="yasmina-filter__tag mb:30px">
                   <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Tags</h2>
-                  <div class="product-box__content">
+                  <div class="yasmina-filter__tag-content">
                     {% for item in item.item %}
-                      <a href="#" class="product-box__box-tag d:inline-block bd:1px_solid_color-gray2 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-gray9 c:color-gray9!|h ">{{item.name}}</a>
+                      <a href="#" class="product-box__box-tag d:inline-block bd:1px_solid_color-gray2 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-gray9 c:color-gray9!|h mr:5px">{{item.name}}</a>
                     {% endfor %}
                   </div>
 

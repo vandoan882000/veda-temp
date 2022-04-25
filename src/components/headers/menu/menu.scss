@@ -1,6 +1,13 @@
 $uniqueId: 'menu';
 $container: "[data-id='#{$uniqueId}']";
 
+.sticky-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
 // .vdoan-menu--1 {
 //   display: flex;
 //   align-items: center;

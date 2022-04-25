@@ -1,0 +1,132 @@
+
+{% set uniqueId = "id_29600532-9866-499f-af48-0cc417f9e601" %}
+{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
+');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+
+
+<form action="{{ routes.search_url }}">
+  <input type="text"
+    placeholder="Search"
+    name="q"
+    value="{{ search.terms | escape }}"
+  />
+  <input type="hidden" name="type" value="product,page" />
+  <input type="hidden" name="options[unavailable_products]" value="hide" />
+  <input type="hidden" name="options[prefix]" value="last" />
+  <input type="submit" value="Search" />
+</form>
+
+{% set searchParams %}
+	{% set pageUrlWithHost = content_for_header | split('"pageurl":"')| last | split('"')| first | replace('\/','/')| replace('%20',' ')| replace('\u0026','&')
+    %}
+
+	{{ pageUrlWithHost | split("?")| last }}
+
+{% endset %}
+
+
+Search params:{{ searchParams }}
+
+
+
+{% set filters = searchParams | split("&")%}
+{% for filter in filters %}
+	{% set filterKey = filter | split("=")| first | url_decode | trim %}
+	{% set filterValue = filter | split("=")| last | url_decode | trim %}
+	
+
+		{% if filterKey == "filter.v.availability" %}
+
+			{% set availability = filterValue %}
+
+		{% elseif filterKey == "filter.v.price.lte" %}
+
+			{% set lte = filterValue %}
+
+		{% elseif filterKey == "filter.v.price.gte" %}
+
+			{% set gte = filterValue %}
+
+		{% elseif filterKey == "filter.v.option.color" %}
+
+			{% set colors = colors ~  "," ~  filterValue | remove_first(",")%}
+
+		{% elseif filterKey == "sort_by" %}
+
+			{% set sort_by = filterValue  %}
+
+	
+{% endif %}
+
+{% endfor %}
+
+{% set my_collection = collections[content.collection] %}
+
+{% set collection_prs = my_collection.products %}
+{% set arr_price = collection_prs | map('price_min')| uniq | sort %}
+{% set min_price = arr_price | first %}
+{% set max_price = arr_price | last %}
+
+{% set tag_colors = 'Red,White,Brown,Blue,Black,Grey'%}
+<form id="filter_form">
+  <div class="filter_field filter_by_availability">
+    <h3>Availability</h3>
+    <div>
+      <div>
+        <input type="radio" id="in_stock" name="filter.v.availability" value="1" {% if availability == "1" %}checked{% endif %} >
+        <label for="in_stock">In Stock</label>
+      </div>
+      <div>
+        <input type="radio" id="out_stock" name="filter.v.availability" value="0" {% if availability == "0" %}checked{% endif %}>
+        <label for="out_stock">Out stock</label>
+      </div>
+    </div>
+  </div>
+  <div class="filter_field filter_by_price">
+    <h3>Price</h3>
+    <div>
+      <div>
+        <label for="gte">From: </label>
+        <input type="number" id="gte" name="filter.v.price.gte" value="{{ gte }}" min="{{ min_price }}" max="{{ max_price }}" >
+      </div>
+      <div>
+        <label for="lte">To: </label>
+        <input type="number" id="lte" name="filter.v.price.lte" value="{{ lte }}" min="{{ min_price }}" max="{{ max_price }}">
+      </div>
+    </div>
+  </div>
+  <div class="filter_field filter_by_price">
+    <h3>Color</h3>
+    <div>
+      {% set arr_tag_colors = tag_colors | split(",")%}
+      {% for tag_color in arr_tag_colors %}
+        <div>
+            <label>
+                <input type="checkbox" name="filter.v.option.color" value="{{ tag_color }}" {% if colors contains tag_color %}checked{% endif %} />
+                <span>{{ tag_color }}</span>
+            </label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="filter_field sort_by">
+    <h3>Sort by</h3>
+    <div>
+      <select name="sort_by">
+        {% for option in my_collection.sort_options %}
+          <option
+          value="{{ option.value | escape }}"
+          {% if option.value == sort_by %}
+          selected="selected"{% endif %}
+          >
+            {{ option.name | escape }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <button type="submit">Apply</button>
+</form>
+

@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_7ae59b14-b72e-4102-9f11-0f28fb03fc76" %}
+{% set uniqueId = "id_77205657-2b46-4283-bbf6-a4103c955be0" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
@@ -27,7 +27,16 @@
             <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px ml:7px fw:400">secs</div>
           </div>
           <div class="nvd-cart-header__state fz:20px mb:30px c:color-gray9">Buy $69.00 more to enjoy FREE Shipping</div>
-          <input class="nvd-cart-header__range w:580px" type="range">
+          {#
+             <input class="slider nvd-cart-header__range w:580px" type="range"  min="1" max="100" value="50">
+          #}
+
+          <div class="range w:580px">
+            <div class="range__drag w:19px h:19px bgc:#FEAA01" data-index="0"></div>
+            <div class="range__drag w:19px h:19px bgc:#FEAA01" data-index="1"></div>
+            <div class="range__progress bgc:#FEAA01 h:5px"></div>
+            <div class="range__bar h:5px"></div>
+          </div>
         </div>
 
 			</div>

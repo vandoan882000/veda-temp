@@ -123,6 +123,9 @@ const data = {
       ]
     },
     {
+      type: "filter"
+    },
+    {
       type: "brand",
       item: [
         {

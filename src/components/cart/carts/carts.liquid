@@ -25,7 +25,16 @@
             <div class="nvd-cart-header__time fz:23px c:color-gray4 mr:30px ml:7px fw:400">secs</div>
           </div>
           <div class="nvd-cart-header__state fz:20px mb:30px c:color-gray9">Buy $69.00 more to enjoy FREE Shipping</div>
-          <input class="nvd-cart-header__range w:580px" type="range">
+          {%- comment -%}
+             <input class="slider nvd-cart-header__range w:580px" type="range"  min="1" max="100" value="50">
+          {%- endcomment -%}
+
+          <div class="range w:580px">
+            <div class="range__drag w:19px h:19px bgc:#FEAA01" data-index="0"></div>
+            <div class="range__drag w:19px h:19px bgc:#FEAA01" data-index="1"></div>
+            <div class="range__progress bgc:#FEAA01 h:5px"></div>
+            <div class="range__bar h:5px"></div>
+          </div>
         </div>
 
 			</div>

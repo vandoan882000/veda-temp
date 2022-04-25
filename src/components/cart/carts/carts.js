@@ -1,7 +1,164 @@
 const uniqueId = "cartcontainer";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
-const {map , store} = veda.utils;
+const {map , store, offset} = veda.utils;
+class Range {
+  constructor(options) {
+    this.opts = options;
+    this.el = this.getEl();
+    this.dragEl = this.el.querySelector("[data-index='0']");
+    this.dragEl1 = this.el.querySelector("[data-index='1']");
+    this.progressEl = this.el.querySelector(".range__progress");
+    this.state = {
+      value: [0 , 20],
+      index: 0,
+      isDragging: false,
+      prevPosition : 0
+    };
+
+    this.init();
+  }
+
+  getEl() {
+    if (typeof this.opts.el === "string") {
+      return document.querySelector(this.opts.el);
+    }
+    return this.opts.el;
+  }
+
+  setPosition() {
+    let value1 = this.getValue1();
+    if(value1 < 0) {
+      value1 = 0;
+    }
+    if(value1 > 100) {
+      value1 = 100;
+    }
+
+    let value2 = this.getValue2();
+    if(value2 < 0) {
+      value2 = 0;
+    }
+    if(value2 > 100) {
+      value2 = 100;
+    }
+    const { multiple } = this.opts;
+    const widthThumb = this.dragEl.offsetWidth / 2 ;
+    this.el.querySelector(".range__bar").style.marginLeft = `${widthThumb / 2}px`;
+    this.dragEl.style.left = `${value1}%`;
+
+    if(multiple){
+      if(value1 > value2){
+        this.progressEl.style.left = `${value2 }%`;
+        this.progressEl.style.width = `${value1 - value2}%`;
+      }
+      else{
+        this.progressEl.style.left = `${value1}%`;
+        this.progressEl.style.width = `${value2 - value1}%`;
+      }
+      this.dragEl1.style.left = `${value2}%`;
+
+    }
+    else {
+      this.progressEl.style.width = `${value1}%`;
+      this.progressEl.style.left = `${widthThumb / 2}px`;
+
+    }
+
+
+  }
+  update() {
+    this.setPosition();
+  }
+  setValue(value) {
+    this.state.value[this.state.index] = value;
+  }
+  getValue1() {
+    return this.state.value[0];
+  }
+  getValue2() {
+    return this.state.value[1];
+  }
+  getValue() {
+    return this.state.value[this.state.index];
+  }
+  handleDragStart(event) {
+    const { target } = event.touches ? event.touches[0] : event;
+    if (this.el.contains(target)) {
+      const index = Number(event.target.getAttribute("data-index"));
+      this.state.index = index;
+      this.state.isDragging = true;
+      if(index === 0) {
+        this.state.prevPosition = Math.round(this.percentToValue(this.getValue1()));
+      }
+      else {
+        this.state.prevPosition = Math.round(this.percentToValue(this.getValue2()));
+      }
+    }
+  }
+
+  valueToPercent(value) {
+    const containerWidth = this.el.offsetWidth;
+    const minValuePercent = (100 * value) / containerWidth;
+    return minValuePercent;
+  }
+  percentToValue(value) {
+    return (this.opts.max * value) / 100;
+  }
+  handleDragging(event) {
+    const { pageX } = event.touches ? event.touches[0] : event;
+    const { isDragging, prevPosition } = this.state;
+    const { step } = this.opts;
+    if (isDragging) {
+      let value =
+        pageX - offset(this.el).left - this.dragEl.offsetWidth / 2;
+      const valuePercent = this.valueToPercent(value);
+      const currentValue = Math.round(this.percentToValue(valuePercent));
+      if(currentValue == prevPosition + step || currentValue + step == prevPosition) {
+        this.state.prevPosition = currentValue;
+        this.setValue(valuePercent);
+        this.update();
+      }
+
+    }
+  }
+
+  handleDragEnd(event) {
+    const { max, onChange, multiple } = this.opts;
+    this.state.isDragging = false;
+    let value1 = this.getValue1();
+    if(value1 < 0) {
+      this.state.value[0] = 0;
+    }
+    if(value1 > 100) {
+      this.state.value[0] = 100;
+    }
+
+    let value2 = this.getValue2();
+    if(value2 < 0) {
+      this.state.value[1] = 0;
+    }
+    if(value2 > 100) {
+      this.state.value[1] = 100;
+    }
+    if (multiple) {
+      const minValue = Math.min(this.getValue1(),this.getValue2());
+      const maxValue = Math.max(this.getValue1(),this.getValue2());
+      onChange([Math.round(this.percentToValue(minValue)), Math.round(this.percentToValue(maxValue))]);
+    } else {
+      onChange(Math.round(this.percentToValue(this.getValue1())));
+    }
+  }
+
+  init() {
+    this.setPosition();
+    window.addEventListener("mousedown", this.handleDragStart.bind(this));
+    window.addEventListener("mousemove", this.handleDragging.bind(this));
+    window.addEventListener("mouseup", this.handleDragEnd.bind(this));
+  }
+}
+
+
 
 
 class CartRender {
@@ -128,5 +285,16 @@ if(!!container) {
     }
   });
   new CartRender();
+  new Range({
+    el: ".range",
+    min: 0,
+    max: 300,
+    multiple: true,
+    value: [10, "max"],
+    step: 150,
+    onChange(value) {
+      console.log(value);
+    }
+  });
 }
 

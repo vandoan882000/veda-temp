@@ -2,8 +2,17 @@ const uniqueId = "headers";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store, map ,objectParse, VQuery: $$ } = veda.utils;
+// console.log(container.offsetHeight);
 
 
+window.addEventListener("scroll", () => {
+  if(window.screenY > container.offsetHeight) {
+    container.classList.add("sticky-menu");
+  }
+  else {
+    container.classList.remove("sticky-menu");
+  }
+})
 
 veda.plugins.themeToggle(container);
 const PREFIX = 'yasmina';

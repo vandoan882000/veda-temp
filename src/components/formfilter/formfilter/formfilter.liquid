@@ -1,0 +1,120 @@
+{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
+{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
+{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
+');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+
+
+<form action="{{ routes.search_url }}">
+  <input type="text"
+    placeholder="Search"
+    name="q"
+    value="{{ search.terms | escape }}"
+  />
+  <input type="hidden" name="type" value="product,page" />
+  <input type="hidden" name="options[unavailable_products]" value="hide" />
+  <input type="hidden" name="options[prefix]" value="last" />
+  <input type="submit" value="Search" />
+</form>
+
+{% capture searchParams %}
+	{% assign pageUrlWithHost = content_for_header | split:'"pageurl":"' | last | split:'"' | first |
+       replace:'\/','/' |
+       replace:'%20',' ' |
+       replace:'\u0026','&'
+    %}
+
+	{{ pageUrlWithHost | split: "?" | last }}
+
+{% endcapture %}
+
+
+Search params:{{ searchParams }}
+
+
+
+{% assign filters = searchParams | split: "&" %}
+{% for filter in filters %}
+	{% assign filterKey = filter | split: "=" | first | url_decode | strip %}
+	{% assign filterValue = filter | split: "=" | last | url_decode | strip %}
+	{% case filterKey %}
+		{% when "filter.v.availability" %}
+			{% assign availability = filterValue %}
+		{% when "filter.v.price.lte" %}
+			{% assign lte = filterValue %}
+		{% when "filter.v.price.gte" %}
+			{% assign gte = filterValue %}
+		{% when "filter.v.option.color" %}
+			{% assign colors = colors | append: "," | append: filterValue | remove_first: ","  %}
+		{% when "sort_by" %}
+			{% assign sort_by = filterValue  %}
+	{% endcase %}
+{% endfor %}
+
+{% assign my_collection = collections[content.collection] %}
+
+{% assign collection_prs = my_collection.products %}
+{%- assign arr_price = collection_prs | map:'price_min' | uniq | sort -%}
+{%- assign min_price = arr_price | first -%}
+{%- assign max_price = arr_price | last -%}
+
+{% assign tag_colors = 'Red,White,Brown,Blue,Black,Grey'%}
+<form id="filter_form">
+  <div class="filter_field filter_by_availability">
+    <h3>Availability</h3>
+    <div>
+      <div>
+        <input type="radio" id="in_stock" name="filter.v.availability" value="1" {% if availability == "1" %}checked{% endif %} >
+        <label for="in_stock">In Stock</label>
+      </div>
+      <div>
+        <input type="radio" id="out_stock" name="filter.v.availability" value="0" {% if availability == "0" %}checked{% endif %}>
+        <label for="out_stock">Out stock</label>
+      </div>
+    </div>
+  </div>
+  <div class="filter_field filter_by_price">
+    <h3>Price</h3>
+    <div>
+      <div>
+        <label for="gte">From: </label>
+        <input type="number" id="gte" name="filter.v.price.gte" value="{{ gte }}" min="{{ min_price }}" max="{{ max_price }}" >
+      </div>
+      <div>
+        <label for="lte">To: </label>
+        <input type="number" id="lte" name="filter.v.price.lte" value="{{ lte }}" min="{{ min_price }}" max="{{ max_price }}">
+      </div>
+    </div>
+  </div>
+  <div class="filter_field filter_by_price">
+    <h3>Color</h3>
+    <div>
+      {% assign arr_tag_colors = tag_colors | split: "," %}
+      {% for tag_color in arr_tag_colors %}
+        <div>
+            <label>
+                <input type="checkbox" name="filter.v.option.color" value="{{ tag_color }}" {% if colors contains tag_color %}checked{% endif %} />
+                <span>{{ tag_color }}</span>
+            </label>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="filter_field sort_by">
+    <h3>Sort by</h3>
+    <div>
+      <select name="sort_by">
+        {%- for option in my_collection.sort_options -%}
+          <option
+          value="{{ option.value | escape }}"
+          {% if option.value == sort_by %}
+          selected="selected"{% endif %}
+          >
+            {{ option.name | escape }}
+          </option>
+        {%- endfor -%}
+      </select>
+    </div>
+  </div>
+  <button type="submit">Apply</button>
+</form>
+

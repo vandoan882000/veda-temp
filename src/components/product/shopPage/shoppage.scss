@@ -1,0 +1,9 @@
+.yasmina-filter-input-size:checked ~ div {
+  border: 1px solid var(--color-gray9);
+}
+.yasmina-filter-input-color:checked ~ div {
+  border: 1px solid var(--color-gray9);
+}
+.yasmina-filter-input-radio:checked ~ div  {
+  background-color: var(--color-gray9);
+}

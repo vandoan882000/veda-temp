@@ -1,10 +1,4 @@
 "use strict";
-/**
- ```ts
- {{ 4.6 | floor }}
- {{ 4.3 | floor }}
- ```
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.floor = void 0;
 /**

@@ -165,9 +165,23 @@ interface NotificationOptions {
 }
 type SelectDestroy = () => void;
 
+interface SliderOptions {
+  value: number | [number, number];
+  min: number;
+  max: number;
+  step?: number;
+  range?: boolean;
+  onChange?: (value: number | [number, number]) => void;
+  onChanged?: (value: number | [number, number]) => void;
+}
+
+interface SliderOptions2 extends SliderOptions {
+  selector?: string;
+}
+
 declare interface Veda {
   utils: {
-    objStrParse(value: string): Record<string, any>;
+    objectParse(value: string): Record<string, any>;
     isMobile: {
       android: boolean;
       blackBerry: boolean;
@@ -369,11 +383,10 @@ declare interface Veda {
      */
     mobileMenu(container: HTMLElement, options: MobileMenuOptions): MobileMenuReturn;
 
-    /** Create Message
+    /** Message
      * ```js
      * const { VQuery: $$ } = veda.utils;
-     * const { createMessage } = veda.plugins;
-     * const message = createMessage();
+     * const { message } = veda.plugins;
      *
      * $$(".button1").on("click", () => {
      *   message.info("Lorem ipsum dolor sit amet");
@@ -395,18 +408,17 @@ declare interface Veda {
      * });
      * ```
      */
-    createMessage(): {
+    message: {
       info(content: string | MessageOptions): void;
       success(content: string | MessageOptions): void;
       warning(content: string | MessageOptions): void;
       error(content: string | MessageOptions): void;
     };
 
-    /** Create Notification
+    /** Notification
      * ```js
      * const { VQuery: $$ } = veda.utils;
-     * const { createNotification } = veda.plugins;
-     * const notification = createNotification();
+     * const { notification } = veda.plugins;
      *
      * $$(".button1").on("click", () => {
      *   notification.push("Lorem ipsum dolor sit amet");
@@ -428,7 +440,7 @@ declare interface Veda {
      * });
      * ```
      */
-    createNotification(): {
+    notification: {
       push(content: string | NotificationOptions): void;
     };
 
@@ -458,6 +470,36 @@ declare interface Veda {
      * ```
      */
     select(container: HTMLElement, options: { onChange: (value: string) => void }): SelectDestroy;
+
+    /** Slider
+     * ```html
+     * // Liquid Example
+     * <div class="veda-slider" data-options="{ min: 100 }">
+     *    <div class="veda-slider__thumb" data-index="0"></div>
+     *    <div class="veda-slider__thumb" data-index="1"></div>
+     *    <div class="veda-slider__track"></div>
+     *    <div class="veda-slider__tracked"></div>
+     * </div>
+     * ```
+     * ```js
+     * // Javascript Example
+     * veda.plugins.slider(container, {
+     *    min: 0,
+     *    max: 500,
+     *    step: 1,
+     *    range: true,
+     *    value: [0, 200],
+     *    onChange: value => {
+     *       console.log(value);
+     *    }
+     *    onChanged: value => {
+     *       console.log(value);
+     *    }
+     * });
+     * ```
+     */
+    slider(container: HTMLElement, options: SliderOptions): void;
+    slider(options: SliderOptions2): void;
   }
 }
 

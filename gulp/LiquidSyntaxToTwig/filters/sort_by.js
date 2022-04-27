@@ -2,35 +2,34 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sort_by = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var Twig = require("twig");
 Twig.extendFilter("sort_by", function (value, args) {
   if (!args)
-    throw new Error(translation_1.i18n.t("twig_error.filters.sort_by.params"));
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.sort_by.params", {
+        error_signal: (0, toString_1.toString)(args),
+      })
+    );
   var sort_by = args[0];
   if (typeof value !== "string")
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort_by.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
   try {
     return value.concat("?sort_by=".concat(sort_by));
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort_by.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- Trường hợp tham số không được gán vào biến
- {{ collection.url | sort_by: 'best-selling' }}
- ```
- */
 /**
  * @link https://shopify.dev/api/liquid/filters/url-filters#sort_by
  */

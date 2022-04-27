@@ -28,7 +28,9 @@ var handleGetTwigScope = function (_a) {
     variant = _a.variant;
   if (variant === "useResult") return templateScope;
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  var liquidVariables = {};
+  var store = require("../store/configureStore").store;
+  var _state = store.getState();
+  var liquidVariables = _state.iframe.liquidVariables.data;
   var variables = sectionSettings.reduce(function (variables, setting) {
     if (setting.children) {
       if (setting.type === "collectionPicker") {

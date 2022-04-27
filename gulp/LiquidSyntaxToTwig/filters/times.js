@@ -2,49 +2,42 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.times = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var Twig = require("twig");
 Twig.extendFilter("times", function (value, args) {
   if (!args)
-    throw new Error(translation_1.i18n.t("twig_error.filters.times.params"));
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.times.params", {
+        error_signal: (0, toString_1.toString)(args),
+      })
+    );
   var factor2 = args[0];
   var _factor2 = Number(factor2);
   var _factor1 = Number(value);
   if (isNaN(_factor1))
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.times.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
   if (isNaN(_factor2))
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.times.factor", {
-        error_signal: factor2,
+        error_signal: (0, toString_1.toString)(factor2),
       })
     );
   try {
     return _factor1 * _factor2;
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.times.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- Trường hợp tham số không được gán vào biến
- {{ 100 | times: 10}}
- ```
-
- ```ts
- Trường hợp tham số được gán vào biến
- {% assign factor2 = 10 %}
- {{ 100 | times: factor2}}
- ```
- */
 /**
  * @link https://shopify.github.io/liquid/filters/times/
  */

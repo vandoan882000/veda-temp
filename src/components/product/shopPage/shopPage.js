@@ -200,119 +200,62 @@ class ViewAs {
     this.handleDOM();
   }
 }
-class BrandFilter {
-  constructor() {
-    this.brandContent = filterContainer.querySelector(".yasmina-filter__brand-content");
-    this.listData = products.querySelectorAll(".yasmina-product-card__data");
-    this.init();
-  }
-  handleBrandItem(event) {
-    event.preventDefault();
-    console.log(event.target.textContent);
-    this.listData.forEach(item => {
-      const brand = JSON.parse(item.textContent).vendor;
-      if (brand === event.target.textContent) {
-        item.parentNode.parentNode.style.display = "block";
-      }
-      else {
-        item.parentNode.parentNode.style.display = "none";
-      }
-    })
-  }
-  handleDOM() {
-    const lstBrandItems = this.brandContent.querySelectorAll(".yasmina-filter-brand-item");
-    lstBrandItems.forEach(item => {
-      item.addEventListener("click", this.handleBrandItem.bind(this));
-    })
-  }
-  render() {
-    let brands = [];
-    this.listData.forEach(item => {
-      const brand = JSON.parse(item.textContent).vendor;
-      if (!brands.includes(brand)) {
-        brands.push(brand);
-      }
-    })
-    return `${map(brands, item => {
-      return `<li class="yasmina-filter-brand-item mb:5px">
-      <a class="c:color-dark fz:15px ff:font-primary" href="#">${item}</a>
-    </li>`
-    })}`
-  }
-  init() {
-    this.brandContent.innerHTML = this.render();
-    this.handleDOM();
-  }
-}
-class TagFilter {
-  constructor() {
-    this.tagContent = filterContainer.querySelector(".yasmina-filter__tag-content");
-    this.listData = products.querySelectorAll(".yasmina-product-card__data");
-    this.init();
-  }
-  handleTagItem(event) {
-    event.preventDefault();
-    console.log(event.target.textContent);
-    this.listData.forEach(item => {
-      const tag = JSON.parse(item.textContent).tags;
-      if (tag.includes(event.target.textContent)) {
-        item.parentNode.parentNode.style.display = "block";
-      }
-      else {
-        item.parentNode.parentNode.style.display = "none";
-      }
-    })
-  }
-  handleDOM() {
-    const lstTagItems = this.tagContent.querySelectorAll(".yasmina-filter-tag-item");
-    lstTagItems.forEach(item => {
-      item.addEventListener("click", this.handleTagItem.bind(this));
-    })
-  }
-  render() {
-    let tags = [];
-    this.listData.forEach(item => {
-      const tag = JSON.parse(item.textContent).tags;
-      tag.forEach(item => {
-        if (!tags.includes(item)) {
-          tags.push(item);
-        }
-      })
-    })
-    return `${map(tags, item => {
-      return `<a href="#" class="yasmina-filter-tag-item d:inline-block bd:1px_solid_color-gray2 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-gray9 c:color-gray9!|h mr:5px">${item}</a>`
-    })}`
-  }
-  init() {
-    this.tagContent.innerHTML = this.render();
-    this.handleDOM();
-  }
-}
+
 
 if(!!container) {
-  //new SelectCustom();
+  // const $form = container.querySelector('#filter_form');
+	// $form.addEventListener('submit', (e) => {
+	// 	e.preventDefault();
+  //       const formData = new FormData($form);
+  //       const params = new URLSearchParams(formData);
+  //     	const url = new URL(window.location.href.replace(window.location.search, ''));
+	// 	    url.search = params;
+  //     	fetch(url).then(res => {
+  //       	// Làm cái gì đó ở đây
+  //         	console.log(res);
+  //         	window.history.pushState('html', 'pageTitle', url);
+  //       }).catch(err => {})
+	// })
   new ViewAs();
   veda.plugins.select(container, {
     onChange: (value) => {
+      const valueEl = container.querySelector(".yasmina-sort-by-value");
+      valueEl.value = value;
       console.log(value);
     }
   });
-}
-if(filterContainer) {
-  new BrandFilter();
-  new TagFilter();
-  new Range({
-    el: ".range",
+  veda.plugins.slider(container, {
     min: 0,
-    max: 300,
-    multiple: true,
-    value: [10, "max"],
+    max: 100,
     step: 1,
-    onChange(value) {
+    range: true,
+    value: [0, 80],
+    onChange: value => {
+      // console.log(value);
+      const gte = container.querySelector("#gte");
+      const lte = container.querySelector("#lte");
+      gte.value = value[0];
+      lte.value = value[1];
+    },
+    onChanged: value => {
       console.log(value);
     }
   });
 }
+
+// if(filterContainer) {
+//   new Range({
+//     el: ".range",
+//     min: 0,
+//     max: 300,
+//     multiple: true,
+//     value: [10, "max"],
+//     step: 1,
+//     onChange(value) {
+//       console.log(value);
+//     }
+//   });
+// }
 
 
 // const htmlStr = `

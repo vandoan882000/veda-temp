@@ -17,21 +17,26 @@ var __assign =
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.link_to_add_tag = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var COLLECTION_HANDLE = "frontpage";
 var Twig = require("twig");
 Twig.extendFilter("link_to_add_tag", function (value, args) {
   var _a;
   if (!args)
-    throw new Error(
-      translation_1.i18n.t("twig_error.filters.link_to_add_tag.params")
-    );
-  if (typeof value !== "string")
-    throw new Error(
-      translation_1.i18n.t("twig_error.filters.link_to_add_tag.value", {
-        error_signal: value,
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.link_to_add_tag.params", {
+        error_signal: (0, toString_1.toString)(args),
       })
     );
+  if (typeof value !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.link_to_add_tag.value", {
+        error_signal: (0, toString_1.toString)(value),
+      })
+    );
+  }
   try {
     var currentTag = location.pathname.includes(
       "/collections/".concat(COLLECTION_HANDLE, "/")
@@ -47,10 +52,10 @@ Twig.extendFilter("link_to_add_tag", function (value, args) {
       var attributeName = args[i].key;
       var attributeValue = args[i + 1];
       if (!attributeName || !attributeValue)
-        throw new Error(
+        throw new Error_1.LiquidSyntaxToTwigError(
           translation_1.i18n.t(
             "twig_error.filters.link_to_add_tag.params_invalid",
-            { error_signal: JSON.stringify(args) }
+            { error_signal: (0, toString_1.toString)(args) }
           )
         );
       attributes = __assign(
@@ -75,20 +80,13 @@ Twig.extendFilter("link_to_add_tag", function (value, args) {
     aElement_1.innerHTML = value;
     return aElement_1.outerHTML;
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.link_to_add_tag.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- Trường hợp tham số không được gán vào biến
- {{ collection.url | link_to_add_tag: 'best-selling' }}
- ```
- */
 /**
  * TODO: Chưa chính xác và có lẽ là không cần thiết
  * @link https://shopify.dev/api/liquid/filters/url-filters#link_to_add_tag

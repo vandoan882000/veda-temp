@@ -2,37 +2,27 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.url_for_vendor = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
+var toString_1 = require("../utils/toString");
 var Twig = require("twig");
 Twig.extendFilter("url_for_vendor", function (value) {
-  if (typeof value !== "string")
-    throw new Error(
+  if (typeof value !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.url_for_vendor.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
+  }
   try {
     return "/collections/vendors?q=".concat(value);
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.url_for_vendor.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- Trường hợp tham số không được gán vào biến
- {{ "Shopify" | url_for_vendor }}
- ```
-
- ```ts
- Trường hợp tham số được gán vào biến
- {% assign vendor = "Shopify" %}
- {{ vendor | url_for_vendor }}
- ```
- */
 /**
  * @link https://shopify.dev/api/liquid/filters/url-filters#url_for_vendor
  */

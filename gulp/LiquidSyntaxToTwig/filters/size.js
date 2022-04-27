@@ -1,9 +1,4 @@
 "use strict";
-/**
- ```ts
- {{ 'The quick brown fox jumps over a lazy dog.' | size }}
- ```
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.size = void 0;
 /**

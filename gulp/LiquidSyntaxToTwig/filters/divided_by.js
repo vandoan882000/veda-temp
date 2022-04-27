@@ -2,51 +2,42 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.divided_by = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var Twig = require("twig");
 Twig.extendFilter("divided_by", function (value, args) {
   if (!args)
-    throw new Error(
-      translation_1.i18n.t("twig_error.filters.divided_by.params")
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.divided_by.params", {
+        error_signal: (0, toString_1.toString)(args),
+      })
     );
   var divisor = args[0];
   var _divisor = Number(divisor);
   var _dividend = Number(value);
   if (isNaN(_divisor))
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.divided_by.divisor", {
-        error_signal: divisor,
+        error_signal: (0, toString_1.toString)(divisor),
       })
     );
   if (isNaN(_dividend))
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.divided_by.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
   try {
     return _dividend / _divisor;
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.divided_by.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- Trường hợp tham số không được gán vào biến
- {{ 100 | divided_by: 10}}
- ```
-
- ```ts
- Trường hợp tham số được gán vào biến
- {% assign divisor = 10 %}
- {{ 100 | divided_by: divisor}}
- ```
- */
 /**
  * @link https://shopify.github.io/liquid/filters/divided_by/
  */

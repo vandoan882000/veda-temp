@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMatches = void 0;
+/**
+ * Lấy ra tất cả đoạn string được match bởi regex
+ */
 function getMatches(string, regex) {
     var matches = [];
     var match;

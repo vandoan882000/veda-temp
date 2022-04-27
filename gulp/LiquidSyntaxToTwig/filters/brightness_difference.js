@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.brightness_difference = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var Twig = require("twig");
 Twig.extendFilter("brightness_difference", function () {
-  throw new Error(
+  throw new Error_1.LiquidSyntaxToTwigError(
     translation_1.i18n.t("twig_error.filters.brightness_difference")
   );
 });

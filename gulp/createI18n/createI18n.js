@@ -63,7 +63,7 @@ var createI18n = function (source) {
     return _locale.replace(/(-|_).*/g, "");
   };
   var translation = function (key, options) {
-    var _lang = source[_locale.replace(/(-|_).*/g, "")] || source["en"];
+    var _lang = source[_locale.replace(/(-|_).*/g, "")] || source["vi"];
     var _options = options;
     if (!_lang) {
       return "";

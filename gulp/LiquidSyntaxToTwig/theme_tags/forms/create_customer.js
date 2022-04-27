@@ -1,46 +1,44 @@
 "use strict";
-/**
- Generates a form for creating a new customer account on the register.liquid template.
- ```ts
- {% form 'create_customer' %}
-   ...<p>Something</p>
- {% endform %}
- ```
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.create_customer = void 0;
+var translation_1 = require("../../../translation");
+var Error_1 = require("../../Error");
+var toString_1 = require("../../utils/toString");
+var _const_1 = require("./.const");
+var _utils_1 = require("./.utils");
 /**
  * @link https://shopify.dev/api/liquid/tags/theme-tags#form
+ * @requires Với liquid đầu vào các tag form: {% form ... %} bắt buộc phải nằm trên 1 dòng mới có thể regex được
  */
 var create_customer = function (liquid) {
-    return liquid.replace(/{%\s*form.*create_customer.*%}/gm, function (BOC) {
-        // validateLiquidSyntaxNestable({ BOC, name: 'form', errorMessage: i18n.t('twig_error.theme_tags.forms.unnestable') });
-        return BOC.replace(/{%\s*form.*create_customer.*%}/, function (value) {
-            // Xoá đi "{% form" và "%}" để lấy ra mệnh đề chứa các tham số đầu vào cho form liquid
-            var content_properties_of_form = value.replace(/{%\s*form/, '').replace(/%}/, '');
-            var properties = content_properties_of_form
-                .split(',')
-                .slice(1)
-                .map(function (item) { return item.trim(); });
-            var form = document.createElement('form');
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', '/account');
-            form.setAttribute('accept-charset', 'UTF-8');
-            form.setAttribute('id', 'create_customer');
-            properties.forEach(function (property) {
-                if (property.includes(':')) {
-                    var _a = property.split(':').map(function (item) { return item.trim(); }), key = _a[0], value_1 = _a[1];
-                    var valueIsVariable = !/^(\'|\")/.test(value_1);
-                    if (valueIsVariable) {
-                        form.setAttribute(key, "{{ ".concat(value_1, " }}"));
-                    }
-                    else {
-                        form.setAttribute(key, value_1.replace(/^(\'|\")/, '').replace(/(\'|\")$/, ''));
-                    }
-                }
-            });
-            return "".concat(form.outerHTML.replace('</form>', ''), "\n      <input name=\"form_type\" type=\"hidden\" value=\"create_customer\" />\n      <input name=\"utf8\" type=\"hidden\" value=\"\u2713\" />");
-        });
+  return liquid.replace(/{%\s*form.*create_customer.*%}/gm, function (BOC) {
+    // validateLiquidSyntaxNestable({ BOC, name: 'form', errorMessage: i18n.t('twig_error.theme_tags.forms.unnestable') });
+    var _BOC = (0, _utils_1.handlePreprocess)(BOC);
+    return _BOC.replace(/{%\s*form.*create_customer.*%}/, function (value) {
+      var form = (0, _utils_1.handleFormAttributes)({
+        onException: function (err) {
+          return new Error_1.LiquidSyntaxToTwigError(
+            translation_1.i18n.t(
+              "twig_error.theme_tags.forms.create_customer",
+              { error_signal: (0, toString_1.toString)(err) }
+            )
+          );
+        },
+        lineOfCodeOpenTagForm: value,
+        additionAttributes: {
+          method: "post",
+          action: "/account",
+          "accept-charset": "UTF-8",
+          id: "create_customer",
+        },
+      });
+      return "\n      {% set form = "
+        .concat(_const_1.form_object, " %}\n      ")
+        .concat(
+          form.outerHTML.replace("</form>", ""),
+          '\n      <input name="form_type" type="hidden" value="create_customer" />\n      <input name="utf8" type="hidden" value="\u2713" />'
+        );
     });
+  });
 };
 exports.create_customer = create_customer;

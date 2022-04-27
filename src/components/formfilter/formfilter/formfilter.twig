@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_29600532-9866-499f-af48-0cc417f9e601" %}
+{% set uniqueId = "id_806921c7-3ded-486c-a38b-e2afc52a4d47" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
 <form action="{{ routes.search_url }}">
@@ -19,8 +18,7 @@
 </form>
 
 {% set searchParams %}
-	{% set pageUrlWithHost = content_for_header | split('"pageurl":"')| last | split('"')| first | replace('\/','/')| replace('%20',' ')| replace('\u0026','&')
-    %}
+	{% set pageUrlWithHost = content_for_header | split('"pageurl":"')| last | split('"')| first | replace('\/','/')| replace('%20',' ')| replace('\u0026','&')%}
 
 	{{ pageUrlWithHost | split("?")| last }}
 
@@ -36,31 +34,24 @@ Search params:{{ searchParams }}
 	{% set filterKey = filter | split("=")| first | url_decode | trim %}
 	{% set filterValue = filter | split("=")| last | url_decode | trim %}
 	
-
 		{% if filterKey == "filter.v.availability" %}
-
 			{% set availability = filterValue %}
-
 		{% elseif filterKey == "filter.v.price.lte" %}
-
 			{% set lte = filterValue %}
-
 		{% elseif filterKey == "filter.v.price.gte" %}
-
 			{% set gte = filterValue %}
-
 		{% elseif filterKey == "filter.v.option.color" %}
-
 			{% set colors = colors ~  "," ~  filterValue | remove_first(",")%}
-
 		{% elseif filterKey == "sort_by" %}
-
-			{% set sort_by = filterValue  %}
-
+			{% set sort_by = filterValue %}
 	
 {% endif %}
 
+
+
 {% endfor %}
+
+
 
 {% set my_collection = collections[content.collection] %}
 
@@ -104,11 +95,17 @@ Search params:{{ searchParams }}
       {% for tag_color in arr_tag_colors %}
         <div>
             <label>
-                <input type="checkbox" name="filter.v.option.color" value="{{ tag_color }}" {% if colors contains tag_color %}checked{% endif %} />
+                <input type="checkbox" name="filter.v.option.color" value="{{ tag_color }}" {% if tag_color in colors %}
+checked{% endif %}
+ />
                 <span>{{ tag_color }}</span>
             </label>
         </div>
-      {% endfor %}
+      
+
+{% endfor %}
+
+
     </div>
   </div>
   <div class="filter_field sort_by">
@@ -123,7 +120,11 @@ Search params:{{ searchParams }}
           >
             {{ option.name | escape }}
           </option>
-        {% endfor %}
+        
+
+{% endfor %}
+
+
       </select>
     </div>
   </div>

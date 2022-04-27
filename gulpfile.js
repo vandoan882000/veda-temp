@@ -122,7 +122,7 @@ function compileTwig(cb) {
       .src(`${config.input}/*.twig`)
       .pipe(twig({ data: getJSON(), errorLogToConsole: true }))
       .pipe(gulp.dest(output))
-      .pipe(browserSync.stream());
+      // .pipe(browserSync.stream());
   } catch (err) {
     console.log(err);
   }

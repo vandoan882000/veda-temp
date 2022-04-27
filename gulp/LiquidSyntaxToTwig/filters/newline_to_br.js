@@ -2,35 +2,27 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.newline_to_br = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
+var toString_1 = require("../utils/toString");
 var Twig = require("twig");
 Twig.extendFilter("newline_to_br", function (value) {
-  if (typeof value !== "string")
-    throw new Error(
+  if (typeof value !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.newline_to_br.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
+  }
   try {
     return value.replaceAll("\n", "<br>");
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.newline_to_br.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- {% capture var %}
-  One
-  Two
-  Three
- {% endcapture %}
- {{ var | newline_to_br }}
- ```
- */
 /**
  * @link https://shopify.github.io/liquid/filters/newline_to_br/
  */

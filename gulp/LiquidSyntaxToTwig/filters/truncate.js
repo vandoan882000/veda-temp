@@ -1,28 +1,4 @@
 "use strict";
-/**
-  ```ts Trường hợp assign không gán vào biến
-  {% assign abc = collection.title | truncate: 10 %}
-  {% assign abc = collection.title | truncate: 10, "v.v" %}
-  {% assign abc = collection.title | truncate: 10, "v.v" | append: 'abcd' | split: ' ' | join: ',' %}
-
-
-  {{  collection.title | truncate: 10 }}
-  {{  collection.title | truncate: 10, "_view more" }}
-  {{  collection.title | truncate: 10, "_view more" | append: 'abcd' | split: ' ' | join: ',' }}
-  ```
-
-  ```ts Trường hợp gán vào biến
-  {% assign splitter = '.etc' %}
-  {% assign abc = collection.title | truncate: 10 %}
-  {% assign abc = collection.title | truncate: 10, splitter %}
-  {% assign abc = collection.title | truncate: 10, splitter | append: 'abcd' | split: ' ' | join: ',' %}
-
-  {{  collection.title | truncate: 10 }}
-  {{  collection.title | truncate: 10, splitter }}
-  {{  collection.title | truncate: 10 | append: 'abc' }}
-  {{  collection.title | truncate: 10, splitter | append: 'abcd' | split: ' ' | join: ',' }}
-  ```
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.truncate = void 0;
 /**

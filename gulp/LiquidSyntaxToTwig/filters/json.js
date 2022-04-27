@@ -1,12 +1,4 @@
 "use strict";
-/**
- ```ts
-  <script>
-    const collection = {{ collections['{{ collection }}'] | json }}
-  </script>
-  {% assign collection = collections['{{ collection }}'] | json | append: products['{{ product1 }}'] | json %}
-  ```
-*/
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.json = void 0;
 /**

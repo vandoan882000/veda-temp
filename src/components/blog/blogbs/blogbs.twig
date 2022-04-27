@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_10fd0c12-9db8-4ce2-8c27-60ff71104ae2" %}
+{% set uniqueId = "id_45cd63ed-ec07-41ec-ab56-0c6e782e394f" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
 <section data-id="bestseller" class="pt:80px" css="{{ backgroundColor }}{{ backgroundImage }}">
@@ -65,7 +64,11 @@
             </div>
           </div>
         </div>
-      {% endfor %}
+      
+
+{% endfor %}
+
+
     </div>
 
   </div>

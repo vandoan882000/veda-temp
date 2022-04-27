@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.currency_form = void 0;
-var Twig = require("twig");
 var translation_1 = require("../../translation");
+var Twig = require("twig");
 Twig.extend(function (Twig) {
   Twig.exports.extendTag({
     type: "currency_form",

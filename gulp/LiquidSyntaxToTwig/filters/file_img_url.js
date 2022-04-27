@@ -2,9 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.file_img_url = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var Twig = require("twig");
 Twig.extendFilter("file_img_url", function () {
-  throw new Error(translation_1.i18n.t("twig_error.filters.file_img_url"));
+  throw new Error_1.LiquidSyntaxToTwigError(
+    translation_1.i18n.t("twig_error.filters.file_img_url")
+  );
 });
 /**
  * @link https://shopify.dev/api/liquid/filters/url-filters#file_img_url

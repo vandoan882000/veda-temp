@@ -6,7 +6,7 @@ var Twig = require("twig");
 Twig.extend(function (Twig) {
   Twig.exports.extendTag({
     type: "schema",
-    regex: /^schema\s+(.+)$/,
+    regex: /schema/,
     next: ["endschema"],
     open: true,
     compile: function (token) {

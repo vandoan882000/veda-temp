@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_ca0a5e85-31bf-4687-954f-83ac2f9c264c" %}
+{% set uniqueId = "id_4f599c4a-2c4f-4487-b8bf-69543bdb505c" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 <nav data-id="headers" class="nav" id="nav">
   <div class="container d:flex ai:center jc:space-between maw:100% p:0 bgc:color-gray9">
@@ -15,7 +14,11 @@
               <li class="vdoan-menu__list d:inline-block bdr:1px_solid_color-light">
                 <a href={{item.href}} class="vdoan-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap">{{item.name}}</a>
               </li>
-            {% endfor %}
+            
+
+{% endfor %}
+
+
           </ul>
         </div>
       </div>
@@ -52,7 +55,11 @@
               <li class="vdoan-menu-mobile__list">
                 <a href={{item.href}} class="vdoan-menu-mobile__link--primary">{{item.name}}</a>
               </li>
-            {% endfor %}
+            
+
+{% endfor %}
+
+
             <li>
               <div class="vdoan-menu-mobile__option pl:40px">
                 <a href="/login.html"><i class="far fa-user"></i></a>

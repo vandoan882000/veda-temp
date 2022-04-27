@@ -1,14 +1,4 @@
 "use strict";
-/**
- ```ts
- {% assign some_html = "<p>Dainty gold necklace with two pendants.</p>" | strip_html | append: "Lorem ipsum" | split: " " | join: ',' | truncate: 10, "v.v" %}
- {{"<p>Dainty gold necklace with two pendants.</p>" | strip_html | append: "Lorem ipsum" | split: " " | join: ',' | truncate: 10, "v.v"}}
-
- {% assign some_html = "<p>Dainty gold necklace with two pendants.</p>" | strip_html | append: "Lorem ipsum" | split: " " | join: ',' | truncate: 10, "v.v" %}
- {{ some_html | strip_html }}
- {{ some_html | strip_html | append: 'abc' | split: ',' | join: " " }}
- ```
-*/
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.strip_html = void 0;
 /**

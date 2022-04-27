@@ -8,7 +8,7 @@ var getBOCsBetweenSomething_1 = require("../utils/getBOCsBetweenSomething");
  */
 var comment = function (liquid) {
     // @tuong -> có lẽ có thể xử lí những khối to nhất để tối ưu performance hơn
-    var BOCs = (0, getBOCsBetweenSomething_1.getBOCsBetweenSomething)({ liquid: liquid, startBOC: new RegExp(/{%\s*comment/), endBOC: new RegExp(/{%\s*endcomment\s*%}/) });
+    var BOCs = (0, getBOCsBetweenSomething_1.getBOCsBetweenSomething)({ liquid: liquid, startBOC: new RegExp(/{%\s*comment\s*%}/), endBOC: new RegExp(/{%\s*endcomment\s*%}/) });
     var _liquid = liquid;
     var _loop_1 = function () {
         var BOC = BOCs.shift();

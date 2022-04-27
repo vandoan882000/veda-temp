@@ -2,6 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleClauseInTagShopify = void 0;
 var translation_1 = require("../translation");
+var ramda_1 = require("ramda");
+var Error_1 = require("./Error");
+var handleReplaceSchemaSettingToLiquidVariables_1 = require("./handleReplaceSchemaSettingToLiquidVariables");
+var handleReplaceToGeneralAssign_1 = require("./preprocess/handleReplaceToGeneralAssign");
+var handleReplaceToGeneralIfElseElseIf_1 = require("./preprocess/handleReplaceToGeneralIfElseElseIf");
+var handleReplaceToGeneralOpenCloseBlock_1 = require("./preprocess/handleReplaceToGeneralOpenCloseBlock");
+var replaceExactKeyword_1 = require("./utils/replaceExactKeyword");
+var handlBOCDelimiters_1 = require("./preprocess/handlBOCDelimiters");
 var handleSchemaSetting = function (_a) {
   var parentName = _a.parentName,
     shopify_clause = _a.shopify_clause,
@@ -13,50 +21,122 @@ var handleSchemaSetting = function (_a) {
         return !!item;
       })
       .join(".");
-    if (item.type === "color") _result = _result.replace(_name, item.children);
-    if (item.type === "date")
-      _result = _result.replace(_name, item.children.toString());
-    if (item.type === "flexOrder") {
-      Object.entries(item.children).forEach(function (_a) {
-        var itemName = _a[0],
-          order = _a[1];
-        _result = _result.replace(
-          [_name, itemName].join("."),
-          order.toString()
-        );
-      });
-    }
-    if (item.type === "font") _result = _result.replace(_name, item.children);
-    if (item.type === "icon") _result = _result.replace(_name, item.children);
-    if (item.type === "image") _result = _result.replace(_name, item.children);
-    if (item.type === "linkPicker")
-      _result = _result.replace(_name, item.children);
-    if (item.type === "navigation")
-      throw new Error(
-        translation_1.i18n.t("twig_error.clause_in_shopify.navigation")
-      );
-    if (item.type === "radioGroup")
-      _result = _result.replace(_name, item.children);
-    if (item.type === "responsive") {
-      Object.entries(item.children).forEach(function (_a) {
-        var key = _a[0],
-          value = _a[1];
-        _result = _result.replace([_name, key].join("."), value.toString());
-      });
-    }
-    if (item.type === "select") _result = _result.replace(_name, item.children);
-    if (item.type === "slider")
-      _result = _result.replace(_name, item.children.toString());
-    if (item.type === "space")
-      _result = _result.replace(_name, item.children.toString());
-    if (item.type === "styleBox")
-      _result = _result.replace(_name, item.children);
-    if (item.type === "switch")
-      _result = _result.replace(_name, item.children.toString());
-    if (item.type === "text") _result = _result.replace(_name, item.children);
-    if (item.type === "textarea")
-      _result = _result.replace(_name, item.children);
-    if (item.type === "video") _result = _result.replace(_name, item.children);
+    _result = _result.replace(
+      new RegExp("({{|{%).*".concat(_name, ".*(%}|}})"), "g"),
+      function (value) {
+        if (item.type === "color")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "date")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "flexOrder") {
+          Object.entries(item.children).forEach(function (_a) {
+            var itemName = _a[0],
+              order = _a[1];
+            return (0,
+            replaceExactKeyword_1.replaceExactKeyword)(value, [_name, itemName].join("."), JSON.stringify(order));
+          });
+        }
+        if (item.type === "font")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "icon")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "image")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "linkPicker")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "navigation")
+          throw new Error(
+            translation_1.i18n.t("twig_error.clause_in_shopify.navigation")
+          );
+        if (item.type === "radioGroup")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "responsive") {
+          Object.entries(item.children).forEach(function (_a) {
+            var key = _a[0],
+              valueOfKey = _a[1];
+            return (0,
+            replaceExactKeyword_1.replaceExactKeyword)(value, [_name, key].join("."), JSON.stringify(valueOfKey));
+          });
+        }
+        if (item.type === "select")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "slider")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "space")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "styleBox")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "switch")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "text")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "textarea")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        if (item.type === "video")
+          return (0, replaceExactKeyword_1.replaceExactKeyword)(
+            value,
+            _name,
+            JSON.stringify(item.children)
+          );
+        return value;
+      }
+    );
   });
   return _result;
 };
@@ -66,7 +146,7 @@ var handleSchemaBlock = function (_a) {
   var _result = shopify_clause;
   blocks.forEach(function (block) {
     if (block.type === "array")
-      throw new Error(
+      throw new Error_1.LiquidSyntaxToTwigError(
         translation_1.i18n.t("twig_error.clause_in_shopify.array")
       );
     if (block.type === "object")
@@ -88,10 +168,22 @@ var handleClauseInTagShopify = function (_a) {
   var schema_settings = settings.filter(function (item) {
     return item.type !== "array" && item.type !== "object";
   });
+  var preprocessData = (0, ramda_1.compose)(
+    handleReplaceToGeneralOpenCloseBlock_1.handleReplaceGeneralOpenCloseBlock,
+    handleReplaceToGeneralIfElseElseIf_1.handleReplaceToGeneralIfElseElseIf,
+    handleReplaceToGeneralAssign_1.handleReplaceToGeneralAssign,
+    handlBOCDelimiters_1.handleBOCDelimiters,
+    function (liquid) {
+      return (0,
+      handleReplaceSchemaSettingToLiquidVariables_1.handleReplaceSchemaSettingToLiquidVariables)(
+        { liquid: liquid, settings: settings }
+      );
+    }
+  )(shopify_clause);
   return handleSchemaSetting({
     shopify_clause: handleSchemaBlock({
       blocks: schema_blocks,
-      shopify_clause: shopify_clause,
+      shopify_clause: preprocessData,
     }),
     settings: schema_settings,
   });

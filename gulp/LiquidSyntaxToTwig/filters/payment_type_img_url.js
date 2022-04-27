@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.payment_type_img_url = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
+var toString_1 = require("../utils/toString");
 var TYPES = {
   visa: "https://cdn.shopify.com/shopifycloud/shopify/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca12a187f00.svg",
   master:
@@ -17,20 +19,25 @@ var TYPES = {
 };
 var Twig = require("twig");
 Twig.extendFilter("payment_type_img_url", function (value) {
-  if (typeof value !== "string")
-    throw new Error(
+  if (typeof value !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.payment_type_img_url.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
+  }
   var imgUrl = TYPES[value];
-  if (!imgUrl)
-    throw new Error(
+  if (!imgUrl) {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t(
         "twig_error.filters.payment_type_img_url.domain_value",
-        { domain_value: Object.keys(TYPES).join(", ") }
+        {
+          domain_value: Object.keys(TYPES).join(", "),
+          error_signal: (0, toString_1.toString)(value),
+        }
       )
     );
+  }
   return imgUrl;
 });
 /**

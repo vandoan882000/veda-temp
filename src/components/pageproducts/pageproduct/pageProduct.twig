@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_e101b666-f99f-4e8d-b8d8-128dcb13af0a" %}
+{% set uniqueId = "id_c2303cee-278c-4770-807f-eaee4edc6c74" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~  ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
 <section data-id="pageproduct" class="" css="{{ backgroundColor }}{{ backgroundImage }}">
@@ -47,39 +46,73 @@
           <p class="yasmina-page-product-color mb:7px mt:29px ff:font-primary c:color-dark fz:15px fw:300">Color : {{product.options_with_values[1].selected_value}}</p>
           <div class="d:flex mb:45px">
             {% for item in product.variants %}
+
               {% for itemoptioncolor in product.options_with_values %}
+
                 {% if itemoptioncolor.name == "Color" %}
+
                   {% if item.options[1] == itemoptioncolor.selected_value %}
+
                     <div class="veda-image-cover w:90px mr:10px cur:pointer" css="--aspect-ratio: 3/4">
                       <script class="yasmina-page-product-variant-data" type="application/json">{{ item | json_encode()}}</script>
                       <img class="bd:1px_solid_color-dark yasmina-page-product-image-select"  src="{{ item.image.src | img_url('660x')}}"  alt="">
                     </div>
                   {% else %}
+
                     <div class="veda-image-cover w:90px mr:10px cur:pointer" css="--aspect-ratio: 3/4">
                       <script class="yasmina-page-product-variant-data" type="application/json">{{ item | json_encode()}}</script>
                       <img class="yasmina-page-product-image-select" src="{{ item.image.src | img_url('660x')}}"  alt="">
                     </div>
                   {% endif %}
-                {% endif %}
-              {% endfor %}
 
-            {% endfor %}
+                {% endif %}
+
+              
+
+
+
+{% endfor %}
+
+
+
+            
+
+{% endfor %}
+
+
 
 
           </div>
           <p class="yasmina-page-product__sizes mb:7px ff:font-primary c:color-dark fz:15px fw:300">Size : {{product.options_with_values[0].selected_value}}</p>
           <div class="vdoan-page-product__size mb:30px">
             {% for itemoption in product.options_with_values %}
+
               {% if itemoption.name == "Size" %}
+
                   {% for item in itemoption.values %}
+
                     {% if item == itemoption.selected_value %}
+
                       <div class="vdoan-page-product__size-box d:inline-block w:70px h:34px bd:1px_solid_color-gray2 ta:center lh:34px ff:font-primary fz:15px fw:300 cur:pointer mr:6px">{{item}}</div>
                     {% else %}
+
                       <div class="vdoan-page-product__size-box d:inline-block w:70px h:34px bd:1px_solid_color-gray2 ta:center lh:34px bgc:color-gray2 ff:font-primary fz:15px fw:300 cur:pointer mr:6px">{{item}}</div>
                     {% endif %}
-                  {% endfor %}
+
+                  
+
+
+
+{% endfor %}
+
+
               {% endif %}
-            {% endfor %}
+
+            
+
+{% endfor %}
+
+
           </div>
           <div class="d:flex ai:center">
             <input class="w:85px! h:50px bdrs:0px! ta:center fw:300 fz:15px bd:1px_solid_color-gray4" type="number" value="1" min="1">
@@ -147,6 +180,7 @@
       <div class="col-lg-6 pr:100px">
         <h4 class="fz:20px fw:500 c:color-dark">{{comment.articles[0].comments.length}} REVIEW FOR TRAIL RUNNING SHOE</h4>
         {% for item in comment.articles[0].comments %}
+
           <div class="d:flex mt:20px mb:5px ">
             <img class="w:60px h:60px bdrs:30px" src="../../../img/insta1.png" alt="">
             <div class="ml:10px w:90%">
@@ -161,7 +195,11 @@
               </div>
             </div>
           </div>
-        {% endfor %}
+        
+
+{% endfor %}
+
+
         <div class="d:flex jc:flex-start mt:25px">
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_color-dark bgc:color-dark c:color-light cur:pointer mr:5px fw:600">1</div>
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">2</div>

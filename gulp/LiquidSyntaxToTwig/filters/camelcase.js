@@ -2,11 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.camelcase = void 0;
 /**
- ```ts
-  {{ 'coming-soon' | camelcase }}
- ```
- */
-/**
  * TODO: Có hay không nên việc custom lại cái này ?????
  * @link https://shopify.dev/api/liquid/filters/string-filters#camelcase
  @example

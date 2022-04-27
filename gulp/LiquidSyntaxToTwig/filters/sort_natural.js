@@ -2,14 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sort_natural = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
-var Twig = require("twig");
+var toString_1 = require("../utils/toString");
 var PRIMITIVE_TYPE = ["string", "number", "boolean"];
+var Twig = require("twig");
 Twig.extendFilter("sort_natural", function (value, args) {
   if (!Array.isArray(value))
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort_natural.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
   var isArrayPrimitive = value.every(function (item) {
@@ -18,16 +20,17 @@ Twig.extendFilter("sort_natural", function (value, args) {
   var isArrayObject = value.every(function (item) {
     return typeof item === "object";
   });
-  if (!isArrayObject && !isArrayPrimitive)
-    throw new Error(
+  if (!isArrayObject && !isArrayPrimitive) {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort_natural.value", {
-        error_signal: JSON.stringify(value),
+        error_signal: (0, toString_1.toString)(value),
       })
     );
+  }
   if (isArrayObject && !args)
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort_natural.value", {
-        error_signal: "args: ".concat(JSON.stringify(args)),
+        error_signal: (0, toString_1.toString)(args),
       })
     );
   try {
@@ -49,10 +52,9 @@ Twig.extendFilter("sort_natural", function (value, args) {
     }
     return value.sort();
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort_natural.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }

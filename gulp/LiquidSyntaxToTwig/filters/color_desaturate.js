@@ -3,57 +3,56 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.color_desaturate = void 0;
 var polished_1 = require("polished");
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var domainValues = [0, 100];
 var Twig = require("twig");
 Twig.extendFilter("color_desaturate", function (value, args) {
   if (!args)
-    throw new Error(
-      translation_1.i18n.t("twig_error.filters.color_desaturate.params")
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.color_desaturate.params", {
+        error_signal: (0, toString_1.toString)(args),
+      })
     );
   var desaturateValue = args[0];
   var _desaturateValue = Number(desaturateValue);
-  if (typeof value !== "string")
-    throw new Error(
+  if (typeof value !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_desaturate.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
-  if (isNaN(_desaturateValue))
-    throw new Error(
+  }
+  if (isNaN(_desaturateValue)) {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t(
         "twig_error.filters.color_desaturate.desaturateValue",
-        { error_signal: desaturateValue }
+        { error_signal: (0, toString_1.toString)(desaturateValue) }
       )
     );
+  }
   if (
     _desaturateValue < domainValues[0] ||
     _desaturateValue > domainValues[1]
   ) {
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t(
         "twig_error.filters.color_desaturate.desaturateDomain",
-        { error_signal: desaturateValue }
+        { error_signal: (0, toString_1.toString)(desaturateValue) }
       )
     );
   }
   try {
     return (0, polished_1.desaturate)(_desaturateValue / 100, value);
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_desaturate.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- Trường hợp tham số không được gán vào biến
- {{ '#7ab55c' | color_desaturate: 30 }}
- ```
-*/
 /**
  * @link https://shopify.dev/api/liquid/filters/color-filters#color_desaturate
  */

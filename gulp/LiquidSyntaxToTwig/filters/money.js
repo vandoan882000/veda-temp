@@ -2,39 +2,119 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.money = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
+var toString_1 = require("../utils/toString");
+var Twig = require("twig");
+Twig.extendFilter("money", function (value) {
+  var _a, _b;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  var store = require("../../store/configureStore").store;
+  var _state = store.getState();
+  var _value = Number(value);
+  if (isNaN(_value))
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.money.value", {
+        error_signal: (0, toString_1.toString)(value),
+      })
+    );
+  var moneyFormat =
+    (_b =
+      (_a = _state.iframe.liquidVariables.data.shop) === null || _a === void 0
+        ? void 0
+        : _a.money_format) !== null && _b !== void 0
+      ? _b
+      : "";
+  try {
+    return moneyFormat.replace(/{{.*}}/, (_value / 100).toString());
+  } catch (err) {
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.money.example_money", {
+        message: (0, toString_1.toString)(err),
+      })
+    );
+  }
+});
+var Twig = require("twig");
+Twig.extendFilter("money_with_currency", function (value) {
+  var _a, _b;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  var store = require("../../store/configureStore").store;
+  var _state = store.getState();
+  var _value = Number(value);
+  if (isNaN(_value))
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.money.value", {
+        error_signal: (0, toString_1.toString)(value),
+      })
+    );
+  var moneyFormat =
+    (_b =
+      (_a = _state.iframe.liquidVariables.data.shop) === null || _a === void 0
+        ? void 0
+        : _a.money_with_currency_format) !== null && _b !== void 0
+      ? _b
+      : "";
+  try {
+    return moneyFormat.replace(/{{.*}}/, (_value / 100).toString());
+  } catch (err) {
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t(
+        "twig_error.filters.money.example_money_with_currency",
+        { message: (0, toString_1.toString)(err) }
+      )
+    );
+  }
+});
+var Twig = require("twig");
+Twig.extendFilter("money_without_trailing_zeros", function (value) {
+  var _a, _b;
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  var store = require("../../store/configureStore").store;
+  var _state = store.getState();
+  var _value = Number(value);
+  if (isNaN(_value))
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.money.value", {
+        error_signal: (0, toString_1.toString)(value),
+      })
+    );
+  var moneyFormat =
+    (_b =
+      (_a = _state.iframe.liquidVariables.data.shop) === null || _a === void 0
+        ? void 0
+        : _a.money_format) !== null && _b !== void 0
+      ? _b
+      : "";
+  try {
+    return moneyFormat.replace(/{{.*}}/, (_value / 100).toString());
+  } catch (err) {
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t(
+        "twig_error.filters.money.example_money_without_trailing_zeros",
+        { message: (0, toString_1.toString)(err) }
+      )
+    );
+  }
+});
 var Twig = require("twig");
 Twig.extendFilter("money_without_currency", function (value) {
   var _value = Number(value);
   if (isNaN(_value))
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.money.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
   try {
     return (_value / 100).toString();
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.money.money_without_currency", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
-  ```ts
-  <del class="cart-item__original-price">{{ item.original_price }}</del>
-  <del class="cart-item__original-price">{{ item.original_price | money_with_currency }}</del>
-  <del class="cart-item__original-price">{{ item.original_price | money_without_trailing_zeros }}</del>
-  <span class="order-discount cart-item__price">{{ item.final_price | money_without_currency }}</span>
-  {{ 145 | money }}
-  {{ 145 | money_with_currency }}
-  {{ 2000 | money_without_trailing_zeros }}
-  {{ 145 | money_without_trailing_zeros }}
-  {{ 145 | money_without_currency }}
-  ```
-*/
 /**
  * @link https://shopify.dev/api/liquid/filters/money-filters#money
  */

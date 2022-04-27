@@ -6,7 +6,7 @@ var Twig = require("twig");
 Twig.extend(function (Twig) {
   Twig.exports.extendTag({
     type: "continue",
-    regex: /^continue\s+(.+)$/,
+    regex: /continue/,
     next: [],
     open: true,
     compile: function (token) {

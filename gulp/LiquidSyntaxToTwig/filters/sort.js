@@ -2,44 +2,46 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sort = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
+var PRIMITIVE_TYPE = ["string", "number", "boolean"];
 var Twig = require("twig");
-const PRIMITIVE_TYPE = ["string", "number", "boolean"];
-
 Twig.extendFilter("sort", function (value, args) {
-  const property = args ? args[0] : undefined;
-  if (!Array.isArray(value)) {
-    throw new Error(translation_1.i18n.t("twig_error.filters.sort.value"));
-  }
-  const isArrayPrimitive = value.every((item) => {
+  var property = args ? args[0] : undefined;
+  if (!Array.isArray(value))
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.sort.value", {
+        error_signal: (0, toString_1.toString)(value),
+      })
+    );
+  var isArrayPrimitive = value.every(function (item) {
     return PRIMITIVE_TYPE.includes(typeof item);
   });
-  const isArrayObject = value.every((item) => typeof item === "object");
-
+  var isArrayObject = value.every(function (item) {
+    return typeof item === "object";
+  });
   if (!isArrayObject && !isArrayPrimitive) {
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort.value", {
-        error_signal: JSON.stringify(value),
+        error_signal: (0, toString_1.toString)(value),
       })
     );
   }
-  if (isArrayObject && !args) {
-    throw new Error(
+  if (isArrayObject && !args)
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort.value", {
-        error_signal: `args: ${JSON.stringify(args)}`,
+        error_signal: (0, toString_1.toString)(args),
       })
     );
-  }
   if (
     !!property &&
     typeof value[0] === "object" &&
     !value[0].hasOwnProperty(property)
-  ) {
-    throw new Error(
+  )
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort.property_non_exist")
     );
-  }
-
   try {
     if (property) {
       return value.sort(function (a, b) {
@@ -48,27 +50,13 @@ Twig.extendFilter("sort", function (value, args) {
     }
     return value.sort();
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.sort.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
-  Trường hợp tham số không được gán vào biến
-  {% assign collections = collections | sort: 'published_at' | slice: 0, 10 %}
-  {{ collections | sort: 'published_at'| slice: 10 }}
- ```
- ```ts
-  Trường hợp tham số được gán vào biến
-  {% assign field = published_at %}
-  {% assign collections = collections | slice: 0, 10 | sort: field %}
-  {{ collections | slice: 0, 10 | sort: field }}
- ```
- */
 /**
  * @link https://shopify.github.io/liquid/filters/sort/
  */

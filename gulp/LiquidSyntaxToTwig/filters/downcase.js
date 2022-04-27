@@ -1,14 +1,4 @@
 "use strict";
-/**
- ```ts
- {% assign some_html = "<p>Dainty gold necklace with two pendants.</p>" | downcase | append: "Lorem ipsum" | split: " " | join: ',' | truncate: 10, "v.v" %}
- {{"<p>Dainty gold necklace with two pendants.</p>" | downcase | append: "Lorem ipsum" | split: " " | join: ',' | truncate: 10, "v.v"}}
-
- {% assign some_html = "<p>Dainty gold necklace with two pendants.</p>" | downcase | append: "Lorem ipsum" | split: " " | join: ',' | truncate: 10, "v.v" %}
- {{ some_html | downcase }}
- {{ some_html | downcase | append: 'abc' | split: ',' | join: " " }}
- ```
-*/
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.downcase = void 0;
 /**

@@ -4,10 +4,21 @@ exports.getExceptionOfCodeLiquid = void 0;
 var translation_1 = require("../translation");
 var constants_1 = require("../constants/constants");
 var const_1 = require("./const");
+var Error_1 = require("./Error");
 var getBOCsBetweenSomething_1 = require("./utils/getBOCsBetweenSomething");
-var getExceptionOfCodeLiquid = function (liquid) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-
+var toString_1 = require("./utils/toString");
+var getExceptionOfCodeLiquid = function (_a) {
+  var liquid = _a.liquid,
+    settings = _a.settings;
+  settings.forEach(function (setting) {
+    if (const_1.VARIABLES_NAME.includes(setting.name)) {
+      throw new Error_1.LiquidSyntaxToTwigError(
+        translation_1.i18n.t("twig_error.exception_of_code_liquid.variable", {
+          error_signal: (0, toString_1.toString)(setting),
+        })
+      );
+    }
+  });
   // TODO: @tuong -> Có thể optimize để lấy BOCS lớn nhất để có thể giảm bớt vòng lặp
   var liquidBOCs = (0, getBOCsBetweenSomething_1.getBOCsBetweenSomething)({
     liquid: liquid,
@@ -24,41 +35,11 @@ var getExceptionOfCodeLiquid = function (liquid) {
       "gm"
     ).test(_liquidRemoveShopifyTag);
     if (isError)
-      throw new Error(
-        translation_1.i18n.t("twig_error.exeption_of_code_liquid.filter", {
-          error_signal: filter,
+      throw new Error_1.LiquidSyntaxToTwigError(
+        translation_1.i18n.t("twig_error.exception_of_code_liquid.filter", {
+          error_signal: (0, toString_1.toString)(filter),
         })
       );
   });
-  const_1.OBJECT_MUST_BE_IN_SHOPIFY_TAG.forEach(function (object) {
-    var isError = new RegExp("{{.*".concat(object, ".*}}"), "gm").test(
-      _liquidRemoveShopifyTag
-    );
-    if (isError) throw new Error();
-    if (isError)
-      throw new Error(
-        translation_1.i18n.t("twig_error.exeption_of_code_liquid.object", {
-          error_signal: object,
-        })
-      );
-  });
-  // Dùng biến
-  // TODO: @tuong -> Có thể optimize để lấy BOCS lớn nhất để có thể giảm bớt vòng lặp nhưng đoạn này đang check theo đoạn ngắn nhất nhiều khi sẽ nhanh hơn check cả cục
-  var blockBOCs = (0, getBOCsBetweenSomething_1.getBOCsBetweenSomething)({
-    liquid: liquid,
-    startBOC: /{{|{%/,
-    endBOC: /}}|%}/,
-  });
-  // Trường hợp dùng ảnh mà không có | img_url
-  blockBOCs.forEach(function (BOC) {
-    if (/\.src/.test(BOC) && !BOC.includes("img_url")) {
-      throw new Error(
-        translation_1.i18n.t("twig_error.exeption_of_code_liquid.img_url", {
-          error_signal: BOC,
-        })
-      );
-    }
-  });
-  return liquid;
 };
 exports.getExceptionOfCodeLiquid = getExceptionOfCodeLiquid;

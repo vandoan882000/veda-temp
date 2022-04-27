@@ -17,32 +17,40 @@ var __assign =
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.link_to_vendor = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var Twig = require("twig");
 Twig.extendFilter("link_to_vendor", function (value, args) {
   var _a;
-  if (!args)
-    throw new Error(
-      translation_1.i18n.t("twig_error.filters.link_to_vendor.params")
-    );
-  if (typeof value !== "string")
-    throw new Error(
-      translation_1.i18n.t("twig_error.filters.link_to_vendor.value", {
-        error_signal: value,
+  if (args && (!Array.isArray(args) || args.length <= 1)) {
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.link_to_vendor.params", {
+        error_signal: (0, toString_1.toString)(args),
       })
     );
+  }
+  if (typeof value !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.link_to_vendor.value", {
+        error_signal: (0, toString_1.toString)(value),
+      })
+    );
+  }
   try {
     var attributes = {};
-    for (var i = 1; i < args.length; i += 2) {
-      var attributeName = args[i].key;
-      var attributeValue = args[i + 1];
-      if (!attributeName || !attributeValue)
-        throw new Error(
+    var _args = Array.isArray(args) ? args : [];
+    for (var i = 1; i < _args.length; i += 2) {
+      var attributeName = _args[i].key;
+      var attributeValue = _args[i + 1];
+      if (!attributeName || !attributeValue) {
+        throw new Error_1.LiquidSyntaxToTwigError(
           translation_1.i18n.t(
             "twig_error.filters.link_to_vendor.params_invalid",
-            { error_signal: JSON.stringify(args) }
+            { error_signal: (0, toString_1.toString)(args) }
           )
         );
+      }
       attributes = __assign(
         __assign({}, attributes),
         ((_a = {}), (_a[attributeName] = attributeValue), _a)
@@ -59,20 +67,13 @@ Twig.extendFilter("link_to_vendor", function (value, args) {
     aElement_1.setAttribute("title", value);
     return aElement_1.outerHTML;
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.link_to_vendor.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- Trường hợp tham số không được gán vào biến
- {{ collection.url | link_to_vendor: 'best-selling' }}
- ```
- */
 /**
  * TODO: Không chắc chắn chính xác và có lẽ là không cần thiết
  * @link https://shopify.dev/api/liquid/filters/url-filters#link_to_vendor

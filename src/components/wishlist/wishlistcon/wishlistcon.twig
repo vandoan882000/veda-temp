@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_113c6145-48fe-4779-9727-eb437d2882b3" %}
+{% set uniqueId = "id_9d8bec58-aed0-4b1d-b2cd-592365658e91" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~  ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
 <section data-id="products"  css="{{ backgroundColor }}{{ backgroundImage }}">
@@ -17,6 +16,7 @@
           {% set collection = collections[content.collection] %}
 
           {% for product in collection.products | slice(0, 16) %}
+
           <div class="col-lg-3 mt:0px!">
             <div class="yasmina-product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
               <script class="yasmina-product-card__data" type="application/json">{{ product | json_encode()}}</script>
@@ -31,10 +31,12 @@
                 </div>
                 <div class="yasmina-product-card__state pos:absolute t:5px l:5px d:flex">
                   {% if product.compare_at_price > product.price and content.sale.enable %}
+
                     <div class="yasmina-product-card__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
                       <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text }}</p>
                     </div>
                   {% endif %}
+
                 </div>
                 <div class="yasmina-product-card__status pos:absolute t:10px r:10px w:35px h:127px">
                   <div class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="false" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
@@ -56,8 +58,10 @@
                 <a class="yasmina-product-card__price mt:14px" href="#">
                   <ins class="yasmina-product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}</ins>
                   {% if product.compare_at_price > product.price %}
+
                     <del class="yasmina-product-card__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}</del>
                   {% endif %}
+
                 </a>
 
                 <div class="yasmina-product-card__colors d:flex">
@@ -68,7 +72,11 @@
               </div>
             </div>
           </div>
-          {% endfor %}
+          
+
+{% endfor %}
+
+
         </div>
         <div class="d:flex jc:center mt:40px">
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_color-dark bgc:color-dark c:color-light cur:pointer mr:5px fw:600">1</div>

@@ -3,44 +3,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.color_lighten = void 0;
 var polished_1 = require("polished");
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var Twig = require("twig");
 Twig.extendFilter("color_lighten", function (value, args) {
   if (!args)
-    throw new Error(
-      translation_1.i18n.t("twig_error.filters.color_lighten.params")
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.color_lighten.params", {
+        error_signal: (0, toString_1.toString)(args),
+      })
     );
   var lightenValue = args[0];
   var _lightenValue = Number(lightenValue);
-  if (typeof value !== "string")
-    throw new Error(
+  if (typeof value !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_lighten.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
-  if (isNaN(_lightenValue))
-    throw new Error(
+  }
+  if (isNaN(_lightenValue)) {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_lighten.lightenValue", {
-        error_signal: lightenValue,
+        error_signal: (0, toString_1.toString)(lightenValue),
       })
     );
+  }
   try {
     return (0, polished_1.lighten)(_lightenValue / 100, value);
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_lighten.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- Trường hợp tham số không được gán vào biến
- {{ '#7ab55c' | color_lighten: 30 }}
- ```
-*/
 /**
  * @link https://shopify.dev/api/liquid/filters/color-filters#color_lighten
  */

@@ -1,34 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.base64_url_safe_decode = void 0;
-var Twig = require("twig");
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
+var toString_1 = require("../utils/toString");
+var Twig = require("twig");
 Twig.extendFilter("base64_url_safe_decode", function (value) {
-  if (typeof value !== "string")
-    throw new Error(
+  if (typeof value !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.base64_url_safe_decode.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
+  }
   try {
     return atob(value)
       .replace(/\-/g, "+") // Convert '-' to '+'
       .replace(/\_/g, "/"); // Convert '_' to '/'
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t(
         "twig_error.filters.base64_url_safe_decode.example",
-        { message: _err.message }
+        { message: (0, toString_1.toString)(err) }
       )
     );
   }
 });
-/**
- ```ts
-  {{ 'PHA-b2s_PC9wPg==' | base64_url_safe_decode }} -> Expect: <p>ok?</p>
- ```
- */
 /**
  * @link https://shopify.dev/api/liquid/filters/string-filters#base64_url_safe_decode
  */

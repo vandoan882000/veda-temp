@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_c4ddf736-9eb3-4e4c-adc5-0d175833aafc" %}
+{% set uniqueId = "id_a4ae9848-7291-429d-a27c-57acc1a35d3e" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
 <section data-id="blogcontainer" class="pt:35px" css="{{ backgroundColor }}{{ backgroundImage }}">
@@ -27,7 +26,11 @@
             <p class="blog__description mb:14px fw:400 ff:font-secondary c:color-dark">{{item.content}}</p>
             <button class="vdoan-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:20px_81px_20px_81px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px ml:0px!">Read More</button>
           </div>
-        {% endfor %}
+        
+
+{% endfor %}
+
+
         <div class="d:flex jc:center">
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_color-dark bgc:color-dark c:color-light cur:pointer mr:5px fw:600">1</div>
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">2</div>
@@ -58,7 +61,13 @@
                         <img src={{item.srcImg | img_url('')}} alt="">
                         <h2 class="ml:20px fw:500 c:color-dark fz:15px">{{item.title}}</h2>
                       </a>
-                    {% endfor %}
+                    
+
+
+
+{% endfor %}
+
+
                   </div>
                   <a href="#" class="veda-image-cover d:block" css="--aspect-ratio: 1.6">
                     <img class="yasmina-product-card__image" src="../../img/post4.png">
@@ -72,7 +81,13 @@
                   <div class="product-box__content">
                     {% for item in item.item %}
                       <a href="#" class="product-box__box-tag d:inline-block bd:1px_solid_color-gray2 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-dark c:color-dark!|h">{{item.name}}</a>
-                    {% endfor %}
+                    
+
+
+
+{% endfor %}
+
+
                   </div>
 
                 </div>
@@ -89,7 +104,11 @@
                   </div>
                 </div>
               {% endif %}
-            {% endfor %}
+            
+
+{% endfor %}
+
+
 
           </div>
 

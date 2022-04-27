@@ -6,7 +6,7 @@ var Twig = require("twig");
 Twig.extend(function (Twig) {
   Twig.exports.extendTag({
     type: "break",
-    regex: /^break\s+(.+)$/,
+    regex: /break/,
     next: [],
     open: true,
     compile: function (token) {

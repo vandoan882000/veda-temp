@@ -6,7 +6,7 @@ var Twig = require("twig");
 Twig.extend(function (Twig) {
   Twig.exports.extendTag({
     type: "tablerow",
-    regex: /^tablerow\s+(.+)$/,
+    regex: /tablerow/,
     next: ["endtablerow"],
     open: true,
     compile: function (token) {

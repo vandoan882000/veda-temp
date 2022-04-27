@@ -2,9 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.preload_tag = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var Twig = require("twig");
 Twig.extendFilter("preload_tag", function () {
-  throw new Error(translation_1.i18n.t("twig_error.filters.preload_tag"));
+  throw new Error_1.LiquidSyntaxToTwigError(
+    translation_1.i18n.t("twig_error.filters.preload_tag")
+  );
 });
 /**
  * @link https://shopify.dev/api/liquid/filters/html-filters#preload_tag

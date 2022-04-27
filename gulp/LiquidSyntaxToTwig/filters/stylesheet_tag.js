@@ -2,9 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.stylesheet_tag = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var Twig = require("twig");
 Twig.extendFilter("stylesheet_tag", function () {
-  throw new Error(translation_1.i18n.t("twig_error.filters.stylesheet_tag"));
+  throw new Error_1.LiquidSyntaxToTwigError(
+    translation_1.i18n.t("twig_error.filters.stylesheet_tag")
+  );
 });
 /**
  * @link https://shopify.dev/api/liquid/filters/html-filters#stylesheet_tag

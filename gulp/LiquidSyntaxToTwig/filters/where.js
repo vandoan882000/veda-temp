@@ -2,29 +2,35 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.where = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var Twig = require("twig");
 Twig.extendFilter("where", function (value, args) {
   if (!args)
-    throw new Error(translation_1.i18n.t("twig_error.filters.where.params"));
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.where.params", {
+        error_signal: (0, toString_1.toString)(args),
+      })
+    );
   var property = args[0],
     objectPropertyValue = args[1];
   if (!property)
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.where.property", {
-        error_signal: property,
+        error_signal: (0, toString_1.toString)(property),
       })
     );
   if (!Array.isArray(value))
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.where.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
   if (!value[0].hasOwnProperty(property)) {
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.where.property_non_exist", {
-        error_signal: property,
+        error_signal: (0, toString_1.toString)(property),
       })
     );
   }
@@ -36,32 +42,13 @@ Twig.extendFilter("where", function (value, args) {
     });
     return _value;
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.where.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
-  Trường hợp tham số không được gán vào biến
-  {% assign products_available = products | where: 'available', true %}
-  {% for product in products_available %}
-    <p>{{ product.title }}</p>
-  {% endfor %}
- ```
- ```ts
-  Trường hợp tham số được gán vào biến
-  {% assign property = 'available' %}
-  {% assign value = true %}
-  {% assign products_available = products | where: property, value %}
-  {% for product in products_available %}
-    <p>{{ product.title }}</p>
-  {% endfor %}
- ```
- */
 /**
  * @link https://shopify.github.io/liquid/filters/where/
  */

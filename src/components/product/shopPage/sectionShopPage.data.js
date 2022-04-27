@@ -21,6 +21,157 @@ const data = {
   },
   content: {
     collection: "402337759453",
+    filter_categories : [
+      {
+        value: "Activewear",
+        id: "category_activewear",
+      },
+      {
+        value: "Hoodies & Sweatshirts",
+        id: "category_hoodies_sweatshirts",
+      },
+      {
+        value: "Coats & Jackets",
+        id: "category_coats_jackets",
+      },
+      {
+        value: "Dresses",
+        id: "category_dresses",
+      },
+      {
+        value: "Sweatshirt Short",
+        id: "category_sweatshirt_short",
+      },
+      {
+        value: "Jeans",
+        id: "category_jeans",
+      },
+      {
+        value: "Skirts & Tops",
+        id: "category_skirts_tops",
+      },
+      {
+        value: "Bikinis & Swimsuits",
+        id: "category_bikinis_swimsuits",
+      },
+    ],
+    filter_brands : [
+      {
+        value: "Gap",
+        id: "category_gap",
+      },
+      {
+        value: "Levi’s",
+        id: "category_levi",
+      },
+      {
+        value: "Polo",
+        id: "category_polo",
+      },
+      {
+        value: "Zara",
+        id: "category_zara",
+      },
+      {
+        value: "Gucci",
+        id: "category_gucci",
+      },
+    ],
+    filter_sizes : [
+      {
+        value: "XS",
+      },
+      {
+        value: "S",
+      },
+      {
+        value: "M",
+      },
+      {
+        value: "L",
+      },
+      {
+        value: "XL",
+      }
+    ],
+    filter_colors : [
+      {
+        value: "Red",
+        color_code: "#ff0000",
+      },
+      {
+        value: "Black",
+        color_code: "#000000",
+      },
+      {
+        value: "Green",
+        color_code: "#00ff00 ",
+      },
+      {
+        value: "Blue",
+        color_code: "#0000ff",
+      },
+      {
+        value: "Yellow",
+        color_code: "#ffff00",
+      },
+      {
+        value: "Violet",
+        color_code: "#ff00ff",
+      },
+      {
+        value: "Orange",
+        color_code: "#ffa500",
+      },
+      {
+        value: "Cyan",
+        color_code: "#00ffff",
+      },
+      {
+        value: "Grey",
+        color_code: "#808080",
+      },
+      {
+        value: "Brown",
+        color_code: "#a52a2a",
+      },
+      {
+        value: "Pink",
+        color_code: "#ffc0cb",
+      }
+    ],
+    filter_tags: [
+      {
+        value: "New",
+      },
+      {
+        value: "Sale",
+      },
+      {
+        value: "Hot",
+      },
+      {
+        value: "Trending",
+      },
+      {
+        value: "Best Seller",
+      },
+      {
+        value: "New",
+      },
+      {
+        value: "Sale",
+      },
+      {
+        value: "Hot",
+      },
+      {
+        value: "Trending",
+      },
+      {
+        value: "Best Seller",
+      }
+    ],
     review_app: {
       enable: true,
       app: "product_reviews", // "product_reviews" or "rivyo_reviews" or "loox_reviews""

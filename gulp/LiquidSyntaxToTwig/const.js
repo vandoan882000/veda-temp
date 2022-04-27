@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OBJECT_MUST_BE_IN_SHOPIFY_TAG = exports.FILTERS_MUST_BE_IN_SHOPIFY_TAG = exports.VARIABLES_NAME = void 0;
+exports.FILTERS_MUST_BE_IN_SHOPIFY_TAG = exports.VARIABLES_NAME = void 0;
 exports.VARIABLES_NAME = [
     'templates',
     'template',
@@ -62,4 +62,3 @@ exports.VARIABLES_NAME = [
     'content_for_additional_checkout_buttons',
 ];
 exports.FILTERS_MUST_BE_IN_SHOPIFY_TAG = ['t', 'weight_with_unit', 'money'];
-exports.OBJECT_MUST_BE_IN_SHOPIFY_TAG = ['content_for_index', 'content_for_layout', 'content_for_header', 'powered_by_link'];

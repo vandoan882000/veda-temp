@@ -6,7 +6,7 @@ var Twig = require("twig");
 Twig.extend(function (Twig) {
   Twig.exports.extendTag({
     type: "cycle",
-    regex: /^cycle\s+(.+)$/,
+    regex: /cycle/,
     next: [],
     open: true,
     compile: function (token) {

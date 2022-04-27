@@ -7,41 +7,47 @@ var __importDefault =
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.color_mix = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var color_1 = __importDefault(require("../libraries/color"));
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var domainValues = [0, 100];
 var Twig = require("twig");
 Twig.extendFilter("color_mix", function (value, args) {
   if (!args)
-    throw new Error(
-      translation_1.i18n.t("twig_error.filters.color_mix.params")
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.color_mix.params", {
+        error_signal: (0, toString_1.toString)(args),
+      })
     );
   var _colorValue = args[0],
     weightValue = args[1];
   var _weightValue = Number(weightValue);
   if (typeof value !== "string")
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_mix.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
-  if (typeof _colorValue !== "string")
-    throw new Error(
+  if (typeof _colorValue !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_mix.colorValue", {
-        error_signal: _colorValue,
+        error_signal: (0, toString_1.toString)(_colorValue),
       })
     );
-  if (isNaN(_weightValue))
-    throw new Error(
+  }
+  if (isNaN(_weightValue)) {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_mix.weightValue", {
-        error_signal: weightValue,
+        error_signal: (0, toString_1.toString)(weightValue),
       })
     );
+  }
   var color = (0, color_1.default)(value);
   if (_weightValue < domainValues[0] || _weightValue > domainValues[1]) {
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_mix.weightDomain", {
-        error_signal: weightValue,
+        error_signal: (0, toString_1.toString)(weightValue),
       })
     );
   }
@@ -50,20 +56,13 @@ Twig.extendFilter("color_mix", function (value, args) {
       .mix((0, color_1.default)(_colorValue), _weightValue / 100)
       .toString();
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.color_mix.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- Trường hợp tham số không được gán vào biến
- {{ '#7ab55c' | color_mix: '#ffc0cb', 50 }}
- ```
- */
 /**
  * FIXME: Định dạng color đang không trả giống với shopify. Liệu điều này có ổn ?????
  * @link https://shopify.dev/api/liquid/filters/color-filters#color_mix

@@ -2,7 +2,7 @@ const uniqueId = "products";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store , map } = veda.utils;
-const message = veda.plugins.createMessage();
+const { message } = veda.plugins;
 const PREFIX = 'yasmina';
 
 

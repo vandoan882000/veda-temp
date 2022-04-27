@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.include = void 0;
-var Twig = require("twig");
 var translation_1 = require("../../translation");
+var Twig = require("twig");
 Twig.extend(function (Twig) {
   Twig.exports.extendTag({
     type: "include",
-    regex: /^include\s+(.+)$/,
+    regex: /include/,
     next: [],
     open: true,
     compile: function (token) {

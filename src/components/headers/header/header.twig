@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_d794b423-a665-418b-b136-1f8866e47de0" %}
+{% set uniqueId = "id_20704259-5949-4abd-8865-b06ce598dccf" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 <header data-id="header" class="pos:relative z:10 bgc:color-light bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="core-overlay" css="background-color: {{ general_settings.overlay }}"></div>
@@ -14,7 +13,7 @@
           {% for item in navigation.menu %}
             {% set hasMegaMenu = item.hasMegaMenu %}
             {% if hasMegaMenu %}
-              <li class="pet-nav__list-item pet-nav__list-item--has-megamenu{{ hasMegaMenu ? '' : '  pos:relative' }}">
+              <li class="pet-nav__list-item pet-nav__list-item--has-megamenu{{ hasMegaMenu ? '' : ' pos:relative' }}">
             {% else %}
               <li class="pet-nav__list-item pos:relative">
             {% endif %}
@@ -63,16 +62,34 @@
                                   <span>{{ item.label }}</span>
                                 </a>
                               </li>
-                            {% endfor %}
+                            
+
+
+
+
+
+{% endfor %}
+
+
                           </ul>
                         {% endif %}
                       {% endif %}
                     </li>
-                  {% endfor %}
+                  
+
+
+
+{% endfor %}
+
+
                 </ul>
               {% endif %}
             </li>
-          {% endfor %}
+          
+
+{% endfor %}
+
+
         </ul>
       {% endif %}
       <div class="d:flex jc:center m:0 pr:15px">

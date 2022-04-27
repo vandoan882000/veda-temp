@@ -2,12 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.truncatewords = void 0;
 var translation_1 = require("../../translation");
+var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
+var toString_1 = require("../utils/toString");
 var Twig = require("twig");
 Twig.extendFilter("truncatewords", function (value, args) {
   if (!args)
-    throw new Error(
-      translation_1.i18n.t("twig_error.filters.truncatewords.params")
+    throw new Error_1.LiquidSyntaxToTwigError(
+      translation_1.i18n.t("twig_error.filters.truncatewords.params", {
+        error_signal: (0, toString_1.toString)(args),
+      })
     );
   var quantityWords = args[0],
     truncater = args[1];
@@ -16,18 +20,20 @@ Twig.extendFilter("truncatewords", function (value, args) {
     truncater !== null && truncater !== void 0 ? truncater : "..."
   );
   var _value = value;
-  if (typeof _value !== "string")
-    throw new Error(
+  if (typeof _value !== "string") {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.truncatewords.value", {
-        error_signal: value,
+        error_signal: (0, toString_1.toString)(value),
       })
     );
-  if (isNaN(_quantityWords))
-    throw new Error(
+  }
+  if (isNaN(_quantityWords)) {
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.truncatewords.quantity_words", {
-        error_signal: quantityWords,
+        error_signal: (0, toString_1.toString)(quantityWords),
       })
     );
+  }
   try {
     return _value
       .split(" ")
@@ -35,19 +41,13 @@ Twig.extendFilter("truncatewords", function (value, args) {
       .join(" ")
       .concat(_truncater);
   } catch (err) {
-    var _err = err;
-    throw new Error(
+    throw new Error_1.LiquidSyntaxToTwigError(
       translation_1.i18n.t("twig_error.filters.truncatewords.example", {
-        message: _err.message,
+        message: (0, toString_1.toString)(err),
       })
     );
   }
 });
-/**
- ```ts
- {{ 'The cat came back the very next day' | truncatewords: 4 }}
- ```
- */
 /**
  * @link https://shopify.github.io/liquid/filters/truncatewords/
  */

@@ -6,7 +6,7 @@ var Twig = require("twig");
 Twig.extend(function (Twig) {
   Twig.exports.extendTag({
     type: "decrement",
-    regex: /^decrement\s+(.+)$/,
+    regex: /decrement/,
     next: [],
     open: true,
     compile: function (token) {

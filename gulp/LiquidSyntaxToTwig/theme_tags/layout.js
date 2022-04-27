@@ -6,7 +6,7 @@ var Twig = require("twig");
 Twig.extend(function (Twig) {
   Twig.exports.extendTag({
     type: "layout",
-    regex: /^layout\s+(.+)$/,
+    regex: /layout/,
     next: [],
     open: true,
     compile: function (token) {
@@ -24,7 +24,9 @@ Twig.extend(function (Twig) {
   });
 });
 /**
- * TODO: Không thể làm được
+ * TODO: có thể làm được KHI VÀ CHỈ KHI
+ * 1. BE trả về được file theme đó và file theme đó thoả mãn builder (về syntax)
+ * HOẶC chấp nhận lỗi
  * @link https://shopify.dev/api/liquid/tags/theme-tags#layout
  */
 var layout = function (liquid) {

@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_3dd7831f-eb03-430c-974e-40398501ad6a" %}
+{% set uniqueId = "id_db46d87a-f0da-4eda-86aa-4ccbd877c466" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
 <section data-id="hero1" class="mah:274px h:274px" css="{{ backgroundColor }}{{ backgroundImage }}" >
@@ -26,7 +25,11 @@
                   {% if content.color_light %}
                     <button class="vdoan-btn__secondary bgc:color-light bgc:color-light!|h bd:none! c:color-dark c:color-dark!|h p:20px_47px_20px_47px cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
                   {% endif %}
-                {% endfor %}
+                
+
+{% endfor %}
+
+
               </div>
             </div>
           </div>

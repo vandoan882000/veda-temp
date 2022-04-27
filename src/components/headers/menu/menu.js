@@ -14,7 +14,7 @@ window.addEventListener("scroll", () => {
   }
 })
 
-veda.plugins.themeToggle(container);
+//veda.plugins.themeToggle(container);
 const PREFIX = 'yasmina';
 
 store.create(PREFIX+"Compare", {

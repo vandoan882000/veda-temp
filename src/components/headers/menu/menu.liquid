@@ -8,18 +8,20 @@
       <div class="h:60px! ovy:hidden">
         <script class="compare-popup-data" type="application/json">{{ compare_popup | json }}</script>
         <div class="ovx:auto h:80px">
-          <ul class="vdoan-{{menu1.name}} vdoan-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none">
+          <ul class="yasmina-{{menu1.name}} yasmina-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none pl:15px!@md">
             {% for item in menu1.list %}
-              <li class="vdoan-menu__list d:inline-block bdr:1px_solid_color-light">
-                <a href={{item.href}} class="vdoan-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap">{{item.name}}</a>
+              <li class="yasmina-menu__list d:inline-block bdr:1px_solid_color-light">
+                <a href={{item.href}} class="yasmina-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap">{{item.name}}</a>
               </li>
             {% endfor %}
           </ul>
         </div>
       </div>
       <div>
-        <div class="vdoan-menu__option h:100% d:flex jc:flex-end ai:center c:color-light fz:20px pr:10px">
-          <div class="veda-toggle-theme cur:pointer mr:10px">mode</div>
+        <div class="yasmina-menu__option h:100% d:flex jc:flex-end ai:center c:color-light fz:20px pr:15px pr:30px@md">
+          {%- comment -%}
+             <div class="veda-toggle-theme cur:pointer mr:10px">mode</div>
+          {%- endcomment -%}
           <a href="/login.html"><i class="fal fa-user ml:10px mr:10px cur:pointer c:color-light"></i></a>
           <span class="pos:relative cur:pointer">
             <i class="fal fa-repeat ml:10px mr:10px cur:pointer c:color-light"></i>
@@ -38,38 +40,3 @@
 
   </div>
 </nav>
-
-{%- comment -%}
-<nav class="nav-mobile" id="nav-mobile">
-  <div class="container maw:100% p:0">
-    <div class="row bgc:color-gray9 ml:0 mr:0 "   >
-      <div class="col-xs-12 col-sm-12 col-md-12 h:60px! ovy:hidden">
-        <div class="vdoan-menu-mobile__container-overflow">
-          <ul class="vdoan-{{menu1.name}}-mobile vdoan-{{menu1.name}}-mobile--1 m:0 list-style:none d:flex ai:center p:15px_0px_15px_0px">
-            {% for item in menu1.list %}
-              <li class="vdoan-menu-mobile__list">
-                <a href={{item.href}} class="vdoan-menu-mobile__link--primary">{{item.name}}</a>
-              </li>
-            {% endfor %}
-            <li>
-              <div class="vdoan-menu-mobile__option pl:40px">
-                <a href="/login.html"><i class="far fa-user"></i></a>
-                <a href="#">
-                  <i class="far fa-box-up"></i>
-                </a>
-                <a href="/wishlist.html"><i class="far fa-heart"></i></a>
-                <a href="/mycart.html"><i class="fas fa-shopping-cart"></i></a>
-              </div>
-            </li>
-          </ul>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-</nav>
-{%- endcomment -%}
-
-
-

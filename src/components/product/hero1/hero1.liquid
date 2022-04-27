@@ -12,17 +12,17 @@
         {% assign collection = collections[content.collection] %}
           <div class="c:white">
             <div class="vdoan-banner__content jc:flex-start d:flex fld:column ai:center w:50%@md w:100% ta:center z:9">
-              <div class="vdoan-banner__title fw:600 fz:35px ff:font-primary mt:20px">INSTILEY</div>
-              <p class="vdoan-banner__description ff:font-secondary mt:10px mb:30px fz:14px">
+              <div class="vdoan-banner__title fw:600 fz:pfs(20px,35px) ff:font-primary mt:20px">INSTILEY</div>
+              <p class="vdoan-banner__description ff:font-secondary mt:10px mb:30px fz:pfs(12px,14px)">
                 {{content.description}}
               </p>
               <div class="vdoan-btn__container">
                 {% for item in content.button %}
                   {% if content.color_dark %}
-                    <button class="vdoan-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:20px_47px_20px_47px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
+                    <button class="vdoan-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:10px_15px_10px_15px p:20px_47px_20px_47px@md cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:(15px,17px) lts:0.15px">{{item.name}}</button>
                   {% endif %}
                   {% if content.color_light %}
-                    <button class="vdoan-btn__secondary bgc:color-light bgc:color-light!|h bd:none! c:color-dark c:color-dark!|h p:20px_47px_20px_47px cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
+                    <button class="vdoan-btn__secondary bgc:color-light bgc:color-light!|h bd:none! c:color-dark c:color-dark!|h p:10px_15px_10px_15px p:20px_47px_20px_47px@md cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:(15px,17px) lts:0.15px">{{item.name}}</button>
                   {% endif %}
                 {% endfor %}
               </div>

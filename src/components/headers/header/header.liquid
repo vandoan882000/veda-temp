@@ -8,7 +8,7 @@
   <div class="container maw:100% p:0">
     <nav class="pet-nav d:flex ai:center jc:space-between mih:60px">
       {% if navigation.menu %}
-        <ul class="pet-nav__menu d:flex ai:center m:0 pl:92px h:60px list-style:none">
+        <ul class="pet-nav__menu d:flex ai:center m:0 pl:92px pl:107px@md h:60px list-style:none">
           {% for item in navigation.menu %}
             {% assign hasMegaMenu = item.hasMegaMenu %}
             {% if hasMegaMenu %}
@@ -73,30 +73,44 @@
           {% endfor %}
         </ul>
       {% endif %}
-      <div class="d:flex jc:center m:0 pr:15px">
+      <div class="d:flex jc:center m:0 pr:15px pr:30px@md">
         {% if search.enable %}
-          <div class="vdoan-menu__search d:flex w:160px w:260px@md h:38px">
-            <div class="w:122px w:222px@md h:38px bd:1px_solid_color-gray2 ">
-              <input class="bd:none! o:none d:inline-block pl:10px fz:13px c:color-gray6 c:color-gray6|ph" placeholder="Search" type="text">
-            </div>
-            <div class="btn-search w:38px h:38px fz:22px bgc:color-dark c:color-light cur:pointer d:inline-block pos:relative">
-              <i class="fal fa-search pos:absolute t:50% l:50% trf:translate(-50%,-50%) fz:19px"></i>
-            </div>
-          </div>
-        {% endif %}
-        {%- comment -%}
-          {% if wishlist.enable %}
-          <div class="fz:25px c:color-gray9 c:color-primary|h ml:16px cur:pointer test1">
-            {{ wishlist.icon }}
-          </div>
-        {% endif %}
-        {% if cart.enable %}
-          <div class="fz:25px c:color-gray9 c:color-primary|h ml:16px cur:pointer test2" data-use-mini-cart="{{ cart.use_mini_cart }}">
-            {{ cart.icon }}
-          </div>
-        {% endif %}
-        {%- endcomment -%}
+          <shopify>
+            <form action="{{ routes.search_url }}">
+              <div class="vdoan-menu__search d:flex w:160px w:260px@md h:38px">
+                <div class="w:122px w:222px@md h:38px bd:1px_solid_color-gray2 ">
+                  <input class="bd:none! o:none d:inline-block pl:10px fz:13px c:color-gray6 c:color-gray6|ph" type="text"
+                  placeholder="Search"
+                  name="q"
+                  value="{{ search.terms | escape }}"
+                  />
+                  <input type="hidden" name="type" value="product,page" />
+                  <input type="hidden" name="options[unavailable_products]" value="hide" />
+                  <input type="hidden" name="options[prefix]" value="last" />
+                </div>
+                <button class="w:38px h:38px fz:22px bgc:color-dark c:color-light cur:pointer d:inline-block pos:relative bgc:color-dark|h! bd:1px_solid_color-gray9! bdrs:0px!" type="submit"><i class="fal fa-search pos:absolute t:50% l:50% trf:translate(-50%,-50%) fz:19px cur:pointer"></i></button>
+              </div>
 
+            </form>
+
+              {% capture searchParams %}
+              {% assign pageUrlWithHost = content_for_header | split:'"pageurl":"' | last | split:'"' | first |
+                  replace:'\/','/' |
+                  replace:'%20',' ' |
+                  replace:'\u0026','&'
+                %}
+
+              {{ pageUrlWithHost | split: "?" | last }}
+
+              {% endcapture %}
+
+
+              {{ searchParams }}
+
+
+
+          </shopify>
+        {% endif %}
       </div>
     </nav>
   </div>

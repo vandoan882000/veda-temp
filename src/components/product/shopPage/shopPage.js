@@ -7,143 +7,7 @@ const {map , store, offset} = veda.utils;
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const filterContainer = document.querySelector(`[data-id="yasmina-filter"]`);
 const products = document.querySelector(`[data-id="products"]`);
-class Range {
-  constructor(options) {
-    this.opts = options;
-    this.el = this.getEl();
-    this.dragEl = this.el.querySelector("[data-index='0']");
-    this.dragEl1 = this.el.querySelector("[data-index='1']");
-    this.progressEl = this.el.querySelector(".range__progress");
-    this.state = {
-      value: [0 , 20],
-      index: 0,
-      isDragging: false
-    };
 
-    this.init();
-  }
-
-  getEl() {
-    if (typeof this.opts.el === "string") {
-      return document.querySelector(this.opts.el);
-    }
-    return this.opts.el;
-  }
-
-  setPosition() {
-    //const { minValue, maxValue, type } = this.state;
-    let value1 = this.getValue1();
-    if(value1 < 0) {
-      value1 = 0;
-    }
-    if(value1 > 100) {
-      value1 = 100;
-    }
-
-    let value2 = this.getValue2();
-    if(value2 < 0) {
-      value2 = 0;
-    }
-    if(value2 > 100) {
-      value2 = 100;
-    }
-    const { multiple } = this.opts;
-    const containerWidth = this.el.offsetWidth;
-    const widthThumb = this.dragEl.offsetWidth / 2 / containerWidth * 100;
-    this.dragEl.style.left = `${value1 - widthThumb}%`;
-    this.dragEl1.style.left = `${value2 - widthThumb}%`;
-    if(multiple){
-      if(value1 > value2){
-        this.progressEl.style.left = `${value2}%`;
-        this.progressEl.style.width = `${value1 - value2}%`;
-      }
-      else{
-        this.progressEl.style.left = `${value1}%`;
-        this.progressEl.style.width = `${value2 - value1}%`;
-      }
-
-    }
-    else {
-      this.progressEl.style.width = `${value1}%`;
-    }
-
-
-  }
-  update() {
-    this.setPosition();
-  }
-  setValue(value) {
-    this.state.value[this.state.index] = value;
-  }
-  getValue1() {
-    return this.state.value[0];
-  }
-  getValue2() {
-    return this.state.value[1];
-  }
-  getValue() {
-    return this.state.value[this.state.index];
-  }
-  handleDragStart(event) {
-
-    if (this.el.contains(event.target)) {
-      const index = Number(event.target.getAttribute("data-index"));
-      this.state.index = index;
-      this.state.isDragging = true;
-    }
-  }
-
-  pixelToPercent(value) {
-    const containerWidth = this.el.offsetWidth;
-    const minValuePercent = (100 * value) / containerWidth;
-    return minValuePercent;
-  }
-  percentToPixel(value) {
-    return (this.opts.max * value) / 100;
-  }
-  handleDragging(event) {
-    const { isDragging } = this.state;
-    if (isDragging) {
-      let value =
-        event.pageX - offset(this.el).left - this.dragEl.offsetWidth / 2;
-      const valuePercent = this.pixelToPercent(value);
-      this.setValue(valuePercent);
-      this.update();
-    }
-  }
-
-  handleDragEnd(event) {
-    const { max, onChange, multiple } = this.opts;
-    this.state.isDragging = false;
-    let value1 = this.getValue1();
-    if(value1 < 0) {
-      this.state.value[0] = 0;
-    }
-    if(value1 > 100) {
-      this.state.value[0] = 100;
-    }
-
-    let value2 = this.getValue2();
-    if(value2 < 0) {
-      this.state.value[1] = 0;
-    }
-    if(value2 > 100) {
-      this.state.value[1] = 100;
-    }
-    if (multiple) {
-      onChange([this.percentToPixel(Math.min(this.getValue1(),this.getValue2())), this.percentToPixel(Math.max(this.getValue1(),this.getValue2()))]);
-    } else {
-      onChange(this.percentToPixel(this.getValue1()));
-    }
-  }
-
-  init() {
-    this.setPosition();
-    window.addEventListener("mousedown", this.handleDragStart.bind(this));
-    window.addEventListener("mousemove", this.handleDragging.bind(this));
-    window.addEventListener("mouseup", this.handleDragEnd.bind(this));
-  }
-}
 class ViewAs {
   constructor() {
     this.view1 = container.querySelector(".yasmina-page-product-view-as1");
@@ -200,22 +64,60 @@ class ViewAs {
     this.handleDOM();
   }
 }
+function debounce(fn, delay = 300) {
+  let timeoutId = -1;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
+}
+
 
 
 if(!!container) {
-  // const $form = container.querySelector('#filter_form');
-	// $form.addEventListener('submit', (e) => {
-	// 	e.preventDefault();
-  //       const formData = new FormData($form);
-  //       const params = new URLSearchParams(formData);
-  //     	const url = new URL(window.location.href.replace(window.location.search, ''));
-	// 	    url.search = params;
-  //     	fetch(url).then(res => {
-  //       	// Làm cái gì đó ở đây
-  //         	console.log(res);
-  //         	window.history.pushState('html', 'pageTitle', url);
-  //       }).catch(err => {})
-	// })
+  const forms = container.querySelectorAll('#filter_form');
+  forms.forEach(form => {
+
+    const inputEls = form.querySelectorAll('input');
+
+    const params = {};
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+    })
+
+    inputEls.forEach(inputEl => {
+      const delay = /text|search|number|email|phone/g.test(inputEl.type) ? 400 : 0;
+      inputEl.addEventListener('input', debounce(event => {
+        const { name, value } = event.target;
+        params[name] = value;
+        const strParams = new URLSearchParams(params).toString();
+        const url = new URL(window.location.href.replace(window.location.search, ''));
+        url.search = strParams;
+        console.log(url);
+        window.history.pushState({}, '',url )
+      }, delay));
+    })
+  });
+
+  // const forms = container.querySelectorAll('#filter_form');
+  // forms.forEach(form => {
+  //   form.addEventListener('submit', (e) => {
+  //     e.preventDefault();
+  //         const formData = new FormData(form);
+  //         const params = new URLSearchParams(formData);
+  //         const url = new URL(window.location.href.replace(window.location.search, ''));
+  //         url.search = params;
+  //         fetch(url).then(res => {
+  //           // Làm cái gì đó ở đây
+  //             console.log(res);
+  //             window.history.pushState('html', 'pageTitle', url);
+  //         }).catch(err => {})
+  //   })
+  // })
+
   new ViewAs();
   veda.plugins.select(container, {
     onChange: (value) => {
@@ -229,7 +131,7 @@ if(!!container) {
     max: 100,
     step: 1,
     range: true,
-    value: [0, 80],
+    value: [16, 80],
     onChange: value => {
       // console.log(value);
       const gte = container.querySelector("#gte");
@@ -243,19 +145,7 @@ if(!!container) {
   });
 }
 
-// if(filterContainer) {
-//   new Range({
-//     el: ".range",
-//     min: 0,
-//     max: 300,
-//     multiple: true,
-//     value: [10, "max"],
-//     step: 1,
-//     onChange(value) {
-//       console.log(value);
-//     }
-//   });
-// }
+
 
 
 // const htmlStr = `

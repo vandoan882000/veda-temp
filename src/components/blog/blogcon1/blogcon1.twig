@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_a4ae9848-7291-429d-a27c-57acc1a35d3e" %}
+{% set uniqueId = "id_2c179012-be1e-4fd7-8e7f-bfb28df5e88f" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -10,7 +10,7 @@
   <div class="container maw:1360px">
     <div class="direct fz:15px c:color-gray4 mb:33px"><a href="/" class="fz:15px c:color-gray4">Home</a> > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     <div class="row">
-      <div class="col-lg-8 pr:50px">
+      <div class="col-lg-9 pr:50px">
         {% set blog = blogs[content.blog] %}
         {% for item in blog.articles %}
           <div class="blog pb:55px fz:15px">
@@ -18,13 +18,13 @@
               <img class="yasmina-product-card__image" src={{item.image.src | img_url('769x')}} alt="Blog Img">
             </a>
             <div class="blog__infor mt:20px">
-              <a href="#" class="d:inline-block mr:5px c:color-dark"><i class="fal fa-alarm-clock d:inline-block mr:5px cur:pointer"></i>{{item.image.updated_at}}</a>
-              <a href="#" class="d:inline-block ml:5px mr:5px c:color-dark"><i class="fal fa-archive d:inline-block ml:5px mr:5px cur:pointer"></i>Tips & Tricks</a>
-              <a href="#" class="d:inline-block ml:5px mr:5px c:color-dark"><i class="fal fa-gingerbread-man d:inline-block ml:5px mr:5px cur:pointer"></i>Fashion, store, shopify</a>
+              <a href="#" class="d:inline-block mr:10px c:color-dark"><i class="fal fa-alarm-clock d:inline-block mr:5px cur:pointer"></i>{{item.image.updated_at}}</a>
+              <a href="#" class="d:inline-block mr:15px c:color-dark"><i class="fal fa-archive d:inline-block mr:5px cur:pointer"></i>Tips & Tricks</a>
+              <a href="#" class="d:inline-block mr:15px c:color-dark"><i class="fal fa-gingerbread-man d:inline-block mr:5px cur:pointer"></i>Fashion, store, shopify</a>
             </div>
-            <a class="blog__title mb:10px mt:10px fz:35px c:color-dark ff:font-primary fw:500 cur:pointer">{{item.title}}</a>
+            <a class="blog__title mb:10px mt:10px fz:pfs(20px,35px) c:color-dark ff:font-primary fw:500 cur:pointer">{{item.title}}</a>
             <p class="blog__description mb:14px fw:400 ff:font-secondary c:color-dark">{{item.content}}</p>
-            <button class="vdoan-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:20px_81px_20px_81px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px ml:0px!">Read More</button>
+            <button class="vdoan-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:5px_10px_5px_10px p:20px_81px_20px_81px@md cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:pfs(13px,17px) lts:0.15px ml:0px!">Read More</button>
           </div>
         
 
@@ -39,9 +39,9 @@
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px"><i class="far fa-arrow-right"></i></div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
-          <div class="product-box w:100% h:auto bd:1px_solid_color-gray3 p:15px_30px_30px_30px">
+      <div class="col-lg-3">
+        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1">
+          <div class="product-box maw:330px w:100% h:auto bd:1px_solid_color-gray3 p:15px_30px_30px_30px">
             {% for item in product_box %}
               {% if item.type == "search" %}
                 <div class="product-box__search mb:15px">

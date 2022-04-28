@@ -49,7 +49,7 @@
 
           {% assign tag_colors = 'red,white,green,blue,black,gray'%}
           {% assign tag_sizes = 'XS,S,M,L,XL'%}
-          <form id="filter_form">
+          <form id="filter_form" class="filter_form">
             <div class="d:flex whs:nowrap ai:center ml:10px ml:455px@md pos:relative mt:10px mt:0px@md filter_field sort_by pos:relative">
               <p class="mr:10px fz:15px fw:500">Sort by</p>
               <div class="veda-select">
@@ -66,9 +66,8 @@
                 <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="date">Date, old to new</div>
                 </div>
               </div>
-              <input class="yasmina-sort-by-value pos:absolute b:100% l:0 v:hidden" name="sort_by" type="text" value="">
+              <input class="yasmina-sort-by-value pos:absolute b:100% l:0 v:hidden" name="sort_by" type="text" value="Featured">
             </div>
-            <button type="submit">Apply</button>
           </form>
         </shopify>
 
@@ -290,7 +289,7 @@
 
                 {% assign tag_colors = 'red,white,green,blue,black,gray'%}
                 {% assign tag_sizes = 'XS,S,M,L,XL'%}
-                <form id="filter_form">
+                <form id="filter_form" class="filter_form">
                   <div class="filter_field filter_by_availability">
                     <h2 class="product-box__title fz:20px fw:500 mb:8px ff:font-primary">Categories</h2>
                     <div>

@@ -2,8 +2,17 @@ const uniqueId = "headers";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store, map ,objectParse, VQuery: $$ } = veda.utils;
+const { message } = veda.plugins;
 // console.log(container.offsetHeight);
-
+veda.plugins.counter(container, {
+  min: 0,
+  max: 20,
+  step: 1,
+  value: 0,
+  onChange: value => {
+     console.log(value);
+  }
+});
 
 window.addEventListener("scroll", () => {
   if(window.screenY > container.offsetHeight) {
@@ -174,7 +183,7 @@ class ComparePopop {
     return /*html*/`
       <div class="compare-container d:flex ai:flex-start jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:90% w:1218px@md h:800px bgc:#fff mt:10% ov:auto pos:relative ml:30px">
+        <div class="w:90% w:1218px@md h:800px bgc:#fff mt:4% ov:auto pos:relative ml:30px">
           <div class="d:flex fld:column ai:center jc:center">
             <h2 class="fz:35px mt:60px ta:center fw:500 c:color-gray9">Compare</h2>
             <div class="acbxyz"></div>
@@ -248,7 +257,9 @@ class ComparePopop {
             </div>
           </div>
         </div>
-        <div class="close cur:pointer w:30px h:30px ta:center mt:9%"><i class="far fa-times c:color-gray9 fz:35px c:color-gray9 c:color-primary|h"></i></div>
+        <div class="close cur:pointer w:40px h:40px ta:center mt:3% ml:-20px z:100 bdrs:20px bgc:#e32c2c">
+          <i class="fal fa-times c:color-gray9 fz:30px c:color-gray9 lh:40px"></i>
+        </div>
       </div>
     `
 
@@ -283,7 +294,9 @@ class CartPopop {
   getData() {
     return store.get(PREFIX + this.storeName);
   }
-
+  getDataCart() {
+    return store.get(`${PREFIX}Cart`);
+  }
   handleTogglePopup() {
     const { visible } = this.getData();
     if (visible) {
@@ -347,12 +360,85 @@ class CartPopop {
       removeCart.forEach(removeEl => {
         removeEl.addEventListener("click", this.handleRemoveCart.bind(this));
       })
+      this.handleChangeQuantity();
     }
     else {
 
     }
   }
+  debounce(fn, delay = 300) {
+    let timeoutId = -1;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
+  }
+  updateStore() {
+    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        store.set(`${PREFIX}Cart`, (items) => {
+          return {
+            ...items,
+            data: [...data]
+            };
+        })(this.storeName + "/Add");
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+  handleChangeQuantity() {
+    const lstCounter = document.querySelectorAll(".veda-counter");
+    lstCounter.forEach(counter => {
+      counter.addEventListener("click", this.debounce(() => {
+        const currentId  = counter.getAttribute("data-id");
+        const currentValue = Number(counter.querySelector(".veda-counter__input").value);
+        if(currentValue > 0) {
+          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              "quantity": currentValue,
+            })
+          })
+            .then(res => res.json())
+            .then(data => {
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            .finally(() => {
+              message.success(`Add to Cart`);
+            })
+        }
+        else {
+          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
+            method: 'DELETE',
+          })
+            .then(res => res.json())
+            .then(data => {
+              this.updateStore();
+              message.error(`Remove from Cart`);
+            })
+            .catch(err => {
+              console.log(err);
+              alert("Delete Cart Error");
+            });
+        }
 
+      }));
+    });
+  }
   render() {
     const { visible , data } = this.getData();
     const { map } = veda.utils;
@@ -379,7 +465,6 @@ class CartPopop {
       </div>
       `
     }
-
     return /*html*/`
       <div class="d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close-cart pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
@@ -399,11 +484,11 @@ class CartPopop {
                     <div class="fw:600">${item.title}</div>
                     <div>${item.vendor}</div>
                     <div>$${item.price}</div>
-                    <div class="d:flex w:90px h:30px bd:1px_solid_color-gray3 bdrs:15px mt:5px
-                    mb:10px">
-                      <div class="w:20px h:100% ta:center cur:pointer lh:30px pl:10px"><i class="fal fa-minus fz:13px"></i></div>
-                      <div class="w:50px h:100% ta:center lh:30px fw:600">1</div>
-                      <div class="w:20px h:100% ta:center cur:pointer lh:30px pr:10px"><i class="fal fa-plus fz:13px"></i></div>
+                    <div class="veda-counter d:flex w:105px h:30px bd:1px_solid_color-gray3 bdrs:15px mt:5px
+                    mb:10px" data-id="${item.id}" data-options="{ value: ${item.quantity} }">
+                      <div class="veda-counter__decrement w:20px h:100% ta:center cur:pointer lh:30px pl:10px"><i class="fal fa-minus fz:13px"></i></div>
+                      <input class="veda-counter__input w:65px h:100% ta:center lh:30px fw:600 bd:none! o:none! ta:center" type="number" data-button="disabled"/>
+                      <div class="veda-counter__increment w:20px h:100% ta:center cur:pointer lh:30px pr:10px"><i class="fal fa-plus fz:13px"></i></div>
                     </div>
                     <button data-id=${item.id} class="yasmina-remove-cart"><i class="fas fa-trash-alt"></i></button>
                   </div>
@@ -424,7 +509,6 @@ class CartPopop {
         </div>
       </div>
     `
-
   }
   init() {
     const { visible , data } = this.getData();
@@ -444,7 +528,12 @@ class CartPopop {
         clearInterval(timeInterval);
       },100);
     }
-
+    veda.plugins.counter(this.el, {
+      step: 1,
+      value: 0,
+      onChange: (value) => {
+      }
+    });
     this.handleDOM();
   }
 }

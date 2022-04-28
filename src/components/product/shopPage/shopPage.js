@@ -7,7 +7,6 @@ const {map , store, offset} = veda.utils;
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const filterContainer = document.querySelector(`[data-id="yasmina-filter"]`);
 const products = document.querySelector(`[data-id="products"]`);
-
 class ViewAs {
   constructor() {
     this.view1 = container.querySelector(".yasmina-page-product-view-as1");
@@ -77,7 +76,7 @@ function debounce(fn, delay = 300) {
 
 
 if(!!container) {
-  const forms = container.querySelectorAll('#filter_form');
+  const forms = container.querySelectorAll('.filter_form');
   forms.forEach(form => {
 
     const inputEls = form.querySelectorAll('input');
@@ -96,7 +95,17 @@ if(!!container) {
         const strParams = new URLSearchParams(params).toString();
         const url = new URL(window.location.href.replace(window.location.search, ''));
         url.search = strParams;
-        console.log(url);
+        console.log(strParams);
+        // strParams.forEach((value, key) => {
+        //    console.log(key, value);
+        // })
+        // for (const [key, value] of strParams) {
+        //   console.log(key, value);
+        // }
+        // fetch(url).then(res => {
+        //   console.log(res);
+        //   // window.history.pushState('html', 'pageTitle', url);
+        // }).catch(err => {})
         window.history.pushState({}, '',url )
       }, delay));
     })
@@ -122,6 +131,7 @@ if(!!container) {
   veda.plugins.select(container, {
     onChange: (value) => {
       const valueEl = container.querySelector(".yasmina-sort-by-value");
+      valueEl.setAttribute("value", value);
       valueEl.value = value;
       console.log(value);
     }

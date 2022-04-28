@@ -1,6 +1,8 @@
 const uniqueId = "products";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
+
+
 const { store , map } = veda.utils;
 const { message } = veda.plugins;
 const PREFIX = 'yasmina';
@@ -122,13 +124,12 @@ class AddStoreCart {
     this.storeName = storeName;
     this.elName = elName;
     this.el = container.querySelector(".row");
-    this.updateStore();
+    this.init();
     // store.subscribe(storeName,this.handleChangeStatus.bind(this));
   }
   getData() {
     return store.get(`${PREFIX}${this.storeName}`);
   }
-
   updateStore() {
     fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
       method: 'GET',
@@ -144,24 +145,53 @@ class AddStoreCart {
             data: [...data]
             };
         })(this.storeName + "/Add");
-        this.init();
       })
       .catch(err => {
         console.log(err);
       })
   }
-
+  debounce(fn, delay = 300) {
+    let timeoutId = -1;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
+  }
   handleAdd() {
-    const {data} = this.getData();
     const listCard = container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
       const btnCart = cartEl.querySelector("."+this.elName);
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       const newItem = JSON.parse(dataEl.textContent);
-      let hasItem = !!data.find(item => item.product_id === newItem.id);
-      btnCart.parentNode.addEventListener("click", () => {
-        if(hasItem) {
-          message.error(`Đã có trong giỏ hàng`);
+      btnCart.parentNode.addEventListener("click", this.debounce(() => {
+        const {data} = this.getData();
+        const hasItem = data.filter(item => item.product_id === newItem.id);
+        if(hasItem.length > 0) {
+          const prevData = data.filter(item => item.product_id === newItem.id);
+          const defaultHtml = btnCart.innerHTML;
+          btnCart.innerHTML = 'Loading...';
+          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + prevData[0].id, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              "quantity": prevData[0].quantity + 1,
+            })
+          })
+            .then(res => res.json())
+            .then(data => {
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            .finally(() => {
+              btnCart.innerHTML = defaultHtml;
+              message.success(`Add to ${this.storeName}`);
+              this.updateStore();
+            })
         }
         else {
           const defaultHtml = btnCart.innerHTML;
@@ -187,12 +217,6 @@ class AddStoreCart {
           })
             .then(res => res.json())
             .then(data => {
-              store.set(`${PREFIX}${this.storeName}`, (items) => {
-                return {
-                  ...items,
-                  data: [...items.data, data]
-                };
-              })(this.storeName + "/Add");
             })
             .catch(err => {
               console.log(err);
@@ -200,11 +224,11 @@ class AddStoreCart {
             .finally(() => {
               btnCart.innerHTML = defaultHtml;
               message.success(`Add to ${this.storeName}`);
-              hasItem = !hasItem;
+              this.updateStore();
             })
         }
 
-      });
+      }));
     })
   }
   initStore() {
@@ -220,8 +244,27 @@ class AddStoreCart {
 
   }
   init() {
-    this.initStore();
-    this.handleAdd();
+    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        store.set(`${PREFIX}${this.storeName}`, (items) => {
+          return {
+            ...items,
+            data: [...data]
+            };
+        })(this.storeName + "/Add");
+        this.initStore();
+        this.handleAdd();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
   }
 }
 class AddStoreCurrentProduct {
@@ -295,14 +338,15 @@ class QuickViewPopop {
       }
     });
   }
-  // handleRemoveCompare(event) {
-  //   store.set(PREFIX + this.storeName,compare => {
-  //     return {
-  //       ...compare,
-  //       data: compare.data.filter(item => item.id !== event.currentTarget.getAttribute("data-id"))
-  //     }
-  //   })(this.storeName + "/remove");
-  // }
+  debounce(fn, delay = 300) {
+    let timeoutId = -1;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
+  }
   handleAdd() {
     const listCard = container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
@@ -327,15 +371,59 @@ class QuickViewPopop {
 
     })
   }
+  updateStore() {
+    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        store.set(`${PREFIX}Cart`, (items) => {
+          return {
+            ...items,
+            data: [...data]
+            };
+        })(this.storeName + "/Add");
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
   handleAddCart() {
     const dataQuickView = this.getData().data;
-    const dataCart = this.getDataCart().data;
     const listCard = document.querySelector(".quickview-container");
     const btnCart = listCard.querySelector(".yasmina-quickview-add-cart");
-    let hasItem = !!dataCart.find(item => item.id === dataQuickView.id);
-      btnCart.addEventListener("click", () => {
-        if(hasItem) {
-          message.error(`Đã có trong giỏ hàng`);
+      btnCart.addEventListener("click", this.debounce(() => {
+        const {data} = this.getDataCart();
+        const hasItem = data.filter(item => item.product_id === dataQuickView.id);
+        const cartQuantity = document.querySelector(".yasmina-quickview-quantity-add-cart");
+        const cartQuantityValue = Number(cartQuantity.value);
+        if(hasItem.length > 0) {
+          const prevData = data.filter(item => item.product_id === dataQuickView.id);
+          const defaultHtml = btnCart.innerHTML;
+          btnCart.innerHTML = 'Loading...';
+          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + prevData[0].id, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              "quantity": prevData[0].quantity + cartQuantityValue,
+            })
+          })
+            .then(res => res.json())
+            .then(data => {
+            })
+            .catch(err => {
+              console.log(err);
+            })
+            .finally(() => {
+              btnCart.innerHTML = defaultHtml;
+              message.success(`Add to Cart`);
+              this.updateStore();
+            })
         }
         else {
           const defaultHtml = btnCart.innerHTML;
@@ -346,37 +434,33 @@ class QuickViewPopop {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              "quantity": 31,
-              "title": "new",
-              "price": 19768,
-              "original_price": 10,
-              "discounted_price": 88,
+              "quantity": 1,
+              "title": `${newItem.title}`,
+              "price": newItem.price,
+              "original_price": newItem.price,
+              "discounted_price": newItem.price,
               "line_price": 4,
-              "original_line_price": 28,
-              "final_price": 49
+              "original_line_price": newItem.price,
+              "final_price": newItem.price,
+              "image": `${newItem.featured_image.url}`,
+              "vendor": `${newItem.vendor}`,
+              "product_id": `${newItem.id}`,
             })
           })
             .then(res => res.json())
             .then(data => {
-              console.log(data)
-              store.set(`${PREFIX}Cart`, (items) => {
-                return {
-                  ...items,
-                  data: [...items.data,dataQuickView]
-                };
-              })(this.storeName + "/Add");
             })
             .catch(err => {
               console.log(err);
             })
             .finally(() => {
               btnCart.innerHTML = defaultHtml;
-              message.success(`Add to cart`);
-              hasItem = !hasItem;
+              message.success(`Add to Cart`);
+              this.updateStore();
             })
         }
 
-      });
+      }));
   }
   handleDOM() {
     const { visible , data } = this.getData();
@@ -417,7 +501,10 @@ class QuickViewPopop {
       <div class="quickview-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close-quickview pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
         <div class="w:90% w:930px@md h:590px bgc:#fff mt:120px ov:auto">
-          <div class="d:flex ai:center jc:center w:100% h:100%">
+          <div class="pos:relative d:flex ai:center jc:center w:100% h:100%">
+            <div class="pos:absolute t:10px r:10px fz:20px cur:pointer c:color-gray9 c:color-primary|h w:30px h:30px ta:center">
+              <i class="fal fa-times"></i>
+            </div>
             <div class="veda-image-cover miw:200px w:400px h:100%" css="--aspect-ratio: 3/4">
               <img class="yasmina-quickview-image w:100%" src="${ data.featured_image.src ? data.featured_image.src :""}" alt="${ data.title }">
             </div>
@@ -430,7 +517,7 @@ class QuickViewPopop {
               <div class="yasmina-quickview-colors d:flex"></div>
               <div class="fw:500 fz:15px mt:12px">Quantity</div>
               <div class="d:flex mt:9px flw:wrap">
-                <input class="w:84px! h:50px! fz:15px fw:300 c:color-gray9 bdrs:0px! ta:center mb:10px! mr:10px!" type="number" value="1" min="1" />
+                <input class="yasmina-quickview-quantity-add-cart w:84px! h:50px! fz:15px fw:300 c:color-gray9 bdrs:0px! ta:center mb:10px! mr:10px!" type="number" value="1" min="1" />
                 <button class="yasmina-btn__primary yasmina-quickview-add-cart bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:17px_70px_17px_70px@md cur:pointer m:0px_5px_0px_10px fw:500 bdrs:0px! fz:15px lts:0.15px w:272px@md h:50px whs:nowrap">ADD TO CART</button>
               </div>
             </div>

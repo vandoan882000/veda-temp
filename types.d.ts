@@ -166,9 +166,9 @@ interface NotificationOptions {
 type SelectDestroy = () => void;
 
 interface SliderOptions {
-  value: number | [number, number];
-  min: number;
-  max: number;
+  value?: number | [number, number];
+  min?: number;
+  max?: number;
   step?: number;
   range?: boolean;
   onChange?: (value: number | [number, number]) => void;
@@ -178,6 +178,15 @@ interface SliderOptions {
 interface SliderOptions2 extends SliderOptions {
   selector?: string;
 }
+
+interface CounterOptions {
+  value?: number;
+  min?: number;
+  max?: number;
+  step?: number;
+  onChange?: (value: number | [number, number]) => void;
+}
+
 
 declare interface Veda {
   utils: {
@@ -213,6 +222,11 @@ declare interface Veda {
     VQuery: <T extends HTMLElement>(selector: string | T, context: T | VQueryReturn<T>) => VQueryReturn<T>;
     delay(ms?: number): Promise<undefined>;
     createRootElement<T extends HTMLElement>(className: string): T;
+    debounce<T extends (...args: any) => void>(fn: T, timeout?: number | undefined): (...args: Parameters<T>) => void;
+    queryString: {
+      parse<T extends Record<string, any>>(value: string): T;
+      stringify<T extends Record<string, any>>(value: T): string;
+    }
   }
   plugins: {
     /** Masonry
@@ -500,6 +514,30 @@ declare interface Veda {
      */
     slider(container: HTMLElement, options: SliderOptions): void;
     slider(options: SliderOptions2): void;
+
+    /** Counter
+     * ```html
+     * // Liquid Example
+     * <div class="veda-counter" data-options="{ value: 10 }">
+     *    <div class="veda-counter__decrement">-</div>
+     *    <input class="veda-counter__input" type="number" />
+     *    <div class="veda-counter__increment">+</div>
+     * </div>
+     * ```
+     * ```js
+     * // Javascript Example
+     * veda.plugins.counter(container, {
+     *    min: 0,
+     *    max: 20,
+     *    step: 1,
+     *    value: 0,
+     *    onChange: value => {
+     *       console.log(value);
+     *    }
+     * });
+     * ```
+     */
+    counter(container: HTMLElement, options: CounterOptions): void;
   }
 }
 

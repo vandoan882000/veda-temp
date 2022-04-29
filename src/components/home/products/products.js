@@ -23,10 +23,7 @@ store.create("yasminaWishList", {
   useStorage: true
 });
 store.create("yasminaCart", {
-  initialState: {
-    visible: false,
-    data: []
-  },
+  initialState: [],
   useStorage: true
 });
 store.create("yasminaCurrentProduct", {
@@ -140,10 +137,7 @@ class AddStoreCart {
       .then(res => res.json())
       .then(data => {
         store.set(`${PREFIX}${this.storeName}`, (items) => {
-          return {
-            ...items,
-            data: [...data]
-            };
+          return [...data];
         })(this.storeName + "/Add");
       })
       .catch(err => {
@@ -166,7 +160,7 @@ class AddStoreCart {
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       const newItem = JSON.parse(dataEl.textContent);
       btnCart.parentNode.addEventListener("click", this.debounce(() => {
-        const {data} = this.getData();
+        const data = this.getData();
         const hasItem = data.filter(item => item.product_id === newItem.id);
         if(hasItem.length > 0) {
           const prevData = data.filter(item => item.product_id === newItem.id);
@@ -233,10 +227,7 @@ class AddStoreCart {
   }
   initStore() {
     store.create(`${PREFIX}${this.storeName}`, {
-      initialState: {
-        visible: false,
-        data: []
-      },
+      initialState: [],
       useStorage: true
     });
   }
@@ -253,10 +244,7 @@ class AddStoreCart {
       .then(res => res.json())
       .then(data => {
         store.set(`${PREFIX}${this.storeName}`, (items) => {
-          return {
-            ...items,
-            data: [...data]
-            };
+          return [...data];
         })(this.storeName + "/Add");
         this.initStore();
         this.handleAdd();
@@ -265,46 +253,6 @@ class AddStoreCart {
         console.log(err);
       })
 
-  }
-}
-class AddStoreCurrentProduct {
-  constructor(storeName,elName) {
-    this.storeName = storeName;
-    this.elName = elName;
-    this.el = container.querySelector(".row");
-    this.init();
-    const _this = this;
-  }
-  getData() {
-    return store.get(`${PREFIX}${this.storeName}`);
-  }
-  handleAdd() {
-    const listCard = container.querySelectorAll(".yasmina-product-card");
-    listCard.forEach(cartEl => {
-      const btnCompare = cartEl.querySelector("."+this.elName);
-      const dataEl = cartEl.querySelector(".yasmina-product-card__data");
-
-      btnCompare.addEventListener("click", () => {
-        const newItem = JSON.parse(dataEl.textContent);
-        const { id: newId } = newItem;
-        store.set(`${PREFIX}${this.storeName}`, (state) => newItem);
-      });
-
-
-    })
-  }
-  initStore() {
-    store.create(`${PREFIX}${this.storeName}`, {
-      initialState: {},
-      useStorage: true
-    });
-  }
-  render() {
-
-  }
-  init() {
-    this.initStore();
-    this.handleAdd();
   }
 }
 class QuickViewPopop {

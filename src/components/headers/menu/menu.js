@@ -41,13 +41,13 @@ store.create(PREFIX+"WishList", {
   useStorage: true
 });
 store.create(PREFIX+"Cart", {
-  initialState: {
-    visible: false,
-    data: []
-  },
+  initialState: [],
   useStorage: true
 });
-
+store.create(PREFIX+"CartVisible", {
+  initialState: false,
+  useStorage: true
+});
 class StoreBadge {
   constructor(storeName, elClass) {
     this.storeName = storeName;
@@ -57,11 +57,18 @@ class StoreBadge {
   }
 
   getData() {
-    return store.get(PREFIX+this.storeName);
+    return store.get(`${PREFIX}${this.storeName}`);
   }
 
   render() {
-    const count = this.getData().data.length;
+    let count;
+    if(this.storeName === "Cart") {
+      count = this.getData().length;
+    }
+    else {
+      count = this.getData().data.length;
+    }
+
     if (!count) {
       return ''
     }
@@ -80,7 +87,7 @@ class ComparePopop {
     this.compareData = objectParse(container.querySelector(".compare-popup-data").textContent);
     this.mounted();
     this.init();
-    store.subscribe(PREFIX+this.storeName, this.init.bind(this));
+    store.subscribe(`${PREFIX}${this.storeName}`, this.init.bind(this));
   }
   mounted() {
     this.compareBtnEl = container.querySelector("."+this.classEl);
@@ -95,7 +102,7 @@ class ComparePopop {
   }
 
   getData() {
-    return store.get(PREFIX+this.storeName);
+    return store.get(`${PREFIX}${this.storeName}`);
   }
 
   handleTogglePopup() {
@@ -107,7 +114,7 @@ class ComparePopop {
     });
   }
   handleRemoveCompare(event) {
-    store.set(PREFIX + this.storeName,compare => {
+    store.set(`${PREFIX}${this.storeName}`,compare => {
       return {
         ...compare,
         data: compare.data.filter(item => item.id !== event.currentTarget.getAttribute("data-id"))
@@ -276,8 +283,9 @@ class CartPopop {
     this.classEl = classEl;
     this.el = this.createComparePortal();
     this.mounted();
-    this.init();
-    store.subscribe(PREFIX + this.storeName, this.init.bind(this));
+    this.initChangeVisible();
+    store.subscribe(`${PREFIX}${this.storeName}`, this.init.bind(this));
+    store.subscribe(`${PREFIX}CartVisible`, this.initChangeVisible.bind(this));
   }
   mounted() {
     this.compareBtnEl = container.querySelector("."+this.classEl);
@@ -292,13 +300,16 @@ class CartPopop {
   }
 
   getData() {
-    return store.get(PREFIX + this.storeName);
+    return store.get(`${PREFIX}${this.storeName}`);
   }
   getDataCart() {
     return store.get(`${PREFIX}Cart`);
   }
+  getDataCartVisible() {
+    return store.get(`${PREFIX}CartVisible`);
+  }
   handleTogglePopup() {
-    const { visible } = this.getData();
+    const visible = this.getDataCartVisible();
     if (visible) {
       const cartContainer = document.querySelector(".menu-cart__container");
       setTimeout(() => {
@@ -308,21 +319,15 @@ class CartPopop {
       }, 0);
       setTimeout(() => {
         if(cartContainer) {
-          store.set(PREFIX+ this.storeName,items => {
-            return {
-              ...items,
-              visible : !items.visible
-            }
+          store.set(`${PREFIX}CartVisible`,items => {
+            return !items
           });
         }
       }, 200);
     }
     else {
-      store.set(PREFIX+ this.storeName,items => {
-        return {
-          ...items,
-          visible : !items.visible
-        }
+      store.set(`${PREFIX}CartVisible`,items => {
+        return !items
       });
     }
 
@@ -334,11 +339,8 @@ class CartPopop {
     })
       .then(res => res.json())
       .then(data => {
-        store.set(PREFIX + this.storeName,carts => {
-          return {
-            ...carts,
-            data: carts.data.filter(item => item.id !== currentId)
-          }
+        store.set(`${PREFIX}${this.storeName}`,carts => {
+          return [...carts.filter(item => item.id !== currentId)]
         })(this.storeName+"/remove");
       })
       .catch(err => {
@@ -348,7 +350,7 @@ class CartPopop {
 
   }
   handleDOM() {
-    const { visible , data } = this.getData();
+    const visible = this.getDataCartVisible();
     const closeEl = document.querySelectorAll('.close-cart');
     if (closeEl) {
       closeEl.forEach(elClose => {
@@ -385,10 +387,7 @@ class CartPopop {
       .then(res => res.json())
       .then(data => {
         store.set(`${PREFIX}Cart`, (items) => {
-          return {
-            ...items,
-            data: [...data]
-            };
+          return [...data];
         })(this.storeName + "/Add");
       })
       .catch(err => {
@@ -418,8 +417,10 @@ class CartPopop {
               console.log(err);
             })
             .finally(() => {
+              this.updateStore();
               message.success(`Add to Cart`);
             })
+
         }
         else {
           fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
@@ -440,17 +441,15 @@ class CartPopop {
     });
   }
   render() {
-    const { visible , data } = this.getData();
+    const data = this.getData();
+    const visible = this.getDataCartVisible();
     const { map } = veda.utils;
+    const totalPrice = data.reduce((acc, item) => {
+      return acc + item.price * item.quantity;
+    },0)
+    console.log(totalPrice);
     if (!visible) {
       return "";
-
-
-      // const timeInterval = setInterval(() =>{
-      //   return ""
-      // },1000);
-      // clearInterval(timeInterval);
-
     }
     if(data.length === 0) {
       return /*html */`
@@ -474,7 +473,8 @@ class CartPopop {
           <div class="d:flex fld:column jc:flex-start h:90%">
             <div class="d:flex fld:column jc:flex-start h:80% ovx:auto">
               ${map(data,item => {
-                return /*html*/`<div class=" d:flex fld:row pt:10px ml:10px mr:10px bdb:1px_solid_color-gray4 pb:10px">
+                return /*html*/`<div class="yasmina-cart-popup-item pos:relative d:flex fld:row pt:10px ml:10px mr:10px bdb:1px_solid_color-gray4 pb:10px pl:10px">
+                  <button data-id=${item.id} class="yasmina-remove-cart pos:absolute t:0 r:0 bgc:color-light! bgc:color-light|h! c:color-gray9 c:color-primary|h! bd:none!"><i class="fal fa-times"></i></button>
                   <div class="w:100px">
                     <a class="veda-image-cover d:block w:100%" css="--aspect-ratio: 3/5">
                       <img src=${item.image} alt="image-cart" />
@@ -490,13 +490,13 @@ class CartPopop {
                       <input class="veda-counter__input w:65px h:100% ta:center lh:30px fw:600 bd:none! o:none! ta:center" type="number" data-button="disabled"/>
                       <div class="veda-counter__increment w:20px h:100% ta:center cur:pointer lh:30px pr:10px"><i class="fal fa-plus fz:13px"></i></div>
                     </div>
-                    <button data-id=${item.id} class="yasmina-remove-cart"><i class="fas fa-trash-alt"></i></button>
+
                   </div>
                 </div>`
               })}
             </div>
             <div>
-              <div class="d:flex jc:space-between mt:20px mb:10px"><div class="ml:10px fw:600">Subtotal:</div><div class="mr:10px fw:600">$1234</div></div>
+              <div class="d:flex jc:space-between mt:20px mb:10px"><div class="ml:10px fw:600">Subtotal:</div><div class="mr:10px fw:600">$${totalPrice}</div></div>
               <input class="ml:10px" type="checkbox"/> I agree with the terms and conditions
             </div>
             <div class="d:flex jc:center mt:10px h:40px">
@@ -510,14 +510,8 @@ class CartPopop {
       </div>
     `
   }
-  init() {
-    const { visible , data } = this.getData();
-    const cartContainer = document.querySelector(".menu-cart__container");
-    if (cartContainer) {
-      if(visible) {
-        cartContainer.style.transform = "translateX(0)";
-      }
-    }
+  initChangeVisible() {
+    const visible = this.getDataCartVisible();
     this.el.innerHTML = this.render();
     if(visible) {
       const timeInterval = setInterval(() =>{
@@ -527,6 +521,23 @@ class CartPopop {
         }
         clearInterval(timeInterval);
       },100);
+    }
+    veda.plugins.counter(this.el, {
+      step: 1,
+      value: 0,
+      onChange: (value) => {
+      }
+    });
+    this.handleDOM();
+  }
+  init() {
+    const visible = this.getDataCartVisible();
+    this.el.innerHTML = this.render();
+    if(visible) {
+      const cartContainer = document.querySelector(".menu-cart__container");
+      if(cartContainer) {
+        cartContainer.style.transform = "translateX(0)";
+      }
     }
     veda.plugins.counter(this.el, {
       step: 1,

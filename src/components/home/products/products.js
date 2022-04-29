@@ -7,7 +7,6 @@ const { store , map } = veda.utils;
 const { message } = veda.plugins;
 const PREFIX = 'yasmina';
 
-
 store.create("yasminaCompare", {
   initialState: {
     visible: false,
@@ -26,10 +25,7 @@ store.create("yasminaCart", {
   initialState: [],
   useStorage: true
 });
-store.create("yasminaCurrentProduct", {
-  initialState: {},
-  useStorage: true
-});
+
 store.create(PREFIX+"QuickView", {
   initialState: {
     visible: false,
@@ -329,10 +325,7 @@ class QuickViewPopop {
       .then(res => res.json())
       .then(data => {
         store.set(`${PREFIX}Cart`, (items) => {
-          return {
-            ...items,
-            data: [...data]
-            };
+          return [...data];
         })(this.storeName + "/Add");
       })
       .catch(err => {
@@ -344,7 +337,9 @@ class QuickViewPopop {
     const listCard = document.querySelector(".quickview-container");
     const btnCart = listCard.querySelector(".yasmina-quickview-add-cart");
       btnCart.addEventListener("click", this.debounce(() => {
-        const {data} = this.getDataCart();
+        console.log("add to cart");
+        const data = this.getDataCart();
+        console.log(data , dataQuickView.id);
         const hasItem = data.filter(item => item.product_id === dataQuickView.id);
         const cartQuantity = document.querySelector(".yasmina-quickview-quantity-add-cart");
         const cartQuantityValue = Number(cartQuantity.value);
@@ -448,9 +443,9 @@ class QuickViewPopop {
     return /*html */`
       <div class="quickview-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close-quickview pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:90% w:930px@md h:590px bgc:#fff mt:120px ov:auto">
+        <div class="w:90% w:930px@md h:590px bgc:#fff mt:4% ov:auto">
           <div class="pos:relative d:flex ai:center jc:center w:100% h:100%">
-            <div class="pos:absolute t:10px r:10px fz:20px cur:pointer c:color-gray9 c:color-primary|h w:30px h:30px ta:center">
+            <div class="close-quickview pos:absolute t:10px r:10px fz:20px cur:pointer c:color-gray9 c:color-primary|h w:30px h:30px ta:center">
               <i class="fal fa-times"></i>
             </div>
             <div class="veda-image-cover miw:200px w:400px h:100%" css="--aspect-ratio: 3/4">
@@ -627,16 +622,22 @@ class CardColors {
   checkColor(color) {
     return veda.utils.getColorNames().includes(color.toLowerCase());
   }
-
+  countColorShow() {
+    const { colors } = this.state;
+    return colors.filter(color => this.checkColor(color));
+  }
   render() {
-    const { colors, selectedColor } = this.state;
+    const { selectedColor } = this.state;
+    let index = 0;
+    const colors = this.countColorShow();
     return CardColors.map(colors, color => {
+      index = index + 1;
       if (!this.checkColor(color)) {
         return ``;
       }
       const active = color.toLowerCase() === selectedColor.toLowerCase();
       return `
-        <div class="yasmina-product-card__colors-item w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box ${active ? 'bd:1px_solid_color-dark' : 'bd:1px_solid_color-gray2'}" style="background-color: ${color.toLowerCase()}"></div>
+        <div class="yasmina-product-card__colors-item w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box ${active ? 'bd:1px_solid_color-dark' : 'bd:1px_solid_color-gray2'}" style="background-color: ${color.toLowerCase()};display:${index > 2 ? "none" : "block"}"></div>
       `
     })
   }
@@ -669,9 +670,24 @@ class CardColors {
   update() {
     this.init();
   }
-
+  handleShowColor() {
+    const colorEls = this.el.querySelectorAll('.yasmina-product-card__colors-item');
+    const colorPlus = this.el.querySelector(".yasmina-product-card__colors-plus");
+    colorEls.forEach(colorEl => {
+      colorEl.style.display = "block";
+      colorPlus.style.display = "none";
+    })
+  }
   init() {
+    const colors = this.countColorShow();
     this.el.innerHTML = this.render();
+    if(colors.length > 2) {
+      const btnPlusViewColor = document.createElement("div");
+      btnPlusViewColor.className = "yasmina-product-card__colors-plus d:flex ai:center jc:center w:32px h:32px m:10px_6px_0px_6px cur:pointer fz:14px fw:600 ff:font-secondary c:color-gray9";
+      btnPlusViewColor.textContent = `+${colors.length - 2}`;
+      btnPlusViewColor.addEventListener('click', this.handleShowColor.bind(this));
+      this.el.appendChild(btnPlusViewColor);
+    }
     this.handleDOM();
   }
 }

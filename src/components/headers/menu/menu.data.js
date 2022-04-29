@@ -51,7 +51,7 @@ const data = {
     list: [
       {
         name :"YASMINA",
-        href: "#"
+        href: "/"
       },
       {
         name :"GENTLEMAN",

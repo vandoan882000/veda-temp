@@ -46,7 +46,7 @@ store.create(PREFIX+"Cart", {
 });
 store.create(PREFIX+"CartVisible", {
   initialState: false,
-  useStorage: true
+  useStorage: false
 });
 class StoreBadge {
   constructor(storeName, elClass) {
@@ -368,15 +368,7 @@ class CartPopop {
 
     }
   }
-  debounce(fn, delay = 300) {
-    let timeoutId = -1;
-    return function (...args) {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        fn.apply(this, args);
-      }, delay);
-    };
-  }
+
   updateStore() {
     fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
       method: 'GET',
@@ -393,6 +385,15 @@ class CartPopop {
       .catch(err => {
         console.log(err);
       })
+  }
+  debounce(fn, delay = 300) {
+    let timeoutId = -1;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
   }
   handleChangeQuantity() {
     const lstCounter = document.querySelectorAll(".veda-counter");
@@ -444,10 +445,13 @@ class CartPopop {
     const data = this.getData();
     const visible = this.getDataCartVisible();
     const { map } = veda.utils;
-    const totalPrice = data.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    },0)
-    console.log(totalPrice);
+    let totalPrice;
+    if (!visible) {
+      totalPrice = data.reduce((acc, item) => {
+        return acc + item.price * item.quantity;
+      },0);
+    }
+
     if (!visible) {
       return "";
     }

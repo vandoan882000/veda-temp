@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_17ff882a-eb00-4891-a41d-785847c278e7" %}
+{% set uniqueId = "id_8f5ce28c-87b9-43be-9c4a-14aca929312c" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
 <section data-id="products" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
@@ -66,7 +65,11 @@
             </div>
           </div>
         </div>
-      {% endfor %}
+      
+
+{% endfor %}
+
+
 
       <div class="col-md-12 ta:center f:flex ai:center">
         <button class="yasmina-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:20px_26px_20px_26px p:20px_86px_20px_86px@md cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px w:272px whs:nowrap w:auto">LOAD MORE</button>

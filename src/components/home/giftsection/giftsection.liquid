@@ -3,7 +3,7 @@
 {% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
 
-<section data-id="giftsection" class="p:0px_60px" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="giftsection" class="p:0px_60px@md" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="row mt:0px">

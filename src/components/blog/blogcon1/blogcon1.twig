@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_2c179012-be1e-4fd7-8e7f-bfb28df5e88f" %}
+{% set uniqueId = "id_50411fb6-ae60-4a26-8d4b-d687cf4f4eec" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -10,7 +10,7 @@
   <div class="container maw:1360px">
     <div class="direct fz:15px c:color-gray4 mb:33px"><a href="/" class="fz:15px c:color-gray4">Home</a> > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     <div class="row">
-      <div class="col-lg-9 pr:50px">
+      <div class="col-xs-11 col-sm-11 col-md-9 col-lg-9 pr:50px@md">
         {% set blog = blogs[content.blog] %}
         {% for item in blog.articles %}
           <div class="blog pb:55px fz:15px">
@@ -24,7 +24,7 @@
             </div>
             <a class="blog__title mb:10px mt:10px fz:pfs(20px,35px) c:color-dark ff:font-primary fw:500 cur:pointer">{{item.title}}</a>
             <p class="blog__description mb:14px fw:400 ff:font-secondary c:color-dark">{{item.content}}</p>
-            <button class="vdoan-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:5px_10px_5px_10px p:20px_81px_20px_81px@md cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:pfs(13px,17px) lts:0.15px ml:0px!">Read More</button>
+            <button class="vdoan-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:20px_81px_20px_81px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:pfs(13px,17px) lts:0.15px ml:0px!">Read More</button>
           </div>
         
 
@@ -39,7 +39,7 @@
           <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px"><i class="far fa-arrow-right"></i></div>
         </div>
       </div>
-      <div class="col-lg-3">
+      <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3 d:flex jc:center">
         <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1">
           <div class="product-box maw:330px w:100% h:auto bd:1px_solid_color-gray3 p:15px_30px_30px_30px">
             {% for item in product_box %}

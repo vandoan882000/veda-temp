@@ -10,3 +10,10 @@
 .yasmina-product-page-input-size:checked ~ div {
   background-color: var(--color-light);
 }
+.veda-radio__inner input:checked ~ .veda-radio__track {
+  background-color: var(--color-light);
+}
+.veda-radio__inner input ~ .veda-radio__track {
+  background-color: var(--color-gray2);
+}
+

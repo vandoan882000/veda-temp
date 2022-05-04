@@ -7,26 +7,26 @@ const { store , map } = veda.utils;
 const { message } = veda.plugins;
 const PREFIX = 'yasmina';
 
-store.create("yasminaCompare", {
+store.create(`${PREFIX}Compare`, {
   initialState: {
     visible: false,
     data: []
   },
   useStorage: true
 });
-store.create("yasminaWishList", {
+store.create(`${PREFIX}WishList`, {
   initialState: {
     visible: false,
     data: []
   },
   useStorage: true
 });
-store.create("yasminaCart", {
+store.create(`${PREFIX}Cart`, {
   initialState: [],
   useStorage: true
 });
 
-store.create(PREFIX+"QuickView", {
+store.create(`${PREFIX}QuickView`, {
   initialState: {
     visible: false,
     data: {}

@@ -1,21 +1,24 @@
+import { CartService } from "../../home/products/products.js";
 const uniqueId = "cartcontainer";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
-const {map , store, offset} = veda.utils;
+const { map , store } = veda.utils;
 const { message } = veda.plugins;
 const PREFIX = "yasmina";
-store.create(PREFIX+"Cart", {
+store.create(`${PREFIX}Cart`, {
   initialState: [],
   useStorage: true
 });
-store.create(PREFIX+"CartVisible", {
+store.create(`${PREFIX}CartVisible`, {
   initialState: false,
   useStorage: false
 });
+const cartService = new CartService();
 class CartRender {
   constructor() {
     this.el = document.querySelector(".card-cart__tbody");
     this.loader = this.createComparePortal();
+    this.currentCart = "1";
     store.subscribe('yasminaCart', this.init.bind(this));
     this.updateStore();
 
@@ -23,51 +26,16 @@ class CartRender {
   getData() {
     return store.get("yasminaCart");
   }
-  updateStore() {
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        store.set(`yasminaCart`, (items) => {
-          return [...data];
-        })("/Add");
-        this.init();
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  async updateStore() {
+    const data = await cartService.getData();
+    await store.set(`${PREFIX}Cart`, (items) => {
+      return [...data];
+    });
   }
   handleDeleteCart(e) {
     const currentEl = e.currentTarget;
     const currentId = currentEl.getAttribute("data-id");
-    this.loader.innerHTML = `
-      <div class="d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
-        <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:1200px h:1000px bgc:transparent mt:120px ov:auto">
-          <div class="d:flex fld:column ai:center jc:center w:100% h:100%">
-           <div class="loader"></div>
-          </div>
-        </div>
-      </div>`;
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
-      method: 'DELETE',
-    })
-      .then(res => res.json())
-      .then(data => {
-        store.set(`yasminaCart`, (items) => {
-          return [...items.filter(item => item.id !== data.id)];
-        })("CartDelete");
-        this.loader.innerHTML = "";
-        this.init();
-      })
-      .catch(err => {
-        console.log(err);
-        alert("Delete Cart Error");
-      });
+    cartService.delete(currentId);
 
   }
   createComparePortal() {
@@ -85,52 +53,27 @@ class CartRender {
       }, delay);
     };
   }
-  handleChangeQuantity() {
+  handleChangeCurrentCart() {
     const lstCounter = document.querySelectorAll(".veda-counter");
     lstCounter.forEach(counter => {
-      counter.addEventListener("click", this.debounce(() => {
+      counter.addEventListener("click", () => {
         const currentId  = counter.getAttribute("data-id");
-        const currentValue = Number(counter.querySelector(".veda-counter__input").value);
-        if(currentValue > 0) {
-          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              "quantity": currentValue,
-            })
-          })
-            .then(res => res.json())
-            .then(data => {
-            })
-            .catch(err => {
-              console.log(err);
-            })
-            .finally(() => {
-              this.updateStore();
-              message.success(`Change Cart`);
-            })
-
-        }
-        else {
-          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
-            method: 'DELETE',
-          })
-            .then(res => res.json())
-            .then(data => {
-              this.updateStore();
-              message.error(`Remove from Cart`);
-            })
-            .catch(err => {
-              console.log(err);
-              alert("Delete Cart Error");
-            });
-        }
-
-      }));
+        this.currentCart = currentId;
+      });
     });
   }
+  handleChangeQuantity(id , quantity) {
+    const lstCounter = document.querySelectorAll(".veda-counter");
+    if(quantity > 0) {
+      cartService.update(id, quantity, this.updateStore.bind(this));
+    }
+    else {
+      this.updateStore();
+      message.error(`Remove from Cart`);
+      cartService.delete(id);
+    }
+  }
+
   handleDOM() {
     const lstRemoveEl = document.querySelectorAll(".yasmina-card-cart__remove");
     lstRemoveEl.forEach(el => {
@@ -139,7 +82,13 @@ class CartRender {
     veda.plugins.counter(container,{
       step: 1,
     });
-    this.handleChangeQuantity();
+    this.handleChangeCurrentCart();
+    veda.plugins.select(container, {
+      onChange: (value) => {
+        this.handleChangeQuantity(this.currentCart, value);
+        console.log(this.currentCart, value);
+      }
+    });
   }
   render() {
     const data = this.getData();
@@ -182,29 +131,21 @@ class CartRender {
   }
 }
 if(!!container) {
-  store.set(`yasminaCart`, (items) => {
-    return [...items];
-  })("/Add");
-  veda.plugins.countdown(container);
-  veda.plugins.select(container, {
-    onChange: (value) => {
-      console.log(value);
-    }
-  });
+  //veda.plugins.countdown(container);
   new CartRender();
-  veda.plugins.slider({
-    el: container.querySelector('.veda-slider'),
-    min: 0,
-    max: 500,
-    step: 1,
-    range: false,
-    value: [0, 200],
-    onChange: value => {
-       console.log(value);
-    },
-    onChanged: value => {
-       console.log(value);
-    }
-  });
+  // veda.plugins.slider({
+  //   el: container.querySelector('.veda-slider'),
+  //   min: 0,
+  //   max: 500,
+  //   step: 1,
+  //   range: false,
+  //   value: [0, 200],
+  //   onChange: value => {
+  //      console.log(value);
+  //   },
+  //   onChanged: value => {
+  //      console.log(value);
+  //   }
+  //});
 }
 

@@ -35,58 +35,55 @@ store.create(`${PREFIX}QuickView`, {
 });
 export class CartService {
   constructor() {
+    this.api = "https://624eadac53326d0cfe5dba36.mockapi.io/cart";
+    this.headers = {
+      'Content-Type': 'application/json'
+    }
   }
-  getData(callback) {
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
+  async getData() {
+    try {
+      const res = await fetch( this.api , {
+        method: 'GET',
+        headers: this.headers,
+      })
+      if(res.status !== 200) {
+        throw new Error(res.statusText);
+      } else {
+        const data = await res.json();
+        return data;
       }
-    })
-      .then(res => res.json())
-      .then(data => {
-        store.set(`${PREFIX}Cart`, (items) => {
-          return [...data];
-        });
-        callback();
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+
+
   }
-  insert(newItem, callback) {
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
+  async insert(newItem) {
+    const res = await fetch( this.api , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "quantity": 1,
-        "title": `${newItem.title}`,
-        "price": newItem.price,
-        "original_price": newItem.price,
-        "discounted_price": newItem.price,
-        "line_price": 4,
-        "original_line_price": newItem.price,
-        "final_price": newItem.price,
-        "image": `${newItem.featured_image.url}`,
-        "vendor": `${newItem.vendor}`,
-        "product_id": `${newItem.id}`,
+        quantity: 1,
+        title: `${newItem.title}`,
+        price: newItem.price,
+        original_price: newItem.price,
+        discounted_price: newItem.price,
+        line_price: 4,
+        original_line_price: newItem.price,
+        final_price: newItem.price,
+        image: `${newItem.featured_image.url}`,
+        vendor: `${newItem.vendor}`,
+        product_id: `${newItem.id}`,
       })
-  })
-      .then(res => res.json())
-      .then(data => {
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
-        callback();
-        message.success(`Add to Cart Successfully`);
-      })
+    })
+    await message.success(`Add to Cart Successfully`);
+
   }
   delete(id) {
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + id, {
+    fetch( `${this.api}/${id}`, {
       method: 'DELETE',
     })
       .then(res => res.json())
@@ -98,7 +95,7 @@ export class CartService {
       });
   }
   update(id, quantity , callback) {
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + id, {
+    fetch( `${this.api}/${id}`, {
        method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -212,8 +209,11 @@ export class AddStoreCart {
   getData() {
     return store.get(`${PREFIX}${this.storeName}`);
   }
-  updateStore() {
-    cartService.getData(() => {});
+  async updateStore() {
+    const data = await cartService.getData();
+    await store.set(`${PREFIX}Cart`, (items) => {
+      return [...data];
+    });
   }
   debounce(fn, delay = 300) {
     let timeoutId = -1;
@@ -223,6 +223,11 @@ export class AddStoreCart {
         fn.apply(this, args);
       }, delay);
     };
+  }
+  async insertCart(newItem, btnCart, defaultHtml) {
+    await cartService.insert(newItem);
+    await this.updateStore();
+    btnCart.innerHTML = defaultHtml;
   }
   handleAdd() {
     const listCard = this.container.querySelectorAll(".yasmina-product-card");
@@ -242,14 +247,10 @@ export class AddStoreCart {
             btnCart.innerHTML = defaultHtml;
             this.updateStore();
           });
-        }
-        else {
+        } else {
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
-          cartService.insert(newItem, () => {
-            btnCart.innerHTML = defaultHtml;
-            this.updateStore();
-          });
+          this.insertCart(newItem, btnCart, defaultHtml);
 
         }
 
@@ -262,11 +263,11 @@ export class AddStoreCart {
       useStorage: true
     });
   }
-  init() {
-    cartService.getData(() => {
-      this.initStore();
-      this.handleAdd();
-    });
+  async init() {
+    await this.updateStore();
+    await this.initStore();
+    await this.handleAdd();
+
 
   }
 }
@@ -342,10 +343,17 @@ export class QuickViewPopop {
 
     })
   }
-  updateStore() {
-    cartService.getData(() => {});
+  async updateStore() {
+    const data = await cartService.getData();
+    await store.set(`${PREFIX}Cart`, (items) => {
+      return [...data];
+    });
   }
-  handleAddCart() {
+  async insertCart(newItem) {
+    await cartService.insert(newItem);
+    await this.updateStore();
+  }
+  async handleAddCart() {
     const dataQuickView = this.getData().data;
     const listCard = document.querySelector(".quickview-container");
     const btnCart = listCard.querySelector(".yasmina-quickview-add-cart");
@@ -369,10 +377,8 @@ export class QuickViewPopop {
         else {
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
-          cartService.insert(newItem, () => {
-            btnCart.innerHTML = defaultHtml;
-            this.updateStore();
-          });
+          this.insertCart(newItem);
+          btnCart.innerHTML = defaultHtml;
         }
 
       }));

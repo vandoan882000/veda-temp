@@ -134,35 +134,13 @@ class ComparePopop {
   }
   getWidthMax() {
     const { data } = this.getData();
-    if (data.length >= 4) {
-      return `${(1068 * 25 / 100) * data.length}px`;
-    }
-    if (data.length === 1) {
-      return `${(1068 * 50 / 100) * data.length}px`;
-    }
-    return `${(1068 *(100 / data.length) /100) * data.length}px`;
+    return `${(1095 * 25 / 100) * data.length}px`;
   }
   getWidth() {
-    const { data } = this.getData();
-    if (data.length >= 4) {
-      return `${1068 * 25 / 100}px`;
-    }
-    if (data.length === 1) {
-      return `${1068 * 50 / 100}px`;
-    }
-    return `${1068 * (100 / data.length) /100}px`;
+    return `${1095 * 25 / 100}px`;
   }
   getHeight() {
-    const { data } = this.getData();
-    if (data.length >= 4) {
-      return `380px`;
-    }
-    if (data.length == 3) {
-      return `442px`;
-    }
-    if (data.length <= 2) {
-      return `575px`;
-    }
+    return `380px`;
   }
   render() {
     const { visible , data } = this.getData();
@@ -174,7 +152,7 @@ class ComparePopop {
       return /*html */`
       <div class="compare-container d:flex ai:flex-start jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:90% w:1218px@md h:800px bgc:#fff mt:4% ov:auto pos:relative ml:30px">
+        <div class="w:90% w:1218px@md h:85vh bgc:#fff mt:4% ov:auto pos:relative ml:30px">
           <div class="d:flex fld:column ai:center jc:center">
             <h2 class="fz:35px mt:60px ta:center fw:500 c:color-gray9">Compare Empty</h2>
             <div class="acbxyz"></div>
@@ -190,7 +168,7 @@ class ComparePopop {
     return /*html*/`
       <div class="compare-container d:flex ai:flex-start jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:90% w:1218px@md h:800px bgc:#fff mt:4% ov:auto pos:relative ml:30px">
+        <div class="w:90% w:1218px@md h:85vh bgc:#fff mt:4% ov:auto pos:relative ml:30px">
           <div class="d:flex fld:column ai:center jc:center">
             <h2 class="fz:35px mt:60px ta:center fw:500 c:color-gray9">Compare</h2>
             <div class="acbxyz"></div>
@@ -230,7 +208,7 @@ class ComparePopop {
                         </div>
                       </div>
                       <div class="product-card__content d:flex fld:column jc:center ai:center">
-                        <div class="product-card__brand c:color-gray5 mt:11px">${item.vendor}</div>
+                        <div class="product-card__brand c:color-gray5 mt:11px fw:400 fz:14px ">${item.vendor}</div>
                           <a class="product-card__name fz:16px mt:15px c:color-dark bd:none!" href="#">${item.title}</a>
                           <a class="product-card__price mt:14px bd:none!" href="#">
                             <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none bd:none!">$${item.price }</ins>
@@ -362,8 +340,11 @@ class CartPopop {
     }
   }
 
-  updateStore() {
-    cartService.getData(() => {});
+  async updateStore() {
+    const data = await cartService.getData();
+    await store.set(`${PREFIX}Cart`, (items) => {
+      return [...data];
+    });
   }
   debounce(fn, delay = 300) {
     let timeoutId = -1;

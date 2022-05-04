@@ -7,3 +7,6 @@
 .yasmina-filter-input-radio:checked ~ div  {
   background-color: var(--color-gray9);
 }
+.yasmina-product-page-input-size:checked ~ div {
+  background-color: var(--color-light);
+}

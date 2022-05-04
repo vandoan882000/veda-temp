@@ -4,7 +4,7 @@ const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store, map } = veda.utils;
 const { VQuery : $$ } = veda.utils;
 const { message } = veda.plugins;
-const PREFIX = 'doan';
+const PREFIX = 'yasmina';
 
 class PageProduct {
   constructor() {
@@ -31,4 +31,5 @@ class PageProduct {
 }
 if(container) {
   new PageProduct();
+  veda.plugins.imageZoom(container);
 }

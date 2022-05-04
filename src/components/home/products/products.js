@@ -33,11 +33,99 @@ store.create(PREFIX+"QuickView", {
   },
   useStorage: true
 });
-class AddStore {
-  constructor(storeName,elName) {
+export class CartService {
+  constructor() {
+  }
+  getData(callback) {
+    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        store.set(`${PREFIX}Cart`, (items) => {
+          return [...data];
+        });
+        callback();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+  insert(newItem, callback) {
+    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "quantity": 1,
+        "title": `${newItem.title}`,
+        "price": newItem.price,
+        "original_price": newItem.price,
+        "discounted_price": newItem.price,
+        "line_price": 4,
+        "original_line_price": newItem.price,
+        "final_price": newItem.price,
+        "image": `${newItem.featured_image.url}`,
+        "vendor": `${newItem.vendor}`,
+        "product_id": `${newItem.id}`,
+      })
+  })
+      .then(res => res.json())
+      .then(data => {
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        callback();
+        message.success(`Add to Cart Successfully`);
+      })
+  }
+  delete(id) {
+    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + id, {
+      method: 'DELETE',
+    })
+      .then(res => res.json())
+      .then(data => {
+
+      })
+      .catch(err => {
+        alert("Delete Cart Error");
+      });
+  }
+  update(id, quantity , callback) {
+    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + id, {
+       method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "quantity": quantity,
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        callback();
+        message.success(`Add to Cart Successfully`);
+      })
+  }
+}
+const cartService = new CartService();
+export class AddStore {
+  constructor(container, storeName, elName) {
+    this.container = container;
     this.storeName = storeName;
     this.elName = elName;
-    this.el = container.querySelector(".row");
+    this.el = this.container.querySelector(".row");
     this.init();
     const _this = this;
     store.subscribe(`${PREFIX}${this.storeName}`, this.handleChangeStatus.bind(this));
@@ -47,7 +135,7 @@ class AddStore {
   }
   handleChangeStatus() {
     const { data } = this.getData();
-    const listCard = container.querySelectorAll(".yasmina-product-card");
+    const listCard = this.container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
@@ -65,7 +153,7 @@ class AddStore {
     })
   }
   handleAdd() {
-    const listCard = container.querySelectorAll(".yasmina-product-card");
+    const listCard = this.container.querySelectorAll(".yasmina-product-card");
     this.handleChangeStatus();
     listCard.forEach(cartEl => {
       const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
@@ -112,11 +200,12 @@ class AddStore {
     this.handleAdd();
   }
 }
-class AddStoreCart {
-  constructor(storeName,elName) {
+export class AddStoreCart {
+  constructor(container, storeName, elName) {
+    this.container = container;
     this.storeName = storeName;
     this.elName = elName;
-    this.el = container.querySelector(".row");
+    this.el = this.container.querySelector(".row");
     this.init();
     // store.subscribe(storeName,this.handleChangeStatus.bind(this));
   }
@@ -124,21 +213,7 @@ class AddStoreCart {
     return store.get(`${PREFIX}${this.storeName}`);
   }
   updateStore() {
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        store.set(`${PREFIX}${this.storeName}`, (items) => {
-          return [...data];
-        })(this.storeName + "/Add");
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    cartService.getData(() => {});
   }
   debounce(fn, delay = 300) {
     let timeoutId = -1;
@@ -150,9 +225,9 @@ class AddStoreCart {
     };
   }
   handleAdd() {
-    const listCard = container.querySelectorAll(".yasmina-product-card");
+    const listCard = this.container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
-      const btnCart = cartEl.querySelector("."+this.elName);
+      const btnCart = cartEl.querySelector(`.${this.elName}`);
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       const newItem = JSON.parse(dataEl.textContent);
       btnCart.parentNode.addEventListener("click", this.debounce(() => {
@@ -160,62 +235,22 @@ class AddStoreCart {
         const hasItem = data.filter(item => item.product_id === newItem.id);
         if(hasItem.length > 0) {
           const prevData = data.filter(item => item.product_id === newItem.id);
+          const prevItem = prevData[0];
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
-          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + prevData[0].id, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              "quantity": prevData[0].quantity + 1,
-            })
-          })
-            .then(res => res.json())
-            .then(data => {
-            })
-            .catch(err => {
-              console.log(err);
-            })
-            .finally(() => {
-              btnCart.innerHTML = defaultHtml;
-              message.success(`Add to ${this.storeName}`);
-              this.updateStore();
-            })
+          cartService.update(prevItem.id, prevItem.quantity + 1, () => {
+            btnCart.innerHTML = defaultHtml;
+            this.updateStore();
+          });
         }
         else {
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
-          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              "quantity": 1,
-              "title": `${newItem.title}`,
-              "price": newItem.price,
-              "original_price": newItem.price,
-              "discounted_price": newItem.price,
-              "line_price": 4,
-              "original_line_price": newItem.price,
-              "final_price": newItem.price,
-              "image": `${newItem.featured_image.url}`,
-              "vendor": `${newItem.vendor}`,
-              "product_id": `${newItem.id}`,
-            })
-          })
-            .then(res => res.json())
-            .then(data => {
-            })
-            .catch(err => {
-              console.log(err);
-            })
-            .finally(() => {
-              btnCart.innerHTML = defaultHtml;
-              message.success(`Add to ${this.storeName}`);
-              this.updateStore();
-            })
+          cartService.insert(newItem, () => {
+            btnCart.innerHTML = defaultHtml;
+            this.updateStore();
+          });
+
         }
 
       }));
@@ -227,32 +262,17 @@ class AddStoreCart {
       useStorage: true
     });
   }
-  render() {
-
-  }
   init() {
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        store.set(`${PREFIX}${this.storeName}`, (items) => {
-          return [...data];
-        })(this.storeName + "/Add");
-        this.initStore();
-        this.handleAdd();
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    cartService.getData(() => {
+      this.initStore();
+      this.handleAdd();
+    });
 
   }
 }
-class QuickViewPopop {
-  constructor(storeName, classEl) {
+export class QuickViewPopop {
+  constructor(container, storeName, classEl) {
+    this.container = container;
     this.storeName = storeName;
     this.classEl = classEl;
     this.el = this.createComparePortal();
@@ -263,9 +283,17 @@ class QuickViewPopop {
 
   createComparePortal() {
     const rootEl = document.querySelector('#root');
-    const el = document.createElement('div');
-    rootEl.appendChild(el);
-    return el;
+    if(!document.querySelector('.yasmina-quickview-portal')) {
+      const el = document.createElement('div');
+      el.className = 'yasmina-quickview-portal';
+      rootEl.appendChild(el);
+      return el;
+    }
+    else {
+      const el = document.querySelector('.yasmina-quickview-portal');
+      return el;
+    }
+
   }
 
   getData() {
@@ -292,20 +320,19 @@ class QuickViewPopop {
     };
   }
   handleAdd() {
-    const listCard = container.querySelectorAll(".yasmina-product-card");
+    const listCard = this.container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
       const btnCompare = cartEl.querySelector(`.${this.classEl}`).parentNode;
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       btnCompare.addEventListener("click", () => {
         const newItem = JSON.parse(dataEl.textContent);
-        const { id: newId } = newItem;
         store.set(`${PREFIX}${this.storeName}`, (state) => {
           return {
             ...state,
             data: {...newItem}
           };
         })('toggle');
-        store.set(PREFIX+ this.storeName,items => {
+        store.set(`${PREFIX}${this.storeName}`,items => {
           return {
             ...items,
             visible : !items.visible
@@ -316,21 +343,7 @@ class QuickViewPopop {
     })
   }
   updateStore() {
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        store.set(`${PREFIX}Cart`, (items) => {
-          return [...data];
-        })(this.storeName + "/Add");
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    cartService.getData(() => {});
   }
   handleAddCart() {
     const dataQuickView = this.getData().data;
@@ -345,62 +358,21 @@ class QuickViewPopop {
         const cartQuantityValue = Number(cartQuantity.value);
         if(hasItem.length > 0) {
           const prevData = data.filter(item => item.product_id === dataQuickView.id);
+          const prevItem = prevData[0];
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
-          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + prevData[0].id, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              "quantity": prevData[0].quantity + cartQuantityValue,
-            })
+          cartService.update(prevItem.id, prevItem.quantity + cartQuantityValue, () => {
+            btnCart.innerHTML = defaultHtml;
+            this.updateStore();
           })
-            .then(res => res.json())
-            .then(data => {
-            })
-            .catch(err => {
-              console.log(err);
-            })
-            .finally(() => {
-              btnCart.innerHTML = defaultHtml;
-              message.success(`Add to Cart`);
-              this.updateStore();
-            })
         }
         else {
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
-          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              "quantity": 1,
-              "title": `${newItem.title}`,
-              "price": newItem.price,
-              "original_price": newItem.price,
-              "discounted_price": newItem.price,
-              "line_price": 4,
-              "original_line_price": newItem.price,
-              "final_price": newItem.price,
-              "image": `${newItem.featured_image.url}`,
-              "vendor": `${newItem.vendor}`,
-              "product_id": `${newItem.id}`,
-            })
-          })
-            .then(res => res.json())
-            .then(data => {
-            })
-            .catch(err => {
-              console.log(err);
-            })
-            .finally(() => {
-              btnCart.innerHTML = defaultHtml;
-              message.success(`Add to Cart`);
-              this.updateStore();
-            })
+          cartService.insert(newItem, () => {
+            btnCart.innerHTML = defaultHtml;
+            this.updateStore();
+          });
         }
 
       }));
@@ -435,7 +407,6 @@ class QuickViewPopop {
   }
   render() {
     const { visible , data } = this.getData();
-    console.log("data",data);
     if (!visible) {
       return ''
     }
@@ -477,7 +448,7 @@ class QuickViewPopop {
     this.handleDOM();
   }
 }
-class QuickViewCardColors {
+export class QuickViewCardColors {
   constructor(el) {
     /** @type {HTMLElement} */
     this.el = document.querySelector(`.${el}`);
@@ -570,7 +541,7 @@ class QuickViewCardColors {
     this.handleDOM();
   }
 }
-class CardColors {
+export class CardColors {
   constructor(el) {
     /** @type {HTMLElement} */
     this.el = el;
@@ -637,7 +608,7 @@ class CardColors {
       }
       const active = color.toLowerCase() === selectedColor.toLowerCase();
       return `
-        <div class="yasmina-product-card__colors-item w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box ${active ? 'bd:1px_solid_color-dark' : 'bd:1px_solid_color-gray2'}" style="background-color: ${color.toLowerCase()};display:${index > 2 ? "none" : "block"}"></div>
+        <div class="yasmina-product-card__colors-item w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box ${active ? 'bd:1px_solid_color-dark' : 'bd:1px_solid_color-gray2'}" style="background-color: ${color.toLowerCase()};display:${index > 3 ? "none" : "block"}"></div>
       `
     })
   }
@@ -670,33 +641,31 @@ class CardColors {
   update() {
     this.init();
   }
-  handleShowColor() {
-    const colorEls = this.el.querySelectorAll('.yasmina-product-card__colors-item');
-    const colorPlus = this.el.querySelector(".yasmina-product-card__colors-plus");
-    colorEls.forEach(colorEl => {
-      colorEl.style.display = "block";
-      colorPlus.style.display = "none";
-    })
-  }
+  // handleShowColor() {
+  //   const colorEls = this.el.querySelectorAll('.yasmina-product-card__colors-item');
+  //   const colorPlus = this.el.querySelector(".yasmina-product-card__colors-plus");
+  //   colorEls.forEach(colorEl => {
+  //     colorEl.style.display = "block";
+  //     colorPlus.style.display = "none";
+  //   })
+  // }
   init() {
     const colors = this.countColorShow();
     this.el.innerHTML = this.render();
-    if(colors.length > 2) {
+    if(colors.length > 3) {
       const btnPlusViewColor = document.createElement("div");
-      btnPlusViewColor.className = "yasmina-product-card__colors-plus d:flex ai:center jc:center w:32px h:32px m:10px_6px_0px_6px cur:pointer fz:14px fw:600 ff:font-secondary c:color-gray9";
-      btnPlusViewColor.textContent = `+${colors.length - 2}`;
-      btnPlusViewColor.addEventListener('click', this.handleShowColor.bind(this));
+      btnPlusViewColor.className = "yasmina-product-card__colors-plus d:flex ai:center jc:center w:32px h:32px m:10px_6px_0px_6px fz:14px fw:600 ff:font-secondary c:color-gray9";
+      btnPlusViewColor.textContent = `+${colors.length - 3}`;
       this.el.appendChild(btnPlusViewColor);
     }
     this.handleDOM();
   }
 }
 if(!!container) {
-  new AddStore("Compare","fa-repeat");
-  new AddStore("WishList","fa-heart");
- //new AddStoreCurrentProduct("CurrentProduct","yasmina-product-card__name");
-  new AddStoreCart("Cart","yasmina-product-card__add");
-  new QuickViewPopop("QuickView","fa-eye");
+  new AddStore(container, "Compare", "fa-repeat");
+  new AddStore(container, "WishList", "fa-heart");
+  new AddStoreCart(container, "Cart", "yasmina-product-card__add");
+  new QuickViewPopop(container, "QuickView","fa-eye");
   const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
   colorWrapEls.forEach(el => new CardColors(el));
 }

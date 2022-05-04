@@ -192,7 +192,8 @@ if(!!container) {
     }
   });
   new CartRender();
-  veda.plugins.slider(container, {
+  veda.plugins.slider({
+    el: container.querySelector('.veda-slider'),
     min: 0,
     max: 500,
     step: 1,

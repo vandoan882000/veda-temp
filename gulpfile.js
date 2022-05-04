@@ -81,7 +81,7 @@ function getJSON() {
         [fileName]: fn(),
       };
     },
-    { builderMode: true }
+    { builderMode: true, section: { id: Date.now().toString() } }
   );
   return contents;
 }
@@ -122,7 +122,7 @@ function compileTwig(cb) {
       .src(`${config.input}/*.twig`)
       .pipe(twig({ data: getJSON(), errorLogToConsole: true }))
       .pipe(gulp.dest(output))
-      // .pipe(browserSync.stream());
+      .pipe(browserSync.stream());
   } catch (err) {
     console.log(err);
   }

@@ -19,9 +19,18 @@ const data = {
       title: "Spoil your true love",
     },
   },
+  price: {
+    enable: true,
+    title: "Price",
+    title_design: "",
+    price_text: "Price",
+    from_text: "From",
+    to_text: "To",
+  },
   content: {
     collection: "402337759453",
     availability : "1",
+
     filter_categories : [
       {
         value: "Activewear",

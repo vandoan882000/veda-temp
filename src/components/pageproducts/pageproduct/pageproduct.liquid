@@ -12,10 +12,9 @@
     <div class="direct fz:15px c:color-gray4 mb:33px ff:font-primary fw:400">Home > <a class="c:color-gray4" href="#">{{ heading.text }}</a> <a class="yasmina-page-product__title c:color-dark" href="#"> > {{product.title}}</a></div>
 
     <div class="row">
-
       <div class="col-lg-6 d:flex fld:column ai:center pr:30px">
-        <a href="#" class="veda-image-cover yasmina-page-product__image d:block w:100%" css="--aspect-ratio: 3/4">
-          <img class="w:100% veda-image-cover yasmina-page-product__img" src="{{ product.featured_image.src | img_url: '660x' }}"  alt="">
+        <a href="#" class="veda-image-zoom veda-image-cover yasmina-page-product__image d:block w:100%" css="--aspect-ratio: 3/4"  data-image-zoom-src="{{ image.src }}" data-image-zoom="6">
+          <img class="w:100% veda-image-cover yasmina-page-product__img" src="{{ product.featured_image.src | img_url: '900x' }}"  alt="">
         </a>
         <button class="w:490px h:60px lh:44px bgc:transparent c:color-gray9 bd:1px_solid_color-gray4 ai:center jc:center mt:35px fw:500 fz:15px maw:334px ta:center bdrs:0px! bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> <i class="far fa-question mr:10px fw:400 fz:15px bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> </i>Ask an expert</button>
       </div>
@@ -50,7 +49,7 @@
                   {% if item.options[1] == itemoptioncolor.selected_value %}
                     <div class="veda-image-cover w:90px mr:10px cur:pointer" css="--aspect-ratio: 3/4">
                       <script class="yasmina-page-product-variant-data" type="application/json">{{ item | json }}</script>
-                      <img class="bd:1px_solid_color-dark yasmina-page-product-image-select"  src="{{ item.image.src | img_url: '660x' }}"  alt="">
+                      <img class="bd:1px_solid_color-dark yasmina-page-product-image-select"  src="{{ item.image.src | img_url: '900x' }}"  alt="">
                     </div>
                   {% else %}
                     <div class="veda-image-cover w:90px mr:10px cur:pointer" css="--aspect-ratio: 3/4">
@@ -66,15 +65,20 @@
 
           </div>
           <p class="yasmina-page-product__sizes mb:7px ff:font-primary c:color-dark fz:15px fw:300">Size : {{product.options_with_values[0].selected_value}}</p>
-          <div class="vdoan-page-product__size mb:30px">
+          <div class="vdoan-page-product__size mb:30px d:flex">
             {% for itemoption in product.options_with_values %}
               {% if itemoption.name == "Size" %}
                   {% for item in itemoption.values %}
-                    {% if item == itemoption.selected_value %}
-                      <div class="vdoan-page-product__size-box d:inline-block w:70px h:34px bd:1px_solid_color-gray2 ta:center lh:34px ff:font-primary fz:15px fw:300 cur:pointer mr:6px">{{item}}</div>
-                    {% else %}
-                      <div class="vdoan-page-product__size-box d:inline-block w:70px h:34px bd:1px_solid_color-gray2 ta:center lh:34px bgc:color-gray2 ff:font-primary fz:15px fw:300 cur:pointer mr:6px">{{item}}</div>
-                    {% endif %}
+                    <label class="veda-checkbox d:flex pos:relative ai:center jc:center w:70px h:34px mr:10px ta:center cur:pointer ff:font-primary fz:15px bgc:color-gray4 bd:color-gray4" style="--size: 15px;--color: var(--color-gray9)">
+                      <div class="veda-checkbox__inner">
+                        <input type="checkbox"  data-label="{{ item }}" value="{{ item }}" {% if item == itemoption.selected_value %}checked{% endif %}/>
+                        <div class="veda-checkbox__track d:none">
+                          <i class="far fa-check"></i>
+                        </div>
+                      </div>
+                      <span class="ta:center lh:34px fz:15px fw:300 c:color-gray9">{{ item }}</span>
+                    </label>
+
                   {% endfor %}
               {% endif %}
             {% endfor %}

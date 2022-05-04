@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_0e1f9d58-493b-4502-a676-daaa38e2c3e4" %}
+{% set uniqueId = "id_8c6f5622-27ac-4ae0-8553-dff582c69b5b" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -18,7 +18,7 @@
             <script class="yasmina-product-card__data" type="application/json">{{ product | json_encode()}}</script>
             <div class="yasmina-product-card__img w:100% pos:relative ov:hidden">
               <div class="pet-product-card__image">
-                <a href="#" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
+                <a href="/pageproduct.html" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
                   <img class="yasmina-product-card__image" src="{{ product.featured_image.src | img_url('400x')}}" alt="{{ product.title }}">
                 </a>
               </div>

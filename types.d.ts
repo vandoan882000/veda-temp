@@ -122,6 +122,8 @@ interface VQueryReturn<T extends HTMLElement> {
   find(selector: string): VQueryReturn<T>;
   each(callback: (el: VQueryReturn<T>, index: number, els: HTMLElement[]) => void): VQueryReturn<T>;
   contains(selector: string): boolean;
+  getElements(): HTMLElement[];
+  getElement(): HTMLElement;
 }
 
 interface MobileMenuOptions {
@@ -165,7 +167,14 @@ interface NotificationOptions {
 }
 type SelectDestroy = () => void;
 
+interface SelectOptions {
+  el: HTMLElement;
+  value?: string;
+  onChange?: (value: string) => void;
+}
+
 interface SliderOptions {
+  el: HTMLElement;
   value?: number | [number, number];
   min?: number;
   max?: number;
@@ -175,8 +184,9 @@ interface SliderOptions {
   onChanged?: (value: number | [number, number]) => void;
 }
 
-interface SliderOptions2 extends SliderOptions {
-  selector?: string;
+interface SliderReturn {
+  destroy(): void;
+  setValue(value: string): void;
 }
 
 interface CounterOptions {
@@ -224,8 +234,8 @@ declare interface Veda {
     createRootElement<T extends HTMLElement>(className: string): T;
     debounce<T extends (...args: any) => void>(fn: T, timeout?: number | undefined): (...args: Parameters<T>) => void;
     queryString: {
-      parse<T extends Record<string, any>>(value: string): T;
-      stringify<T extends Record<string, any>>(value: T): string;
+      parse<T extends Record<string, any> | [string, any][]>(value: string, isObject?: boolean): T;
+      stringify<T extends Record<string, any> | [string, any][]>(value: T): string;
     }
   }
   plugins: {
@@ -467,23 +477,25 @@ declare interface Veda {
      *     <div class="veda-select__label"></div>
      *   </div>
     *    <div class="veda-select__options">
-     *     <div class="veda-select__option" value="html" selected>Html</div>
+     *     <div class="veda-select__option" value="html">Html</div>
      *     <div class="veda-select__option" value="photoshop">Photoshop</div>
      *   </div>
      * </div>
      * ```
      * ```js
      * // Javascript Example
-     * veda.plugins.select(container, {
-     *   onChange: value => {
-     *     console.log(value);
-     *   }
+     * veda.plugins.select({
+     *    el: container.querySelector('.veda-slider'),
+     *    value: 'photoshop',
+     *    onChange: value => {
+     *      console.log(value);
+     *    }
      * });
      * // Or
      * const destroy = veda.plugins.select(container);
      * ```
      */
-    select(container: HTMLElement, options: { onChange: (value: string) => void }): SelectDestroy;
+    select(options: SelectOptions): SelectDestroy;
 
     /** Slider
      * ```html
@@ -497,7 +509,8 @@ declare interface Veda {
      * ```
      * ```js
      * // Javascript Example
-     * veda.plugins.slider(container, {
+     * veda.plugins.slider({
+     *    el: container.querySelector('.veda-slider'),
      *    min: 0,
      *    max: 500,
      *    step: 1,
@@ -512,8 +525,7 @@ declare interface Veda {
      * });
      * ```
      */
-    slider(container: HTMLElement, options: SliderOptions): void;
-    slider(options: SliderOptions2): void;
+    slider(options: SliderOptions): SliderReturn;
 
     /** Counter
      * ```html

@@ -1,59 +1,55 @@
+import { CartService } from "../../home/products/products.js";
 const uniqueId = "headers";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store, map ,objectParse, VQuery: $$ } = veda.utils;
 const { message } = veda.plugins;
+const cartService = new CartService();
 // console.log(container.offsetHeight);
-veda.plugins.counter(container, {
-  min: 0,
-  max: 20,
-  step: 1,
-  value: 0,
-  onChange: value => {
-     console.log(value);
-  }
-});
 
-window.addEventListener("scroll", () => {
-  if(window.screenY > container.offsetHeight) {
-    container.classList.add("sticky-menu");
-  }
-  else {
-    container.classList.remove("sticky-menu");
-  }
-})
+// window.addEventListener("scroll", () => {
+//   console.log("body",document.querySelector("body").scrollTop);
+//   // if(document.querySelector("#root").screenY > container.offsetHeight) {
+//   //   // container.classList.add("sticky-menu");
+//   //   console.log(document.querySelector("#root").screenY);
+//   // }
+//   // else {
+//   //   // container.classList.remove("sticky-menu");
+//   //   console.log(window.screenY);
+//   // }
+// })
 
 //veda.plugins.themeToggle(container);
 const PREFIX = 'yasmina';
 
-store.create(PREFIX+"Compare", {
+store.create(`${PREFIX}Compare`, {
   initialState: {
     visible: false,
     data: []
   },
   useStorage: true
 });
-store.create(PREFIX+"WishList", {
+store.create(`${PREFIX}WishList`, {
   initialState: {
     visible: false,
     data: []
   },
   useStorage: true
 });
-store.create(PREFIX+"Cart", {
+store.create(`${PREFIX}Cart`, {
   initialState: [],
   useStorage: true
 });
-store.create(PREFIX+"CartVisible", {
+store.create(`${PREFIX}CartVisible`, {
   initialState: false,
   useStorage: false
 });
 class StoreBadge {
   constructor(storeName, elClass) {
     this.storeName = storeName;
-    this.el = container.querySelector("."+elClass);
+    this.el = container.querySelector(`.${elClass}`);
     this.init();
-    store.subscribe(PREFIX+storeName,this.init.bind(this));
+    store.subscribe(`${PREFIX}${this.storeName}`,this.init.bind(this));
   }
 
   getData() {
@@ -90,7 +86,7 @@ class ComparePopop {
     store.subscribe(`${PREFIX}${this.storeName}`, this.init.bind(this));
   }
   mounted() {
-    this.compareBtnEl = container.querySelector("."+this.classEl);
+    this.compareBtnEl = container.querySelector(`.${this.classEl}`);
     this.compareBtnEl.parentNode.addEventListener('click', this.handleTogglePopup.bind(this));
   }
 
@@ -106,7 +102,7 @@ class ComparePopop {
   }
 
   handleTogglePopup() {
-    store.set(PREFIX+ this.storeName,items => {
+    store.set(`${PREFIX}${this.storeName}`,items => {
       return {
         ...items,
         visible : !items.visible
@@ -176,13 +172,17 @@ class ComparePopop {
     }
     if(data.length === 0) {
       return /*html */`
-      <div class="compare-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
+      <div class="compare-container d:flex ai:flex-start jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:90% w:1200px@md h:1000px bgc:#fff mt:120px ov:auto">
-          <div class="d:flex fld:column ai:center jc:center w:100% h:100%">
-            <h2>Compare Empty</h2>
-            <p>Please add product to compare</p>
+        <div class="w:90% w:1218px@md h:800px bgc:#fff mt:4% ov:auto pos:relative ml:30px">
+          <div class="d:flex fld:column ai:center jc:center">
+            <h2 class="fz:35px mt:60px ta:center fw:500 c:color-gray9">Compare Empty</h2>
+            <div class="acbxyz"></div>
+            <div class="fz:25px lh:32px mt:7px mb:30px ta:center fw:400 c:color-gray9">Please add product to compare</div>
           </div>
+        </div>
+        <div class="close cur:pointer w:30px h:30px ta:center mt:3% ml:-20px z:100 bdrs:15px bgc:color-light">
+          <i class="fal fa-times c:color-gray9 fz:20px c:color-gray9 lh:30px c:color-primary|h"></i>
         </div>
       </div>
       `
@@ -264,8 +264,8 @@ class ComparePopop {
             </div>
           </div>
         </div>
-        <div class="close cur:pointer w:40px h:40px ta:center mt:3% ml:-20px z:100 bdrs:20px bgc:#e32c2c">
-          <i class="fal fa-times c:color-gray9 fz:30px c:color-gray9 lh:40px"></i>
+        <div class="close cur:pointer w:30px h:30px ta:center mt:3% ml:-20px z:100 bdrs:15px bgc:color-light">
+          <i class="fal fa-times c:color-gray9 fz:20px c:color-gray9 lh:30px c:color-primary|h"></i>
         </div>
       </div>
     `
@@ -284,11 +284,12 @@ class CartPopop {
     this.el = this.createComparePortal();
     this.mounted();
     this.initChangeVisible();
+    this.currentCart = "1";
     store.subscribe(`${PREFIX}${this.storeName}`, this.init.bind(this));
     store.subscribe(`${PREFIX}CartVisible`, this.initChangeVisible.bind(this));
   }
   mounted() {
-    this.compareBtnEl = container.querySelector("."+this.classEl);
+    this.compareBtnEl = container.querySelector(`.${this.classEl}`);
     this.compareBtnEl.parentNode.addEventListener('click', this.handleTogglePopup.bind(this));
   }
 
@@ -334,19 +335,11 @@ class CartPopop {
   }
   handleRemoveCart(event) {
     const currentId  = event.currentTarget.getAttribute("data-id");
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
-      method: 'DELETE',
-    })
-      .then(res => res.json())
-      .then(data => {
-        store.set(`${PREFIX}${this.storeName}`,carts => {
-          return [...carts.filter(item => item.id !== currentId)]
-        })(this.storeName+"/remove");
-      })
-      .catch(err => {
-        console.log(err);
-        alert("Delete Cart Error");
-      });
+    store.set(`${PREFIX}${this.storeName}`,carts => {
+      return [...carts.filter(item => item.id !== currentId)]
+    })(this.storeName+"/remove");
+    message.error("Remove product from cart");
+    cartService.delete(currentId);
 
   }
   handleDOM() {
@@ -362,7 +355,7 @@ class CartPopop {
       removeCart.forEach(removeEl => {
         removeEl.addEventListener("click", this.handleRemoveCart.bind(this));
       })
-      this.handleChangeQuantity();
+      this.handleChangeCurrentCart();
     }
     else {
 
@@ -370,21 +363,7 @@ class CartPopop {
   }
 
   updateStore() {
-    fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        store.set(`${PREFIX}Cart`, (items) => {
-          return [...data];
-        })(this.storeName + "/Add");
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    cartService.getData(() => {});
   }
   debounce(fn, delay = 300) {
     let timeoutId = -1;
@@ -395,62 +374,34 @@ class CartPopop {
       }, delay);
     };
   }
-  handleChangeQuantity() {
+  handleChangeCurrentCart() {
     const lstCounter = document.querySelectorAll(".veda-counter");
     lstCounter.forEach(counter => {
-      counter.addEventListener("click", this.debounce(() => {
+      counter.addEventListener("click", () => {
         const currentId  = counter.getAttribute("data-id");
-        const currentValue = Number(counter.querySelector(".veda-counter__input").value);
-        if(currentValue > 0) {
-          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              "quantity": currentValue,
-            })
-          })
-            .then(res => res.json())
-            .then(data => {
-            })
-            .catch(err => {
-              console.log(err);
-            })
-            .finally(() => {
-              this.updateStore();
-              message.success(`Add to Cart`);
-            })
-
-        }
-        else {
-          fetch('https://624eadac53326d0cfe5dba36.mockapi.io/cart/' + currentId, {
-            method: 'DELETE',
-          })
-            .then(res => res.json())
-            .then(data => {
-              this.updateStore();
-              message.error(`Remove from Cart`);
-            })
-            .catch(err => {
-              console.log(err);
-              alert("Delete Cart Error");
-            });
-        }
-
-      }));
+        console.log(currentId);
+        this.currentCart = currentId;
+      });
     });
+  }
+  handleChangeQuantity(id , quantity) {
+    const lstCounter = document.querySelectorAll(".veda-counter");
+    if(quantity > 0) {
+      cartService.update(id, quantity, this.updateStore.bind(this));
+    }
+    else {
+      this.updateStore();
+      message.error(`Remove from Cart`);
+      cartService.delete(id);
+    }
   }
   render() {
     const data = this.getData();
     const visible = this.getDataCartVisible();
     const { map } = veda.utils;
-    let totalPrice;
-    if (!visible) {
-      totalPrice = data.reduce((acc, item) => {
-        return acc + item.price * item.quantity;
-      },0);
-    }
+    let totalPrice = data.reduce((acc, item) => {
+      return acc + item.price * item.quantity;
+    },0);
 
     if (!visible) {
       return "";
@@ -472,7 +423,9 @@ class CartPopop {
       <div class="d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close-cart pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
         <div class="menu-cart__container w:95% w:350px@sm h:100% bgc:#fff ov:auto pos:absolute t:0 r:0 trf:translateX(100%) trs:all_0.3s pb:20px">
-          <div class="close-cart pos:absolute t:5px r:10px w:25px h:25px fz:25px cur:pointer"><i class="far fa-times"></i></div>
+          <div class="close-cart pos:absolute t:5px r:10px w:25px h:25px fz:25px cur:pointer">
+            <i class="fal fa-times"></i>
+          </div>
           <div><h4 class="fz:20px ml:15px mt:10px">SHOPPING CART</h4></div>
           <div class="d:flex fld:column jc:flex-start h:90%">
             <div class="d:flex fld:column jc:flex-start h:80% ovx:auto">
@@ -529,8 +482,9 @@ class CartPopop {
     veda.plugins.counter(this.el, {
       step: 1,
       value: 0,
-      onChange: (value) => {
-      }
+      onChange: this.debounce((value) => {
+        this.handleChangeQuantity(this.currentCart, value);
+      })
     });
     this.handleDOM();
   }
@@ -546,39 +500,40 @@ class CartPopop {
     veda.plugins.counter(this.el, {
       step: 1,
       value: 0,
-      onChange: (value) => {
-      }
+      onChange: this.debounce((value) => {
+        this.handleChangeQuantity(this.currentCart, value);
+      })
     });
     this.handleDOM();
   }
 }
-new StoreBadge("Compare","menu__card-compare");
-new StoreBadge("WishList","menu__wish-list");
-new StoreBadge("Cart","menu__cart");
-new ComparePopop("Compare","menu__card-compare");
-new CartPopop("Cart","menu__cart");
+new StoreBadge("Compare", "menu__card-compare");
+new StoreBadge("WishList", "menu__wish-list");
+new StoreBadge("Cart", "menu__cart");
+new ComparePopop("Compare", "menu__card-compare");
+new CartPopop("Cart", "menu__cart");
 
 
-const { Component, html, withStore, render} = veda.utils.csr;
-class Counter extends Component {
-  constructor(props) {
-    super(props);
-  }
+// const { Component, html, withStore, render} = veda.utils.csr;
+// class Counter extends Component {
+//   constructor(props) {
+//     super(props);
+//   }
 
-  handleClick() {
-    console.log("test");
-  }
+//   handleClick() {
+//     console.log("test");
+//   }
 
-  render() {
-    const { store, actions, kt ,id, cls} = this.props;
-    console.log(this.props)
-    return html`
-      <div onClick=${this.handleClick.bind(this)} id=${id} class=${cls}>${kt}acsa</div>
-    `
-  }
-}
+//   render() {
+//     const { store, actions, kt ,id, cls} = this.props;
+//     console.log(this.props)
+//     return html`
+//       <div onClick=${this.handleClick.bind(this)} id=${id} class=${cls}>${kt}acsa</div>
+//     `
+//   }
+// }
 
-const CounterWithStore = withStore('count')(Counter);
+// const CounterWithStore = withStore('count')(Counter);
 
 //render(html`<${CounterWithStore} id=${"a1"} kt=${123} cls=${"cls"}/>`,document.querySelector(".acbxyz"));
 

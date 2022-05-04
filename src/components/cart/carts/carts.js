@@ -53,6 +53,10 @@ class CartRender {
       }, delay);
     };
   }
+  async updateCart(id, quantity) {
+    await cartService.update(id, quantity);
+    await this.updateStore();
+  }
   handleChangeCurrentCart() {
     const lstCounter = document.querySelectorAll(".veda-counter");
     lstCounter.forEach(counter => {
@@ -65,7 +69,7 @@ class CartRender {
   handleChangeQuantity(id , quantity) {
     const lstCounter = document.querySelectorAll(".veda-counter");
     if(quantity > 0) {
-      cartService.update(id, quantity, this.updateStore.bind(this));
+      this.updateCart(id, quantity);
     }
     else {
       this.updateStore();

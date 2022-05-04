@@ -96,6 +96,11 @@ class PageProduct {
     await this.updateStore();
     btnCart.innerHTML = defaultHtml;
   }
+  async updateCart(id, quantity, btnCart, defaultHtml) {
+    await cartService.update(id, quantity);
+    await this.updateStore();
+    btnCart.innerHTML = defaultHtml;
+  }
   async handleAddCart() {
     const productEl = container.querySelector(".yasmina-page-product");
     const btnCart = productEl.querySelector(`.yasmina-page-product-btn-add-cart`);
@@ -111,10 +116,7 @@ class PageProduct {
         const prevItem = prevData[0];
         const defaultHtml = btnCart.innerHTML;
         btnCart.textContent = 'Loading...';
-        cartService.update(prevItem.id, prevItem.quantity + Number(quantity), () => {
-          btnCart.textContent = defaultHtml;
-          this.updateStore();
-        });
+        this.updateCart(prevItem.id, prevItem.quantity + Number(quantity), btnCart, defaultHtml);
       }
       else {
         const defaultHtml = btnCart.innerHTML;

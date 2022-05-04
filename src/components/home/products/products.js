@@ -62,9 +62,7 @@ export class CartService {
   async insert(newItem) {
     const res = await fetch( this.api , {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: this.headers,
       body: JSON.stringify({
         quantity: 1,
         title: `${newItem.title}`,
@@ -94,26 +92,15 @@ export class CartService {
         alert("Delete Cart Error");
       });
   }
-  update(id, quantity , callback) {
-    fetch( `${this.api}/${id}`, {
-       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+  async update(id, quantity) {
+    await fetch( `${this.api}/${id}`, {
+      method: 'PUT',
+      headers: this.headers,
       body: JSON.stringify({
         "quantity": quantity,
       })
     })
-      .then(res => res.json())
-      .then(data => {
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
-        callback();
-        message.success(`Add to Cart Successfully`);
-      })
+    await message.success(`Add to Cart Successfully`);
   }
 }
 const cartService = new CartService();
@@ -229,6 +216,11 @@ export class AddStoreCart {
     await this.updateStore();
     btnCart.innerHTML = defaultHtml;
   }
+  async updateCart(id, quantity, btnCart, defaultHtml) {
+    await cartService.update(id, quantity);
+    await this.updateStore();
+    btnCart.innerHTML = defaultHtml;
+  }
   handleAdd() {
     const listCard = this.container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
@@ -243,10 +235,7 @@ export class AddStoreCart {
           const prevItem = prevData[0];
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
-          cartService.update(prevItem.id, prevItem.quantity + 1, () => {
-            btnCart.innerHTML = defaultHtml;
-            this.updateStore();
-          });
+          this.updateCart(prevItem.id, prevItem.quantity + 1, btnCart, defaultHtml);
         } else {
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
@@ -349,9 +338,15 @@ export class QuickViewPopop {
       return [...data];
     });
   }
-  async insertCart(newItem) {
+  async insertCart(newItem, btnCart, defaultHtml) {
     await cartService.insert(newItem);
     await this.updateStore();
+    btnCart.innerHTML = defaultHtml;
+  }
+  async updateCart(id, quantity, btnCart, defaultHtml) {
+    await cartService.update(id, quantity);
+    await this.updateStore();
+    btnCart.innerHTML = defaultHtml;
   }
   async handleAddCart() {
     const dataQuickView = this.getData().data;
@@ -369,16 +364,12 @@ export class QuickViewPopop {
           const prevItem = prevData[0];
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
-          cartService.update(prevItem.id, prevItem.quantity + cartQuantityValue, () => {
-            btnCart.innerHTML = defaultHtml;
-            this.updateStore();
-          })
+          this.updateCart(prevItem.id, prevItem.quantity + cartQuantityValue, btnCart, defaultHtml);
         }
         else {
           const defaultHtml = btnCart.innerHTML;
           btnCart.innerHTML = 'Loading...';
-          this.insertCart(newItem);
-          btnCart.innerHTML = defaultHtml;
+          this.insertCart(dataQuickView, btnCart, defaultHtml);
         }
 
       }));

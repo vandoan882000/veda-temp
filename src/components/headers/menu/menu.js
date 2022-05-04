@@ -365,10 +365,14 @@ class CartPopop {
       });
     });
   }
+  async updateCart(id, quantity) {
+    await cartService.update(id, quantity);
+    await this.updateStore();
+  }
   handleChangeQuantity(id , quantity) {
     const lstCounter = document.querySelectorAll(".veda-counter");
     if(quantity > 0) {
-      cartService.update(id, quantity, this.updateStore.bind(this));
+      this.updateCart(id, quantity);
     }
     else {
       this.updateStore();

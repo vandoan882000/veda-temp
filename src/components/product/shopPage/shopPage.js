@@ -7,6 +7,7 @@ const {map , store, offset} = veda.utils;
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const filterContainer = document.querySelector(`[data-id="yasmina-filter"]`);
 const products = document.querySelector(`[data-id="products"]`);
+const { collectionsFilters } = veda.plugins;
 class ViewAs {
   constructor() {
     this.view1 = container.querySelector(".yasmina-page-product-view-as1");
@@ -76,141 +77,175 @@ function debounce(fn, delay = 300) {
 if (!!container) {
   const { slider, select } = veda.plugins;
   const { queryString, debounce } = veda.utils;
-
-  const formEl = container.querySelector(".petify-filter-form");
-  const inputEls = formEl.querySelectorAll("input");
-  const sortByEl = container.querySelector(".petify-sort-by");
-  console.log(container);
-  const sortByName = "sort_by";
-  const minName = "filter.v.price.gte";
-  const maxName = "filter.v.price.lte";
-  const minPriceEl = document.querySelector(`input[name="${minName}"]`);
-  const maxPriceEl = container.querySelector(`input[name='${maxName}']`);
-  let sortByValue = "";
-  let params = queryString.parse(window.location.search);
-  const paramsObj = queryString.parse(window.location.search, true);
-
-  formEl.addEventListener("submit", (event) => {
-    event.preventDefault();
-  });
-
-  function getKeys(arr) {
-    return arr.map(([key]) => key);
-  }
-
-  const range = slider({
-    el: container.querySelector(".petify-price-range"),
-    value: [
-      paramsObj["filter.v.price.gte"] || minPriceEl.min,
-      paramsObj["filter.v.price.lte"] || maxPriceEl.max,
-    ],
-    range: true,
-    onChange(value) {
-      const priceMinEl = formEl.querySelector(
-        'input[name="filter.v.price.gte"]'
-      );
-      const priceMaxEl = formEl.querySelector(
-        'input[name="filter.v.price.lte"]'
-      );
-      priceMinEl.value = value[0];
-      priceMaxEl.value = value[1];
+  collectionsFilters(container, {
+    formSelector: ".petify-filter-form",
+    sortBySelector: ".petify-sort-by",
+    refineRootSelector: ".petify-refine",
+    clearAllRootSelector: ".petify-clear-all",
+    priceStep: 0.01,
+    renderRefineItem({ item, onRemove }) {
+      return html`
+        <div
+          key=${item.value}
+          class="p:3px m:5px bdrs:3px bd:1px_solid_color-gray3"
+        >
+          <span>${item.label}</span>
+          <span class="cur:pointer p:3px">
+            <i class="fal fa-times" onClick=${onRemove}></i>
+          </span>
+        </div>
+      `;
     },
-    onChanged(value) {
-      const [minValue, maxValue] = value;
-      if (getKeys(params).includes(minName)) {
-        params = params.reduce((arr, [key, val]) => {
-          return [...arr, key === minName ? [minName, minValue] : [key, val]];
-        }, []);
-      } else {
-        params.push([minName, minValue]);
-      }
-      if (getKeys(params).includes(maxName)) {
-        params = params.reduce((arr, [key, val]) => {
-          return [...arr, key === maxName ? [maxName, maxValue] : [key, val]];
-        }, []);
-      } else {
-        params.push([maxName, maxValue]);
-      }
-      const url = new URL(
-        window.location.href.replace(window.location.seach, "")
-      );
-      url.search = queryString.stringify(params);
-      window.history.pushState(null, null, url.href);
+    renderClearAllButton({ onClear }) {
+      return html`<button onClick=${onClear}>Clear All</button>`;
+    },
+    onChange({ url, category, done }) {
+      // fetch(url).then(res => {
+      //   console.log(res);
+      //   done();
+      // }).catch(err => {})
+      console.log(url, category);
+      done();
+    },
+    onChangePrice({ min, max }) {
+      const priceViewEl = container.querySelector(".petify-price-view");
+      priceViewEl.textContent = `${min} - ${max}`;
     },
   });
+//   const formEl = container.querySelector(".petify-filter-form");
+//   const inputEls = formEl.querySelectorAll("input");
+//   const sortByEl = container.querySelector(".petify-sort-by");
+//   console.log(container);
+//   const sortByName = "sort_by";
+//   const minName = "filter.v.price.gte";
+//   const maxName = "filter.v.price.lte";
+//   const minPriceEl = document.querySelector(`input[name="${minName}"]`);
+//   const maxPriceEl = container.querySelector(`input[name='${maxName}']`);
+//   let sortByValue = "";
+//   let params = queryString.parse(window.location.search);
+//   const paramsObj = queryString.parse(window.location.search, true);
 
-  select({
-    el: container.querySelector(".petify-sort-by"),
-    value: paramsObj[sortByName],
-    onChange(value) {
-      sortByValue = value;
-      if (sortByName) {
-        const name = sortByName;
-        if (getKeys(params).includes(name)) {
-          params = params.reduce((arr, [key, val]) => {
-            return [...arr, key === name ? [name, value] : [key, val]];
-          }, []);
-        } else {
-          params.push([name, value]);
-        }
-        const search = queryString.stringify(params);
-        const url = new URL(
-          window.location.href.replace(window.location.seach, "")
-        );
-        url.search = queryString.stringify(params);
-        window.history.pushState(null, null, url.href);
-      }
-    },
-  });
+//   formEl.addEventListener("submit", (event) => {
+//     event.preventDefault();
+//   });
 
-  inputEls.forEach((inputEl) => {
-    const regexp = /text|number|email|phone/g;
-    const delay = regexp.test(inputEl.type) ? 400 : 0;
+//   function getKeys(arr) {
+//     return arr.map(([key]) => key);
+//   }
 
-    params.forEach(([key, val]) => {
-      if (key === inputEl.name) {
-        if (/checkbox|radio/g.test(inputEl.type)) {
-          if (val === inputEl.value) {
-            inputEl.setAttribute("checked", "checked");
-          }
-        } else {
-          inputEl.value = val;
-        }
-      }
-    });
+//   const range = slider({
+//     el: container.querySelector(".petify-price-range"),
+//     value: [
+//       paramsObj["filter.v.price.gte"] || minPriceEl.min,
+//       paramsObj["filter.v.price.lte"] || maxPriceEl.max,
+//     ],
+//     range: true,
+//     onChange(value) {
+//       const priceMinEl = formEl.querySelector(
+//         'input[name="filter.v.price.gte"]'
+//       );
+//       const priceMaxEl = formEl.querySelector(
+//         'input[name="filter.v.price.lte"]'
+//       );
+//       priceMinEl.value = value[0];
+//       priceMaxEl.value = value[1];
+//     },
+//     onChanged(value) {
+//       const [minValue, maxValue] = value;
+//       if (getKeys(params).includes(minName)) {
+//         params = params.reduce((arr, [key, val]) => {
+//           return [...arr, key === minName ? [minName, minValue] : [key, val]];
+//         }, []);
+//       } else {
+//         params.push([minName, minValue]);
+//       }
+//       if (getKeys(params).includes(maxName)) {
+//         params = params.reduce((arr, [key, val]) => {
+//           return [...arr, key === maxName ? [maxName, maxValue] : [key, val]];
+//         }, []);
+//       } else {
+//         params.push([maxName, maxValue]);
+//       }
+//       const url = new URL(
+//         window.location.href.replace(window.location.seach, "")
+//       );
+//       url.search = queryString.stringify(params);
+//       window.history.pushState(null, null, url.href);
+//     },
+//   });
 
-    inputEl.addEventListener(
-      "input",
-      debounce((event) => {
-        const { name, value, type } = event.target;
-        const formData = new FormData(formEl);
-        if (/filter.v.price.gte|filter.v.price.lte/g.test(name)) {
-          const minValue = formData.get("filter.v.price.gte");
-          const maxValue = formData.get("filter.v.price.lte");
-          range.setValue([minValue, maxValue]);
-        }
-        formData.set(sortByName, sortByValue);
-        const search = queryString.stringify(formData);
-        const url = new URL(
-          window.location.href.replace(window.location.search, "")
-        );
-        url.search = search;
-        // fetch(url).then(res => {
-        //   console.log(res);
-        //   window.history.pushState(null, null, url.href);
-        //   params = queryString.parse(window.location.search);
-        // }).catch(err => {})
-        console.log(url);
-        console.log(params);
-        console.log(queryString.parse(window.location.search))
-        window.history.pushState(null, null, url.href);
-        params = queryString.parse(window.location.search);
-      }, delay)
-    );
-  });
+//   select({
+//     el: container.querySelector(".petify-sort-by"),
+//     value: paramsObj[sortByName],
+//     onChange(value) {
+//       sortByValue = value;
+//       if (sortByName) {
+//         const name = sortByName;
+//         if (getKeys(params).includes(name)) {
+//           params = params.reduce((arr, [key, val]) => {
+//             return [...arr, key === name ? [name, value] : [key, val]];
+//           }, []);
+//         } else {
+//           params.push([name, value]);
+//         }
+//         const search = queryString.stringify(params);
+//         const url = new URL(
+//           window.location.href.replace(window.location.seach, "")
+//         );
+//         url.search = queryString.stringify(params);
+//         window.history.pushState(null, null, url.href);
+//       }
+//     },
+//   });
+
+//   inputEls.forEach((inputEl) => {
+//     const regexp = /text|number|email|phone/g;
+//     const delay = regexp.test(inputEl.type) ? 400 : 0;
+
+//     params.forEach(([key, val]) => {
+//       if (key === inputEl.name) {
+//         if (/checkbox|radio/g.test(inputEl.type)) {
+//           if (val === inputEl.value) {
+//             inputEl.setAttribute("checked", "checked");
+//           }
+//         } else {
+//           inputEl.value = val;
+//         }
+//       }
+//     });
+
+//     inputEl.addEventListener(
+//       "input",
+//       debounce((event) => {
+//         const { name, value, type } = event.target;
+//         const formData = new FormData(formEl);
+//         if (/filter.v.price.gte|filter.v.price.lte/g.test(name)) {
+//           const minValue = formData.get("filter.v.price.gte");
+//           const maxValue = formData.get("filter.v.price.lte");
+//           range.setValue([minValue, maxValue]);
+//         }
+//         formData.set(sortByName, sortByValue);
+//         const search = queryString.stringify(formData);
+//         const url = new URL(
+//           window.location.href.replace(window.location.search, "")
+//         );
+//         url.search = search;
+//         // fetch(url).then(res => {
+//         //   console.log(res);
+//         //   window.history.pushState(null, null, url.href);
+//         //   params = queryString.parse(window.location.search);
+//         // }).catch(err => {})
+//         console.log(url);
+//         console.log(params);
+//         console.log(queryString.parse(window.location.search))
+//         window.history.pushState(null, null, url.href);
+//         params = queryString.parse(window.location.search);
+//       }, delay)
+//     );
+//   });
+// }
+
 }
-
-
 // if(!!container) {
 //   const forms = container.querySelectorAll('.filter_form');
 //   forms.forEach(form => {

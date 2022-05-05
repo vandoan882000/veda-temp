@@ -85,12 +85,17 @@ class CartRender {
     });
     veda.plugins.counter(container,{
       step: 1,
-    });
-    this.handleChangeCurrentCart();
-    veda.plugins.select(container, {
-      onChange: (value) => {
+      onChange: value => {
+        console.log(value);
         this.handleChangeQuantity(this.currentCart, value);
         console.log(this.currentCart, value);
+     }
+    });
+    this.handleChangeCurrentCart();
+    veda.plugins.select({
+      el: container.querySelector(".veda-select"),
+      onChange: value => {
+        console.log(value);
       }
     });
   }

@@ -3,6 +3,7 @@ const uniqueId = "headers";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store, map ,objectParse, VQuery: $$ } = veda.utils;
+const { Component, html, render, renderWithElement} = veda.utils.csr;
 const { message } = veda.plugins;
 const cartService = new CartService();
 // console.log(container.offsetHeight);
@@ -74,35 +75,96 @@ class StoreBadge {
     this.el.innerHTML = this.render();
   }
 }
-
-class ComparePopop {
-  constructor(storeName, classEl) {
-    this.storeName = storeName;
-    this.classEl = classEl;
-    this.el = this.createComparePortal();
-    this.compareData = objectParse(container.querySelector(".compare-popup-data").textContent);
+class ComparePopupItem extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    const { item, onRemove, height, width} = this.props;
+    return html`
+      <div class="d:flex fld:column">
+      <div class="bd:1px_solid_color-gray3 bdstart:0px! miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px" style="min-height: ${height};border-left:0px;width: ${width}">
+        <div class="yasmina-product-card d:flex fld:column ai:center ta:center">
+          <div class="product-card__img w:100% pos:relative ov:hidden">
+            <div class="pet-product-card__image">
+              <a href="#" class="veda-image-cover d:block bd:none!" css="--aspect-ratio: 3/4">
+                <img class="product-card__image bd:none!" src="${ item.featured_image.src}" alt="">
+              </a>
+            </div>
+            <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+              <div data-id=${item.id} class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Remove Compare" data-tooltip-position="left" onClick=${onRemove}>
+                <i class="remove-compare fal fa-times"></i>
+              </div>
+            </div>
+          </div>
+          <div class="product-card__content d:flex fld:column jc:center ai:center">
+            <div class="product-card__brand c:color-gray5 mt:11px fw:400 fz:14px ">${item.vendor}</div>
+            <a class="product-card__name fz:16px mt:15px c:color-dark bd:none!" href="#">${item.title}</a>
+            <a class="product-card__price mt:14px bd:none!" href="#">
+             <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none bd:none!">$${item.price }</ins>
+            </a>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center" style="border-left:0px;border-top:0px;width: ${width}">
+        <i class="far fa-star c:#FEAA01 fz:24px"></i>
+        <i class="far fa-star c:#FEAA01 fz:24px"></i>
+        <i class="far fa-star c:#FEAA01 fz:24px"></i>
+        <i class="far fa-star c:#FEAA01 fz:24px"></i>
+        <i class="far fa-star c:#FEAA01 fz:24px"></i>
+      </div>
+      <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;width: ${width}">Description</div>
+      <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;width: ${width}" >Availability</div>
+      <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;width: ${width}">${item.type}</div>
+      <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;width: ${width}">SKU</div>
+      <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;width: ${width}"></div>
+      <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;width: ${width}"></div>
+      <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;width: ${width}">Option</div>
+      </div>
+      `
+  }
+}
+class ComparePopup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+      visible: false,
+    }
     this.mounted();
-    this.init();
-    store.subscribe(`${PREFIX}${this.storeName}`, this.init.bind(this));
+    store.subscribe(`${PREFIX}Compare`, this.handleGetItems.bind(this));
+  }
+  getData() {
+    return store.get(`${PREFIX}Compare`);
+  }
+  handleGetItems() {
+    const { data, visible } = this.getData();
+    this.setState({
+      items: data,
+      visible: visible,
+    });
   }
   mounted() {
-    this.compareBtnEl = container.querySelector(`.${this.classEl}`);
-    this.compareBtnEl.parentNode.addEventListener('click', this.handleTogglePopup.bind(this));
+        this.compareBtnEl = container.querySelector(`.menu__card-compare`);
+        this.compareBtnEl.parentNode.addEventListener('click', this.handleTogglePopup.bind(this));
+      }
+  getWidthMax() {
+    const { data } = this.getData();
+    return `${(1080 * 25 / 100) * data.length}px`;
   }
-
-  createComparePortal() {
-    const rootEl = document.querySelector('#root');
-    const el = document.createElement('div');
-    rootEl.appendChild(el);
-    return el;
+  getWidth() {
+    return `${1080 * 25 / 100}px`;
   }
-
-  getData() {
-    return store.get(`${PREFIX}${this.storeName}`);
+  getHeight() {
+    return `380px`;
   }
-
+  getMaxHeight() {
+    const contentEl = document.querySelector(`.compare-content`);
+    return `${contentEl.clientHeight - 685}px`;
+  }
   handleTogglePopup() {
-    store.set(`${PREFIX}${this.storeName}`,items => {
+    store.set(`${PREFIX}Compare`,items => {
       return {
         ...items,
         visible : !items.visible
@@ -110,77 +172,57 @@ class ComparePopop {
     });
   }
   handleRemoveCompare(event) {
-    store.set(`${PREFIX}${this.storeName}`,compare => {
+    store.set(`${PREFIX}Compare`,compare => {
       return {
         ...compare,
         data: compare.data.filter(item => item.id !== event.currentTarget.getAttribute("data-id"))
       }
-    })(this.storeName + "/remove");
+    })(`${PREFIX}Compare`+ "/remove");
   }
-  handleDOM() {
-    const { visible , data } = this.getData();
-    const closeEl = document.querySelectorAll('.close');
-    if (closeEl) {
-      closeEl.forEach(elClose => {
-        elClose.addEventListener('click', this.handleTogglePopup.bind(this));
-      })
-    }
-    if (visible) {
-      const removeCompare = document.querySelectorAll('.remove-compare');
-      removeCompare.forEach(removeEl => {
-        removeEl.parentNode.addEventListener("click", this.handleRemoveCompare.bind(this));
-      })
-    }
-  }
-  getWidthMax() {
-    const { data } = this.getData();
-    return `${(1095 * 25 / 100) * data.length}px`;
-  }
-  getWidth() {
-    return `${1095 * 25 / 100}px`;
-  }
-  getHeight() {
-    return `380px`;
-  }
+  renderItem = item => {
+    return  html`<${ComparePopupItem} key=${item.id} item=${item} onRemove=${this.handleRemoveCompare} height=${this.getHeight()} width=${this.getWidth()} />`;
+  };
   render() {
-    const { visible , data } = this.getData();
+    const { visible , items } = this.state;
     const { map } = veda.utils;
+    const contentEl = document.querySelector(`.compare-content`);
+
+
     if (!visible) {
       return ''
     }
-    if(data.length === 0) {
-      return /*html */`
+    if(items.length === 0) {
+      return html`
       <div class="compare-container d:flex ai:flex-start jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
-        <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+        <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4" onClick=${this.handleTogglePopup}></div>
         <div class="w:90% w:1218px@md h:85vh bgc:#fff mt:4% ov:auto pos:relative ml:30px">
           <div class="d:flex fld:column ai:center jc:center">
             <h2 class="fz:35px mt:60px ta:center fw:500 c:color-gray9">Compare Empty</h2>
-            <div class="acbxyz"></div>
             <div class="fz:25px lh:32px mt:7px mb:30px ta:center fw:400 c:color-gray9">Please add product to compare</div>
           </div>
         </div>
-        <div class="close cur:pointer w:30px h:30px ta:center mt:3% ml:-20px z:100 bdrs:15px bgc:color-light">
+        <div class="close cur:pointer w:30px h:30px ta:center mt:3% ml:-20px z:100 bdrs:15px bgc:color-light" onClick=${this.handleTogglePopup}>
           <i class="fal fa-times c:color-gray9 fz:20px c:color-gray9 lh:30px c:color-primary|h"></i>
         </div>
       </div>
       `
     }
-    return /*html*/`
+
+    return /*html*/html`
       <div class="compare-container d:flex ai:flex-start jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
-        <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
-        <div class="w:90% w:1218px@md h:85vh bgc:#fff mt:4% ov:auto pos:relative ml:30px">
-          <div class="d:flex fld:column ai:center jc:center">
+        <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4" onClick=${this.handleTogglePopup}></div>
+        <div class="veda-scrollbar w:90% w:1218px@md h:85vh bgc:#fff mt:4% ov:auto pos:relative ml:30px">
+          <div class="compare-content d:flex fld:column ai:center jc:center">
             <h2 class="fz:35px mt:60px ta:center fw:500 c:color-gray9">Compare</h2>
-            <div class="acbxyz"></div>
             <div class="fz:25px lh:32px mt:7px mb:30px ta:center fw:400 c:color-gray9">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
             <div class="w:100% d:flex">
               <div class="z:99">
-                ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px" style="height: ${this.getHeight()}">
-                 ${this.compareData.product_title}
-                </div>`:''}
-                ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">
-                  ${this.compareData.rating_title}
-                </div>`:''}
+               <div class="w:125px bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px" style="height: ${this.getHeight()}">
+                 Product
+                </div>
+                <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">
+                  Rating
+                </div>
                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Description</div>
                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Availability</div>
                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Product Type</div>
@@ -191,70 +233,215 @@ class ComparePopop {
               </div>
               <div class="ov:auto">
                 <div class="maw:3000px d:flex w:auto flw:wrap" style="width:${this.getWidthMax()}">
-                  ${map(data,item => `
-                  <div class="d:flex fld:column" style="width: ${this.getWidth()}">
-                    ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 bdstart:0px! miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px w:100%" style="min-height: ${this.getHeight()};border-left:0px;">
-                    <div class="yasmina-product-card d:flex fld:column ai:center ta:center">
-                      <div class="product-card__img w:100% pos:relative ov:hidden">
-                        <div class="pet-product-card__image">
-                          <a href="#" class="veda-image-cover d:block bd:none!" css="--aspect-ratio: 3/4">
-                            <img class="product-card__image bd:none!" src="${ item.featured_image.src}" alt="">
-                          </a>
-                        </div>
-                        <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                          <div data-id=${item.id} class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Remove Compare" data-tooltip-position="left">
-                            <i class="remove-compare fal fa-times"></i>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="product-card__content d:flex fld:column jc:center ai:center">
-                        <div class="product-card__brand c:color-gray5 mt:11px fw:400 fz:14px ">${item.vendor}</div>
-                          <a class="product-card__name fz:16px mt:15px c:color-dark bd:none!" href="#">${item.title}</a>
-                          <a class="product-card__price mt:14px bd:none!" href="#">
-                            <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none bd:none!">$${item.price }</ins>
-                          </a>
-                        </div>
-                      </div>
-                  </div>`:''}
-                  ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center" style="border-left:0px;border-top:0px;">
-                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                    <i class="far fa-star c:#FEAA01 fz:24px"></i>
-                  </div>`:''}
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">Description</div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;" >Availability</div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">${item.type}</div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">SKU</div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">
-
-                  </div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">
-
-                  </div>
-                  <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">Option</div>
-                  </div>
-                `)}
+                  ${items.map(this.renderItem)}
                 </div>
-
               </div>
             </div>
           </div>
         </div>
-        <div class="close cur:pointer w:30px h:30px ta:center mt:3% ml:-20px z:100 bdrs:15px bgc:color-light">
+        <div class="close cur:pointer w:30px h:30px ta:center mt:3% ml:-20px z:100 bdrs:15px bgc:color-light" onClick=${this.handleTogglePopup}>
           <i class="fal fa-times c:color-gray9 fz:20px c:color-gray9 lh:30px c:color-primary|h"></i>
         </div>
       </div>
     `
 
   }
-
+}
+class ComparePopupContaner {
+  constructor(data) {
+    this.el = this.createComparePortal();
+    this.init();
+  }
+  createComparePortal() {
+    const rootEl = document.querySelector('#root');
+    const el = document.createElement('div');
+    rootEl.appendChild(el);
+    return el;
+  }
   init() {
-    this.el.innerHTML = this.render();
-    this.handleDOM();
+    render(html`<${ComparePopup}/>`,this.el);
   }
 }
+// class ComparePopop {
+//   constructor(storeName, classEl) {
+//     this.storeName = storeName;
+//     this.classEl = classEl;
+//     this.el = this.createComparePortal();
+//     this.compareData = objectParse(container.querySelector(".compare-popup-data").textContent);
+//     this.mounted();
+//     this.init();
+//     store.subscribe(`${PREFIX}${this.storeName}`, this.init.bind(this));
+//   }
+//   mounted() {
+//     this.compareBtnEl = container.querySelector(`.${this.classEl}`);
+//     this.compareBtnEl.parentNode.addEventListener('click', this.handleTogglePopup.bind(this));
+//   }
+
+//   createComparePortal() {
+//     const rootEl = document.querySelector('#root');
+//     const el = document.createElement('div');
+//     rootEl.appendChild(el);
+//     return el;
+//   }
+
+//   getData() {
+//     return store.get(`${PREFIX}${this.storeName}`);
+//   }
+
+//   handleTogglePopup() {
+//     store.set(`${PREFIX}${this.storeName}`,items => {
+//       return {
+//         ...items,
+//         visible : !items.visible
+//       }
+//     });
+//   }
+//   handleRemoveCompare(event) {
+//     store.set(`${PREFIX}${this.storeName}`,compare => {
+//       return {
+//         ...compare,
+//         data: compare.data.filter(item => item.id !== event.currentTarget.getAttribute("data-id"))
+//       }
+//     })(this.storeName + "/remove");
+//   }
+//   handleDOM() {
+//     const { visible , data } = this.getData();
+//     const closeEl = document.querySelectorAll('.close');
+//     if (closeEl) {
+//       closeEl.forEach(elClose => {
+//         elClose.addEventListener('click', this.handleTogglePopup.bind(this));
+//       })
+//     }
+//     if (visible) {
+//       const removeCompare = document.querySelectorAll('.remove-compare');
+//       removeCompare.forEach(removeEl => {
+//         removeEl.parentNode.addEventListener("click", this.handleRemoveCompare.bind(this));
+//       })
+//     }
+//   }
+//   getWidthMax() {
+//     const { data } = this.getData();
+//     return `${(1095 * 25 / 100) * data.length}px`;
+//   }
+//   getWidth() {
+//     return `${1095 * 25 / 100}px`;
+//   }
+//   getHeight() {
+//     return `380px`;
+//   }
+//   render() {
+//     const { visible , data } = this.getData();
+//     const { map } = veda.utils;
+//     if (!visible) {
+//       return ''
+//     }
+//     if(data.length === 0) {
+//       return /*html */`
+//       <div class="compare-container d:flex ai:flex-start jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
+//         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+//         <div class="w:90% w:1218px@md h:85vh bgc:#fff mt:4% ov:auto pos:relative ml:30px">
+//           <div class="d:flex fld:column ai:center jc:center">
+//             <h2 class="fz:35px mt:60px ta:center fw:500 c:color-gray9">Compare Empty</h2>
+//             <div class="acbxyz"></div>
+//             <div class="fz:25px lh:32px mt:7px mb:30px ta:center fw:400 c:color-gray9">Please add product to compare</div>
+//           </div>
+//         </div>
+//         <div class="close cur:pointer w:30px h:30px ta:center mt:3% ml:-20px z:100 bdrs:15px bgc:color-light">
+//           <i class="fal fa-times c:color-gray9 fz:20px c:color-gray9 lh:30px c:color-primary|h"></i>
+//         </div>
+//       </div>
+//       `
+//     }
+//     return /*html*/`
+//       <div class="compare-container d:flex ai:flex-start jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
+//         <div class="close pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
+//         <div class="veda-scrollbar w:90% w:1218px@md h:85vh bgc:#fff mt:4% ov:auto pos:relative ml:30px">
+//           <div class="d:flex fld:column ai:center jc:center">
+//             <h2 class="fz:35px mt:60px ta:center fw:500 c:color-gray9">Compare</h2>
+//             <div class="acbxyz"></div>
+//             <div class="fz:25px lh:32px mt:7px mb:30px ta:center fw:400 c:color-gray9">Lorem ipsum dolor sit amet, consectetur adipiscing</div>
+//             <div class="w:100% d:flex">
+//               <div class="z:99">
+//                 ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px" style="height: ${this.getHeight()}">
+//                  ${this.compareData.product_title}
+//                 </div>`:''}
+//                 ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">
+//                   ${this.compareData.rating_title}
+//                 </div>`:''}
+//                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Description</div>
+//                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Availability</div>
+//                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Product Type</div>
+//                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">SKU</div>
+//                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Size</div>
+//                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Color</div>
+//                 <div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px" style="border-top:0px;">Option</div>
+//               </div>
+//               <div class="ov:auto">
+//                 <div class="maw:3000px d:flex w:auto flw:wrap" style="width:${this.getWidthMax()}">
+//                   ${map(data,item => `
+//                   <div class="d:flex fld:column" style="width: ${this.getWidth()}">
+//                     ${this.compareData.product_enable?`<div class="bd:1px_solid_color-gray3 bdstart:0px! miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px w:100%" style="min-height: ${this.getHeight()};border-left:0px;">
+//                     <div class="yasmina-product-card d:flex fld:column ai:center ta:center">
+//                       <div class="product-card__img w:100% pos:relative ov:hidden">
+//                         <div class="pet-product-card__image">
+//                           <a href="#" class="veda-image-cover d:block bd:none!" css="--aspect-ratio: 3/4">
+//                             <img class="product-card__image bd:none!" src="${ item.featured_image.src}" alt="">
+//                           </a>
+//                         </div>
+//                         <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+//                           <div data-id=${item.id} class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Remove Compare" data-tooltip-position="left">
+//                             <i class="remove-compare fal fa-times"></i>
+//                           </div>
+//                         </div>
+//                       </div>
+//                       <div class="product-card__content d:flex fld:column jc:center ai:center">
+//                         <div class="product-card__brand c:color-gray5 mt:11px fw:400 fz:14px ">${item.vendor}</div>
+//                           <a class="product-card__name fz:16px mt:15px c:color-dark bd:none!" href="#">${item.title}</a>
+//                           <a class="product-card__price mt:14px bd:none!" href="#">
+//                             <ins class="product-card__cost fw:500 fz:15px c:color-primary td:none bd:none!">$${item.price }</ins>
+//                           </a>
+//                         </div>
+//                       </div>
+//                   </div>`:''}
+//                   ${this.compareData.rating_enable?`<div class="bd:1px_solid_color-gray3 miw:100px fz:18px fw:500 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center" style="border-left:0px;border-top:0px;">
+//                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
+//                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
+//                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
+//                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
+//                     <i class="far fa-star c:#FEAA01 fz:24px"></i>
+//                   </div>`:''}
+//                   <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">Description</div>
+//                   <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;" >Availability</div>
+//                   <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">${item.type}</div>
+//                   <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">SKU</div>
+//                   <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">
+
+//                   </div>
+//                   <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">
+
+//                   </div>
+//                   <div class="bd:1px_solid_color-gray3 miw:100px fz:15px fw:400 va:top padding:35px_10px_35px_10px h:98px w:100% ta:center c:color-dark" style="border-left:0px;border-top:0px;">Option</div>
+//                   </div>
+//                 `)}
+//                 </div>
+
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//         <div class="close cur:pointer w:30px h:30px ta:center mt:3% ml:-20px z:100 bdrs:15px bgc:color-light">
+//           <i class="fal fa-times c:color-gray9 fz:20px c:color-gray9 lh:30px c:color-primary|h"></i>
+//         </div>
+//       </div>
+//     `
+
+//   }
+
+//   init() {
+//     this.el.innerHTML = this.render();
+//     this.handleDOM();
+//   }
+// }
 class CartPopop {
   constructor(storeName, classEl) {
     this.storeName = storeName;
@@ -495,7 +682,8 @@ class CartPopop {
 new StoreBadge("Compare", "menu__card-compare");
 new StoreBadge("WishList", "menu__wish-list");
 new StoreBadge("Cart", "menu__cart");
-new ComparePopop("Compare", "menu__card-compare");
+// new ComparePopop("Compare", "menu__card-compare");
+new ComparePopupContaner();
 new CartPopop("Cart", "menu__cart");
 
 

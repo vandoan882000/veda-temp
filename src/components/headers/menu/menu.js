@@ -3,7 +3,7 @@ const uniqueId = "headers";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store, map ,objectParse, VQuery: $$ } = veda.utils;
-const { Component, html, render, renderWithElement} = veda.utils.csr;
+const { Component, html, render, renderWithElement, createPortal} = veda.utils.csr;
 const { message } = veda.plugins;
 const cartService = new CartService();
 // console.log(container.offsetHeight);
@@ -125,7 +125,7 @@ class ComparePopupItem extends Component {
       `
   }
 }
-class ComparePopup extends Component {
+class ComparePopupView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -146,9 +146,9 @@ class ComparePopup extends Component {
     });
   }
   mounted() {
-        this.compareBtnEl = container.querySelector(`.menu__card-compare`);
-        this.compareBtnEl.parentNode.addEventListener('click', this.handleTogglePopup.bind(this));
-      }
+    this.compareBtnEl = container.querySelector(`.menu__card-compare`);
+    this.compareBtnEl.parentNode.addEventListener('click', this.handleTogglePopup.bind(this));
+  }
   getWidthMax() {
     const { data } = this.getData();
     return `${(1080 * 25 / 100) * data.length}px`;
@@ -247,21 +247,26 @@ class ComparePopup extends Component {
 
   }
 }
-class ComparePopupContaner {
-  constructor(data) {
-    this.el = this.createComparePortal();
-    this.init();
-  }
-  createComparePortal() {
-    const rootEl = document.querySelector('#root');
-    const el = document.createElement('div');
-    rootEl.appendChild(el);
-    return el;
-  }
-  init() {
-    render(html`<${ComparePopup}/>`,this.el);
-  }
+class ComparePopupAction {
+
+
 }
+
+// class ComparePopupContaner {
+//   constructor(data) {
+//     this.el = this.createComparePortal();
+//     this.init();
+//   }
+//   createComparePortal() {
+//     const rootEl = document.querySelector('#root');
+//     const el = document.createElement('div');
+//     rootEl.appendChild(el);
+//     return el;
+//   }
+//   init() {
+//     render(html`<${ComparePopup}/>`,this.el);
+//   }
+// }
 // class ComparePopop {
 //   constructor(storeName, classEl) {
 //     this.storeName = storeName;
@@ -442,6 +447,7 @@ class ComparePopupContaner {
 //     this.handleDOM();
 //   }
 // }
+
 class CartPopop {
   constructor(storeName, classEl) {
     this.storeName = storeName;
@@ -562,7 +568,9 @@ class CartPopop {
       this.updateCart(id, quantity);
     }
     else {
-      this.updateStore();
+      store.set(`${PREFIX}Cart`, (items) => {
+        return [...items.filter(item => item.id !== id)];
+      });
       message.error(`Remove from Cart`);
       cartService.delete(id);
     }
@@ -683,7 +691,8 @@ new StoreBadge("Compare", "menu__card-compare");
 new StoreBadge("WishList", "menu__wish-list");
 new StoreBadge("Cart", "menu__cart");
 // new ComparePopop("Compare", "menu__card-compare");
-new ComparePopupContaner();
+renderWithElement(createPortal(html`<div class="compare-poppup"><${ComparePopupView} /></div>`,document.querySelector('#root')),"abczxzx");
+// new ComparePopupContaner();
 new CartPopop("Cart", "menu__cart");
 
 

@@ -140,6 +140,42 @@ interface MobileMenuOptions {
   renderBackButton?: (className: string) => string;
   renderCloseButton?: (className: string) => string;
 }
+
+interface RenderRefineItemParams {
+  item: {
+    label: string;
+    name: string;
+    value: string;
+  }
+  onRemove(): void;
+}
+
+interface RenderClearAllButtonParams {
+  onClear(event?: MouseEvent): void;
+}
+
+interface OnChangeParams {
+  url: URL;
+  category: string;
+  done(): void;
+}
+
+interface OnChangePriceParams {
+  min: string;
+  max: string;
+}
+
+interface CollectionsFiltersOptions {
+  formSelector: string;
+  sortBySelector: string;
+  refineRootSelector: string;
+  clearAllRootSelector: string;
+  priceStep?: number;
+  renderRefineItem({ item, onRemove }: RenderRefineItemParams): VNode;
+  renderClearAllButton({ onClear }: RenderClearAllButtonParams): VNode;
+  onChange({ url, category, done }: OnChangeParams): void;
+  onChangePrice?: ({ min, max }: OnChangePriceParams) => void;
+}
 interface MobileMenuReturn {
   init(): void;
   destroy(): void;
@@ -165,7 +201,11 @@ interface NotificationOptions {
   onShow?: () => void;
   onHide?: () => void;
 }
-type SelectDestroy = () => void;
+
+interface SelectReturn {
+  destroy(): void;
+  reset():void;
+}
 
 interface SelectOptions {
   el: HTMLElement;
@@ -495,7 +535,7 @@ declare interface Veda {
      * const destroy = veda.plugins.select(container);
      * ```
      */
-    select(options: SelectOptions): SelectDestroy;
+    select(options: SelectOptions): SelectReturn;
 
     /** Slider
      * ```html
@@ -550,6 +590,47 @@ declare interface Veda {
      * ```
      */
     counter(container: HTMLElement, options: CounterOptions): void;
+
+    /** Counter
+     * ```html
+     * // Liquid Example
+     * https://docs.veda.com/
+     * ```
+     * ```js
+     * // Javascript Example
+     * const { collectionsFilters } = veda.plugins;
+     * const { html } = veda.utils.csr;
+     * collectionsFilters(container, {
+     *   formElement: container.querySelector(".petify-filter-form"),
+     *   sortByElement: container.querySelector(".petify-sort-by"),
+     *   refineRootElement: container.querySelector(".petify-refine-root"),
+     *   renderRefineItem: ({ item, onRemove }) => {
+     *     return html`
+     *       <span key=${item.value}>
+     *         <span>${item.label}</span>
+     *         ${item.name === "filter.v.price.gte"
+     *           ? html`<span>-</span>`
+     *           : html`<i class="fal fa-times" onClick=${onRemove}></i>`}
+     *       </span>
+     *     `;
+     *   },
+     *   renderClearAllButton: ({ onClear }) => {
+     *     return html`
+     *       <button class="petify-clear-all" onClick=${onClear}>Clear All</button>
+     *     `;
+     *   },
+     *   onChange: (url, category, done) => {
+     *     console.log(url, category);
+     *     done();
+     *   },
+     *   onChangePrice({ min, max }) {
+     *     const priceViewEl = container.querySelector(".petify-price-view");
+     *     priceViewEl.textContent = `${min} - ${max}`;
+     *   }
+     * });
+     * ```
+     */
+    collectionsFilters(container: HTMLElement, options: CollectionsFiltersOptions): void;
   }
 }
 

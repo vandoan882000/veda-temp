@@ -86,7 +86,7 @@ export class CartService {
     })
       .then(res => res.json())
       .then(data => {
-
+        message.error(`Remove from Cart`);
       })
       .catch(err => {
         alert("Delete Cart Error");
@@ -121,7 +121,7 @@ export class AddStore {
     const { data } = this.getData();
     const listCard = this.container.querySelectorAll(".yasmina-product-card");
     listCard.forEach(cartEl => {
-      const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
+      const btnCompare = cartEl.querySelector(`.${this.elName}`).parentNode;
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       let hasItem = !!data.find(item => item.id === JSON.parse(dataEl.textContent).id);
       if(hasItem) {
@@ -140,7 +140,7 @@ export class AddStore {
     const listCard = this.container.querySelectorAll(".yasmina-product-card");
     this.handleChangeStatus();
     listCard.forEach(cartEl => {
-      const btnCompare = cartEl.querySelector("."+this.elName).parentNode;
+      const btnCompare = cartEl.querySelector(`.${this.elName}`).parentNode;
       const dataEl = cartEl.querySelector(".yasmina-product-card__data");
       btnCompare.addEventListener("click", () => {
         const newItem = JSON.parse(dataEl.textContent);

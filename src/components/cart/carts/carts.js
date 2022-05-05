@@ -57,6 +57,12 @@ class CartRender {
     await cartService.update(id, quantity);
     await this.updateStore();
   }
+  deleteCart(id) {
+    store.set(`${PREFIX}Cart`, (items) => {
+      return [...items.filter(item => item.id !== id)];
+    });
+    cartService.delete(id);
+  }
   handleChangeCurrentCart() {
     const lstCounter = document.querySelectorAll(".veda-counter");
     lstCounter.forEach(counter => {
@@ -72,9 +78,7 @@ class CartRender {
       this.updateCart(id, quantity);
     }
     else {
-      this.updateStore();
-      message.error(`Remove from Cart`);
-      cartService.delete(id);
+      this.deleteCart(id);
     }
   }
 
@@ -85,19 +89,15 @@ class CartRender {
     });
     veda.plugins.counter(container,{
       step: 1,
-      onChange: value => {
+      onChange: this.debounce(value => {
         console.log(value);
         this.handleChangeQuantity(this.currentCart, value);
         console.log(this.currentCart, value);
-     }
+     })
     });
     this.handleChangeCurrentCart();
-    veda.plugins.select({
-      el: container.querySelector(".veda-select"),
-      onChange: value => {
-        console.log(value);
-      }
-    });
+
+
   }
   render() {
     const data = this.getData();
@@ -142,19 +142,29 @@ class CartRender {
 if(!!container) {
   //veda.plugins.countdown(container);
   new CartRender();
-  // veda.plugins.slider({
-  //   el: container.querySelector('.veda-slider'),
-  //   min: 0,
-  //   max: 500,
-  //   step: 1,
-  //   range: false,
-  //   value: [0, 200],
-  //   onChange: value => {
-  //      console.log(value);
-  //   },
-  //   onChanged: value => {
-  //      console.log(value);
-  //   }
-  //});
+  veda.plugins.slider({
+    el: container.querySelector('.veda-slider'),
+    min: 0,
+    max: 500,
+    step: 1,
+    range: false,
+    value: [100, 200],
+    onChange: value => {
+    },
+    onChanged: value => {
+    }
+  });
+  veda.plugins.select({
+    el: document.querySelector(".select-country"),
+    onChange: value => {
+      console.log(value);
+    }
+  });
+  veda.plugins.select({
+    el: document.querySelector(".select-state"),
+    onChange: value => {
+      console.log(value);
+    }
+  });
 }
 

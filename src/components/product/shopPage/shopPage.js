@@ -87,17 +87,17 @@ if (!!container) {
       return html`
         <div
           key=${item.value}
-          class="p:3px m:5px bdrs:3px bd:1px_solid_color-gray3"
+          class="product-box__box-refine pos:relative d:inline-block bd:1px_solid_color-gray2 w:fit-content p:2px_25px_2px_5px cur:pointer c:color-gray4 ff:font-primary mr:5px mb:5px"
         >
-          <span>${item.label}</span>
-          <span class="cur:pointer p:3px">
-            <i class="fal fa-times" onClick=${onRemove}></i>
+          <span class="c:color-gray4">${item.label}</span>
+          <span class="cur:pointer">
+            <i class="fal fa-times pos:absolute t:55% r:1% trf:translate(-50%,-50%) c:color-gray4 c:color-gray9!|h" onClick=${onRemove}></i>
           </span>
         </div>
       `;
     },
     renderClearAllButton({ onClear }) {
-      return html`<button onClick=${onClear}>Clear All</button>`;
+      return html`<button class="petify-clear-all c:color-dark pos:absolute t:5px r:0 ff:font-primary bgc:color-light bgc:color-light|h! bd:none! c:color-gray9|h!" onClick=${onClear}>Clear All</button>`;
     },
     onChange({ url, category, done }) {
       // fetch(url).then(res => {
@@ -112,6 +112,7 @@ if (!!container) {
       priceViewEl.textContent = `${min} - ${max}`;
     },
   });
+  new ViewAs();
 //   const formEl = container.querySelector(".petify-filter-form");
 //   const inputEls = formEl.querySelectorAll("input");
 //   const sortByEl = container.querySelector(".petify-sort-by");

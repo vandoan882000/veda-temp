@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_4492a6a3-5021-4eca-b3b1-3c178f79cf32" %}
+{% set uniqueId = "id_85bbd6ac-5e0a-44f9-8872-362f540e3b2b" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -8,7 +8,7 @@
 <section data-id="bestseller" class="pt:80px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container pb:40px">
-    <h3 class="page-section__header ff:font-primary ta:center mb:45px fz:40px fw:700" css="{{ heading.design }}">{{ heading.text }}</h3>
+    <h3 class="page-section__header ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row">
       {% set collection = collections[content.collection] %}
       <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>
@@ -50,9 +50,9 @@
               <div class="yasmina-product-card__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
               <a class="yasmina-product-card__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
               <a class="yasmina-product-card__price mt:14px" href="#">
-                <ins class="yasmina-product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}</ins>
+                <ins class="yasmina-product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}.00</ins>
                 {% if product.compare_at_price > product.price %}
-                  <del class="yasmina-product-card__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}</del>
+                  <del class="yasmina-product-card__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}.00</del>
                 {% endif %}
               </a>
 

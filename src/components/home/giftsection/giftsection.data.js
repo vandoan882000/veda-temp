@@ -19,7 +19,7 @@ const data = {
     },
     {
       name :"EASY & FREE RETURNS",
-      icon: "far fa-box"
+      icon: "fal fa-box"
     },
     {
       name :"STUDENT DISCOUNT",
@@ -27,7 +27,7 @@ const data = {
     },
     {
       name :"100% SECURE SHOPPING",
-      icon: "far fa-box"
+      icon: "fal fa-box"
     }
   ],
 };

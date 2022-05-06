@@ -29,7 +29,7 @@
         </div>
       {% endfor %}
       <div  class="col-xs-9 col-sm-6 col-md-5 col-lg-3">
-        <h3 class="nvd-footer-list__heading c:color-light fz:14px mb:25px fw:700 ff:font-quinary">{{new_letter.title}}</h3>
+        <h3 class="nvd-footer-list__heading c:color-light fz:14px mb:25px fw:700 ff:font-quinary" style="font-family: 'League Spartan', sans-serif;">{{new_letter.title}}</h3>
         <ul class="nvd-footer-list fw:400 pb:25px pl:0 list-style:none">
           <li class="nvd-footer-list__list pb:20px c:color-light"><a class="nvd-footer-list__link op:0.7 c:color-light fw:400" href="#">{{new_letter.name}}</a></li>
         </ul>
@@ -70,7 +70,6 @@
             {% endif %}
           </div>
         {% endform %}
-
         <div class="nvd-footer__about h:25px d:flex ai:center mt:20px">
           {% for item in new_letter.icons %}
             {{item.icon}}

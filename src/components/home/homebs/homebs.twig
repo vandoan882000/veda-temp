@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_ef588917-ace0-4916-8144-fa99e2f20db4" %}
+{% set uniqueId = "id_d4f65e47-327e-4b85-b89f-80829713998f" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -9,7 +9,9 @@
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <h3 class="page-section__header ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
-    <div class="row">
+    <div class="row pos:relative">
+      <div class="d:flex ai:center jc:center pos:absolute t:30% trf:translate(-20%,-50%) bgc:color-light l:0 w:47px h:47px bdrs:50% bd:1px_solid_color-gray3 z:1000 cur:pointer"><i class="fal fa-arrow-left c:color-gray9 fz:18px"></i></div>
+      <div class="d:flex ai:center jc:center pos:absolute t:30% trf:translate(20%,-50%) bgc:color-light r:0 w:47px h:47px bdrs:50% bd:1px_solid_color-gray3 z:1000 cur:pointer"><i class="fal fa-arrow-right c:color-gray9 fz:18px"></i></div>
       {% set collection = collections[content.collection] %}
       <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>
       {% for product in collection.products | slice(0, 4) %}

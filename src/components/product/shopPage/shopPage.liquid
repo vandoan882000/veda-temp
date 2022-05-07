@@ -284,7 +284,7 @@
                           <div class="d:flex pos:relative ai:center jc:center w:40px h:40px mr:5px ta:center cur:pointer ff:font-primary fz:15px">
                               <label class="w:40px h:40px cur:pointer cur:pointer">
                                   <input class="yasmina-filter-input-size pos:absolute v:hidden" type="checkbox" name="filter.v.option.size" data-label="{{ size }}" value="{{ size }}"/>
-                                  <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray4"></div>
+                                  <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
                                   <span class="ta:center lh:40px fz:15px fw:400 c:color-gray9">{{ size }}</span>
                               </label>
                           </div>
@@ -295,7 +295,16 @@
 
                   {% if price.enable %}
                   <div>
-                    <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary" css="{{ price.title_design }}">{{ price.title }}</h2>
+                    <div class="d:flex jc:space-between ai:center mb:15px">
+                      <h2 class="product-box__title fz:20px fw:500 ff:font-primary" css="{{ price.title_design }}">
+                        {{ price.title }}
+                      </h2>
+                      <div>
+                        <span class="fz:15px fw:400 c:color-gray4">Giá: </span>
+                        <span class="petify-price-view fz:15px fw:500 c:color-gray9">{{ price.price_text }}: {{ min_price | times:100 | money }} - {{ max_price | times:100 | money }}</span>
+                      </div>
+                    </div>
+
                     <div>
                       <div class="veda-slider petify-price-range" data-options="{ min: {{ min_price }}, max: {{ max_price }} }">
                         <div class="veda-slider__thumb w:10px h:10px bgc:color-gray9" data-index="0"></div>
@@ -303,15 +312,12 @@
                         <div class="veda-slider__track h:5px bgc:color-gray3"></div>
                         <div class="veda-slider__tracked h:5px bgc:color-gray9"></div>
                       </div>
-                      <div class="mt:20px mb:10px">
-                        <span class="petify-price-view">{{ price.price_text }}: {{ min_price | times:100 | money }} - {{ max_price | times:100 | money }}</span>
-                      </div>
                       <div class="d:flex mt:13px">
                         <div class="mr:10px">
-                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" id="gte" name="filter.v.price.gte" data-label="{{ min_price | times:100 | money }}" value="{{ min_price }}" min="{{ min_price }}" max="{{ max_price }}" data-button="disabled" placeholder="{{ price.from_text }}" >
+                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px! fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" id="gte" name="filter.v.price.gte" data-label="{{ min_price | times:100 | money }}" value="{{ min_price }}" min="{{ min_price }}" max="{{ max_price }}" data-button="disabled" placeholder="{{ price.from_text }}" >
                         </div>
                         <div>
-                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" data-button="disabled" data-label="{{ max_price | times:100 | money }}" placeholder="{{ price.to_text }}" name="filter.v.price.lte" value="{{ max_price }}" min="{{ min_price }}" max="{{ max_price }}">
+                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px! fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" data-button="disabled" data-label="{{ max_price | times:100 | money }}" placeholder="{{ price.to_text }}" name="filter.v.price.lte" value="{{ max_price }}" min="{{ min_price }}" max="{{ max_price }}">
                         </div>
                       </div>
                     </div>

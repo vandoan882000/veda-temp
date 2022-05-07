@@ -9,24 +9,42 @@ const filterContainer = document.querySelector(`[data-id="yasmina-filter"]`);
 const products = document.querySelector(`[data-id="products"]`);
 const { collectionsFilters } = veda.plugins;
 
-class Tags {
-  constructor(tags) {
-    this.tags = tags;
+class Tags extends Component {
+  constructor(props) {
+    super(props);
+    this.el = document.querySelector(".yasmina-product-box__tags");
+    this.tags = this.getTags();
   }
-
+  getTags() {
+    let tags = [];
+    const lstData = container.querySelectorAll(".yasmina-product-card__data");
+    console.log(lstData);
+    lstData.forEach(dataEl => {
+      const data = JSON.parse(dataEl.textContent);
+      data.tags.forEach(tag => {
+        if (!tags.includes(tag)) {
+          tags.push(tag);
+        }
+      })
+    })
+    return tags;
+  }
   render() {
     const { tags } = this;
     return html`
-      <div class="tags-container">
         ${tags.map(tag => html`
-          <div class="tag">
-            <span class="tag-text">${tag}</span>
-          </div>
+        <div class="d:flex pos:relative ai:center h:28px jc:center mr:5px ta:center cur:pointer ff:font-primary fz:15px p:2px_5px_2px_5px mb:10px">
+            <label class="w:100% h:28px cur:pointer cur:pointer d:flex jc:center">
+                <input class="yasmina-filter-input-size pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="${tag}" data-label="${tag}"/>
+                <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
+                <span class="ta:center lh:28px fz:15px fw:400 c:color-gray9">${tag}</span>
+            </label>
+        </div>
         `)}
-      </div>
     `;
   }
 }
+
 class ViewAs {
   constructor() {
     this.view1 = container.querySelector(".yasmina-page-product-view-as1");
@@ -132,6 +150,8 @@ if (!!container) {
     },
   });
   new ViewAs();
+  render(html`<${Tags} />`, container.querySelector(".yasmina-product-box__tags"));
+}
 //   const formEl = container.querySelector(".petify-filter-form");
 //   const inputEls = formEl.querySelectorAll("input");
 //   const sortByEl = container.querySelector(".petify-sort-by");
@@ -264,8 +284,6 @@ if (!!container) {
 //     );
 //   });
 // }
-
-}
 // if(!!container) {
 //   const forms = container.querySelectorAll('.filter_form');
 //   forms.forEach(form => {

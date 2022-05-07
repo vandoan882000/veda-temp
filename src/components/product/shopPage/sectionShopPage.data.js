@@ -68,7 +68,7 @@ const data = {
     enable: true,
     title: "Color",
     title_design: "",
-    colors: "Red,white,green,blue,black,gray",
+    colors: "Red,White,Green,Blue,Black,Gray",
   },
   size: {
     enable: true,

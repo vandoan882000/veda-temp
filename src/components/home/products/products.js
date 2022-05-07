@@ -293,7 +293,7 @@ export class QuickViewPopop {
     return store.get(`${PREFIX}Cart`);
   }
   handleTogglePopup() {
-    store.set(PREFIX+ this.storeName,items => {
+    store.set(`${PREFIX}${this.storeName}`,items => {
       return {
         ...items,
         visible : !items.visible
@@ -394,7 +394,7 @@ export class QuickViewPopop {
     // }
   }
   initStore() {
-    store.create(PREFIX+"QuickView", {
+    store.create(`${PREFIX}QuickView`, {
       initialState: {
         visible: false,
         data: {}
@@ -423,7 +423,7 @@ export class QuickViewPopop {
               <div class="fw:500 fz:30px c:color-gray9 mt:26px">${data.title}</div>
               <div class="fw:400 fz:25px c:color-gray9 mt:5px">$${data.price}</div>
               <div class="fw:400 fz:14px ff:font-secondary c:color-gray4 mt:17px">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti et...</div>
-              <div class="mt:18px td:underline cur:pointer"><a href="#" class="fw:400 fz:15px c:color-gray9!">View details</a></div>
+              <div class="mt:18px td:underline cur:pointer"><a href="/pageproduct.html" class="fw:400 fz:15px c:color-gray9!">View details</a></div>
               <div class="yasmina-quickview-color-text fw:500 fz:15px mt:23px">${(data.options_with_values[1]?.name=="Color"||data.options_with_values[1]?.name=="Colour")?`Color: ${data.options_with_values[1].selected_value}`:""}</div>
               <div class="yasmina-quickview-colors d:flex"></div>
               <div class="fw:500 fz:15px mt:12px">Quantity</div>
@@ -464,7 +464,7 @@ export class QuickViewCardColors {
     return arr.map(callback).join('')
   }
   getData() {
-    return store.get(PREFIX+"QuickView");
+    return store.get(`${PREFIX}QuickView`);
   }
   setState(state) {
     if (typeof state === 'function') {

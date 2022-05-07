@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_54bbf2ec-62c9-4ba9-971b-b1a40b82cdce" %}
+{% set uniqueId = "id_cc616db2-fcaa-49e6-a2df-870d79760753" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -213,7 +213,7 @@
       </div>
       <div data-id="yasmina-filter" class="col-lg-3">
         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 d:flex ai:center jc:center">
-          <div class="product-box maw:330px w:100% h:auto bd:1px_solid_color-gray3 p:15px_20px_30px_20px mb:10px">
+          <div class="product-box maw:330px w:100% h:auto bd:1px_solid_color-gray2 p:15px_20px_30px_20px mb:10px">
 
             
               <form action="{{ routes.search_url }}">
@@ -258,9 +258,9 @@
                       <div>
                         <div class="d:flex fld:column">
                           {% for category in categories_data %}
-                            <div class="d:flex ai:center mb:9px pos:relative">
+                            <div class="d:flex ai:center mb:10px pos:relative">
                               <div class="w:5px h:5px bgc:color-gray4 bdrs:50% mr:7px"></div>
-                              <label class="fz:15px fw:400 c:color-gray9 cur:pointer ml:12px" for="{{category.value}}">{{category.label}}</label>
+                              <label class="fz:15px fw:400 c:color-gray9 cur:pointer" for="{{category.value}}">{{category.label}}</label>
                               <input class="yasmina-filter-input-radio v:hidden" type="checkbox" id="{{category.value}}" name="filter.v.category" value="{{category.value}}" data-label="{{category.label}}">
                               <div class="w:5px h:5px bgc:color-gray4 bdrs:50% mr:7px pos:absolute"></div>
                             </div>
@@ -279,10 +279,10 @@
                       <h2 class="product-box__title fz:20px fw:500 mb:0px ff:font-primary mt:22px">{{color.title}}</h2>
                       <div class="d:flex flw:wrap">
                         {% for color in tag_colors %}
-                          <div class="yasmina-circle__active pos:relative d:inline-block w:50px h:50px bdrs:25px m:10px_6px_0px_6px cur:pointer p:4px bgcp:content-box bgc:{{color}}" style="background-color:{{color}}">
-                              <label class="w:50px h:50px cur:pointer">
+                          <div class="yasmina-circle__active pos:relative d:inline-block w:40px h:40px bdrs:20px m:10px_6px_0px_6px cur:pointer p:4px bgcp:content-box bgc:{{color}}" style="background-color:{{color}}">
+                              <label class="w:40px h:40px cur:pointer">
                                   <input class="yasmina-filter-input-color v:hidden" type="checkbox" name="filter.v.option.color" value="{{ color}}" data-label="{{color}}"/>
-                                  <div class="w:50px h:50px pos:absolute t:0px l:0px bd:1px_solid_color-gray2 bdrs:25px"></div>
+                                  <div class="w:40px h:40px pos:absolute t:0px l:0px bd:1px_solid_color-gray2 bdrs:20px"></div>
                               </label>
                           </div>
                         
@@ -331,10 +331,10 @@
                       </div>
                       <div class="d:flex mt:13px">
                         <div class="mr:10px">
-                          <input class="w:100px h:30px lh:30px bd:1px_solid_color-gray3 bdrs:0px!" type="number" id="gte" name="filter.v.price.gte" data-label="{{ min_price | times(100)| money }}" value="{{ min_price }}" min="{{ min_price }}" max="{{ max_price }}" data-button="disabled" placeholder="{{ price.from_text }}" >
+                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" id="gte" name="filter.v.price.gte" data-label="{{ min_price | times(100)| money }}" value="{{ min_price }}" min="{{ min_price }}" max="{{ max_price }}" data-button="disabled" placeholder="{{ price.from_text }}" >
                         </div>
                         <div>
-                          <input class="w:100px h:30px lh:30px bd:1px_solid_color-gray3 bdrs:0px!" type="number" data-button="disabled" data-label="{{ max_price | times(100)| money }}" placeholder="{{ price.to_text }}" name="filter.v.price.lte" value="{{ max_price }}" min="{{ min_price }}" max="{{ max_price }}">
+                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" data-button="disabled" data-label="{{ max_price | times(100)| money }}" placeholder="{{ price.to_text }}" name="filter.v.price.lte" value="{{ max_price }}" min="{{ min_price }}" max="{{ max_price }}">
                         </div>
                       </div>
                     </div>
@@ -384,7 +384,7 @@
                         <div class="d:flex pos:relative ai:center h:28px jc:center mr:5px ta:center cur:pointer ff:font-primary fz:15px p:2px_5px_2px_5px mb:10px">
                             <label class="w:100% h:28px cur:pointer cur:pointer d:flex jc:center">
                                 <input class="yasmina-filter-input-size pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="{{ tag.value }}" data-label="{{tag.value}}"/>
-                                <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray4"></div>
+                                <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
                                 <span class="ta:center lh:28px fz:15px fw:400 c:color-gray9">{{ tag.value }}</span>
                             </label>
                         </div>

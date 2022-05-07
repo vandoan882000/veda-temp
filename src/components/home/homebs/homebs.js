@@ -25,7 +25,7 @@ store.create("yasminaCart", {
   useStorage: true
 });
 
-store.create(PREFIX+"QuickView", {
+store.create(`${PREFIX}QuickView`, {
   initialState: {
     visible: false,
     data: {}

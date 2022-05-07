@@ -8,6 +8,25 @@ const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const filterContainer = document.querySelector(`[data-id="yasmina-filter"]`);
 const products = document.querySelector(`[data-id="products"]`);
 const { collectionsFilters } = veda.plugins;
+
+class Tags {
+  constructor(tags) {
+    this.tags = tags;
+  }
+
+  render() {
+    const { tags } = this;
+    return html`
+      <div class="tags-container">
+        ${tags.map(tag => html`
+          <div class="tag">
+            <span class="tag-text">${tag}</span>
+          </div>
+        `)}
+      </div>
+    `;
+  }
+}
 class ViewAs {
   constructor() {
     this.view1 = container.querySelector(".yasmina-page-product-view-as1");

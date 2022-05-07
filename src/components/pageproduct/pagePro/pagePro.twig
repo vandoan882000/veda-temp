@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_2644421c-a719-422d-9b31-fb9b0689c798" %}
+{% set uniqueId = "id_f3a4d3f4-d3f2-4e75-a064-77e66ba6b7da" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~  ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -11,7 +11,6 @@
     {% set comment = blogs[content.collection] %}
     {% set product = product1 %}
     <div class="direct fz:15px c:color-gray4 mb:33px ff:font-primary fw:400">Home > <a class="c:color-gray4" href="#">{{ heading.text }}</a> <a class="yasmina-page-product__title c:color-dark" href="#"> > {{product.title}}</a></div>
-
     <div class="row">
       <div class="col-lg-6 d:flex fld:column ai:center pr:30px">
         <a href="#" class="veda-image-zoom veda-image-cover yasmina-page-product__image d:block w:100%" css="--aspect-ratio: 3/4"  data-image-zoom-src="{{ image.src }}" data-image-zoom="6">

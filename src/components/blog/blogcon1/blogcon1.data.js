@@ -46,15 +46,15 @@ const data = {
       type: "popular-post",
       item: [
         {
-          title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          title: "Lorem ipsum dolor sit amet, consectetur...",
           srcImg: "../../img/post1.png"
         },
         {
-          title: "Nisl natoque sed cursus purus. Pellentesque amet sollicitudin non ac adipiscing sed fac...",
+          title: "Nisl natoque sed cursus purus. Pellent amet...",
           srcImg: "../../img/post2.png"
         },
         {
-          title: "A arcu malesuada mauris consequat est cursus dignissim cras.",
+          title: "A arcu malesuada mauris consequat est ...",
           srcImg: "../../img/post3.png"
         }
       ]

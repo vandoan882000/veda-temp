@@ -4,7 +4,7 @@ import "./headers/header/header.js";
 import "./wishlist/wishlistcon/wishlist.js";
 import "./cart/carts/carts.js";
 import "./home/homebs/homebs.js";
-import "./pageproducts/pageproduct/pageproduct.js";
+import "./pageproduct/pagePro/pagepro.js";
 import "./product/shopPage/shopPage.js";
 // import "./product/shopPage/shopPage.js";
 // function createMenu({

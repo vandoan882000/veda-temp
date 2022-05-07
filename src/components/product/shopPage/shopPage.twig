@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_44c0650c-4e15-450a-8d46-6d3141b7a4b2" %}
+{% set uniqueId = "id_2aeb2d7b-d4fd-45e5-bee6-2c68353a0e99" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -137,11 +137,11 @@
 
           <div class="col-md-12 mb:140px">
             <div class="row row-cols-lg-{{ content.column.lg }} row-cols-md-3 row-cols-sm-2 row-cols-1" component="content">
-              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_color-dark bgc:color-dark c:color-light cur:pointer mr:5px fw:600">1</div>
-              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">2</div>
-              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">3</div>
-              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px fw:600">4</div>
-              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid bgc:color-light c:color-dark cur:pointer mr:5px"><i class="fas fa-long-arrow-right"></i></div>
+              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_gray9 bgc:color-dark c:color-light cur:pointer mr:5px fw:600">1</div>
+              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9 bgc:color-light c:color-dark cur:pointer mr:5px fw:600">2</div>
+              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9 bgc:color-light c:color-dark cur:pointer mr:5px fw:600">3</div>
+              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9 bgc:color-light c:color-dark cur:pointer mr:5px fw:600">4</div>
+              <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9 bgc:color-light c:color-dark cur:pointer mr:5px"><i class="fas fa-long-arrow-right"></i></div>
             </div>
           </div>
         </div>
@@ -248,7 +248,7 @@
                     <div class="product-box__refine mb:20px pos:relative">
                       <div class="d:flex jc:space-between mb:15px">
                         <h2 class="product-box__title fz:20px fw:500 ff:font-primary">Refine By</h2>
-                        <div class="petify-clear-all"></div>
+                        <div class="petify-clear-all mt:3px"></div>
                       </div>
                       <div class="petify-refine"></div>
                     </div>
@@ -303,7 +303,7 @@
                           <div class="d:flex pos:relative ai:center jc:center w:40px h:40px mr:5px ta:center cur:pointer ff:font-primary fz:15px">
                               <label class="w:40px h:40px cur:pointer cur:pointer">
                                   <input class="yasmina-filter-input-size pos:absolute v:hidden" type="checkbox" name="filter.v.option.size" data-label="{{ size }}" value="{{ size }}"/>
-                                  <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
+                                  <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2 z:-1"></div>
                                   <span class="ta:center lh:40px fz:15px fw:400 c:color-gray9">{{ size }}</span>
                               </label>
                           </div>

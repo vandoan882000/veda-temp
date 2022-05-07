@@ -104,7 +104,7 @@ class CartRender {
       return map(data, item => {
         return /*html*/`
           <tr class="card-cart fz:15px bd:none bdb:1px_solid_color-gray2">
-            <td class="card-cart__content  bd:none pt:30px pb:30px d:flex">
+            <td class="card-cart__content bd:none pt:30px pb:30px d:flex pl:0px!">
               <a href="#" class="veda-image-cover d:block w:140px bd:none! h:132px" css="--aspect-ratio: 4/4">
                 <img src=${item.image} alt="product-card">
               </a>

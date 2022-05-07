@@ -5,9 +5,9 @@
 
 
 <section data-id="accountcontainer" css="{{ backgroundColor }}{{ backgroundImage }}">
+  <div class="direct fz:15px c:color-gray4 mb:33px ml:5%">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <div class="direct fz:15px c:color-gray4 mb:33px">Home > <a href="#" class="c:color-dark">{{ heading.text }}</a></div>
     <h3 class="login__title mb:30px ta:center fz:35px fw:500 ff:font-primary fw:500">Log In</h3>
     <p class="login__description mb:55px ta:center mt:-25px fz:25px ff:font-primary fw:400">Lorem ipsum dolor sit amet, consectetur adipiscing
     </p>
@@ -25,11 +25,13 @@
 			<div class="col-lg-5">
 				<div class="sign-in w:100% w:500px@md d:flex fld:column">
 					<h3 class="sign-in__title mb:20px fz:25px ff:font-primary fw:400">Log In</h3>
-					<input class="w:100%! w:500px!@md h:50px bd:1px_solid_color-gray3! pl:16px! c:color-gray3! bdrs:0px! fz:15px fw:400 fz:15px||placeholder fw:400||placeholder" type="text" placeholder="Email"/>
-          <div class="mb:20px!"></div>
-					<input class="w:100%! w:500px!@md h:50px mb:25px! bd:1px_solid_color-gray3! pl:16px! c:color-gray3 bdrs:0px! fz:15px fw:400 fz:15px||placeholder fw:400||placeholder" type="password" placeholder="Password"/>
-					<a class="td:underline mt:10px mb:40px c:color-dark fz:15px ff:font-primary fw:400 td:underline|h" href="#">Forgot password?</a>
-					<button class="vdoan-btn__primary ff:font-primary bgc:color-dark bgc:color-dark|h bd:none! c:color-light p:20px_86px_20px_86px cur:pointer m:5px_5px_5px_5px fw:500 bdrs:0px! fz:15px lts:0.15px w:100%! m:0!" style="width: 100%;">Sign In</button>
+          <form>
+            <input class="w:100%! w:500px!@md h:50px bd:1px_solid_color-gray3! pl:16px! c:color-gray3! bdrs:0px! fz:15px fw:400 fz:15px||placeholder fw:400||placeholder" type="text" placeholder="Email"/>
+            <div class="mb:20px!"></div>
+            <input class="w:100%! w:500px!@md h:50px mb:25px! bd:1px_solid_color-gray3! pl:16px! c:color-gray3 bdrs:0px! fz:15px fw:400 fz:15px||placeholder fw:400||placeholder" type="password" placeholder="Password"/>
+            <a class="td:underline mt:10px mb:40px c:color-dark fz:15px ff:font-primary fw:400 td:underline|h" href="#">Forgot password?</a>
+            <button type="submit" class="vdoan-btn__primary ff:font-primary bgc:color-dark bgc:color-dark|h bd:none! c:color-light p:20px_86px_20px_86px cur:pointer m:5px_5px_5px_5px fw:500 bdrs:0px! fz:15px lts:0.15px w:100%! m:0!" style="width: 100%;">Sign In</button>
+            </form>
 				</div>
 			</div>
     </div>

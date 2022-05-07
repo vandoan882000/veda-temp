@@ -413,7 +413,7 @@ export class QuickViewPopop {
         <div class="close-quickview pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
         <div class="w:90% w:930px@md h:590px bgc:#fff mt:4% ov:auto">
           <div class="pos:relative d:flex ai:center jc:center w:100% h:100%">
-            <div class="close-quickview pos:absolute t:10px r:10px fz:20px cur:pointer c:color-gray9 c:color-primary|h w:30px h:30px ta:center">
+            <div class="close-quickview pos:absolute t:10px r:10px fz:20px cur:pointer c:#C4C4C4 c:color-gray9|h w:30px h:30px ta:center">
               <i class="fal fa-times"></i>
             </div>
             <div class="veda-image-cover miw:200px w:400px h:100%" css="--aspect-ratio: 3/4">
@@ -421,15 +421,15 @@ export class QuickViewPopop {
             </div>
             <div class="w:530px h:100% pl:30px ov:auto">
               <div class="fw:500 fz:30px c:color-gray9 mt:26px">${data.title}</div>
-              <div class="fw:400 fz:25px c:color-gray9 mt:5px">$${data.price}</div>
-              <div class="fw:400 fz:14px ff:font-secondary c:color-gray4 mt:17px">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti et...</div>
+              <div class="fw:400 fz:25px c:color-gray9 mt:5px">$${data.price}.00</div>
+              <div class="fw:400 fz:14px ff:font-secondary c:#6F6F6F mt:17px">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti et...</div>
               <div class="mt:18px td:underline cur:pointer"><a href="/pageproduct.html" class="fw:400 fz:15px c:color-gray9!">View details</a></div>
               <div class="yasmina-quickview-color-text fw:500 fz:15px mt:23px">${(data.options_with_values[1]?.name=="Color"||data.options_with_values[1]?.name=="Colour")?`Color: ${data.options_with_values[1].selected_value}`:""}</div>
               <div class="yasmina-quickview-colors d:flex"></div>
               <div class="fw:500 fz:15px mt:12px">Quantity</div>
               <div class="d:flex mt:9px flw:wrap">
-                <input class="yasmina-quickview-quantity-add-cart w:84px! h:50px! fz:15px fw:300 c:color-gray9 bdrs:0px! ta:center mb:10px! mr:10px!" type="number" value="1" min="1" />
-                <button class="yasmina-btn__primary yasmina-quickview-add-cart bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:17px_70px_17px_70px@md cur:pointer m:0px_5px_0px_10px fw:500 bdrs:0px! fz:15px lts:0.15px w:272px@md h:50px whs:nowrap">ADD TO CART</button>
+                <input class="yasmina-quickview-quantity-add-cart w:84px! h:52px! fz:15px fw:300 c:color-gray9 bdrs:0px! ta:center mb:10px! mr:10px!" type="number" value="1" min="1" />
+                <button class="yasmina-btn__primary yasmina-quickview-add-cart bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:17px_70px_17px_70px@md cur:pointer m:0px_5px_0px_10px fw:500 bdrs:0px! fz:15px lts:0.15px w:236px@md h:52px whs:nowrap">ADD TO CART</button>
               </div>
             </div>
           </div>

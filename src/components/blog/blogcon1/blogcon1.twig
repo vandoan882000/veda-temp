@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_35aeffc3-bed4-4c7f-bd6b-6044ccabc6a7" %}
+{% set uniqueId = "id_07718619-9bf9-419e-990d-e175927b6984" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -66,9 +66,9 @@
                   <h2 class="product-box__title fz:20px fw:500 mt:15px mb:15px ff:font-primary">Popular Post</h2>
                   <div class="product-box__content fz:15px d:flex fld:column ai:flex-start">
                     {% for item in item.item %}
-                      <a href="#" class="product-box__box-post mb:30px d:flex jc:center ai:flex-start">
+                      <a href="#" class="product-box__box-post mb:20px d:flex jc:center ai:flex-start">
                         <img src={{item.srcImg | img_url('')}} alt="">
-                        <h2 class="ml:20px fw:500 c:color-dark fz:15px">{{item.title}}</h2>
+                        <h2 class="ml:10px fw:500 c:color-dark fz:15px">{{item.title}}</h2>
                       </a>
                     
 

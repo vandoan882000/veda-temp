@@ -6,7 +6,6 @@ import "./cart/carts/carts.js";
 import "./home/homebs/homebs.js";
 import "./pageproducts/pageproduct/pageproduct.js";
 import "./product/shopPage/shopPage.js";
-import "./collections/contentCollections/contentCollections.js";
 // import "./product/shopPage/shopPage.js";
 // function createMenu({
 //   createMenuButton

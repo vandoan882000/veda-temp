@@ -605,7 +605,7 @@ export class CardColors {
       }
       const active = color.toLowerCase() === selectedColor.toLowerCase();
       return `
-        <div class="yasmina-product-card__colors-item w:32px h:32px bdrs:16px m:10px_6px_0px_6px cur:pointer p:3px bgcp:content-box ${active ? 'bd:1px_solid_color-dark' : 'bd:1px_solid_color-gray2'}" style="background-color: ${color.toLowerCase()};display:${index > 3 ? "none" : "block"}"></div>
+        <div class="yasmina-product-card__colors-item w:32px h:32px bdrs:16px m:10px_4px_0px_4px cur:pointer p:3px bgcp:content-box ${active ? 'bd:1px_solid_color-dark' : 'bd:1px_solid_color-gray2'}" style="background-color: ${color.toLowerCase()};display:${index > 3 ? "none" : "block"}"></div>
       `
     })
   }
@@ -651,7 +651,7 @@ export class CardColors {
     this.el.innerHTML = this.render();
     if(colors.length > 3) {
       const btnPlusViewColor = document.createElement("div");
-      btnPlusViewColor.className = "yasmina-product-card__colors-plus d:flex ai:center jc:center w:32px h:32px m:10px_6px_0px_6px fz:14px fw:600 ff:font-secondary c:color-gray9";
+      btnPlusViewColor.className = "yasmina-product-card__colors-plus d:flex ai:center jc:flex-start w:auto h:32px m:10px_4px_0px_4px fz:14px fw:600 ff:font-secondary c:color-gray9";
       btnPlusViewColor.textContent = `+${colors.length - 3}`;
       this.el.appendChild(btnPlusViewColor);
     }

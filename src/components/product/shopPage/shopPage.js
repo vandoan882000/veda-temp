@@ -134,7 +134,7 @@ if (!!container) {
       `;
     },
     renderClearAllButton({ onClear }) {
-      return html`<button class="petify-clear-all c:color-dark pos:absolute t:5px r:0 ff:font-primary bgc:color-light bgc:color-light|h! bd:none! c:color-gray9|h!" onClick=${onClear}>Clear All</button>`;
+      return html`<button class="c:color-dark ff:font-primary bgc:color-light bgc:color-light|h! bd:none! c:color-gray9|h! p:0!" onClick=${onClear}>Clear All</button>`;
     },
     onChange({ url, category, done }) {
       // fetch(url).then(res => {

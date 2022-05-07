@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_c0041cb7-a33d-45ba-8746-35c831430fee" %}
+{% set uniqueId = "id_44c0650c-4e15-450a-8d46-6d3141b7a4b2" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -54,17 +54,17 @@
             <div class="d:flex whs:nowrap ai:center ml:10px ml:455px@md pos:relative mt:10px mt:0px@md filter_field sort_by pos:relative">
               <p class="mr:10px fz:15px fw:500">Sort by</p>
               <div class="veda-select petify-sort-by">
-                <div class="veda-select__view w:190px h:43px bd:1px_solid_color-gray3 pl:15px cur:pointer d:flex ai:center">
-                  <div class="veda-select__label w:150px cur:pointer d:flex ai:center fz:15px fw:400 c:color-gray4"></div>
+                <div class="veda-select__view w:190px h:43px bd:1px_solid_#DEDEE9 pl:15px cur:pointer d:flex ai:center ff:font-secondary">
+                  <div class="veda-select__label w:150px cur:pointer d:flex ai:center fz:15px fw:400 c:color-gray4 ff:font-secondary"></div>
                   <i class="fal fa-angle-down"></i>
                 </div>
-                <div class="veda-select__options select-custom pos:absolute t:50px w:190px z:100 bgc:color-light bd:1px_solid_color-gray3">
-                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="featured" selected>Featured</div>
-                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="best selling">Best selling</div>
-                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="alphabetically,a-z">Alphabetically, A-Z</div>
-                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="alphabetically,z-a">Alphabetically, Z-A</div>
-                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="price">Price, high to low</div>
-                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:color-gray3!|h d:flex ai:center bd:none!" value="date">Date, old to new</div>
+                <div class="veda-select__options select-custom pos:absolute t:50px w:190px z:100 bgc:color-light bd:1px_solid_#DEDEE9">
+                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="featured" selected>Featured</div>
+                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="best selling">Best selling</div>
+                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="alphabetically,a-z">Alphabetically, A-Z</div>
+                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="alphabetically,z-a">Alphabetically, Z-A</div>
+                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="price">Price, high to low</div>
+                <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="date">Date, old to new</div>
                 </div>
               </div>
             </div>
@@ -219,9 +219,9 @@
               <form action="{{ routes.search_url }}">
                 <div class="product-box__search mb:15px">
                   <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Search</h2>
-                  <div class="product-box__box-search d:flex ai:center pl:10px bd:1px_solid_color-gray2">
-                    <button class="p:10px ml:-10px bd:1px_solid_color-light bd:1px_solid_color-light|h! bgc:color-light! c:color-gray9! bgc:color-light|h! c:color-gray9|h!" type="submit"><i class="fal fa-search cur:pointer"></i></button>
-                    <input class="h:40px w:90% bd:none! o:none c:color-gray4 fz:15px c:color-gray4||placeholder fz:15px||placeholder" type="text"
+                  <div class="product-box__box-search d:flex ai:center bd:1px_solid_color-gray2">
+                    <button class="p:10px bd:1px_solid_color-light bd:1px_solid_color-light|h! bgc:color-light! c:color-gray9! bgc:color-light|h! c:color-gray9|h!" type="submit"><i class="fal fa-search cur:pointer"></i></button>
+                    <input class="h:40px! w:90%! bd:none! o:none c:color-gray4 fz:15px c:color-gray4||placeholder pl:0px! fz:15px||placeholder" type="text"
                     placeholder="Search"
                     name="q"
                     value="{{ search.terms | escape }}"
@@ -246,11 +246,11 @@
                 <form id="filter_form" class="petify-filter-form">
 
                     <div class="product-box__refine mb:20px pos:relative">
-                      <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Refine By</h2>
-                      <div class="petify-refine">
-
+                      <div class="d:flex jc:space-between mb:15px">
+                        <h2 class="product-box__title fz:20px fw:500 ff:font-primary">Refine By</h2>
+                        <div class="petify-clear-all"></div>
                       </div>
-                      <div class="petify-clear-all"></div>
+                      <div class="petify-refine"></div>
                     </div>
                   {% if categories.enable %}
                     <div class="filter_field filter_by_categories">

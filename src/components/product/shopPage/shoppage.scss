@@ -5,6 +5,9 @@
 .yasmina-filter-input-size:checked ~ span {
   color: var(--color-light);
 }
+.yasmina-filter-box-size:hover span {
+  color: var(--color-light);
+}
 .yasmina-filter-input-tag:checked ~ div {
   border: 1px solid var(--color-gray9);
 }

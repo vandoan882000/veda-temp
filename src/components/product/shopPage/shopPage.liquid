@@ -250,7 +250,7 @@
                             <div class="d:flex ai:center mb:10px pos:relative">
                               <div class="w:5px h:5px bgc:color-gray4 bdrs:50% mr:7px"></div>
                               <label class="fz:15px fw:400 c:color-gray9 cur:pointer" for="{{category.value}}">{{category.label}}</label>
-                              <input class="yasmina-filter-input-radio v:hidden" type="checkbox" id="{{category.value}}" name="filter.v.category" value="{{category.value}}" data-label="{{category.label}}">
+                              <input class="yasmina-filter-input-radio v:hidden" type="radio" id="{{category.value}}" name="filter.v.category" value="{{category.value}}" data-label="{{category.label}}">
                               <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
                             </div>
                           {% endfor %}
@@ -282,7 +282,7 @@
                       <div class="d:flex mb:30px">
                         {% for size in tag_sizes %}
                           <div class="d:flex pos:relative ai:center jc:center w:40px h:40px mr:5px ta:center cur:pointer ff:font-primary fz:15px">
-                              <label class="w:40px h:40px cur:pointer cur:pointer">
+                              <label class="yasmina-filter-box-size w:40px h:40px cur:pointer cur:pointer bgc:color-gray9|h! c:color-light|h!">
                                   <input class="yasmina-filter-input-size pos:absolute v:hidden" type="checkbox" name="filter.v.option.size" data-label="{{ size }}" value="{{ size }}"/>
                                   <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2 z:-1"></div>
                                   <span class="ta:center lh:40px fz:15px fw:400 c:color-gray9">{{ size }}</span>
@@ -331,7 +331,7 @@
                         {% for brand in brands_data %}
                           <div class="d:flex ai:center mb:10px pos:relative">
                             <label class="fz:15px fw:400 c:color-gray9 cur:pointer ml:12px" for="{{brand.value}}">{{brand.label}}</label>
-                            <input class="yasmina-filter-input-radio v:hidden" type="radio" id="{{brand.value}}" name="filter.v.brand" value="{{brand.value}}" data-label="{{brand.label}}">
+                            <input class="yasmina-filter-input-radio v:hidden" type="checkbox" id="{{brand.value}}" name="filter.v.brand" value="{{brand.value}}" data-label="{{brand.label}}">
                             <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
                           </div>
                         {% endfor %}
@@ -362,7 +362,7 @@
                       {% for tag in content.filter_tags %}
                         <div class="d:flex pos:relative ai:center h:28px jc:center mr:5px ta:center cur:pointer ff:font-primary fz:15px p:2px_5px_2px_5px mb:10px">
                             <label class="w:100% h:28px cur:pointer cur:pointer d:flex jc:center">
-                                <input class="yasmina-filter-input-tag pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="{{ tag.value }}" data-label="{{tag.value}}"/>
+                                <input class="yasmina-asdasdas pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="{{ tag.value }}" data-label="{{tag.value}}"/>
                                 <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
                                 <span class="ta:center lh:28px fz:15px fw:400 c:color-gray9">{{ tag.value }}</span>
                             </label>

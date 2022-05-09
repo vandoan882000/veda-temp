@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_6397691e-e7cb-4a28-bb6b-d5a65be1c6ec" %}
+{% set uniqueId = "id_114b65a5-64dc-47b3-9bf9-54cbf790edee" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 <section data-id="features" class="veda-section pt:40px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
@@ -33,7 +32,11 @@
             {% endif %}
           </div>
         </div>
-      {% endfor %}
+      
+
+{% endfor %}
+
+
     </div>
 
   </div>

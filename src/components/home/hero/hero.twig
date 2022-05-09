@@ -1,9 +1,8 @@
 
-{% set uniqueId = "id_50635a30-5965-4016-9ff3-db94c94f12f2" %}
+{% set uniqueId = "id_342fc279-715a-4673-9373-2b4e09314e3e" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ 
-');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
 <section data-id="hero" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}" >
@@ -29,7 +28,11 @@
                   {% if content.color_light %}
                     <button class="yasmina-btn__secondary bgc:color-light bgc:color-light!|h bd:none! c:color-dark p:20px_86px_20px_86px cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
                   {% endif %}
-                {% endfor %}
+                
+
+{% endfor %}
+
+
               </div>
               {% endif %}
               {% if content.button | length > 1 %}
@@ -41,7 +44,11 @@
                   {% if content.color_light %}
                     <button class="yasmina-btn__secondary bgc:color-light bgc:color-light!|h bd:none! c:color-dark p:20px_42px_20px_42px w:198px h:60px ta:center cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:14px lts:0.15px">{{item.name}}</button>
                   {% endif %}
-                {% endfor %}
+                
+
+{% endfor %}
+
+
               </div>
               {% endif %}
 

@@ -35,7 +35,7 @@ class Tags extends Component {
         ${tags.map(tag => html`
         <div class="d:flex pos:relative ai:center h:28px jc:center mr:5px ta:center cur:pointer ff:font-primary fz:15px p:2px_5px_2px_5px mb:10px">
             <label class="w:100% h:28px cur:pointer cur:pointer d:flex jc:center">
-                <input class="yasmina-filter-input-size pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="${tag}" data-label="${tag}"/>
+                <input class="yasmina-filter-input-tag pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="${tag}" data-label="${tag}"/>
                 <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
                 <span class="ta:center lh:28px fz:15px fw:400 c:color-gray9">${tag}</span>
             </label>
@@ -134,7 +134,7 @@ if (!!container) {
       `;
     },
     renderClearAllButton({ onClear }) {
-      return html`<button class="c:color-dark ff:font-primary bgc:color-light bgc:color-light|h! bd:none! c:color-gray9|h! p:0!" onClick=${onClear}>Clear All</button>`;
+      return html`<button class="c:color-dark ff:font-primary bgc:color-light bgc:color-light|h! bd:none! c:color-gray9|h! p:0! c:color-primary|h!" onClick=${onClear}>Clear All</button>`;
     },
     onChange({ url, category, done }) {
       // fetch(url).then(res => {

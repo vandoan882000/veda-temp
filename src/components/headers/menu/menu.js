@@ -610,7 +610,7 @@ class CartPopop {
           <div class="d:flex fld:column jc:flex-start h:90%">
             <div class="d:flex fld:column jc:flex-start h:80% ovx:auto">
               ${map(data,item => {
-                return /*html*/`<div class="yasmina-cart-popup-item pos:relative d:flex fld:row pt:10px ml:10px mr:10px bdb:1px_solid_color-gray4 pb:10px pl:10px">
+                return /*html*/`<div class="yasmina-cart-popup-item pos:relative d:flex fld:row pt:10px ml:10px mr:10px bdb:1px_solid_color-gray3 pb:10px pl:10px">
                   <button data-id=${item.id} class="yasmina-remove-cart pos:absolute t:0 r:0 bgc:color-light! bgc:color-light|h! c:color-gray9 c:color-primary|h! bd:none!"><i class="fal fa-times"></i></button>
                   <div class="w:100px">
                     <a class="veda-image-cover d:block w:100%" css="--aspect-ratio: 3/5">
@@ -620,7 +620,7 @@ class CartPopop {
                   <div class="pl:10px">
                     <div class="fw:600">${item.title}</div>
                     <div>${item.vendor}</div>
-                    <div>$${item.price}</div>
+                    <div>$${item.price}.00</div>
                     <div class="veda-counter d:flex w:105px h:30px bd:1px_solid_color-gray3 bdrs:15px mt:5px
                     mb:10px" data-id="${item.id}" data-options="{ value: ${item.quantity} }">
                       <div class="veda-counter__decrement w:20px h:100% ta:center cur:pointer lh:30px pl:10px"><i class="fal fa-minus fz:13px"></i></div>
@@ -633,11 +633,11 @@ class CartPopop {
               })}
             </div>
             <div>
-              <div class="d:flex jc:space-between mt:20px mb:10px"><div class="ml:10px fw:600">Subtotal:</div><div class="mr:10px fw:600">$${totalPrice}</div></div>
+              <div class="d:flex jc:space-between mt:20px mb:10px"><div class="ml:10px fw:600">Subtotal:</div><div class="mr:10px fw:600">$${totalPrice}.00</div></div>
               <input class="ml:10px" type="checkbox"/> I agree with the terms and conditions
             </div>
             <div class="d:flex jc:center mt:10px h:40px">
-              <a href="mycart.html" class="close-cart ta:center w:90% bd:1px_solid_color-gray4 bdrs:20px bgc:#43aeee c:color-light lh:40px">View cart</a>
+              <a href="mycart.html" class="close-cart ta:center w:90% bd:1px_solid_color-gray4 bdrs:20px bgc:#43aeee c:color-light lh:40px c:color-light|h!">View cart</a>
             </div>
 
 

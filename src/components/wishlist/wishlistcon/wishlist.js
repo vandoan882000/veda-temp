@@ -122,11 +122,14 @@ class Wishlist extends Component {
     this.setState({
       data: this.getData().data
     });
-    const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
-    colorWrapEls.forEach(el => new CardColors(el));
+
   }
   render() {
     const { data } = this.state;
+    setTimeout(() => {
+      const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
+      colorWrapEls.forEach(el => new CardColors(el));
+    },500);
     return html`${data.map((product) => {
       return html`
       <div class="col-lg-3 mt:0px!">
@@ -163,8 +166,8 @@ class Wishlist extends Component {
               <div class="yasmina-product-card__brand c:color-gray5 mt:11px fz:14px">${product.vendor}</div>
               <a class="yasmina-product-card__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">${product.title}</a>
               <a class="yasmina-product-card__price mt:14px" href="#">
-                <ins class="yasmina-product-card__cost fw:500 fz:15px c:color-primary td:none">${ product.price }.00</ins>
-                ${product.compare_at_price > product.price?html`<del class="yasmina-product-card__discount fw:500 fz:15px c:color-gray5 td:none">${ product.compare_at_price }.00</del>`:html``}
+                <ins class="yasmina-product-card__cost fw:500 fz:15px c:color-primary td:none"> $${ product.price }.00</ins>
+                ${product.compare_at_price > product.price?html`<del class="yasmina-product-card__discount fw:500 fz:15px c:color-gray5 td:none ml:5px">$${ product.compare_at_price }.00</del>`:html``}
 
               </a>
 

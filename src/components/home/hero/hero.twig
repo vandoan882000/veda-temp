@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_342fc279-715a-4673-9373-2b4e09314e3e" %}
+{% set uniqueId = "id_7528bccb-d369-4f1f-a67d-47e89e5db54f" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -26,7 +26,7 @@
                     <button class="yasmina-btn__primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:20px_86px_20px_86px cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
                   {% endif %}
                   {% if content.color_light %}
-                    <button class="yasmina-btn__secondary bgc:color-light bgc:color-light!|h bd:none! c:color-dark p:20px_86px_20px_86px cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.name}}</button>
+                    <button class="yasmina-btn__secondary bgc:color-light bgc:color-light!|h bd:none! c:color-dark p:20px_86px_20px_86px cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:17px lts:0.15px c:color-dark|h!">{{item.name}}</button>
                   {% endif %}
                 
 

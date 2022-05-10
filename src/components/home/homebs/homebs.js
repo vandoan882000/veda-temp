@@ -34,6 +34,7 @@ store.create(`${PREFIX}QuickView`, {
 });
 const cartService = new CartService();
 if(!!container) {
+  veda.plugins.swiper(container);
   new AddStore(container, "Compare", "fa-repeat");
   new AddStore(container, "WishList", "fa-heart");
   new AddStoreCart(container, "Cart", "yasmina-product-card__add");

@@ -21,6 +21,8 @@ var Error_1 = require("../Error");
 var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParamsToTwigFilterParams");
 var toString_1 = require("../utils/toString");
 var Twig = require("twig");
+const { JSDOM } = require("jsdom");
+var document = new JSDOM().window.document;
 Twig.extendFilter("link_to_type", function (value, args) {
   var _a;
   if (args && (!Array.isArray(args) || args.length <= 1)) {

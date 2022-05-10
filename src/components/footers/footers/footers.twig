@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_004881f0-1a2c-4ce4-b31d-dd5a8f55d3f9" %}
+{% set uniqueId = "id_7757d50f-2df3-4f18-ab77-60a28066ae21" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -44,7 +44,52 @@
         <ul class="nvd-footer-list fw:400 pb:25px pl:0 list-style:none">
           <li class="nvd-footer-list__list pb:20px c:color-light"><a class="nvd-footer-list__link op:0.7 c:color-light fw:400" href="#">{{new_letter.name}}</a></li>
         </ul>
+        
+      {% set form = {"address1":"Address 1","address2":"Address 2","author":"Author","body":"body","city":"city","company":"company","country":"country","email":"email","errors":[],"first_name":"first_name","password_needed":"password_needed","phone":"phone","province":"province","set_as_default_checkbox":"set_as_default_checkbox","zip":"zip"} %}
+      <form method="post" action="/contact#contact_form" accept-charset="UTF-8" id="contact_form" class="contact-form">
+      <input type="hidden" value="customer" name="form_type">
+      <input type="hidden" name="utf8" value="✓">
 
+          <div class="maw:460px m:auto pos:relative">
+            {% if form.errors %}
+              {% for field in form.errors %}
+                <div>
+                  <p>{{ field }} {{ form.errors.messages[field] }}</p>
+                </div>
+              
+
+{% endfor %}
+
+
+            {% endif %}
+            {% if form.posted_successfully? %}
+              <div>
+                <p>Thanks for subscribing!</p>
+              </div>
+            {% else %}
+              <div class="nvd-footer__input d:flex w:fit-content h:40px c:color-dark bd:none bgc:white">
+                <input type="hidden" name="contact[tags]" value="newsletter" />
+                <input
+                  class="w:162px maw:162px h:38px bd:none! o:none pl:5px bgc:white fz:12px c:color-gray4 fz:12px||placeholder"
+                  type="email"
+                  name="contact[email]"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  placeholder="Email address"
+                />
+                <button
+                  class="btn-join d:flex ai:center jc:center w:74px h:40px fz:12px fw:600 bgc:#3540DF bgc:#3540DF!|h c:color-light cur:pointer pos:relative fz:12px fw:600 bd:1px_solid_#3540DF bd:1px_solid_#3540DF!|h bdrs:0px"
+                  type="submit"
+                  aria-label="dasdas"
+                >
+                  Join
+                </button>
+              </div>
+              <p class="result"></p>
+              <p class="result-error"></p>
+            {% endif %}
+          </div>
+        </form>
         <div class="nvd-footer__about h:25px d:flex ai:center mt:20px">
           {% for item in new_letter.icons %}
             {{item.icon}}

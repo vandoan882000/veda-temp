@@ -22,6 +22,8 @@ var liquidFilterParamsToTwigFilterParams_1 = require("../utils/liquidFilterParam
 var toString_1 = require("../utils/toString");
 var COLLECTION_HANDLE = "frontpage";
 var Twig = require("twig");
+const { JSDOM } = require("jsdom");
+var document = new JSDOM().window.document;
 Twig.extendFilter("link_to_add_tag", function (value, args) {
   var _a;
   if (!args)

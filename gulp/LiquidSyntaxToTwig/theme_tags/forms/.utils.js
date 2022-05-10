@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.handlePreprocess = exports.handleFormAttributes = void 0;
+const { JSDOM } = require("jsdom");
+var document = new JSDOM().window.document;
 var handleFormAttributes = function (_a) {
     var lineOfCodeOpenTagForm = _a.lineOfCodeOpenTagForm, additionAttributes = _a.additionAttributes, onException = _a.onException;
     try {
@@ -30,6 +32,7 @@ var handleFormAttributes = function (_a) {
         return form_1;
     }
     catch (err) {
+      console.log(err);
         throw onException(err);
     }
 };

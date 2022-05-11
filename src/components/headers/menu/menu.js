@@ -509,7 +509,6 @@ class CartPopop {
     store.set(`${PREFIX}${this.storeName}`,carts => {
       return [...carts.filter(item => item.id !== currentId)]
     })(this.storeName+"/remove");
-    message.error("Remove product from cart");
     cartService.delete(currentId);
 
   }
@@ -571,7 +570,6 @@ class CartPopop {
       store.set(`${PREFIX}Cart`, (items) => {
         return [...items.filter(item => item.id !== id)];
       });
-      message.error(`Remove from Cart`);
       cartService.delete(id);
     }
   }

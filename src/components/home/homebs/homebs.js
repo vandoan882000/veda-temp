@@ -30,7 +30,6 @@ store.create(`${PREFIX}QuickView`, {
     visible: false,
     data: {}
   },
-  useStorage: true
 });
 const cartService = new CartService();
 if(!!container) {

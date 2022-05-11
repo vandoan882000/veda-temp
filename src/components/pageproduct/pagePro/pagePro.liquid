@@ -12,7 +12,7 @@
     <div class="direct fz:15px c:color-gray4 mb:33px ff:font-primary fw:400">Home > <a class="c:color-gray4" href="#">{{ heading.text }}</a> <a class="yasmina-page-product__title c:color-dark" href="#"> > {{product.title}}</a></div>
     <div class="row">
       <div class="col-lg-6 d:flex fld:column ai:center pr:30px">
-        <a href="#" class="veda-image-zoom veda-image-cover yasmina-page-product__image d:block w:100%" css="--aspect-ratio: 3/4"  data-image-zoom-src="{{ image.src }}" data-image-zoom="6">
+        <a href="#" class="veda-image-zoom veda-image-cover yasmina-page-product__image d:block w:100%" css="--aspect-ratio: 3/4"  data-image-zoom-src="{{ image.src }}" data-image-zoom="2">
           <img class="w:100% veda-image-cover yasmina-page-product__img" src="{{ product.featured_image.src | img_url: '900x' }}"  alt="">
         </a>
         <button class="w:490px h:60px lh:44px bgc:transparent c:color-gray9 bd:1px_solid_color-gray4 ai:center jc:center mt:35px fw:500 fz:15px maw:334px ta:center bdrs:0px! bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> <i class="far fa-question mr:10px fw:400 fz:15px bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> </i>Ask an expert</button>
@@ -22,18 +22,30 @@
           <script class="yasmina-page-product__data" type="application/json">{{ product | json }}</script>
           <h3 class="yasmina-page-product__title fz:25px ff:font-primary c:color-dark fw:500">{{product.title}}</h3>
           <div class="d:flex ai:center mt:15px mb:16px c:color-dark fz:15px fw:300">
-            <i class="fal fa-star c:#FEAA01 fz:24px"></i>
-            <i class="fal fa-star c:#FEAA01 fz:24px"></i>
-            <i class="fal fa-star c:#FEAA01 fz:24px"></i>
-            <i class="fal fa-star c:#FEAA01 fz:24px"></i>
-            <i class="fal fa-star c:#FEAA01 fz:24px mr:5px"></i>
-            <div class="c:color-dark fz:15px fw:300">
-              {% if comment.articles[0].comments.length == 0 %}
-                No reviews
-              {% else %}
-                {{comment.articles[0].comments.length}} reviews
-              {% endif %}
-            </div>
+            {% if content.review_app_enable %}
+              {% case content.review_app_type %}
+                {% when 'product_reviews' %}
+                  <rivio-review-badge item="product" />
+                  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                {% when 'rivyo_reviews' %}
+                  <rivio-review-badge item="product" />
+                {% when 'loox_reviews' %}
+                  <loox-review-badge item="product" />
+                {% when 'ali_reviews' %}
+                  <ali-review-badge item="product" />
+                {% when 'stamped_reviews' %}
+                  <stamped-review-badge item="product" />
+                {% when 'judge_me_reviews' %}
+                  <judge-me-review-badge item="product" />
+                {% when 'other' %}
+                  {% if builderMode %}
+                    <review-badge item="product" />
+                  {% else %}
+                    {{ content.review_app_html }}
+                  {% endif %}
+                  {% else %}
+              {% endcase %}
+            {% endif %}
           </div>
           <p class="yasmina-page-product__vendor mb:16px ff:font-primary c:color-dark fz:15px fw:300">Vendor: {{product.vendor}}</p>
           <p class="yasmina-page-product__sku mb:16px ff:font-primary c:color-dark fz:15px fw:300">SKU: {{product.variants[0].sku}}</p>

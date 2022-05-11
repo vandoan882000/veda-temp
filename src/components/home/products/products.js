@@ -31,7 +31,6 @@ store.create(`${PREFIX}QuickView`, {
     visible: false,
     data: {}
   },
-  useStorage: true
 });
 export class CartService {
   constructor() {

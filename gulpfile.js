@@ -12,6 +12,9 @@ const watch = require("node-watch");
 const { v4 } = require("uuid");
 const { getAtomicCss, setAtomicCss } = require("./gulp/getAtomicCss");
 const { existsSync } = require("fs-extra");
+const {
+  default: replaceReviewBadge,
+} = require("./gulp/3rd/replaceReviewBadge");
 
 const isDev = process.env.NODE_ENV === "development";
 const config = {
@@ -104,6 +107,7 @@ function compileLiquidToTwig() {
             .replace(/\s+\}\}"><\/megamenu>/g, "");
           return `{% include "../../megamenu/" ~ ${id} ~ "/" ~ ${id} ~ ".twig" %}`;
         });
+        content = replaceReviewBadge(content);
         fs.writeFileSync(twigFileName, content);
       } catch (err) {
         console.log(err);

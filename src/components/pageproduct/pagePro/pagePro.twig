@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_a63a069f-6b56-41ea-878f-f12bc6027058" %}
+{% set uniqueId = "id_0b2bce91-e98a-4fde-b48b-8dc42fde69ca" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~  ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -13,7 +13,7 @@
     <div class="direct fz:15px c:color-gray4 mb:33px ff:font-primary fw:400">Home > <a class="c:color-gray4" href="#">{{ heading.text }}</a> <a class="yasmina-page-product__title c:color-dark" href="#"> > {{product.title}}</a></div>
     <div class="row">
       <div class="col-lg-6 d:flex fld:column ai:center pr:30px">
-        <a href="#" class="veda-image-zoom veda-image-cover yasmina-page-product__image d:block w:100%" css="--aspect-ratio: 3/4"  data-image-zoom-src="{{ image.src }}" data-image-zoom="6">
+        <a href="#" class="veda-image-zoom veda-image-cover yasmina-page-product__image d:block w:100%" css="--aspect-ratio: 3/4"  data-image-zoom-src="{{ image.src }}" data-image-zoom="2">
           <img class="w:100% veda-image-cover yasmina-page-product__img" src="{{ product.featured_image.src | img_url('900x')}}"  alt="">
         </a>
         <button class="w:490px h:60px lh:44px bgc:transparent c:color-gray9 bd:1px_solid_color-gray4 ai:center jc:center mt:35px fw:500 fz:15px maw:334px ta:center bdrs:0px! bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> <i class="far fa-question mr:10px fw:400 fz:15px bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> </i>Ask an expert</button>
@@ -23,18 +23,819 @@
           <script class="yasmina-page-product__data" type="application/json">{{ product | json_encode()}}</script>
           <h3 class="yasmina-page-product__title fz:25px ff:font-primary c:color-dark fw:500">{{product.title}}</h3>
           <div class="d:flex ai:center mt:15px mb:16px c:color-dark fz:15px fw:300">
-            <i class="fal fa-star c:#FEAA01 fz:24px"></i>
-            <i class="fal fa-star c:#FEAA01 fz:24px"></i>
-            <i class="fal fa-star c:#FEAA01 fz:24px"></i>
-            <i class="fal fa-star c:#FEAA01 fz:24px"></i>
-            <i class="fal fa-star c:#FEAA01 fz:24px mr:5px"></i>
-            <div class="c:color-dark fz:15px fw:300">
-              {% if comment.articles[0].comments.length == 0 %}
-                No reviews
-              {% else %}
-                {{comment.articles[0].comments.length}} reviews
-              {% endif %}
+            {% if content.review_app_enable %}
+              
+
+                {% if content.review_app_type == 'product_reviews' %}
+
+                  
+{% if builderMode %}
+  <div
+    class="wc_product_review_badge"
+    data-handle=""
+    data-product_id="4615395934271"
+    >
+    <div
+      class="wc_review_badge_inner wc_show_rating_badge_1"
+      data-handle=""
+      data-rating="4.5"
+      data-count="17"
+      data-title="4.5 (17 Reviews)"
+    >
+      <span class="wc_review_badge_star">
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+      </span>
+      <span class="wc_product_review_title">
+        <span class="wc_product_review_avg_badge_count">4.5</span>
+        <span class="wc_product_review_text">
+          <span class="wc_avg_bracket">(</span>17
+          <span class="wc_product_review_avg_badge_text"> Reviews</span>
+          <span class="wc_avg_bracket">)</span>
+        </span>
+      </span>
+    </div>
+    <div class="wc_product_badge_hover" id="product_badge_hover_1">
+      <p class="avg_badge">4.5 out of 5 stars</p>
+      <ul class="wc_review_graph">
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="5"
+            data-count="11"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              5
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
             </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:65%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">65%</span>
+              <span class="wc_graph_review_count">(11)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="4"
+            data-count="4"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              4
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:24%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">24%</span>
+              <span class="wc_graph_review_count">(4)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="3"
+            data-count="2"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              3
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:12%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">12%</span>
+              <span class="wc_graph_review_count">(2)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="2"
+            data-count="0"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              2
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">0%</span>
+              <span class="wc_graph_review_count">(0)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="1"
+            data-count="0"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              1
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">0%</span>
+              <span class="wc_graph_review_count">(0)</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% else %}
+  <div class="wc_product_review_badge" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}"></div>
+{% endif %}
+
+                  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                {% elseif content.review_app_type == 'rivyo_reviews' %}
+
+                  
+{% if builderMode %}
+  <div
+    class="wc_product_review_badge"
+    data-handle=""
+    data-product_id="4615395934271"
+    >
+    <div
+      class="wc_review_badge_inner wc_show_rating_badge_1"
+      data-handle=""
+      data-rating="4.5"
+      data-count="17"
+      data-title="4.5 (17 Reviews)"
+    >
+      <span class="wc_review_badge_star">
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+      </span>
+      <span class="wc_product_review_title">
+        <span class="wc_product_review_avg_badge_count">4.5</span>
+        <span class="wc_product_review_text">
+          <span class="wc_avg_bracket">(</span>17
+          <span class="wc_product_review_avg_badge_text"> Reviews</span>
+          <span class="wc_avg_bracket">)</span>
+        </span>
+      </span>
+    </div>
+    <div class="wc_product_badge_hover" id="product_badge_hover_1">
+      <p class="avg_badge">4.5 out of 5 stars</p>
+      <ul class="wc_review_graph">
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="5"
+            data-count="11"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              5
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:65%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">65%</span>
+              <span class="wc_graph_review_count">(11)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="4"
+            data-count="4"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              4
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:24%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">24%</span>
+              <span class="wc_graph_review_count">(4)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="3"
+            data-count="2"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              3
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:12%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">12%</span>
+              <span class="wc_graph_review_count">(2)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="2"
+            data-count="0"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              2
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">0%</span>
+              <span class="wc_graph_review_count">(0)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="1"
+            data-count="0"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              1
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">0%</span>
+              <span class="wc_graph_review_count">(0)</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% else %}
+  <div class="wc_product_review_badge" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}"></div>
+{% endif %}
+
+                {% elseif content.review_app_type == 'loox_reviews' %}
+
+                  
+{% if builderMode %}
+  <div class="loox-rating" data-id="6819476635711" data-rating="4.9" data-raters="30" title="4.9 rating (30 votes)" aria-label="4.9 rating (30 votes)" data-rating-upgraded="1">
+    <i class="loox-icon loox-star"></i>
+    <i class="loox-icon loox-star"></i>
+    <i class="loox-icon loox-star"></i>
+    <i class="loox-icon loox-star"></i>
+    <i class="loox-icon loox-star"></i>&nbsp;<span>(30)</span>
+  </div>
+{% else %}
+  <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+{% endif %}
+
+                {% elseif content.review_app_type == 'ali_reviews' %}
+
+                  
+{% if builderMode %}
+<div product-id="6708257652793" class="arv-collection arv-collection--6708257652793">
+	<style>
+		.arv-collection .rating-symbol-foreground > span,
+		.arv-collection .alr-rating-symbol-foreground > span,
+		.arv-collection .rating-symbol-background,
+		.arv-collection .alr-rating-symbol-background,
+		#alireview-review-widget-badge .rating-symbol-foreground > span,
+		.alireview-review-widget-badge .rating-symbol-foreground > span,
+		#alireview-review-widget-badge .rating-symbol-background,
+		.alireview-review-widget-badge .rating-symbol-background,
+		#alireview-review-widget-badge .alr-rating-symbol-foreground > span,
+		.alireview-review-widget-badge .alr-rating-symbol-foreground > span,
+		#alireview-review-widget-badge .alr-rating-symbol-background,
+		.alireview-review-widget-badge .alr-rating-symbol-background {
+			color: #FAAD14 !important;
+		}
+		.arv-collection .alr-icon-star:before,
+		#alireview-review-widget-badge .alr-icon-star:before {
+			content: "005" !important;
+		}
+	</style>
+	<div class="alrv-prod-rating-6708257652793 ">
+
+		<span class="alr-wrapper-rating">
+
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: hidden;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: auto;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: hidden;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: auto;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: hidden;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: auto;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: hidden;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: auto;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: visible;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: 70%;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+		</span>
+
+		<span class="alrv-prod-rating__text">
+			15 reviews
+		</span>
+	</div>
+</div>
+{% else %}
+  <div product-id="{{ product.id }}" class="arv-collection arv-collection--{{ product.id }}"></div>
+{% endif %}
+
+                {% elseif content.review_app_type == 'stamped_reviews' %}
+
+                  
+{% if builderMode %}
+<div class="stamped-reviews-rating" data-count="6"><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span></div>
+{% else %}
+  <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}" data-product-type="{{product.type}}" data-product-title="{{product.title}}"  style="display: inline-block;">{{ product.metafields.stamped.badge }}</span>
+{% endif %}
+
+                {% elseif content.review_app_type == 'judge_me_reviews' %}
+
+                  
+{% if builderMode %}
+  <div class="jdgm-widget jdgm-preview-badge jdgm-preview-badge--with-link jdgm--done-setup"
+    data-id="3784779038780" data-template="index" data-auto-install="false">
+    <div class="jdgm-prev-badge" data-average-rating="4.62" data-number-of-reviews="37"
+      data-number-of-questions="6"> <span class="jdgm-prev-badge__stars" data-score="4.62" tabindex="0"
+        aria-label="4.62 stars" role="button"> <span class="jdgm-star jdgm--on"></span><span
+          class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span
+          class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--half"></span> </span> <span
+        class="jdgm-prev-badge__text">4.62</span>
+      <span class="jdgm-qa-badge ">
+
+        <span class="jdgm-qa-badge__icon" style="color: inherit;">
+        </span>
+
+        <span class="jdgm-qa-badge__text">
+          6 questions
+        </span>
+      </span>
+    </div>
+  </div>
+{% else %}
+  {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product %}
+{% endif %}
+
+                {% elseif content.review_app_type == 'other' %}
+
+                  {% if builderMode %}
+
+                    
+<div class="d:inline-flex ai:center fz:14px c:#feaa01">
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+</div>
+
+                  {% else %}
+
+                    {{ content.review_app_html }}
+                  {% endif %}
+
+                  {% else %}
+
+              
+{% endif %}
+
+            {% endif %}
           </div>
           <p class="yasmina-page-product__vendor mb:16px ff:font-primary c:color-dark fz:15px fw:300">Vendor: {{product.vendor}}</p>
           <p class="yasmina-page-product__sku mb:16px ff:font-primary c:color-dark fz:15px fw:300">SKU: {{product.variants[0].sku}}</p>

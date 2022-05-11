@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_3eac5b05-867b-4fd9-9307-2c8398eec34d" %}
+{% set uniqueId = "id_5286993d-5048-4815-95cb-5d072cc30258" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -9,10 +9,12 @@
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container pt:35px">
     <div class="direct fz:15px c:color-gray4"><a href="/" class="c:color-gray4">Home</a> > <a href="/product.html" class="c:color-dark">{{ heading.text }}</a></div>
-    <div class="view-as mb:20px d:flex ai:center mt:30px fz:15px c:color-dark flw:wrap">
-      View as:
-      <a href="#" class="yasmina-page-product-view-as1 p:0px_5px_0px_5px bd:1px_solid_color-gray2 c:color-gray2 c:color-gray2!|h ml:10px"><i class="shop-page__view shop-page__view1 fal fa-list"></i></a>
-      <a href="#" class="yasmina-page-product-view-as2 p:0px_5px_0px_5px bd:1px_solid_color-gray9  c:color-gray9 c:color-gray9!|h ml:10px"><i class="shop-page__view shop-page__view2 fas fa-th"></i></a>
+    <div class="view-as mb:20px d:flex ai:center jc:space-between mt:30px fz:15px c:color-dark flw:wrap w:75% pr:40px@md">
+      <div class="d:flex">
+        View as:
+        <a href="#" class="yasmina-page-product-view-as1 p:0px_5px_0px_5px bd:1px_solid_color-gray2 c:color-gray2 c:color-gray2!|h ml:10px"><i class="shop-page__view shop-page__view1 fal fa-list"></i></a>
+        <a href="#" class="yasmina-page-product-view-as2 p:0px_5px_0px_5px bd:1px_solid_color-gray9  c:color-gray9 c:color-gray9!|h ml:10px"><i class="shop-page__view shop-page__view2 fas fa-th"></i></a>
+      </div>
       
 
           {% set searchParams %}
@@ -51,7 +53,7 @@
           {% set max_price = arr_price | last %}
 
           <form id="filter-form" class="filter_form">
-            <div class="d:flex whs:nowrap ai:center ml:10px ml:455px@md pos:relative mt:10px mt:0px@md filter_field sort_by pos:relative">
+            <div class="d:flex whs:nowrap ai:center pos:relative mt:10px mt:0px@md filter_field sort_by pos:relative">
               <p class="mr:10px fz:15px fw:500">Sort by</p>
               <div class="veda-select petify-sort-by">
                 <div class="veda-select__view w:190px h:43px bd:1px_solid_#DEDEE9 pl:15px cur:pointer d:flex ai:center ff:font-secondary">
@@ -78,7 +80,7 @@
           {% set collection = collections[content.collection] %}
           <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>
           {% for product in collection.products | slice(0, 9) %}
-            <div class="col-lg-4">
+            <div class="col-md-6 col-lg-4">
               <div class="yasmina-product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
                 <script class="yasmina-product-card__data" type="application/json">{{ product | json_encode()}}</script>
                 <div class="yasmina-product-card__img w:100% pos:relative ov:hidden">

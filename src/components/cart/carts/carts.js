@@ -35,7 +35,7 @@ class CartRender {
   handleDeleteCart(e) {
     const currentEl = e.currentTarget;
     const currentId = currentEl.getAttribute("data-id");
-    cartService.delete(currentId);
+    this.deleteCart(currentId);
 
   }
   createComparePortal() {

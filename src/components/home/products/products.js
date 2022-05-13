@@ -657,21 +657,21 @@ export class CardColors {
     this.handleDOM();
   }
 }
-function changeStatus(btnCompare, dataCompare) {
-  let hasItem = !!veda.plugins.productCompare.getData().find(item => item.id === dataCompare.id);
-  if(hasItem) {
-    btnCompare.setAttribute("data-tooltip-active",true);
-    btnCompare.style.backgroundColor = "#AF0707";
-    btnCompare.style.color = "#ffffff";
-  } else {
-    btnCompare.setAttribute("data-tooltip-active",false);
-    btnCompare.style.backgroundColor = "#ffffff";
-    btnCompare.style.color = "#000000";
-  }
-  return hasItem;
-}
 if(!!container) {
   //new AddStore(container, "Compare", "fa-repeat");
+  function changeStatus(btnCompare, dataCompare) {
+    let hasItem = !!veda.plugins.productCompare.getData()?.find(item => item.id === dataCompare.id);
+    if(hasItem) {
+      btnCompare.setAttribute("data-tooltip-active",true);
+      btnCompare.style.backgroundColor = "#AF0707";
+      btnCompare.style.color = "#ffffff";
+    } else {
+      btnCompare.setAttribute("data-tooltip-active",false);
+      btnCompare.style.backgroundColor = "#ffffff";
+      btnCompare.style.color = "#000000";
+    }
+    return hasItem;
+  }
   const listCard = container.querySelectorAll('.yasmina-product-card');
   listCard.forEach(card => {
       const compareDataEl = card.querySelector(".yasmina-product-card__data");

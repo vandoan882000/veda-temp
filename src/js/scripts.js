@@ -1,6 +1,6 @@
-import "./home/products/products.js";
 import "./headers/menu/menu.js";
 import "./headers/header/header.js";
+import "./home/products/products.js";
 import "./wishlist/wishlistcon/wishlist.js";
 import "./cart/carts/carts.js";
 import "./home/homebs/homebs.js";

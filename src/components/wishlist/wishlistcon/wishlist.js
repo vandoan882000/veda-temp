@@ -105,13 +105,13 @@ class Wishlist extends Component {
     super(props);
     this.state = {
       data: this.getData().data,
+      dataCompare: veda.plugins.productCompare.getData(),
     }
     this.unmount = undefined;
   }
   componentDidMount() {
     this.unmount = store.subscribe(`${PREFIX}WishList`, this.updateState.bind(this));
-    const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
-    colorWrapEls.forEach(el => new CardColors(el));
+    veda.plugins.productCompare.subscribe(this.updateStateCompare.bind(this));
   }
   componentWillUnmount() {
     this.unmount?.();
@@ -124,12 +124,13 @@ class Wishlist extends Component {
   }
   updateState() {
     this.setState({
-      data: this.getData().data
+      data: this.getData().data,
     });
   }
-  componentDidUpdate() {
-    const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
-    colorWrapEls.forEach(el => new CardColors(el));
+  updateStateCompare() {
+    this.setState({
+      dataCompare: veda.plugins.productCompare.getData(),
+    });
   }
   changeStatus(btnCompare, dataCompare, data) {
     let hasItem = !!data.find(item => item.id === dataCompare.id);
@@ -224,12 +225,16 @@ class Wishlist extends Component {
       this.insertCart(newItem, btnCart, defaultHtml);
     }
   }
-
+  checkColor(color) {
+    return veda.utils.getColorNames().includes(color.toLowerCase());
+  }
   render() {
     const { data } = this.state;
     return html`${data.map((product) => {
+      const newData = product.options_with_values.find(item => /Colou?r/g.test(item.name)) || {};
+      const colors = newData.values?.filter(color => this.checkColor(color)) ?? [];
       return html`
-      <div class="col-lg-3 mt:0px!">
+      <div class="col-lg-3 mt:0px!" key=${product.id}>
           <div class="yasmina-product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
             <script class="yasmina-product-card__data" type="application/json">${JSON.stringify(product)}</script>
             <div class="yasmina-product-card__img w:100% pos:relative ov:hidden">
@@ -253,7 +258,7 @@ class Wishlist extends Component {
                 <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                   <i class="fal fa-eye"></i>
                 </div>
-                <div class="yasmina-product-card__icon-bg--hidden veda-compare__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h ${!!veda.plugins.productCompare.getData().find(item => item.id === product.id) ? "bgc:#AF0707 c:color-light" : "bgc:color-light c:color-gray9"}" data-tooltip-position="left" data-tooltip-active=${!!veda.plugins.productCompare.getData().find(item => item.id === product.id) ? "true" : "false"} data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare" onClick=${(event) => this.toggleCompare(event)}>
+                <div class="yasmina-product-card__icon-bg--hidden veda-compare__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h ${!!this.state.dataCompare.find(item => item.id === product.id) ? "bgc:#AF0707 c:color-light" : "bgc:color-light c:color-gray9"}" data-tooltip-position="left" data-tooltip-active=${!!this.state.dataCompare.find(item => item.id === product.id) ? "true" : "false"} data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare" onClick=${(event) => this.toggleCompare(event)}>
                   <i class="fal fa-repeat"></i>
                 </div>
               </div>
@@ -269,9 +274,10 @@ class Wishlist extends Component {
               </a>
 
               <div class="yasmina-product-card__colors d:flex">
-                <script class="yasmina-product-card__options-json" type="application/json">${ JSON.stringify(product.options_with_values)}</script>
+                <${CardColorsWishList} variantJson=${product.variants} options=${product.options_with_values}/>
+                ${colors.length - 3 > 0? html`<div class="yasmina-product-card__colors-plus d:flex ai:center jc:flex-start w:auto h:32px m:10px_4px_0px_4px fz:14px fw:600 ff:font-secondary c:color-gray9">+${colors.length - 3}</div>`: html``}
+
               </div>
-              <script class="yasmina-product-card__variants-json" type="application/json">${ JSON.stringify(product.variants)}</script>
 
             </div>
           </div>
@@ -716,6 +722,74 @@ class QuickViewCardColors {
     this.handleDOM();
   }
 }
+class CardColorsWishList extends Component {
+  constructor(props) {
+    super(props);
+    this.variantJsonEl = props.variantJson;
+    this.state = {
+      colors: [],
+      selectedColor: '',
+      variants: []
+    }
+    this.selectedColor = '';
+  }
+  componentDidMount() {
+    this.mounted();
+  }
+  mounted() {
+    const newData = this.props.options.find(item => /Colou?r/g.test(item.name)) || {};
+    const variants = this.variantJsonEl || {};
+    this.setState(prevState => ({
+      colors: newData.values || prevState.colors,
+      selectedColor: newData.selected_value || prevState.selectedColor,
+      variants: variants || prevState.variants
+    }));
+  }
+
+  checkColor(color) {
+    return veda.utils.getColorNames().includes(color.toLowerCase());
+  }
+  countColorShow() {
+    const { colors } = this.state;
+    return colors.filter(color => this.checkColor(color));
+  }
+  updateImage(el) {
+    const { variants } = this.state;
+    const { selectedColor } = this;
+    const variant = variants.find(variant => variant.options.map(item => item.toLowerCase()).includes(selectedColor));
+    const { src } = variant.image;
+    const imgEl = el.closest('.yasmina-product-card').querySelector('.yasmina-product-card__image');
+    imgEl.src = src;
+  }
+
+  handleClick(event) {
+    const currentEl = event.target;
+    this.selectedColor =  currentEl.style.backgroundColor;
+    this.setState({
+      selectedColor: currentEl.style.backgroundColor
+    });
+    this.updateImage(currentEl);
+
+  }
+  render() {
+    const { selectedColor } = this.state;
+    let index = 0;
+    const colors = this.countColorShow();
+    return colors.map(color => {
+      index = index + 1;
+      if (!this.checkColor(color)) {
+        return html``;
+      }
+      const active = color.toLowerCase() === selectedColor.toLowerCase();
+      return html`
+        <div class="yasmina-product-card__colors-item w:32px h:32px bdrs:16px m:10px_4px_0px_4px cur:pointer p:3px bgcp:content-box ${active ? 'bd:1px_solid_color-dark' : 'bd:1px_solid_color-gray2'}" style="background-color: ${color.toLowerCase()};display:${index > 3 ? "none" : "block"}" onClick=${(event) => this.handleClick(event)}></div>
+      `
+    })
+  }
+
+
+
+}
 class CardColors {
   constructor(el) {
     /** @type {HTMLElement} */
@@ -836,7 +910,6 @@ class CardColors {
     this.handleDOM();
   }
 }
-
 if(!!container) {
   render(html`<${Wishlist} />`, container);
   //new AddStore(container, "WishList", "fa-heart");

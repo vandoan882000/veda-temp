@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_29478b88-e08e-43ec-8379-9e41e71208bf" %}
+{% set uniqueId = "id_967ce27d-1028-4a19-a6c2-b86d7bc0d90c" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -28,9 +28,15 @@
              <div class="veda-toggle-theme cur:pointer mr:10px">mode</div>
           #}
           <a href="/login.html"><i class="fal fa-user ml:10px mr:10px cur:pointer c:color-light"></i></a>
-          <span class="pos:relative cur:pointer">
+          <span class="veda-compare__popup pos:relative cur:pointer" data-options="{
+            content: ['Product', 'Rating', 'Description', 'Abd'],
+            header: {
+              title: 'Compare',
+              description: 'Compare description1',
+            },
+          }">
             <i class="fal fa-repeat ml:10px mr:10px cur:pointer c:color-light"></i>
-            <div class="menu__card-compare"></div>
+            <div class="menu__card-compare veda-compare__badge d:flex jc:center ai:center c:color-light pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500"></div>
           </span>
           <a href="/wishlist.html" class="pos:relative c:color-light|h! c:color-light!" style="color:var(--color-light)">
             <i class="fal fa-heart ml:10px mr:10px cur:pointer c:color-light c:color-light|h!"></i>

@@ -93,15 +93,21 @@ atomic.setConfig({
 atomic.customValue((value) => {
   const regexp = /\.\d*/g;
   if (regexp.test(value) && value.includes("color")) {
-    const val = value.replace(regexp, "");
+    const val = value.match(/color-\w*/g)?.[0];
     const alpha = value.replace(/.*(?=\.\d*)/g, "");
-    return `rgba(var(--rgb-${val}), ${alpha})`;
+    return value
+      .replace(/color-\w*/g, `rgba(var(--rgb-${val}), ${alpha})`)
+      .replace(/\)\.\d*/g, ")");
   }
   return value;
 });
 
 exports.setAtomicCss = (str) => {
   atomic.find(str);
+};
+
+exports.setClassNames = (classNames) => {
+  atomic.setClassNames(classNames);
 };
 
 exports.getAtomicCss = () => {

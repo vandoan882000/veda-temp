@@ -110,6 +110,8 @@ class Wishlist extends Component {
   }
   componentDidMount() {
     this.unmount = store.subscribe(`${PREFIX}WishList`, this.updateState.bind(this));
+    const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
+    colorWrapEls.forEach(el => new CardColors(el));
   }
   componentWillUnmount() {
     this.unmount?.();
@@ -117,18 +119,114 @@ class Wishlist extends Component {
   getData() {
     return store.get(`${PREFIX}WishList`);
   }
+  getDataCart() {
+    return store.get(`${PREFIX}Cart`);
+  }
   updateState() {
     this.setState({
       data: this.getData().data
     });
-
   }
+  componentDidUpdate() {
+    const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
+    colorWrapEls.forEach(el => new CardColors(el));
+  }
+  changeStatus(btnCompare, dataCompare, data) {
+    let hasItem = !!data.find(item => item.id === dataCompare.id);
+    if(hasItem) {
+      btnCompare.setAttribute("data-tooltip-active",true);
+      btnCompare.style.backgroundColor = "#AF0707";
+      btnCompare.style.color = "#ffffff";
+    } else {
+      btnCompare.setAttribute("data-tooltip-active",false);
+      btnCompare.style.backgroundColor = "#ffffff";
+      btnCompare.style.color = "#000000";
+    }
+    return hasItem;
+  }
+  toggleCompare (event) {
+    const card = event.target.closest(".yasmina-product-card");
+    const compareDataEl = card.querySelector(".yasmina-product-card__data");
+    const compareData = JSON.parse(compareDataEl.textContent);
+    const btnCompare = card.querySelector('.veda-compare__btn-toggle');
+    const ratingCustom = card.querySelector('.veda-compare__rating-custom');
+    veda.plugins.productCompare.toggleProduct({
+      ...compareData,
+      rating: ratingCustom?.innerHTML,
+    });
+    this.changeStatus(btnCompare, compareData, veda.plugins.productCompare.getData()) ? message.success("Added to compare") : message.error("Removed from compare");
+  }
+  toggleWishList (event) {
+    const { data } = this.getData();
+    const card = event.target.closest(".yasmina-product-card");
+    const wishListDataEl = card.querySelector(".yasmina-product-card__data");
+    const wishListData = JSON.parse(wishListDataEl.textContent);
+    const btnWishList = card.querySelector('.yasmina-wish-list__btn-toggle');
+    let hasItem = !!data.find(item => item.id === wishListData.id);
+    if(hasItem) {
+      store.set(`${PREFIX}WishList`, wishlist => {
+        return {
+          ...wishlist,
+          data: [...data.filter(item => item.id !== wishListData.id)]
+        }
+      })
+    } else {
+      store.set(`${PREFIX}WishList`, wishlist => {
+        return {
+          ...wishlist,
+          data: [...data, wishListData]
+        }
+      })
+    }
+    const nextHasItem = !hasItem;
+    nextHasItem ? message.success("Added to wish list") : message.error("Removed from wish list");
+  }
+  async updateStore() {
+    const data = await cartService.getData();
+    await store.set(`${PREFIX}Cart`, (items) => {
+      return [...data];
+    });
+  }
+  async insertCart(newItem, btnCart, defaultHtml) {
+    await cartService.insert(newItem);
+    await this.updateStore();
+    btnCart.innerHTML = defaultHtml;
+  }
+  async updateCart(id, quantity, btnCart, defaultHtml) {
+    await cartService.update(id, quantity);
+    await this.updateStore();
+    btnCart.innerHTML = defaultHtml;
+  }
+  debounce(fn, delay = 300) {
+    let timeoutId = -1;
+    return function (...args) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    };
+  }
+  addCart(e) {
+    const btnCart = e.target;
+    const dataEl = btnCart.closest(".yasmina-product-card").querySelector(".yasmina-product-card__data");
+    const newItem = JSON.parse(dataEl.textContent);
+    const data = this.getDataCart();
+    const hasItem = data.filter(item => item.product_id === newItem.id);
+    if(hasItem.length > 0) {
+      const prevData = data.filter(item => item.product_id === newItem.id);
+      const prevItem = prevData[0];
+      const defaultHtml = btnCart.innerHTML;
+      btnCart.innerHTML = 'Loading...';
+      this.updateCart(prevItem.id, prevItem.quantity + 1, btnCart, defaultHtml);
+    } else {
+      const defaultHtml = btnCart.innerHTML;
+      btnCart.innerHTML = 'Loading...';
+      this.insertCart(newItem, btnCart, defaultHtml);
+    }
+  }
+
   render() {
     const { data } = this.state;
-    setTimeout(() => {
-      const colorWrapEls = container.querySelectorAll(".yasmina-product-card__colors");
-      colorWrapEls.forEach(el => new CardColors(el));
-    },500);
     return html`${data.map((product) => {
       return html`
       <div class="col-lg-3 mt:0px!">
@@ -140,8 +238,8 @@ class Wishlist extends Component {
                   <img class="yasmina-product-card__image h:auto!" src="${ product.featured_image.src}" alt="${ product.title }" style="aspect-ratio: 3/4">
                 </a>
               </div>
-              <div class="yasmina-product-card__add-content pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px">
-                <a class="yasmina-product-card__add cur:pointer fz:17px pos:absolute td:none w:100% h:100% va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light c:color-light!|h">ADD TO CART</a>
+              <div class="yasmina-product-card__add-content d:flex jc:center ai:center pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px cur:pointer c:color-light c:color-light!|h" onClick=${this.debounce((event) => this.addCart(event))} >
+                ADD TO CART
               </div>
               <div class="yasmina-product-card__state pos:absolute t:5px l:5px d:flex">
                 ${product.compare_at_price > product.price?html`<div class="yasmina-product-card__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
@@ -149,13 +247,13 @@ class Wishlist extends Component {
                 </div>`:html``}
               </div>
               <div class="yasmina-product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                <div class="yasmina-product-card__icon-bg cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                <div class="yasmina-product-card__icon-bg yasmina-wish-list__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h bgc:#AF0707 c:color-light" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="true" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist" onClick=${(event) => this.toggleWishList(event)}>
                   <i class="fal fa-heart"></i>
                 </div>
                 <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                   <i class="fal fa-eye"></i>
                 </div>
-                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                <div class="yasmina-product-card__icon-bg--hidden veda-compare__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h ${!!veda.plugins.productCompare.getData().find(item => item.id === product.id) ? "bgc:#AF0707 c:color-light" : "bgc:color-light c:color-gray9"}" data-tooltip-position="left" data-tooltip-active=${!!veda.plugins.productCompare.getData().find(item => item.id === product.id) ? "true" : "false"} data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare" onClick=${(event) => this.toggleCompare(event)}>
                   <i class="fal fa-repeat"></i>
                 </div>
               </div>
@@ -741,9 +839,8 @@ class CardColors {
 
 if(!!container) {
   render(html`<${Wishlist} />`, container);
-  new AddStore(container, "Compare", "fa-repeat");
-  new AddStore(container, "WishList", "fa-heart");
-  new AddStoreCart(container, "Cart", "yasmina-product-card__add");
+  //new AddStore(container, "WishList", "fa-heart");
+  // new AddStoreCart(container, "Cart", "yasmina-product-card__add");
   new QuickViewPopop(container, "QuickView","fa-eye");
 
 }

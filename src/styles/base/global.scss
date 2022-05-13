@@ -25,6 +25,9 @@ h1, h2, h3, h4, h5, h6 {
 .nvd-banner-section .container .row {
   margin-top: 0;
 }
+.swiper-button-prev::after, .swiper-button-next::after {
+  content: '' !important;
+}
 // /* width */
 // ::-webkit-scrollbar {
 //   width: 10px;

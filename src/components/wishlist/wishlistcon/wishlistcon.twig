@@ -1,14 +1,82 @@
 
-{% set uniqueId = "id_8885de70-d840-4a1d-96ee-b79be16d9073" %}
+{% set uniqueId = "id_cc5c14da-08d9-4207-bb36-e98219bb4d69" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~  ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
 
 
-<section data-id="products"  css="{{ backgroundColor }}{{ backgroundImage }}">
+<section  css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <div class="direct fz:15px c:color-gray4 mt:30px mb:33px"><a href="/" class="c:color-gray4">Home</a> > <a href="/wishlist.html" class="c:color-dark">{{ heading.text }}</a></div>
+    <div class="direct fz:15px c:color-gray4 mt:30px mb:33px">
+      {% if request.page_type != 'index' or request.page_type != 'list-collections' %}
+
+        <nav role="navigation" aria-label="breadcrumbs">
+            <a href="{{ routes.root_url }}" title="Home">Home</a>
+            {% if 'page' in request.page_type %}
+
+              <span aria-hidden="true">/</span>
+              <span>{{ page.title }}</span>
+            {% elseif 'product' in request.page_type %}
+
+              {% if collection.url %}
+
+                <span aria-hidden="true">/</span>
+                {{ collection.title | link_to(collection.url)}}
+              {% endif %}
+
+              <span aria-hidden="true">/</span>
+              <span>{{ product.title }}</span>
+            {% elseif 'collection' in request.page_type and collection.handle %}
+
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+
+                {% set url %}
+/collections/{{ collection.handle }}{% endset %}
+
+                {{ collection.title | link_to(url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
+
+                <span>{{ collection.title }}</span>
+              {% endif %}
+
+            {% elseif request.page_type == 'blog' %}
+
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+
+                {{ blog.title | link_to(blog.url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
+
+                <span>{{ blog.title }}</span>
+              {% endif %}
+
+            {% elseif request.page_type == 'article' %}
+
+              <span aria-hidden="true">/</span>
+              {{ blog.title | link_to(blog.url)}}
+              <span aria-hidden="true">/</span>
+              <span>{{ article.title }}</span>
+            {% elseif request.page_type == 'cart' %}
+
+              <span aria-hidden="true">/</span>
+              <span>Cart</span>
+            {% else %}
+
+              <span aria-hidden="true">/</span>
+              <span>{{ page_title }}</span>
+            {% endif %}
+
+        </nav>
+      
+{% endif %}
+
+    </div>
     <div class="fw:500 fz:35px c:color-dark mt:-5px mb:75px">Wish Lists</div>
     <div class="row">
       <div class="col-md-12">

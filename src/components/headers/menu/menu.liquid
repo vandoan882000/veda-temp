@@ -23,9 +23,15 @@
              <div class="veda-toggle-theme cur:pointer mr:10px">mode</div>
           {%- endcomment -%}
           <a href="/login.html"><i class="fal fa-user ml:10px mr:10px cur:pointer c:color-light"></i></a>
-          <span class="pos:relative cur:pointer">
+          <span class="veda-compare__popup pos:relative cur:pointer" data-options="{
+            content: ['Product', 'Rating', 'Description', 'Abd'],
+            header: {
+              title: 'Compare',
+              description: 'Compare description1',
+            },
+          }">
             <i class="fal fa-repeat ml:10px mr:10px cur:pointer c:color-light"></i>
-            <div class="menu__card-compare"></div>
+            <div class="menu__card-compare veda-compare__badge d:flex jc:center ai:center c:color-light pos:absolute b:50% l:80% w:16px h:16px fz:9px bdrs:8px bgc:red fw:500"></div>
           </span>
           <a href="/wishlist.html" class="pos:relative c:color-light|h! c:color-light!" style="color:var(--color-light)">
             <i class="fal fa-heart ml:10px mr:10px cur:pointer c:color-light c:color-light|h!"></i>

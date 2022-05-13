@@ -685,11 +685,26 @@ class CartPopop {
     this.handleDOM();
   }
 }
-new StoreBadge("Compare", "menu__card-compare");
+//new StoreBadge("Compare", "menu__card-compare");
+const btnComparePopup = document.querySelector('.veda-compare__popup');
+const dataCompareOptions = btnComparePopup.getAttribute('data-options');
+veda.plugins.productCompare.customCompare(veda.utils.objectParse(dataCompareOptions));
+//button popup
+btnComparePopup.addEventListener('click', () => {
+  veda.plugins.productCompare.togglePopop();
+});
+// compare badge
+const compareBadge = document.querySelector('.veda-compare__badge');
+compareBadge.innerHTML = veda.plugins.productCompare.getData().length;
+veda.plugins.productCompare.getData().length ? compareBadge.style.display = 'flex' : compareBadge.style.display = 'none';
+veda.plugins.productCompare.subscribe((state) => {
+compareBadge.innerHTML = state.length;
+  state.length ? compareBadge.style.display = 'flex' : compareBadge.style.display = 'none';
+});
 new StoreBadge("WishList", "menu__wish-list");
 new StoreBadge("Cart", "menu__cart");
 // new ComparePopop("Compare", "menu__card-compare");
-renderWithElement(createPortal(html`<div class="compare-poppup"><${ComparePopupView} /></div>`,document.querySelector('#root')),"abczxzx");
+//renderWithElement(createPortal(html`<div class="compare-poppup"><${ComparePopupView} /></div>`,document.querySelector('#root')),"abczxzx");
 // new ComparePopupContaner();
 new CartPopop("Cart", "menu__cart");
 

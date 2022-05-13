@@ -4,10 +4,55 @@
 ');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
 
 
-<section data-id="shoppage" css="{{ backgroundColor }}{{ backgroundImage }}">
+<section data-id="shoppage" data-shopify-id="{{ section.id }}" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container pt:35px">
-    <div class="direct fz:15px c:color-gray4"><a href="/" class="c:color-gray4">Home</a> > <a href="/product.html" class="c:color-dark">{{ heading.text }}</a></div>
+    {% unless request.page_type == 'index' or request.page_type == 'list-collections' %}
+      <nav role="navigation" aria-label="breadcrumbs">
+          <a href="{{ routes.root_url }}" title="Home">Home</a>
+          {% if request.page_type contains 'page' %}
+            <span aria-hidden="true">/</span>
+            <span>{{ page.title }}</span>
+          {% elsif request.page_type contains 'product' %}
+            {% if collection.url %}
+              <span aria-hidden="true">/</span>
+              {{ collection.title | link_to: collection.url }}
+            {% endif %}
+            <span aria-hidden="true">/</span>
+            <span>{{ product.title }}</span>
+          {% elsif request.page_type contains 'collection' and collection.handle %}
+            <span aria-hidden="true">/</span>
+            {% if current_tags %}
+              {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+              {{ collection.title | link_to: url }}
+              <span aria-hidden="true">/</span>
+              <span>{{ current_tags | join: " + " }}</span>
+            {% else %}
+              <span>{{ collection.title }}</span>
+            {% endif %}
+          {% elsif request.page_type == 'blog' %}
+            <span aria-hidden="true">/</span>
+            {% if current_tags %}
+              {{ blog.title | link_to: blog.url }}
+              <span aria-hidden="true">/</span>
+              <span>{{ current_tags | join: " + " }}</span>
+            {% else %}
+              <span>{{ blog.title }}</span>
+            {% endif %}
+          {% elsif request.page_type == 'article' %}
+            <span aria-hidden="true">/</span>
+            {{ blog.title | link_to: blog.url }}
+            <span aria-hidden="true">/</span>
+            <span>{{ article.title }}</span>
+          {% elsif request.page_type == 'cart' %}
+            <span aria-hidden="true">/</span>
+            <span>Cart</span>
+          {% else %}
+            <span aria-hidden="true">/</span>
+            <span>{{ page_title }}</span>
+          {% endif %}
+      </nav>
+    {% endunless %}
     <div class="view-as mb:20px d:flex ai:center jc:space-between mt:30px fz:15px c:color-dark flw:wrap w:75% pr:40px@md">
       <div class="d:flex">
         View as:
@@ -72,7 +117,7 @@
 
     </div>
     <div data-id="products" class="row mt:20px ">
-      <div class="col-lg-9 shop-page1 pr:40px@md d:block">
+      <div class="col-lg-9 shop-page1 pr:40px@md d:block pretify-content-collections">
         <div class="row">
           {% assign collection = collections[content.collection] %}
           <script class="product-all-data" type="application/json">{{ collection.products | json }}</script>
@@ -103,7 +148,7 @@
                     <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                       <i class="fal fa-eye"></i>
                     </div>
-                    <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                    <div class="yasmina-product-card__icon-bg--hidden veda-compare__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
                       <i class="fal fa-repeat"></i>
                     </div>
                   </div>
@@ -169,7 +214,7 @@
                 <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                   <i class="fal fa-eye"></i>
                 </div>
-                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                <div class="yasmina-product-card__icon-bg--hidden veda-compare__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
                   <i class="fal fa-repeat"></i>
                 </div>
               </div>
@@ -179,6 +224,32 @@
             <div class="yasmina-product-card__content d:flex fld:column jc:flex-start ai:flex-start h:100% pl:30px">
               <div class="yasmina-product-card__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
               <a class="yasmina-product-card__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+              <div class="veda-compare__rating-custom">
+                {% if content.review_app_enable %}
+                  {% case content.review_app_type %}
+                    {% when 'product_reviews' %}
+                      <rivio-review-badge item="product" />
+                      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                    {% when 'rivyo_reviews' %}
+                      <rivio-review-badge item="product" />
+                    {% when 'loox_reviews' %}
+                      <loox-review-badge item="product" />
+                    {% when 'ali_reviews' %}
+                      <ali-review-badge item="product" />
+                    {% when 'stamped_reviews' %}
+                      <stamped-review-badge item="product" />
+                    {% when 'judge_me_reviews' %}
+                      <judge-me-review-badge item="product" />
+                    {% when 'other' %}
+                      {% if builderMode %}
+                        <review-badge item="product" />
+                      {% else %}
+                        {{ content.review_app_html }}
+                      {% endif %}
+                      {% else %}
+                  {% endcase %}
+                {% endif %}
+              </div>
               <a class="yasmina-product-card__price mt:14px" href="#">
                 <ins class="yasmina-product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}.00</ins>
                 {% if product.compare_at_price > product.price %}
@@ -236,7 +307,7 @@
 
                 <form id="filter_form" class="petify-filter-form">
 
-                    <div class="product-box__refine mb:20px pos:relative">
+                    <div class="pretify-refine-wrapper product-box__refine mb:20px pos:relative">
                       <div class="d:flex jc:space-between mb:15px">
                         <h2 class="product-box__title fz:20px fw:500 ff:font-primary">Refine By</h2>
                         <div class="petify-clear-all mt:3px"></div>

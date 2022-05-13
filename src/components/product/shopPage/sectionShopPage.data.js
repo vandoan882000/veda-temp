@@ -119,6 +119,12 @@ const data = {
   },
   content: {
     collection: "402337759453",
+    review_app_enable: true,
+    review_app_type: "ali_reviews",
+    review_app: {
+      enable: true,
+      app: "product_reviews", // "product_reviews" or "rivyo_reviews" or "loox_reviews""
+    },
     filter_tags: [
       {
         value: "New",
@@ -161,10 +167,6 @@ const data = {
         checked: false,
       }
     ],
-    review_app: {
-      enable: true,
-      app: "product_reviews", // "product_reviews" or "rivyo_reviews" or "loox_reviews""
-    },
     sale: {
       enable: true,
       text: "Sale",

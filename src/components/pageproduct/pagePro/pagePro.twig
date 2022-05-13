@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_0b2bce91-e98a-4fde-b48b-8dc42fde69ca" %}
+{% set uniqueId = "id_08a7af78-a2ed-404c-b9d3-ea5704695129" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~  ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -10,7 +10,75 @@
   <div class="container pt:35px">
     {% set comment = blogs[content.collection] %}
     {% set product = product1 %}
-    <div class="direct fz:15px c:color-gray4 mb:33px ff:font-primary fw:400">Home > <a class="c:color-gray4" href="#">{{ heading.text }}</a> <a class="yasmina-page-product__title c:color-dark" href="#"> > {{product.title}}</a></div>
+    <div class="direct fz:15px c:color-gray4 mb:33px ff:font-primary fw:400">
+      {% if request.page_type != 'index' or request.page_type != 'list-collections' %}
+
+        <nav role="navigation" aria-label="breadcrumbs">
+            <a href="{{ routes.root_url }}" title="Home">Home</a>
+            {% if 'page' in request.page_type %}
+
+              <span aria-hidden="true">/</span>
+              <span>{{ page.title }}</span>
+            {% elseif 'product' in request.page_type %}
+
+              {% if collection.url %}
+
+                <span aria-hidden="true">/</span>
+                {{ collection.title | link_to(collection.url)}}
+              {% endif %}
+
+              <span aria-hidden="true">/</span>
+              <span>{{ product.title }}</span>
+            {% elseif 'collection' in request.page_type and collection.handle %}
+
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+
+                {% set url %}
+/collections/{{ collection.handle }}{% endset %}
+
+                {{ collection.title | link_to(url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
+
+                <span>{{ collection.title }}</span>
+              {% endif %}
+
+            {% elseif request.page_type == 'blog' %}
+
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+
+                {{ blog.title | link_to(blog.url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
+
+                <span>{{ blog.title }}</span>
+              {% endif %}
+
+            {% elseif request.page_type == 'article' %}
+
+              <span aria-hidden="true">/</span>
+              {{ blog.title | link_to(blog.url)}}
+              <span aria-hidden="true">/</span>
+              <span>{{ article.title }}</span>
+            {% elseif request.page_type == 'cart' %}
+
+              <span aria-hidden="true">/</span>
+              <span>Cart</span>
+            {% else %}
+
+              <span aria-hidden="true">/</span>
+              <span>{{ page_title }}</span>
+            {% endif %}
+
+        </nav>
+      
+{% endif %}
+
+    </div>
     <div class="row">
       <div class="col-lg-6 d:flex fld:column ai:center pr:30px">
         <a href="#" class="veda-image-zoom veda-image-cover yasmina-page-product__image d:block w:100%" css="--aspect-ratio: 3/4"  data-image-zoom-src="{{ image.src }}" data-image-zoom="2">

@@ -1,3 +1,5 @@
+import { Unsubscribe } from "mota-css";
+
 type Logger = (actionName: string) => void;
 type Unsubscibe = () => void;
 type VNode = any;
@@ -237,6 +239,45 @@ interface CounterOptions {
   onChange?: (value: number | [number, number]) => void;
 }
 
+interface ProductCompare {
+  id: string;
+  title: string;
+  description: string;
+  vendor: string;
+  featured_image: {
+    src: string;
+  };
+  price: number;
+  available: boolean;
+  type: string;
+  variants: [
+    {
+      sku: string,
+    }
+  ]
+  options_with_values: [
+    {
+      name: "Size",
+      position: number,
+      values: string[],
+      selected_value: string,
+    },
+    {
+      name: "Color",
+      position: number,
+      values: string[],
+      selected_value: string,
+    },
+  ];
+  options: string[];
+  rating: string;
+}
+
+interface CustomCompare {
+  renderProduct?: (product: ProductCompare, index: number) => HTMLElement;
+  heading?: string;
+  content?: string[],
+}
 
 declare interface Veda {
   utils: {
@@ -631,6 +672,78 @@ declare interface Veda {
      * ```
      */
     collectionsFilters(container: HTMLElement, options: CollectionsFiltersOptions): void;
+    /** Compare
+     * ```html
+     *  <script class="yasmina-product-card__data" type="application/json">{ product }</script>
+     * <button class="veda-compare__popup pos:relative cur:pointer" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare" data-options="{
+     *    content: ['Product', 'Rating', 'Description', 'Abd'],
+     *    heading: 'Compare',
+     *  }">
+     *    <i class="fal fa-repeat"></i>
+     *  </button>
+     *  <button class="veda-compare__btn-toggle">Add</button>
+     *  <button class="veda-compare__badge"></button>
+     *  <div class="veda-compare__rating-custom">Rating custom 1</div>
+     * ```
+     *
+     *
+     * ```js
+     * function changeStatus(btnCompare, dataCompare) {
+     *    let hasItem = !!veda.plugins.productCompare.getData().find(item => item.id === dataCompare.id);
+     *    if(hasItem) {
+     *       btnCompare.setAttribute("data-tooltip-active",true);
+     *       btnCompare.style.backgroundColor = "#AF0707";
+     *       btnCompare.style.color = "#ffffff";
+     *     } else {
+     *       btnCompare.setAttribute("data-tooltip-active",false);
+     *       btnCompare.style.backgroundColor = "#ffffff";
+     *       btnCompare.style.color = "#000000";
+     *     }
+     *    return hasItem;
+     * }
+     * // initialize Compare
+     * const dataCompare = JSON.parse(document.querySelector(".yasmina-product-card__data").textContent);
+     * const btnComparePopup = document.querySelector('.veda-compare__popup');
+     * const dataCompareOptions = btnComparePopup.getAttribute('data-options');
+     * veda.plugins.productCompare.customCompare(veda.utils.objectParse(dataCompareOptions));
+     *
+     * // button add compare
+     * const btnAddCompare = document.querySelector('.veda-compare__btn-toggle');
+     * const ratingCustom = document.querySelector('.veda-compare__rating-custom');
+     *  changeStatus(btnAddCompare, dataCompare);
+     *  veda.plugins.productCompare.subscribe(() => {
+     *     changeStatus(btnAddCompare, dataCompare);
+     *  });
+     * btnAddCompare.addEventListener('click', () => {
+     *  veda.plugins.productCompare.toggleProduct({
+     *    ...dataCompare,
+     *    rating: ratingCustom.innerHTML,
+     *  });
+     *  changeStatus(btnCompare, compareData) ? veda.plugins.message.success("Added to compare") : veda.plugins.message.error("Removed from compare");
+     *});
+     *
+     * // button popup
+     * btnComparePopup.addEventListener('click', () => {
+     *   veda.plugins.productCompare.togglePopop();
+     * });
+     *
+     * // compare badge
+     * const compareBadge = document.querySelector('.veda-compare__badge');
+     * compareBadge.innerHTML = veda.plugins.productCompare.getData().length;
+     * veda.plugins.productCompare.getData().length ? compareBadge.style.display = 'flex' : compareBadge.style.display = 'none';
+     * veda.plugins.productCompare.subscribe((state) => {
+     *   compareBadge.innerHTML = state.length;
+     *   state.length ? compareBadge.style.display = 'flex' : compareBadge.style.display = 'none';
+     * });
+     * ```
+     */
+     productCompare: {
+      toggleProduct(product: ProductCompare): void;
+      customCompare(content: CustomCompare ): void;
+      togglePopop(): void;
+      getData(): ProductCompare[];
+      subscribe(listener: (state?: ProductCompare[]) => {}): void;
+    };
   }
 }
 

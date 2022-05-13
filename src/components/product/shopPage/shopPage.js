@@ -112,8 +112,23 @@ function debounce(fn, delay = 300) {
 }
 
 if (!!container) {
-  const { slider, select } = veda.plugins;
-  const { queryString, debounce } = veda.utils;
+  const { collectionsFilters } = veda.plugins;
+  const { html } = veda.utils.csr;
+  const domParser = new DOMParser();
+
+  async function getContentCollections(url) {
+    const res = await fetch(url);
+    const html = await res.text();
+    const doc = domParser.parseFromString(html, "text/html");
+    const contentCollectionsEl = doc.querySelector(
+      ".pretify-content-collections"
+    );
+    if (contentCollectionsEl) {
+      const contentCollections = contentCollectionsEl.innerHTML;
+      return contentCollections;
+    }
+    return "";
+  }
   collectionsFilters(container, {
     formSelector: ".petify-filter-form",
     sortBySelector: ".petify-sort-by",
@@ -137,16 +152,29 @@ if (!!container) {
       return html`<button class="c:color-dark ff:font-primary bgc:color-light bgc:color-light|h! bd:none! c:color-gray9|h! p:0! c:color-primary|h!" onClick=${onClear}>Clear All</button>`;
     },
     onChange({ url, category, done }) {
-      // fetch(url).then(res => {
-      //   console.log(res);
-      //   done();
-      // }).catch(err => {})
-      console.log(url, category);
-      done();
+      const sectionId = container.getAttribute("data-shopify-id");
+      if (category) {
+        url.pathname = `/product.html/${category}`;
+      }
+      url.search = `${url.search}&section_id=${sectionId}`;
+      getContentCollections(url).then((content) => {
+        // console.log(content);
+        done();
+      });
     },
     onChangePrice({ min, max }) {
       const priceViewEl = container.querySelector(".petify-price-view");
       priceViewEl.textContent = `${min} - ${max}`;
+    },
+    refineListener(items) {
+      const refineWrapperEl = container.querySelector(
+        ".pretify-refine-wrapper"
+      );
+      if (items.length) {
+        refineWrapperEl.classList.add("d:block");
+      } else {
+        refineWrapperEl.classList.remove("d:block");
+      }
     },
   });
   new ViewAs();

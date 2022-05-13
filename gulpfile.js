@@ -10,11 +10,16 @@ const { getTwig } = require("./gulp/getTwig");
 const { liquidSyntaxToTwig } = require("./gulp/LiquidSyntaxToTwig");
 const watch = require("node-watch");
 const { v4 } = require("uuid");
-const { getAtomicCss, setAtomicCss } = require("./gulp/getAtomicCss");
+const {
+  getAtomicCss,
+  setAtomicCss,
+  setClassNames,
+} = require("./gulp/getAtomicCss");
 const { existsSync } = require("fs-extra");
 const {
   default: replaceReviewBadge,
 } = require("./gulp/3rd/replaceReviewBadge");
+const { default: axios } = require("axios");
 
 const isDev = process.env.NODE_ENV === "development";
 const config = {
@@ -168,7 +173,14 @@ function copyImages(cb) {
  * directory.
  */
 function atomicCss() {
-  const writeFile = () => {
+  const findClassNameFromCore = async () => {
+    const { data } = await axios(
+      "https://unpkg.com/veda-template-core/classNames.json"
+    );
+    setAtomicCss(JSON.stringify(data));
+  };
+  const writeFile = async () => {
+    await findClassNameFromCore();
     const twigFiles = glob.sync(`${config.input}/**/*.twig`);
     for (let i = 0; i < twigFiles.length; i++) {
       const file = twigFiles[i];

@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_230cb3d9-45c6-42f9-8a8a-37758c76ebfa" %}
+{% set uniqueId = "id_6a71f1c3-e2e1-46fe-bf07-5965056138a5" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -11,8 +11,7 @@
     <div class="row">
       <h3 class="page-section__header ff:font-primary ta:center mb:25px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
       <div class="col-md-12">
-        <div component="content" class="row row-cols-lg-{{ content.column.lg }} row-cols-md-3 row-cols-sm-2 row-cols-1">
-          {% set collection = collections[content.collection] %}
+        <div component="content" class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
           {% for cate in content.images | slice(0, 8) %}
             <div class="col">
               <div class="yasmina-category pos:relative w:100% h:210px ov:hidden z:2 cur:pointer" component="category">

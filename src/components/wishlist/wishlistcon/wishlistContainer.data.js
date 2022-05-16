@@ -12,15 +12,7 @@ const data = {
     text: "Wish Lists",
     design: "",
   },
-  sidebar: {
-    banner: {
-      img: "img/banner-1.png",
-      sub_title: "TREATS & GROOMING",
-      title: "Spoil your true love",
-    },
-  },
   content: {
     collection: "402337759453",
-
   },
 };

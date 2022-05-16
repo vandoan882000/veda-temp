@@ -12,13 +12,6 @@ const data = {
     text: "Product",
     design: "",
   },
-  sidebar: {
-    banner: {
-      img: "img/banner-1.png",
-      sub_title: "TREATS & GROOMING",
-      title: "Spoil your true love",
-    },
-  },
   price: {
     enable: true,
     title: "Price",

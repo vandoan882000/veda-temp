@@ -8,10 +8,6 @@ const data = {
     size: "cover",
     overlay: "transparent",
   },
-  heading: {
-    text: "Trending Hot",
-    design: "",
-  },
   content: [
     {
       name :"FREE GIFT WRAPPING",

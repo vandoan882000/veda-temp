@@ -10,8 +10,7 @@
     <div class="row">
       <h3 class="page-section__header ff:font-primary ta:center mb:25px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
       <div class="col-md-12">
-        <div component="content" class="row row-cols-lg-{{ content.column.lg }} row-cols-md-3 row-cols-sm-2 row-cols-1">
-          {% assign collection = collections[content.collection] %}
+        <div component="content" class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1">
           {% for cate in content.images limit: 8 %}
             <div class="col">
               <div class="yasmina-category pos:relative w:100% h:210px ov:hidden z:2 cur:pointer" component="category">

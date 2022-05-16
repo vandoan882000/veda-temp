@@ -12,19 +12,8 @@ const data = {
     text: "BestSeller Products",
     design: "",
   },
-  sidebar: {
-    banner: {
-      img: "img/banner-1.png",
-      sub_title: "TREATS & GROOMING",
-      title: "Spoil your true love",
-    },
-  },
   content: {
     collection: "402337759453",
-    review_app: {
-      enable: true,
-      app: "product_reviews", // "product_reviews" or "rivyo_reviews" or "loox_reviews""
-    },
     sale: {
       enable: true,
       text: "Sale",

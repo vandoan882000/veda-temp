@@ -247,10 +247,7 @@ class ComparePopupView extends Component {
 
   }
 }
-class ComparePopupAction {
 
-
-}
 
 // class ComparePopupContaner {
 //   constructor(data) {

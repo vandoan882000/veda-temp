@@ -10,7 +10,6 @@
     <div class="row">
       <div class="col-lg-12 col-md-12">
         <div component="content" class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12">
-          {% assign collection = collections[content.collection] %}
           <div class="yasmina-banner yasmina-banner--{{content.direction}} {{content.color_dark?"c:color-dark":"c:color-light"}} mih:626px pos:relative ml:-15px mr:-15px">
             <div class="yasmina-banner__content d:flex fld:column jc:center ai:center w:100%  w:50%@md ta:center z:9">
               <p class="yasmina-banner__text fw:500 fz:20px">{{content.title}}</p>
@@ -44,14 +43,6 @@
               {% endif %}
 
             </div>
-            {% if banner.stickey %}
-              <div class="yasmina-banner__stickey">
-                <div class="yasmina-banner__rectangle">{{content.stickey}}</div>
-                <div class="yasmina-banner__triangle--left"></div>
-                <div class="yasmina-banner__triangle--right"></div>
-              </div>
-
-            {% endif %}
           </div>
         </div>
       </div>

@@ -9,9 +9,6 @@ const data = {
     overlay: "transparent",
   },
   top_bar: {
-    address_icon: '<i class="far fa-map-marker-alt"></i>',
-    address: "523 Sylvan Ave Mountain View, CA 94041",
-    logo: "img/logo.png",
     brand: [
       {
         name: "YASMINA",
@@ -37,15 +34,6 @@ const data = {
         href: "#"
       }
     ]
-  },
-  cart: {
-    enable: true,
-    icon: '<i class="fal fa-shopping-basket"></i>',
-    use_mini_cart: true,
-  },
-  wishlist: {
-    enable: true,
-    icon: '<i class="fal fa-heart"></i>',
   },
   search: {
     enable: true,
@@ -79,24 +67,24 @@ const data = {
         href: "#",
         children: [
           {
-            label: "Blog 1",
+            label: "Trend 1",
             href: "#",
           },
           {
-            label: "Blog 2",
+            label: "Trend 2",
             href: "#",
           },
           {
-            label: "Blog",
+            label: "Trend",
             iconEnabled: false,
             href: "#",
             children: [
               {
-                label: "Blog 1",
+                label: "Trend 1",
                 href: "#",
               },
               {
-                label: "Blog 2",
+                label: "Trend 2",
                 href: "#",
               },
             ],
@@ -123,5 +111,4 @@ const data = {
     ],
     caret_enabled: true,
   },
-  content: {},
 };

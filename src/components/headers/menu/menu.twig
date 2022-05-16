@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_967ce27d-1028-4a19-a6c2-b86d7bc0d90c" %}
+{% set uniqueId = "id_9e8c9d0f-35b1-44e0-8ac7-cd603ca2d14b" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -7,7 +7,6 @@
 <nav data-id="headers" class="nav" id="nav">
   <div class="container d:flex ai:center jc:space-between maw:100% p:0 bgc:color-gray9">
       <div class="h:60px! ovy:hidden">
-        <script class="compare-popup-data" type="application/json">{{ compare_popup | json_encode()}}</script>
         <div class="ovx:auto h:80px">
           <ul class="yasmina-{{menu1.name}} yasmina-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none pl:15px!@md">
             {% for item in menu1.list %}

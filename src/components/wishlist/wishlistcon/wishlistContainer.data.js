@@ -12,7 +12,4 @@ const data = {
     text: "Wish Lists",
     design: "",
   },
-  content: {
-    collection: "402337759453",
-  },
 };

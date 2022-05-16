@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_537c0fd2-47ba-4f25-add0-f88d500f8d73" %}
+{% set uniqueId = "id_ac506ebe-1f3e-4df1-a31e-173c37c36135" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -58,7 +58,6 @@
   </div>
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    {% set collection = collections[content.collection] %}
     <div class="row jc:center">
       <div class="col-lg-12">
         <div class="nvd-cart-header d:flex fld:column jc:center ai:center">

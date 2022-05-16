@@ -116,6 +116,9 @@ class Wishlist extends Component {
   componentWillUnmount() {
     this.unmount?.();
   }
+  componentDidUpdate() {
+    new QuickViewPopop(container, "QuickView","fa-eye");
+  }
   getData() {
     return store.get(`${PREFIX}WishList`);
   }
@@ -156,6 +159,23 @@ class Wishlist extends Component {
       rating: ratingCustom?.innerHTML,
     });
     this.changeStatus(btnCompare, compareData, veda.plugins.productCompare.getData()) ? message.success("Added to compare") : message.error("Removed from compare");
+  }
+  toggleQuickView(event) {
+    const dataEl = event.target.closest(".yasmina-product-card").querySelector(".yasmina-product-card__data");
+    const newItem = JSON.parse(dataEl.textContent);
+    store.set(`${PREFIX}QuickView`, (state) => {
+      return {
+        ...state,
+        data: {...newItem}
+      };
+    })('toggle');
+    store.set(`${PREFIX}QuickView`,items => {
+      return {
+        ...items,
+        visible : !items.visible
+      }
+    });
+
   }
   toggleWishList (event) {
     const { data } = this.getData();
@@ -255,7 +275,7 @@ class Wishlist extends Component {
                 <div class="yasmina-product-card__icon-bg yasmina-wish-list__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h bgc:#AF0707 c:color-light" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active="true" data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist" onClick=${(event) => this.toggleWishList(event)}>
                   <i class="fal fa-heart"></i>
                 </div>
-                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                <div class="yasmina-product-card__icon-bg--hidden cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false onClick=${(event) => this.toggleQuickView(event)}>
                   <i class="fal fa-eye"></i>
                 </div>
                 <div class="yasmina-product-card__icon-bg--hidden veda-compare__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h ${!!this.state.dataCompare.find(item => item.id === product.id) ? "bgc:#AF0707 c:color-light" : "bgc:color-light c:color-gray9"}" data-tooltip-position="left" data-tooltip-active=${!!this.state.dataCompare.find(item => item.id === product.id) ? "true" : "false"} data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare" onClick=${(event) => this.toggleCompare(event)}>
@@ -451,7 +471,6 @@ class QuickViewPopop {
     this.classEl = classEl;
     this.el = this.createComparePortal();
     this.initStore();
-    this.handleAdd();
     store.subscribe(`${PREFIX}${this.storeName}`, this.init.bind(this));
   }
 
@@ -492,29 +511,6 @@ class QuickViewPopop {
         fn.apply(this, args);
       }, delay);
     };
-  }
-  handleAdd() {
-    const listCard = this.container.querySelectorAll(".yasmina-product-card");
-    listCard.forEach(cartEl => {
-      const btnCompare = cartEl.querySelector(`.${this.classEl}`).parentNode;
-      const dataEl = cartEl.querySelector(".yasmina-product-card__data");
-      btnCompare.addEventListener("click", () => {
-        const newItem = JSON.parse(dataEl.textContent);
-        store.set(`${PREFIX}${this.storeName}`, (state) => {
-          return {
-            ...state,
-            data: {...newItem}
-          };
-        })('toggle');
-        store.set(`${PREFIX}${this.storeName}`,items => {
-          return {
-            ...items,
-            visible : !items.visible
-          }
-        });
-      });
-
-    })
   }
   async updateStore() {
     const data = await cartService.getData();
@@ -589,10 +585,10 @@ class QuickViewPopop {
   render() {
     const { visible , data } = this.getData();
     if (!visible) {
-      return ''
+      return "";
     }
 
-    return /*html */`
+    return /*html*/`
       <div class="quickview-container d:flex fld:column ai:center jc:center pos:fixed t:0 l:0 z:999 w:100% h:100%">
         <div class="close-quickview pos:absolute t:0 l:0 z:-1 w:100% h:100% bgc:color-gray9.4"></div>
         <div class="w:90% w:930px@md h:590px bgc:#fff mt:4% ov:auto">

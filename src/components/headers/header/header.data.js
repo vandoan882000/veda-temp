@@ -8,33 +8,6 @@ const data = {
     size: "cover",
     overlay: "transparent",
   },
-  top_bar: {
-    brand: [
-      {
-        name: "YASMINA",
-        href: "#"
-      },
-      {
-        name: "GENTLEMAN",
-        href: "#"
-      }
-      ,
-      {
-        name: "Belle Doll",
-        href: "#"
-      }
-      ,
-      {
-        name: "Amber.",
-        href: "#"
-      }
-      ,
-      {
-        name: "GLASSY",
-        href: "#"
-      }
-    ]
-  },
   search: {
     enable: true,
     icon: '<i class="far fa-search"></i>',

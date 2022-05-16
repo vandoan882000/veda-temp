@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_d3308e0b-c00f-4954-955e-088fc9155b07" %}
+{% set uniqueId = "id_de25e9e5-5366-425c-8463-55c7aaf28479" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -7,7 +7,6 @@
 
 <footer data-id="footers" class="veda-section mih:435px bgc:color-dark pt:55px pb:80px ff:font-secondary c:color-light" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
-  {% set collection = collections["402146787549"] %}
   <div class="container">
     <div class="row jc:center">
       <div class="col-xs-9 col-sm-6 col-md-5 col-lg-3">
@@ -92,7 +91,7 @@
         </form>
         <div class="nvd-footer__about h:25px d:flex ai:center mt:20px">
           {% for item in new_letter.icons %}
-            {{item.icon}}
+            <i class="{{item.icon}} ml:10px mr:10px cur:pointer fz:18px c:#030C23 c:color-light|h!"></i>
           
 
 {% endfor %}

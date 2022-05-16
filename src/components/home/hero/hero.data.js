@@ -24,11 +24,5 @@ const data = {
     color_dark: true,
     color_light: false,
     direction: "left",
-    column: {
-      xs: 1,
-      sm: 2,
-      md: 3,
-      lg: 4,
-    },
   },
 };

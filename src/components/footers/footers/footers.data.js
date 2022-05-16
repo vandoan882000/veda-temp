@@ -40,19 +40,19 @@ const data = {
     name: "Get 15% off your first purchaxse! Plus,<br/> be the first to know about sales, new<br/> product launches!",
     icons: [
       {
-        icon: "<i class='fab fa-facebook-f '></i>"
+        icon: "fab fa-facebook-f"
       },
       {
-        icon: "<i class='fab fa-instagram'></i>"
+        icon: "fab fa-instagram"
       },
       {
-        icon: "<i class='fab fa-twitter'></i>"
+        icon: "fab fa-twitter"
       },
       {
-        icon: "<i class='fab fa-youtube'></i>"
+        icon: "fab fa-youtube"
       },
       {
-        icon: "<i class='fab fa-wordpress'></i>"
+        icon: "fab fa-wordpress"
       },
     ]
   },

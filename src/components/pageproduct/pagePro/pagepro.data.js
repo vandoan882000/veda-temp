@@ -20,11 +20,5 @@ const data = {
       enable: true,
       app: "product_reviews", // "product_reviews" or "rivyo_reviews" or "loox_reviews""
     },
-    column: {
-      xs: 1,
-      sm: 2,
-      md: 3,
-      lg: 4
-    }
   },
 };

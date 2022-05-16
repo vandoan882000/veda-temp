@@ -8,9 +8,5 @@ const data = {
     size: "cover",
     overlay: "transparent",
   },
-  heading: {
-    text: "Cart",
-    design: "",
-  },
 
 };

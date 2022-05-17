@@ -1,25 +1,11 @@
 import { CartService } from "../../home/products/products.js";
-const uniqueId = "headers";
+const uniqueId = "menu";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 const { store, map ,objectParse, VQuery: $$ } = veda.utils;
 const { Component, html, render, renderWithElement, createPortal} = veda.utils.csr;
 const { message } = veda.plugins;
 const cartService = new CartService();
-// console.log(container.offsetHeight);
-
-// window.addEventListener("scroll", () => {
-//   console.log("body",document.querySelector("body").scrollTop);
-//   // if(document.querySelector("#root").screenY > container.offsetHeight) {
-//   //   // container.classList.add("sticky-menu");
-//   //   console.log(document.querySelector("#root").screenY);
-//   // }
-//   // else {
-//   //   // container.classList.remove("sticky-menu");
-//   //   console.log(window.screenY);
-//   // }
-// })
-
 //veda.plugins.themeToggle(container);
 const PREFIX = 'yasmina';
 

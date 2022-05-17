@@ -56,6 +56,11 @@ const data = {
       },
     ]
   },
-
+  column: {
+    xs: 9,
+    sm: 6,
+    md: 5,
+    lg: 3,
+  }
 
 };

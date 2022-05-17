@@ -15,63 +15,33 @@ const data = {
   content: {
     blog: "tuong",
   },
-  product_box: [
+  search_enable: true,
+  popular_post_enable: true,
+  popular_post_data: [
     {
-      type: "search"
+      title: "Lorem ipsum dolor sit amet, consectetur...",
+      srcImg: "../../img/post1.png"
     },
     {
-      type: "popular-post",
-      item: [
-        {
-          title: "Lorem ipsum dolor sit amet, consectetur...",
-          srcImg: "../../img/post1.png"
-        },
-        {
-          title: "Nisl natoque sed cursus purus. Pellent amet...",
-          srcImg: "../../img/post2.png"
-        },
-        {
-          title: "A arcu malesuada mauris consequat est ...",
-          srcImg: "../../img/post3.png"
-        }
-      ]
+      title: "Nisl natoque sed cursus purus. Pellent amet...",
+      srcImg: "../../img/post2.png"
     },
     {
-      type: "tag",
-      item: [
-        {
-          name: "Design"
-        },
-        {
-          name: "Save"
-        },
-        {
-          name: "Simple"
-        },
-        {
-          name: "Stock"
-        },
-        {
-          name: "Hãy tìm key đi"
-        }
-        ,
-        {
-          name: "Item"
-        }
-        ,
-        {
-          name: "Iec"
-        }
-        ,
-        {
-          name: "Linh Tinh"
-        }
-      ]
-    },
-
-    {
-      type: "newsletter"
+      title: "A arcu malesuada mauris consequat est ...",
+      srcImg: "../../img/post3.png"
     }
-
-  ]
+  ],
+  tag_enable: true,
+  tag_data: [
+    {
+      name: "Design"
+    },
+    {
+      name: "Save"
+    },
+    {
+      name: "Simple"
+    },
+  ],
+  newsletter_enable: true,
 };

@@ -12,27 +12,25 @@ const data = {
     text: "Instagram #NameIG",
     design: "",
   },
+  description: "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur<br/> adipisci velit sed quia non numquam eius modi tempora incidunto.",
   content: [
     {
-      name :"GLASS <br/>& EYE",
-      srcImg: "../../img/insta1.png",
-      type: "left"
+      src_image: "../../img/insta1.png",
     },
     {
-      name :"GLASS <br/>& EYE",
-      srcImg: "../../img/insta2.png",
-      type: "left"
+      src_image: "../../img/insta2.png",
     },
     {
-      name :"GLASS <br/>& EYE",
-      srcImg: "../../img/insta3.png",
-      type: "left"
+      src_image: "../../img/insta3.png",
     },
     {
-      name :"GLASS <br/>& EYE",
-      srcImg: "../../img/insta3.png",
-      type: "left"
+      src_image: "../../img/insta3.png",
     },
-
   ],
+  column: {
+    xs: 12,
+    sm: 10,
+    md: 6,
+    lg: 3,
+  }
 };

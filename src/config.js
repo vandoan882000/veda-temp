@@ -22,7 +22,7 @@ export const config = {
       { name: "--font-secondary", value: "Roboto" },
       { name: "--font-tertiary", value: "Mali" },
       { name: "--font-quaternary", value: "Poppins" },
-      { name: "--font-quinary", value: "Spartan" },
+      { name: "--font-quinary", value: "League Spartan" },
     ],
   },
 };

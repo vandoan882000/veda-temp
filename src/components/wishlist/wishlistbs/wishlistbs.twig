@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_00ee926c-1ee0-4bd1-88e0-e0cdee4b45f8" %}
+{% set uniqueId = "id_b63fa52a-0f08-451b-98e3-167676c1b401" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -8,7 +8,7 @@
 <section data-id="bestseller" class="pt:80px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container pb:40px">
-    <h3 class="page-section__header ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+    <h3 class="ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row">
       {% set collection = collections[content.collection] %}
       <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>

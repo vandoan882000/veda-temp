@@ -14,20 +14,25 @@ const data = {
   },
   content: [
     {
-      name :"GLASS <br/>& EYE",
-      srcImg: "../../img/trend1.png",
-      type: "left"
+      label :"GLASS <br/>& EYE",
+      src_image: "../../img/trend1.png",
+      position: "left"
     },
     {
-      name :"DRESS & EYE",
-      srcImg: "../../img/trend2.png",
-      type: "center"
+      label :"DRESS & EYE",
+      src_image: "../../img/trend2.png",
+      position: "center"
     },
     {
-      name :"T-SHIRT <br/>& JEAN",
-      srcImg: "../../img/trend3.png",
-      type: "right"
+      label :"T-SHIRT <br/>& JEAN",
+      src_image: "../../img/trend3.png",
+      position: "right"
     }
-
   ],
+  column: {
+    xs: 12,
+    sm: 7,
+    md: 6,
+    lg: 4,
+  }
 };

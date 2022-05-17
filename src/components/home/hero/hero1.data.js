@@ -16,10 +16,18 @@ const data = {
       "Neque porro quisquam est qui dolorem ipsum quia dolor <br/>sit amet consectetur adipisci velit sed quia non numquam <br/>eius modi tempora incidunto.",
     button: [
       {
-        name: "SHOP MEN",
+        label: "SHOP MEN",
+        color: "color-light",
+        bgc: "color-gray9"
       },
     ],
-    color_dark: true,
-    direction: "right",
+    color: "color-gray9",
+    position: "right",
   },
+  column: {
+    xs: 12,
+    sm: 12,
+    md: 12,
+    lg: 12,
+  }
 };

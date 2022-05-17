@@ -10,7 +10,6 @@ const data = {
   },
   search: {
     enable: true,
-    icon: '<i class="far fa-search"></i>',
     placeholder: "Search",
   },
   navigation: {
@@ -25,14 +24,11 @@ const data = {
         label: "PRODUCT",
         iconEnabled: false,
         href: "product.html",
-
-
       },
       {
         label: "BLOG",
         iconEnabled: false,
         href: "/blog.html",
-
       },
       {
         label: "TREND",
@@ -82,6 +78,5 @@ const data = {
         href: "#",
       },
     ],
-    caret_enabled: true,
   },
 };

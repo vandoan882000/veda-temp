@@ -6,15 +6,16 @@
 <section data-id="insta" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <h3 class="page-section__header ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
-		<p class="yasmina-insta__description ta:center mt:-24px mb:35px c:color-dark fw:400 lh:23px fz:14px ff:font-secondary lts:0.15px">Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur<br/>
-			adipisci velit sed quia non numquam eius modi tempora incidunto.</p>
+    <h3 class="ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+		<p class="yasmina-insta__description ta:center mt:-24px mb:35px c:color-dark fw:400 lh:23px fz:14px ff:font-secondary lts:0.15px">
+      {{ description }}
+    </p>
     <div class="row ai:center jc:center">
       {% for item in content %}
-        <div class="col-xs-12 col-sm-10 col-md-6 col-lg-3">
+        <div class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}" component="instagram-image">
           <div class="yasmina-insta d:flex jc:center cur:pointer">
             <a href="#" class="veda-image-cover d:block w:100%" css="--aspect-ratio: 0.86">
-              <img class="yasmina-insta__img" src={{item.srcImg | img_url: ''}} alt="insta">
+              <img class="yasmina-insta__img" src={{item.src_image | img_url: ''}} alt="insta">
             </a>
           </div>
         </div>

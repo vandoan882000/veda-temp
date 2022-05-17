@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_63522aad-1864-4f37-a0cc-f062a5460d24" %}
+{% set uniqueId = "id_92523231-fa20-4797-8db6-a3dada277f7f" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -7,27 +7,27 @@
 <section data-id="features" class="veda-section pt:40px" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container mb:20px">
-    <h3 class="page-section__header ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+    <h3 class="ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row jc:center">
       {% for item in content %}
-        <div class="col-xs-12 col-sm-7 col-md-6 col-lg-4">
+        <div class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}">
           <div class="yasmina-trend mih:295px pos:relative ov:hidden" component="trending">
             <a class="d:block" href="#" >
-              <img class="yasmina-trend__img w:100% h:100% t:0 l:0" src={{item.srcImg | img_url('')}} alt="trend">
+              <img class="yasmina-trend__img w:100% h:100% t:0 l:0" src={{item.src_image | img_url('')}} alt="trend">
             </a>
-            {% if item.type == "left" %}
+            {% if item.position == "left" %}
               <div class="yasmina-trend__content pos:absolute b:20% l:10% bgc:color-dark fw:600 fz:pfs(45px,35px) lh:65px p:10px_20px_10px_20px c:color-light">
-                <div>{{item.name}}</div>
+                <div>{{item.label}}</div>
               </div>
             {% endif %}
-            {% if item.type == "center" %}
+            {% if item.position == "center" %}
               <div class="yasmina-trend__content pos:absolute t:50% l:50% trf:translate(-50%,-50%) w:max-content bgc:color-dark fw:600 fz:pfs(45px,35px) lh:65px p:10px_20px_10px_20px c:color-light">
-                <div>{{item.name}}</div>
+                <div>{{item.label}}</div>
               </div>
             {% endif %}
-            {% if item.type == "right" %}
+            {% if item.position == "right" %}
               <div class="yasmina-trend__content pos:absolute t:20% r:10% bgc:color-dark fw:600 fz:pfs(45px,35px) lh:65px p:10px_20px_10px_20px c:color-light">
-                <div>{{item.name}}</div>
+                <div>{{item.label}}</div>
               </div>
             {% endif %}
           </div>

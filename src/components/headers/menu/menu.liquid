@@ -7,10 +7,10 @@
   <div class="container d:flex ai:center jc:space-between maw:100% p:0 bgc:color-gray9">
       <div class="h:60px! ovy:hidden">
         <div class="ovx:auto h:80px">
-          <ul class="yasmina-{{menu1.name}} yasmina-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none pl:15px!@md">
-            {% for item in menu1.list %}
+          <ul class="yasmina-menu d:flex ai:center m:0 p:0 h:60px list-style:none pl:15px!@md">
+            {% for item in navigation %}
               <li class="yasmina-menu__list d:inline-block bdr:1px_solid_color-light">
-                <a href={{item.href}} class="yasmina-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap tt:uppercase">{{item.name}}</a>
+                <a href={{item.link}} class="yasmina-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap tt:uppercase">{{item.label}}</a>
               </li>
             {% endfor %}
           </ul>

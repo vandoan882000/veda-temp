@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_8dcd9a21-b80a-4b3c-9c60-3e2b7d9c445a" %}
+{% set uniqueId = "id_244101b2-6a99-4ca0-ba16-8a2b8fedd7c3" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -8,13 +8,13 @@
 <section data-id="products" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}">
   <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
-    <h3 class="page-section__header ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+    <h3 class="ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
 
     <div class="row">
       {% set collection = collections[content.collection] %}
       <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>
       {% for product in collection.products | slice(0, 8) %}
-        <div class="col-lg-3 mt:0px!">
+        <div class="col-lg-3 mt:0px!" component="product-card">
           <div class="yasmina-product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
             <script class="yasmina-product-card__data" type="application/json">{{ product | json_encode()}}</script>
             <div class="yasmina-product-card__img w:100% pos:relative ov:hidden">

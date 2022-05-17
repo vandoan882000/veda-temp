@@ -15,10 +15,18 @@ const data = {
       "Neque porro quisquam est qui dolorem ipsum quia dolor <br/>sit amet consectetur adipisci velit sed quia non numquam <br/>eius modi tempora incidunto.",
     button: [
       {
-        name: "SHOP NOW",
+        label: "SHOP NOW",
+        color: "color-gray9",
+        bgc: "color-light"
       },
     ],
-    color_light: true,
-    direction: "left",
+    color: "color-light",
+    position: "left",
   },
+  column: {
+    xs: 12,
+    sm: 12,
+    md: 12,
+    lg: 12,
+  }
 };

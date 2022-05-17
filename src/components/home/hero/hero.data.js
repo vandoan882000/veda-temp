@@ -15,14 +15,23 @@ const data = {
       "Neque porro quisquam est qui dolorem ipsum quia dolor <br/>sit amet consectetur adipisci velit sed quia non numquam <br/>eius modi tempora incidunto.",
     button: [
       {
-        name: "SHOP WOMEN",
+        label: "SHOP WOMEN",
+        color: "color-light",
+        bgc: "color-gray9"
       },
       {
-        name: "SHOP MEN",
+        label: "SHOP MEN",
+        color: "color-light",
+        bgc: "color-gray9"
       },
     ],
-    color_dark: true,
-    color_light: false,
-    direction: "left",
+    color: "color-gray9",
+    position: "left",
   },
+  column: {
+    xs: 12,
+    sm: 12,
+    md: 12,
+    lg: 12,
+  }
 };

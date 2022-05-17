@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_92ca4631-5a6e-4756-9a99-5413f6eb393c" %}
+{% set uniqueId = "id_2b4963e5-8f7c-49b1-beb4-8f9fc192f9e1" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -8,10 +8,10 @@
   <div class="container d:flex ai:center jc:space-between maw:100% p:0 bgc:color-gray9">
       <div class="h:60px! ovy:hidden">
         <div class="ovx:auto h:80px">
-          <ul class="yasmina-{{menu1.name}} yasmina-{{menu1.name}}--1 d:flex ai:center m:0 p:0 h:60px list-style:none pl:15px!@md">
-            {% for item in menu1.list %}
+          <ul class="yasmina-menu d:flex ai:center m:0 p:0 h:60px list-style:none pl:15px!@md">
+            {% for item in navigation %}
               <li class="yasmina-menu__list d:inline-block bdr:1px_solid_color-light">
-                <a href={{item.href}} class="yasmina-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap tt:uppercase">{{item.name}}</a>
+                <a href={{item.link}} class="yasmina-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap tt:uppercase">{{item.label}}</a>
               </li>
             
 

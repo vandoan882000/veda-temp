@@ -14,37 +14,43 @@ const data = {
   },
   category: [
     {
-      title: "Activewear",
-      url: "../../../img/category1.png"
+      label: "Activewear",
+      background_image: "../../../img/category1.png"
     },
     {
-      title: "Hoodies & Sweatshirts",
-      url: "../../../img/category2.png"
+      label: "Hoodies & Sweatshirts",
+      background_image: "../../../img/category2.png"
     },
     {
-      title: "Coats & Jackets",
-      url: "../../../img/category3.png"
+      label: "Coats & Jackets",
+      background_image: "../../../img/category3.png"
     },
     {
-      title: "Dresses",
-      url: "../../../img/category4.png"
+      label: "Dresses",
+      background_image: "../../../img/category4.png"
     },
     {
-      title: "Sweatshirt Short",
-      url: "../../../img/category5.png"
+      label: "Sweatshirt Short",
+      background_image: "../../../img/category5.png"
     },
     {
-      title: "Jeans",
-      url: "../../../img/category6.png"
+      label: "Jeans",
+      background_image: "../../../img/category6.png"
     },
     {
-      title: "Skirts & Tops",
-      url: "../../../img/category7.png"
+      label: "Skirts & Tops",
+      background_image: "../../../img/category7.png"
     },
     {
-      title: "Bikinis & Swimsuits",
-      url: "../../../img/category8.png"
+      label: "Bikinis & Swimsuits",
+      background_image: "../../../img/category8.png"
     }
   ],
+  column: {
+    xs: 1,
+    sm: 2,
+    md: 3,
+    lg: 4,
+  }
 
 };

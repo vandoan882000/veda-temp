@@ -8,32 +8,28 @@ const data = {
     size: "cover",
     overlay: "transparent",
   },
-  menu1: {
-    name : "menu",
-    bgColor: "#000000",
-    color: "#FFFFFF",
-    list: [
-      {
-        name :"YASMINA",
-        href: "/"
-      },
-      {
-        name :"GENTLEMAN",
-        href: "#"
-      },
-      {
-        name :"Belle Doll",
-        href: "#"
-      },
-      {
-        name :"Amber.",
-        href: "#"
-      },
-      {
-        name :"GLASSY",
-        href: "#"
-      }
-    ],
-  },
+  navigation: [
+    {
+      label :"YASMINA",
+      link: "/"
+    },
+    {
+      label :"GENTLEMAN",
+      link: "#"
+    },
+    {
+      label :"Belle Doll",
+      link: "#"
+    },
+    {
+      label :"Amber.",
+      link: "#"
+    },
+    {
+      label :"GLASSY",
+      link: "#"
+    }
+  ],
+
 
 };

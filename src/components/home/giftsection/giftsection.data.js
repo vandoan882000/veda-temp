@@ -10,20 +10,26 @@ const data = {
   },
   content: [
     {
-      name :"FREE GIFT WRAPPING",
+      label :"FREE GIFT WRAPPING",
       icon: "fal fa-box-full"
     },
     {
-      name :"EASY & FREE RETURNS",
+      label :"EASY & FREE RETURNS",
       icon: "fal fa-box"
     },
     {
-      name :"STUDENT DISCOUNT",
+      label :"STUDENT DISCOUNT",
       icon: "fal fa-badge-percent"
     },
     {
-      name :"100% SECURE SHOPPING",
+      label :"100% SECURE SHOPPING",
       icon: "fal fa-box"
     }
   ],
+  column: {
+    xs: 12,
+    sm: 6,
+    md: 6,
+    lg: 3,
+  }
 };

@@ -14,6 +14,11 @@ const data = {
   },
   content: {
     collection: "402337759453",
-
+    sale: {
+      enable: true,
+      text: "Sale",
+      design: "",
+    },
+    add_to_cart_text: "Add to cart",
   },
 };

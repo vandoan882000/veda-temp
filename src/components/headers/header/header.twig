@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_605a992c-627e-450c-ae39-a058233c55c7" %}
+{% set uniqueId = "id_2ebf75f7-8d07-44da-9360-944e03cb5e38" %}
 {% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
 {% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
 {% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
@@ -99,7 +99,7 @@
               <div class="vdoan-menu__search d:flex w:160px w:260px@md h:38px">
                 <div class="w:122px w:222px@md h:38px bd:1px_solid_color-gray2 ">
                   <input class="bd:none! o:none d:inline-block pl:10px fz:13px c:color-gray6 c:color-gray6|ph" type="text"
-                  placeholder="Search"
+                  placeholder="{{search.placeholder}}"
                   name="q"
                   value="{{ search.terms | escape }}"
                   />

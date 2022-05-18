@@ -278,7 +278,24 @@ interface CustomCompare {
   heading?: string;
   content?: string[],
 }
-
+interface ProductCart {
+  id: string;
+  title: string;
+  vendor: string;
+  featured_image: {
+    src: string;
+  };
+  price: number;
+  quantity: number;
+}
+interface CustomCart {
+  api: string;
+  onSuccess?: () => void;
+  onError?: () => void;
+  renderProduct?: (product: ProductCart, index: number) => HTMLElement;
+  renderFooterCart?: () => HTMLElement;
+  totalPrice?: number;
+}
 declare interface Veda {
   utils: {
     objectParse(value: string): Record<string, any>;
@@ -674,7 +691,7 @@ declare interface Veda {
     collectionsFilters(container: HTMLElement, options: CollectionsFiltersOptions): void;
     /** Compare
      * ```html
-     *  <script class="yasmina-product-card__data" type="application/json">{ product }</script>
+     *  <script class="veda-product-card__data" type="application/json">{ product }</script>
      * <button class="veda-compare__popup pos:relative cur:pointer" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare" data-options="{
      *    content: ['Product', 'Rating', 'Description', 'Abd'],
      *    heading: 'Compare',
@@ -744,6 +761,69 @@ declare interface Veda {
       getData(): ProductCompare[];
       subscribe(listener: (state?: ProductCompare[]) => {}): void;
     };
+    /** Counter
+     * ```html
+     * // Liquid Example
+     * // cart data in script tag
+     * <script class="veda-product-card__data" type="application/json">{ product }</script>
+     * //
+     * <button class="veda-cart__popup">
+     *    <i class="fal fa-shopping-bag"></i>
+     *  </button>
+     *  <button class="veda-cart__badge"></button>
+     *  <button class="veda-cart__btn-add" style="margin-left:10px">Add to Cart</button>
+     *  <div class="veda-cart__wrapper mt:30px bd:1px_solid_color-gray9"></div>
+     * ```
+     * ```js
+     * // Javascript Example
+     * veda.plugins.cart.customCart({
+     *   api: "https://624eadac53326d0cfe5dba36.mockapi.io/cart",
+     *   onSuccess: (type) => {
+     *     if(type === 'add') {
+     *       veda.plugins.message.success("Add to cart");
+     *     }
+     *     if(type === 'delete') {
+     *       veda.plugins.message.success("Remove from cart");
+     *     }
+     *   },
+     *   onError: (type) => {
+     *     if(type === 'add') {
+     *       veda.plugins.message.error("Add to cart error");
+     *     }
+     *     if(type === 'delete') {
+     *       veda.plugins.message.error("Remove from cart error");
+     *     }
+     *   },
+     *   totalPrice: 12345,
+     *})
+     * const dataCart = JSON.parse(document.querySelector(".yasmina-product-card__data").textContent);
+     * const btnAddCart = document.querySelector('.veda-cart__btn-add');
+     * btnAddCart.addEventListener('click', () => {
+     *   veda.plugins.cart.addToCart(dataCart);
+     * });
+     * //button popup
+     * const btnCart = document.querySelector('.veda-cart__popup');
+     * btnCart.addEventListener('click', () => {
+     *   veda.plugins.cart.togglePopop();
+     * });
+     * // cart badge
+     * const cartBadge = document.querySelector('.veda-cart__badge');
+     * cartBadge.innerHTML = veda.plugins.cart.getData()?.length??"0";
+     * veda.plugins.cart.subscribe((state) => {
+     *   cartBadge.innerHTML = state.length;
+     * });
+     * ```
+     */
+    cart: {
+      customCart(content: CustomCart): void;
+      updateCart(id: ProductCart["id"], quantity: number): void;
+      removeCart(id: ProductCart["id"]): void;
+      getData(): ProductCart[];
+      subscribe(listener: (state?: ProductCart[]) => {}): void;
+      addToCart(product: ProductCart): void;
+      togglePopop(): void;
+
+    }
   }
 }
 

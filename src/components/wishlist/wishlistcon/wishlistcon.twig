@@ -1,12 +1,26 @@
 
-{% set uniqueId = "id_5d4a2cc4-addf-4a14-919d-8940fa0cfa6a" %}
-{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
-{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~  ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set uniqueId = "id_4472ecf2-972e-4858-b60f-18ab4f11bcc8" %}
+{% if general_settings.background_fixed %}
+{% set backgroundFixed = 'fixed' %}
+{% else %}
+{% set backgroundFixed = 'scroll' %}
+{% endif %}
+{% if general_settings.background_type == 'color' %}
+{% set backgroundColor = 'background-color: ' ~  general_settings.background_color ~  ';' %}
+{% else %}
+{% set backgroundColor = '' %}
+{% endif %}
+{% if general_settings.background_type == 'image' %}
+{% set backgroundImage = 'background-image: url(' ~  general_settings.background_image ~  ');background-attachment: ' ~  backgroundFixed ~  ';background-size: ' ~  general_settings.background_size ~  ';' %}
+{% else %}
+{% set backgroundImage = '' %}
+{% endif %}
+{% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
 
-
-<section  css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+<section css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
   <div class="container">
     <div class="direct fz:15px c:color-gray4 mt:30px mb:33px">
       {% if request.page_type != 'index' or request.page_type != 'list-collections' %}

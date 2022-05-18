@@ -1,12 +1,18 @@
 const data = {
   general_settings: {
-    fixed: false,
-    background_color_enable: false,
-    color: "transparent",
-    background_image_enable: true,
-    image: "../../img/banner4.png",
-    size: "cover",
-    overlay: "transparent",
+    background_fixed: false,
+    background_type: "image", // image, color, none
+    background_image: "../../img/banner4.png",
+    background_color: "",
+    background_size: "cover",
+    background_overlay_enable: false,
+    background_overlay_color: "transparent",
+    padding: {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+    },
   },
   heading: {
     text: "Banner",

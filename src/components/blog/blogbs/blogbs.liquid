@@ -1,11 +1,15 @@
-{% assign backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
-{% assign backgroundColor = general_settings.background_color_enable ? 'background-color:' | append: general_settings.color | append: ';' : '' %}
-{% assign backgroundImage = general_settings.background_image_enable ? 'background-image: url(' | append: general_settings.image | append:
-');background-attachment:' | append: backgroundFixed | append: ';background-size:' | append: general_settings.size | append: ';' : '' %}
+{% liquid
+  if general_settings.background_fixed assign backgroundFixed = 'fixed' else assign backgroundFixed = 'scroll' endif
+  if general_settings.background_type == 'color' assign backgroundColor = 'background-color: ' | append: general_settings.background_color | append: ';' else assign backgroundColor = '' endif
+  if general_settings.background_type == 'image' assign backgroundImage = 'background-image: url(' | append: general_settings.background_image | append:
+  ');background-attachment: ' | append: backgroundFixed | append: ';background-size: ' | append: general_settings.background_size | append: ';' else assign backgroundImage = '' endif
+  assign sectionPadding = 'padding-top: ' | append: general_settings.padding.top | append: 'px;padding-right: ' | append: general_settings.padding.right | append: 'px;padding-bottom: ' | append: general_settings.padding.bottom | append: 'px;padding-left: ' | append: general_settings.padding.left | append: 'px;'
+%}
 
-
-<section data-id="bestseller" class="pt:80px" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+<section data-id="bestseller" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
   <div class="container pb:40px">
     <h3 class="ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row">

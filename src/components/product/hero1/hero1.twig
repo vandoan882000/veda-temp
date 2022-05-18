@@ -1,12 +1,27 @@
 
-{% set uniqueId = "id_d7fff5b4-1098-439f-8068-a5a7faff715c" %}
-{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
-{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set uniqueId = "id_d97b8837-cd6e-4776-a8bf-89cce274d44b" %}
+{% if general_settings.background_fixed %}
+{% set backgroundFixed = 'fixed' %}
+{% else %}
+{% set backgroundFixed = 'scroll' %}
+{% endif %}
+{% if general_settings.background_type == 'color' %}
+{% set backgroundColor = 'background-color: ' ~  general_settings.background_color ~  ';' %}
+{% else %}
+{% set backgroundColor = '' %}
+{% endif %}
+{% if general_settings.background_type == 'image' %}
+{% set backgroundImage = 'background-image: url(' ~  general_settings.background_image ~  ');background-attachment: ' ~  backgroundFixed ~  ';background-size: ' ~  general_settings.background_size ~  ';' %}
+{% else %}
+{% set backgroundImage = '' %}
+{% endif %}
+{% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
 
 
-<section data-id="hero1" class="mah:274px h:274px" css="{{ backgroundColor }}{{ backgroundImage }}" >
-  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+<section data-id="hero1" class="mah:274px h:274px" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
   <div class="container maw:none">
     <div class="row mt:0px">
       <div class="col-md-12">

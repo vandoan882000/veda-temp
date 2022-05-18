@@ -1,11 +1,27 @@
 
-{% set uniqueId = "id_333b8c89-ae3c-46ab-a253-a938ab123649" %}
-{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
-{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set uniqueId = "id_f4310988-163b-4602-b899-ef992deb12c1" %}
+{% if general_settings.background_fixed %}
+{% set backgroundFixed = 'fixed' %}
+{% else %}
+{% set backgroundFixed = 'scroll' %}
+{% endif %}
+{% if general_settings.background_type == 'color' %}
+{% set backgroundColor = 'background-color: ' ~  general_settings.background_color ~  ';' %}
+{% else %}
+{% set backgroundColor = '' %}
+{% endif %}
+{% if general_settings.background_type == 'image' %}
+{% set backgroundImage = 'background-image: url(' ~  general_settings.background_image ~  ');background-attachment: ' ~  backgroundFixed ~  ';background-size: ' ~  general_settings.background_size ~  ';' %}
+{% else %}
+{% set backgroundImage = '' %}
+{% endif %}
+{% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
 
-<nav data-id="menu" class="nav" id="nav">
-  <div class="container d:flex ai:center jc:space-between maw:100% p:0 bgc:color-gray9">
+<nav data-id="menu" class="nav" id="nav" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
+  <div class="container d:flex ai:center jc:space-between maw:100% p:0">
       <div class="h:60px! ovy:hidden">
         <div class="ovx:auto h:80px">
           <ul class="yasmina-menu d:flex ai:center m:0 p:0 h:60px list-style:none pl:15px!@md">

@@ -1,15 +1,29 @@
 
-{% set uniqueId = "id_4c66620b-f898-47ce-b47b-0461aee00265" %}
-{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
-{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set uniqueId = "id_ecd2d0fc-07b3-41ed-8eb2-1f39d348c7b4" %}
+{% if general_settings.background_fixed %}
+{% set backgroundFixed = 'fixed' %}
+{% else %}
+{% set backgroundFixed = 'scroll' %}
+{% endif %}
+{% if general_settings.background_type == 'color' %}
+{% set backgroundColor = 'background-color: ' ~  general_settings.background_color ~  ';' %}
+{% else %}
+{% set backgroundColor = '' %}
+{% endif %}
+{% if general_settings.background_type == 'image' %}
+{% set backgroundImage = 'background-image: url(' ~  general_settings.background_image ~  ');background-attachment: ' ~  backgroundFixed ~  ';background-size: ' ~  general_settings.background_size ~  ';' %}
+{% else %}
+{% set backgroundImage = '' %}
+{% endif %}
+{% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
 
-
-<section data-id="categories" class="veda-section pb:10px" css="{{ backgroundColor }}{{ backgroundImage }}">
-  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
+<section data-id="categories" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
   <div class="container">
     <div class="row">
-      <h3 class="page-section__header ff:font-primary ta:center mb:25px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+      <h3 class="ff:font-primary ta:center mb:25px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
       <div component="category" class="row row-cols-lg-{{column.lg}} row-cols-md-{{column.md}} row-cols-sm-{{column.sm}} row-cols-{{column.xs}}">
         {% for item in category | slice(0, 8) %}
           <div class="col">

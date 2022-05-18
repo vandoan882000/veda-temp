@@ -1,14 +1,19 @@
 const data = {
   general_settings: {
-    fixed: false,
-    background_color_enable: false,
-    color: "transparent",
-    background_image_enable: true,
-    image: "../../img/background-img1.png",
-    size: "cover",
-    overlay: "transparent",
+    background_fixed: false,
+    background_type: "image", // image, color, none
+    background_image: "../../img/background-img1.png",
+    background_color: "",
+    background_size: "cover",
+    background_overlay_enable: false,
+    background_overlay_color: "transparent",
+    padding: {
+      top: 60,
+      right: 0,
+      bottom: 60,
+      left: 0,
+    },
   },
-
   content: {
     title: "Set Your Style",
     heading: "INSTILEY",

@@ -1,10 +1,27 @@
 
-{% set uniqueId = "id_8245ea76-02a2-45d5-b8ab-eb77a5d3323f" %}
-{% set backgroundFixed = general_settings.fixed ? 'fixed' : 'scroll' %}
-{% set backgroundColor = general_settings.background_color_enable ? 'background-color:' ~  general_settings.color ~  ';' : '' %}
-{% set backgroundImage = general_settings.background_image_enable ? 'background-image: url(' ~  general_settings.image ~ ');background-attachment:' ~  backgroundFixed ~  ';background-size:' ~  general_settings.size ~  ';' : '' %}
+{% set uniqueId = "id_413c87db-2e83-469c-8b2b-db72609bd460" %}
+{% if general_settings.background_fixed %}
+{% set backgroundFixed = 'fixed' %}
+{% else %}
+{% set backgroundFixed = 'scroll' %}
+{% endif %}
+{% if general_settings.background_type == 'color' %}
+{% set backgroundColor = 'background-color: ' ~  general_settings.background_color ~  ';' %}
+{% else %}
+{% set backgroundColor = '' %}
+{% endif %}
+{% if general_settings.background_type == 'image' %}
+{% set backgroundImage = 'background-image: url(' ~  general_settings.background_image ~  ');background-attachment: ' ~  backgroundFixed ~  ';background-size: ' ~  general_settings.background_size ~  ';' %}
+{% else %}
+{% set backgroundImage = '' %}
+{% endif %}
+{% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
 
-<section data-id="cartcontainer" class="" css="{{ backgroundColor }}{{ backgroundImage }}">
+
+<section data-id="cartcontainer" class="" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
   <div class="direct fz:15px c:color-gray4 mb:33px ml:5%">
     {% if request.page_type != 'index' or request.page_type != 'list-collections' %}
       <nav role="navigation" aria-label="breadcrumbs">
@@ -56,7 +73,6 @@
 {% endif %}
 
   </div>
-  <div class="veda-overlay" css="background-color: {{ general_settings.overlay }}"></div>
   <div class="container">
     <div class="row jc:center">
       <div class="col-lg-12">

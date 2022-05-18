@@ -1,12 +1,18 @@
 const data = {
   general_settings: {
-    fixed: false,
-    background_color_enable: true,
-    color: "#FFE7D4",
-    background_image_enable: true,
-    image: "",
-    size: "cover",
-    overlay: "transparent",
+    background_fixed: false,
+    background_type: "color", // image, color, none
+    background_image: "",
+    background_color: "#FFE7D4",
+    background_size: "cover",
+    background_overlay_enable: false,
+    background_overlay_color: "transparent",
+    padding: {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+    },
   },
   content: [
     {

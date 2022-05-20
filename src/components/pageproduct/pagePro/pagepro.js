@@ -1,4 +1,3 @@
-import { CartService } from "../../home/products/products.js";
 const uniqueId = "pageproduct";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
@@ -6,18 +5,10 @@ const { store, map } = veda.utils;
 const { VQuery : $$ } = veda.utils;
 const { message } = veda.plugins;
 const PREFIX = 'yasmina';
-const cartService = new CartService();
 class PageProduct {
   constructor() {
     this.init();
     store.subscribe(`${PREFIX}WishList`,this.handleChangeStatus.bind(this));
-  }
-  async updateStore() {
-    const data = await cartService.getData();
-    console.log(data);
-    await store.set(`${PREFIX}Cart`, (items) => {
-      return [...data];
-    });
   }
   getData() {
     return store.get(`${PREFIX}Cart`);
@@ -91,43 +82,6 @@ class PageProduct {
       })('toggle');
     });
   }
-  async insertCart(newItem, btnCart, defaultHtml) {
-    await cartService.insert(newItem);
-    await this.updateStore();
-    btnCart.innerHTML = defaultHtml;
-  }
-  async updateCart(id, quantity, btnCart, defaultHtml) {
-    await cartService.update(id, quantity);
-    await this.updateStore();
-    btnCart.innerHTML = defaultHtml;
-  }
-  async handleAddCart() {
-    const productEl = container.querySelector(".yasmina-page-product");
-    const btnCart = productEl.querySelector(`.yasmina-page-product-btn-add-cart`);
-    const dataEl = productEl.querySelector(".yasmina-page-product__data");
-    const newItem = JSON.parse(dataEl.textContent);
-    btnCart.addEventListener("click", this.debounce(() => {
-      const quantity = productEl.querySelector(".yasmina-page-product__quantity").value;
-      console.log(quantity);
-      const data = this.getData();
-      const hasItem = data.filter(item => item.product_id === newItem.id);
-      if(hasItem.length > 0) {
-        const prevData = data.filter(item => item.product_id === newItem.id);
-        const prevItem = prevData[0];
-        const defaultHtml = btnCart.innerHTML;
-        btnCart.textContent = 'Loading...';
-        this.updateCart(prevItem.id, prevItem.quantity + Number(quantity), btnCart, defaultHtml);
-      }
-      else {
-        const defaultHtml = btnCart.innerHTML;
-        btnCart.innerHTML = 'Loading...';
-        this.insertCart(newItem, btnCart, defaultHtml);
-
-      }
-
-    }));
-
-  }
   handleDOM() {
     const sizeElText = container.querySelector(".yasmina-page-product__sizes");
     const sizeElList = container.querySelectorAll(".yasmina-page-product__size-input");
@@ -136,7 +90,6 @@ class PageProduct {
         sizeElText.textContent = "Size : " + sizeEl.value;
       });
     })
-    this.handleAddCart();
     this.handleAddWishList();
   }
   init() {

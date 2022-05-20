@@ -12,7 +12,7 @@ const dataCompareOptions = btnComparePopup.getAttribute('data-options');
 veda.plugins.productCompare.customCompare(veda.utils.objectParse(dataCompareOptions));
 //button popup
 btnComparePopup.addEventListener('click', () => {
-  veda.plugins.productCompare.togglePopop();
+  veda.plugins.productCompare.togglePopup();
 });
 // compare badge
 const compareBadge = document.querySelector('.veda-compare__badge');
@@ -44,7 +44,7 @@ veda.plugins.cart.customCart({
  })
  const btnCart = document.querySelector('.veda-cart__popup');
   btnCart.addEventListener('click', () => {
-  veda.plugins.cart.togglePopop();
+  veda.plugins.cart.togglePopup();
   });
  const cartBadge = document.querySelector('.veda-cart__badge');
  cartBadge.innerHTML = veda.plugins.cart.getData()?.length??"0";

@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_9f5f1603-123e-40bb-aa00-99b7390f805e" %}
+{% set uniqueId = "id_5e729d82-42f1-4097-aa9a-667965a32575" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -42,7 +42,7 @@
               {% for product in collection.products | slice(0, 6) %}
                 <div component="swipers" class="swiper-slide col-lg-3 mt:0px!">
                   <div class="yasmina-product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
-                    <script class="yasmina-product-card__data" type="application/json">{{ product | json_encode()}}</script>
+                    <script class="product-card-data-js" type="application/json">{{ product | json_encode()}}</script>
                     <div class="yasmina-product-card__img w:100% pos:relative ov:hidden">
                       <div class="pet-product-card__image">
                         <a href="/pageproduct.html" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">

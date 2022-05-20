@@ -175,7 +175,7 @@ function copyImages(cb) {
 function atomicCss() {
   const findClassNameFromCore = async () => {
     const { data } = await axios(
-      "https://unpkg.com/veda-template-core/classNames.json"
+      "https://unpkg.com/veda-template-core@latest/classNames.json"
     );
     setAtomicCss(JSON.stringify(data));
   };

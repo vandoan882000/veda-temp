@@ -127,7 +127,7 @@ class CardColors {
   }
 }
 if(!!container) {
-  // veda.plugins.productWishList.renderWishList(container);
+  veda.plugins.productWishList.renderWishList(container);
   // render(html`<${Wishlist} />`, container);
   //new AddStore(container, "WishList", "fa-heart");
   // // new AddStoreCart(container, "Cart", "yasmina-product-card__add");

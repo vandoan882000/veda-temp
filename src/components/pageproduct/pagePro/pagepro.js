@@ -8,13 +8,7 @@ const PREFIX = 'yasmina';
 class PageProduct {
   constructor() {
     this.init();
-    store.subscribe(`${PREFIX}WishList`,this.handleChangeStatus.bind(this));
-  }
-  getData() {
-    return store.get(`${PREFIX}Cart`);
-  }
-  getDataWishList() {
-    return store.get(`${PREFIX}WishList`);
+    veda.plugins.productWishList.subscribe(this.handleChangeStatus.bind(this));
   }
   handleChangeImage(event) {
     const img = container.querySelector(".yasmina-page-product__img");
@@ -38,9 +32,9 @@ class PageProduct {
     };
   }
   handleChangeStatus() {
-    const { data } = this.getDataWishList();
+    const data = veda.plugins.productWishList.getData();
     const productEl = container.querySelector(".yasmina-page-product");
-    const btnWishlist = productEl.querySelector(".yasmina-page-product__btn-wish-list");
+    const btnWishlist = productEl.querySelector(".veda-wishlist__btn-toggle");
     const dataEl = productEl.querySelector(".yasmina-page-product__data");
     const newItem = JSON.parse(dataEl.textContent);
     const { id: newId } = newItem;
@@ -54,35 +48,11 @@ class PageProduct {
       btnWishlist.style.color = "#000000";
     }
   }
-  handleAddWishList() {
+  handleDOM() {
     this.handleChangeStatus();
     const productEl = container.querySelector(".yasmina-page-product");
-    const btnWishlist = productEl.querySelector(".yasmina-page-product__btn-wish-list");
     const dataEl = productEl.querySelector(".yasmina-page-product__data");
-    btnWishlist.addEventListener("click", () => {
-      const newItem = JSON.parse(dataEl.textContent);
-      const { id: newId } = newItem;
-      store.set(`${PREFIX}WishList`, (state) => {
-        const dataHasNewItem = state.data.filter(item => item.id === newId);
-          // Neu ma trong mang data da co chua san pham nay roi
-          // thi khi ta bam vao nut compare se xoa di
-        if (dataHasNewItem.length > 0) {
-          message.error(`Remove from Wishlist`);
-          return {
-            ...state,
-            data: state.data.filter(item => item.id !== JSON.parse(dataEl.textContent).id)
-          };
-        }
-          // Neu trong data chua co product do thi ta se them vao
-        message.success(`Add to Wishlist`);
-        return {
-          ...state,
-          data: [...state.data, newItem]
-        };
-      })('toggle');
-    });
-  }
-  handleDOM() {
+    const dataWishList = JSON.parse(dataEl.textContent);
     const sizeElText = container.querySelector(".yasmina-page-product__sizes");
     const sizeElList = container.querySelectorAll(".yasmina-page-product__size-input");
     sizeElList.forEach(sizeEl => {
@@ -90,7 +60,20 @@ class PageProduct {
         sizeElText.textContent = "Size : " + sizeEl.value;
       });
     })
-    this.handleAddWishList();
+    const btnAddCart = document.querySelector('.veda-cart__btn-add-cart');
+    btnAddCart.addEventListener('click', this.debounce(() => {
+      const quantityEl = document.querySelector('.yasmina-page-product__quantity');
+      const ItemAdd = veda.plugins.cart.getData().filter(item => item.product_id === dataWishList.id);
+      if(ItemAdd.length > 0) {
+        veda.plugins.cart.updateCart(ItemAdd[0].id, Number(ItemAdd[0].quantity) + Number(quantityEl.value));
+      } else {
+        veda.plugins.cart.addToCart(dataWishList);
+      }
+    }));
+    const btnWishlist = container.querySelector(".veda-wishlist__btn-toggle");
+    btnWishlist.addEventListener("click", () => {
+      veda.plugins.productWishList.toggleWishList(dataWishList);
+    })
   }
   init() {
     const images = container.querySelectorAll(".yasmina-page-product-image-select");

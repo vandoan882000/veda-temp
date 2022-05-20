@@ -3,6 +3,7 @@ const uniqueId = "products";
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 
 const { message, productCompare } = veda.plugins;
+const { debounce } = veda.utils;
 const PREFIX = 'yasmina';
 
 export class CardColors {
@@ -185,9 +186,9 @@ function handleCart() {
     const cartDataEl = card.querySelector(".product-card-data-js");
     const productData = JSON.parse(cartDataEl.textContent);
     const btnAddCart = card.querySelector('.veda-cart__btn-add-cart');
-    btnAddCart.addEventListener('click', () => {
+    btnAddCart.addEventListener('click', debounce(() => {
       veda.plugins.cart.addToCart(productData);
-    });
+    }));
   });
 }
 function handleQuickView() {

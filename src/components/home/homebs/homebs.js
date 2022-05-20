@@ -1,7 +1,7 @@
 const uniqueId = "bestseller";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
-const { store , map } = veda.utils;
+const { store , map, debounce } = veda.utils;
 const { message } = veda.plugins;
 const PREFIX = 'yasmina';
 class CardColors {
@@ -104,14 +104,6 @@ class CardColors {
   update() {
     this.init();
   }
-  // handleShowColor() {
-  //   const colorEls = this.el.querySelectorAll('.yasmina-product-card__colors-item');
-  //   const colorPlus = this.el.querySelector(".yasmina-product-card__colors-plus");
-  //   colorEls.forEach(colorEl => {
-  //     colorEl.style.display = "block";
-  //     colorPlus.style.display = "none";
-  //   })
-  // }
   init() {
     const colors = this.countColorShow();
     this.el.innerHTML = this.render();
@@ -170,7 +162,10 @@ function handleWishList() {
       link: "/pageproduct.html",
     })
     changeStatus(btnWishList, productData, veda.plugins.productWishList.getData(), "Wishlist");
-    btnWishList.addEventListener("click", () => veda.plugins.productWishList.toggleWishList(productData));
+    btnWishList.addEventListener("click", () => {
+      veda.plugins.productWishList.toggleWishList(productData)
+      changeStatus(btnWishList, productData, veda.plugins.productWishList.getData(), "Wishlist", true);
+    });
   });
 }
 function handleCart() {
@@ -179,9 +174,9 @@ function handleCart() {
     const cartDataEl = card.querySelector(".product-card-data-js");
     const productData = JSON.parse(cartDataEl.textContent);
     const btnAddCart = card.querySelector('.veda-cart__btn-add-cart');
-    btnAddCart.addEventListener('click', () => {
+    btnAddCart.addEventListener('click', debounce(() => {
       veda.plugins.cart.addToCart(productData);
-    });
+    }));
   });
 }
 function handleQuickView() {

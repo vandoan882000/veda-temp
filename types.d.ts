@@ -1,5 +1,3 @@
-import { Unsubscribe } from "mota-css";
-
 type Logger = (actionName: string) => void;
 type Unsubscibe = () => void;
 type VNode = any;
@@ -143,12 +141,14 @@ interface MobileMenuOptions {
   renderCloseButton?: (className: string) => string;
 }
 
+interface RefineItem {
+  label: string;
+  name: string;
+  value: string;
+}
+
 interface RenderRefineItemParams {
-  item: {
-    label: string;
-    name: string;
-    value: string;
-  }
+  item: RefineItem;
   onRemove(): void;
 }
 
@@ -177,6 +177,7 @@ interface CollectionsFiltersOptions {
   renderClearAllButton({ onClear }: RenderClearAllButtonParams): VNode;
   onChange({ url, category, done }: OnChangeParams): void;
   onChangePrice?: ({ min, max }: OnChangePriceParams) => void;
+  refineListener?: (items: RefineItem[]) => void;
 }
 interface MobileMenuReturn {
   init(): void;
@@ -238,6 +239,8 @@ interface CounterOptions {
   step?: number;
   onChange?: (value: number | [number, number]) => void;
 }
+
+
 interface ProductCart {
   id: string;
   title: string;
@@ -274,7 +277,7 @@ interface ProductCompare extends Product {
 }
 
 interface CustomCompare {
-  renderProduct?: (product: ProductCompare) => HTMLElement;
+  renderProduct?: (product: ProductCompare, index: number) => HTMLElement;
   keyExtractor?: (product: ProductCompare, index: number) => string;
   heading?: string;
   content?: string[],
@@ -283,13 +286,14 @@ interface ProductQuickView extends Product {
   options: string[];
 }
 interface ProductWishList extends ProductQuickView {}
+interface ProductColor extends ProductQuickView {}
 interface CustomCart {
   api: string;
   onSuccess?: () => void;
   onError?: () => void;
-  renderProduct?: (product: ProductCart) => HTMLElement;
+  renderProduct?: (product: ProductCar, index: number) => HTMLElement;
   renderFooterCart?: () => HTMLElement;
-  renderCart?: (product: ProductCart) => HTMLElement;
+  renderCart?: (product: ProductCart, index: number) => HTMLElement;
   keyExtractor?: (product: ProductCart, index: number) => string;
   totalPrice?: number;
 }
@@ -297,10 +301,15 @@ interface CustomQuickView {
   renderProduct?: (product: ProductQuickView) => HTMLElement;
   link: string;
 }
+interface CustomColor {
+  renderColor?: (color: string, index: number, listColor: string[]) => HTMLElement;
+  onChange?: (color: string, image: string) => void;
+}
 interface CustomWishList {
-  renderProduct?: (product: ProductWishList) => HTMLElement;
+  renderProduct?: (product: ProductWishList, index: number) => HTMLElement;
   keyExtractor?: (product: ProductWishList, index: number) => string;
 }
+
 declare interface Veda {
   utils: {
     objectParse(value: string): Record<string, any>;
@@ -694,9 +703,10 @@ declare interface Veda {
      * ```
      */
     collectionsFilters(container: HTMLElement, options: CollectionsFiltersOptions): void;
+
     /** Compare
      * ```html
-     *  <script class="veda-product-card__data" type="application/json">{ product }</script>
+     *  <script class="product-card-data-js" type="application/json">{ product }</script>
      * <button class="veda-compare__popup pos:relative cur:pointer" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare" data-options="{
      *    content: ['Product', 'Rating', 'Description', 'Abd'],
      *    heading: 'Compare',
@@ -724,7 +734,7 @@ declare interface Veda {
      *    return hasItem;
      * }
      * // initialize Compare
-     * const dataCompare = JSON.parse(document.querySelector(".yasmina-product-card__data").textContent);
+     * const dataCompare = JSON.parse(document.querySelector(".product-card-data-js").textContent);
      * const btnComparePopup = document.querySelector('.veda-compare__popup');
      * const dataCompareOptions = btnComparePopup.getAttribute('data-options');
      * veda.plugins.productCompare.customCompare(veda.utils.objectParse(dataCompareOptions));
@@ -746,7 +756,7 @@ declare interface Veda {
      *
      * // button popup
      * btnComparePopup.addEventListener('click', () => {
-     *   veda.plugins.productCompare.togglePopop();
+     *   veda.plugins.productCompare.togglePopup();
      * });
      *
      * // compare badge
@@ -762,7 +772,7 @@ declare interface Veda {
     productCompare: {
       toggleProduct(product: ProductCompare): void;
       customCompare(content: CustomCompare ): void;
-      togglePopop(): void;
+      togglePopup(): void;
       getData(): ProductCompare[];
       subscribe(listener: (state?: ProductCompare[]) => {}): void;
     };
@@ -770,7 +780,7 @@ declare interface Veda {
      * ```html
      * // Liquid Example
      * // cart data in script tag
-     * <script class="veda-product-card__data" type="application/json">{ product }</script>
+     * <script class="product-card-data-js" type="application/json">{ product }</script>
      * //
      * <button class="veda-cart__popup">
      *    <i class="fal fa-shopping-bag"></i>
@@ -802,7 +812,7 @@ declare interface Veda {
      *   totalPrice: 12345,
      *})
      * // button add cart
-     * const dataCart = JSON.parse(document.querySelector(".yasmina-product-card__data").textContent);
+     * const dataCart = JSON.parse(document.querySelector(".product-card-data-js").textContent);
      * const btnAddCart = document.querySelector('.veda-cart__btn-add');
      * btnAddCart.addEventListener('click', () => {
      *   veda.plugins.cart.addToCart(dataCart);
@@ -810,7 +820,7 @@ declare interface Veda {
      * //button popup
      * const btnCart = document.querySelector('.veda-cart__popup');
      * btnCart.addEventListener('click', () => {
-     *   veda.plugins.cart.togglePopop();
+     *   veda.plugins.cart.togglePopup();
      * });
      * // cart badge
      * const cartBadge = document.querySelector('.veda-cart__badge');
@@ -830,7 +840,7 @@ declare interface Veda {
       getData(): ProductCart[];
       subscribe(listener: (state?: ProductCart[]) => {}): void;
       addToCart(product: ProductCart): void;
-      togglePopop(): void;
+      togglePopup(): void;
       renderCart(el : HTMLElement): void;
     }
 
@@ -838,44 +848,44 @@ declare interface Veda {
      * ```html
      * // Liquid Example
      * // QuickView data in script tag
-     * <script class="veda-product-card__data" type="application/json">{ product }</script>
+     * <script class="product-card-data-js" type="application/json">{ product }</script>
      * // button QuickView
      * <button class="veda-quick-view__btn-toggle"><i class="fal fa-eye"></i></button>
      * ```
      * ```js
      * // Javascript Example
      *
-     * const dataQuickView = JSON.parse(document.querySelector(".yasmina-product-card__data").textContent);
+     * const dataQuickView = JSON.parse(document.querySelector(".product-card-data-js").textContent);
      * veda.plugins.productQuickView.customQuickView({
      *  link: "/pageproduct.html",
      * })
      * const btnQuickView = document.querySelector('.veda-quick-view__btn-toggle');
      * btnQuickView.addEventListener('click', () => {
-     *   veda.plugins.productQuickView.togglePopop(dataQuickView);
+     *   veda.plugins.productQuickView.togglePopup(dataQuickView);
      * });
      * ```
      */
     productQuickView: {
       customQuickView(options: CustomQuickView ): void;
-      togglePopop(product: ProductQuickView): void;
+      togglePopup(product: ProductQuickView): void;
       getData(): ProductQuickView;
     }
 
     /** Wish List
      * ```html
      * // Liquid Example
-     * // QuickView data in script tag
-     * <script class="veda-product-card__data" type="application/json">{ product }</script>
-     * // button QuickView
+     * // Wish List data in script tag
+     * <script class="product-card-data-js" type="application/json">{ product }</script>
+     * // button Wish List
      * <button class="veda-wishlist__btn-toggle"><i class="fal fa-heart"></i></button>
      * <div class="veda-wishlist__badge"></div>
      * <div class="veda-wishlist__wrapper"></div>
      * ```
      * ```js
      * // Javascript Example
-     * const dataWishList = JSON.parse(document.querySelector(".yasmina-product-card__data").textContent);
+     * const dataWishList = JSON.parse(document.querySelector(".product-card-data-js").textContent);
      * veda.plugins.productWishList.customWishList({
-     *  renderProduct: (product) => {
+     *  renderProduct: (product, index) => {
      *    return html`
      *     <div>
      *         <div>${product.id}</div>
@@ -903,11 +913,40 @@ declare interface Veda {
      * ```
      */
     productWishList: {
-      customWishList(options: CustomQuickView ): void;
+      customWishList(options: CustomWishList ): void;
       toggleWishList(product: ProductWishList): void;
       renderWishList(el: HTMLElement): void;
       getData(): ProductWishList;
       subscribe(listener: (state?: ProductWishList[]) => {}): void;
+    }
+
+    /** Product Color
+     * ```html
+     * // Liquid Example
+     * // Product data in script tag
+     * <script class="product-card-data-js" type="application/json">{ product }</script>
+     * //
+     * <div class="veda-color__wrapper"></div>
+     *
+     * ```
+     * ```js
+     * // Javascript Example
+     * const dataProduct = JSON.parse(document.querySelector(".product-card-data-js").textContent);
+     * veda.plugins.productColor.init({
+     *  onChange: (color, image) => {
+     *     console.log("color:",color, ", image:", image);
+     *   },
+     *   renderColor: (color, index, lstColor) => {
+     *     return html`<div> ${color}</div>`;
+     *   }
+     * })
+     *
+     *  veda.plugins.productColor.render(wrapperColor, dataProduct);
+     * ```
+     */
+    productColor: {
+      init(options: CustomColor ): void;
+      render(el: HTMLElement, product: ProductColor): void;
     }
   }
 }

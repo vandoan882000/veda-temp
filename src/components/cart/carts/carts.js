@@ -29,15 +29,12 @@ function handleClickDecrement(event, id) {
 function handleClickIncrement(event, id) {
   const currentEl = event.target;
   const quantityEl = currentEl.closest('.veda-counter').querySelector('.veda-counter__input');
-  // quantityEl.setAttribute("value", parseInt(quantityEl.value) + 1);
   quantityEl.value = Number(quantityEl.value) + 1;
-
-  // quantityEl.value = parseInt(quantityEl.value) + 1;
-  // if (quantityEl.value == 0) {
-  //   veda.plugins.cart.removeCart(id);
-  // } else {
-  //   veda.plugins.cart.updateCart(id, quantityEl.value);
-  // }
+  if (quantityEl.value == 0) {
+    veda.plugins.cart.removeCart(id);
+  } else {
+    veda.plugins.cart.updateCart(id, quantityEl.value);
+  }
 
 }
 function onClickTest(event) {
@@ -68,7 +65,7 @@ if(!!container) {
                 <div class="veda-counter__decrement c:color-dark w:30px h:40px bd:none o:none bgc:transparent d:flex ai:center jc:flex-start cur:pointer bgc:transparent!|h c:color-dark!|h ta:center" onClick=${debounce(event => handleClickDecrement(event, product.id))}>
                   <i class="fal fa-minus fz:13px w:100% h:100% lh:40px"></i>
                 </div>
-                <input class="veda-counter__input w:48px! h:40px p:0! bd:none! o:none ta:center fz:15px fw:500 c:color-gray9" type="number" data-button="disabled" onChange=${() => console.log("change")} onInPut=${debounce(event => onChangeQuantity(event, product.id))} value=${product.quantity} />
+                <input class="veda-counter__input w:48px! h:40px p:0! bd:none! o:none ta:center fz:15px fw:500 c:color-gray9" type="number" data-button="disabled" onInPut=${debounce(event => onChangeQuantity(event, product.id))} value=${product.quantity} />
                 <div class="veda-counter__increment c:color-dark w:30px h:40px bd:none o:none bgc:transparent d:flex ai:center jc:flex-end bgc:transparent!|h cur:pointer c:color-dark!|h ta:center" onClick=${debounce(event => handleClickIncrement(event, product.id))}>
                   <i class="fal fa-plus fz:13px w:100% h:100% lh:40px"></i>
                 </div>

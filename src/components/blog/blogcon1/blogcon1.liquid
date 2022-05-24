@@ -73,9 +73,9 @@
               <a href="#" class="d:inline-block mr:25px c:color-dark fz:15px fw:400 ff:font-primary"><i class="fal fa-archive fz:14px d:inline-block mr:5px cur:pointer"></i>Tips & Tricks</a>
               <a href="#" class="d:inline-block mr:25px c:color-dark fz:15px fw:400 ff:font-primary"><i class="fal fa-gingerbread-man fz:14px d:inline-block mr:5px cur:pointer"></i>Fashion, store, shopify</a>
             </div>
-            <a class="blog__title mb:10px mt:10px fz:pfs(20px,35px) c:color-dark ff:font-primary fw:500 cur:pointer">{{item.title}}</a>
+            <a class="blog__title mb:10px mt:10px fz:pfs(20px,35px) c:color-dark ff:font-primary fw:500 cur:pointer tt:capitalize">{{item.title}}</a>
             <p class="blog__description fz:14px fw:400 ff:font-secondary c:color-dark mt:3px lh:24px">{{item.content}}</p>
-            <button class="vdoan-btn__primary ff:font-primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:17px_81px_17px_81px cur:pointer m:22px_5px_5px_5px fw:500 bdrs:0px! fz:pfs(12px,15px) lts:0.15px ml:0px!">Read More</button>
+            <button class="ff:font-primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:17px_81px_17px_81px cur:pointer m:22px_5px_5px_5px fw:500 bdrs:0px! fz:pfs(12px,15px) lts:0.15px ml:0px!">Read More</button>
           </div>
         {% endfor %}
         <div class="d:flex jc:center">
@@ -140,10 +140,29 @@
                 <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Newsletter Signup</h2>
                 <div class="product-box__content">
                   <p class="fz:13px ff:font-secondary c:color-dark">At vero eos et accusamus et iusto odio dignis ducimus qui blandi praesen volupta deleniti at corrupti quos dolores et quas molestias excep sint.</p>
-                  <div class="product-box__box-newsletter mt:10px d:flex flw:nowrap w:100% h:43px bd:1px_solid_color-gray2 mt:20px">
-                    <input class="bd:none! o:none w:70% h:100% bdend:1px_solid_gray3! c:color-gray3 c:color-gray3||placeholder! fz:15px! fz:15px||pl! fw:400 fw:400||placeholder! ff:font-primary!" type="text" placeholder="Your email">
-                    <button class="fz:15px fw:500 ff:font-primary bdrs:0 w:30% h:100% bgc:color-dark bgc:color-dark!|h c:color-light bd:none">GET!</button>
-                  </div>
+                  {% form 'customer' %}
+                    <div class="product-box__box-newsletter mt:10px d:flex flw:nowrap w:100% h:43px bd:1px_solid_color-gray2 mt:20px">
+                      {% if form.errors %}
+                        {% for field in form.errors %}
+                          <div>
+                            <p>{{ field }} {{ form.errors.messages[field] }}</p>
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                      {% if form.posted_successfully? %}
+                        <div>
+                          <p>Thanks for Signup!</p>
+                        </div>
+                      {% else %}
+                        <input type="hidden" name="contact[tags]" value="newsletter" />
+                        <input class="bd:none! o:none w:70% h:100% bdend:1px_solid_gray3! c:color-gray3 c:color-gray3||placeholder! fz:15px! fz:15px||pl! fw:400 fw:400||placeholder! ff:font-primary!" type="text" placeholder="Your email" name="contact[email]"
+                        autocorrect="off" autocapitalize="off">
+                        <button class="fz:15px fw:500 ff:font-primary bdrs:0 w:30% h:100% bgc:color-dark bgc:color-dark!|h c:color-light bd:none" type="submit" aria-label="dasdas">GET!</button>
+                        <p class="result"></p>
+                        <p class="result-error"></p>
+                      {% endif %}
+                    </div>
+                  {% endform %}
                 </div>
               </div>
             {% endif %}

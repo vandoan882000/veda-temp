@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_ad6d1180-a888-45f6-ba0b-f049001e3fc6" %}
+{% set uniqueId = "id_c825bf85-3d59-4cf8-98b7-43efdee6bae3" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -18,7 +18,7 @@
 {% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
 
 
-<header data-id="header" class="pos:relative z:10 bgc:color-light bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+<header data-id="header" class="pos:relative z:10 bgz:cover bgp:center" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
   {% if general_settings.background_overlay_enable %}
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}

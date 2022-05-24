@@ -15,7 +15,10 @@
   border: 1px solid var(--color-gray9);
 }
 .yasmina-filter-input-radio:checked ~ div  {
-  background-color: var(--color-gray9);
+  background-color: var(--color-primary);
+}
+.yasmina-filter-input-radio:checked ~ label {
+  color: var(--color-primary);
 }
 .yasmina-product-page-input-size:checked ~ div {
   background-color: var(--color-light);
@@ -27,3 +30,25 @@
   background-color: var(--color-gray2);
 }
 
+.yasmina-shop-page__view1 {
+  border: 1px solid var(--color-gray2);
+  color: var(--color-gray2);
+  &:hover {
+    color: var(--color-gray2);
+  }
+}
+
+.yasmina-shop-page__view2 {
+  border: 1px solid var(--color-gray2);
+  color: var(--color-gray2);
+  &:hover {
+    color: var(--color-gray2);
+  }
+}
+.yasmina-shop-page__view-active {
+  border: 1px solid var(--color-gray9);
+  color: var(--color-gray9);
+  &:hover {
+    color: var(--color-gray9);
+  }
+}

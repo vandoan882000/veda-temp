@@ -4,8 +4,9 @@ const container = document.querySelector(`[data-id="${uniqueId}"]`);
 
 const { message, productCompare, productWishList, productQuickView, productColor, cart } = veda.plugins;
 const { debounce } = veda.utils;
+let unsubscribeCompare = undefined;
+let unsubscribeWishList = undefined;
 const PREFIX = 'yasmina';
-
 function changeStatus(el, productData, lstProduct, destination , messageShow = false ) {
   let hasItem = lstProduct?.some(item => item.id === productData.id);
   if(hasItem) {
@@ -41,8 +42,18 @@ function handleCompare() {
       });
       changeStatus(btnCompare, productData, productCompare.getData(), "Compare", true);
     });
-    productCompare.subscribe((state) => changeStatus(btnCompare, productData, productCompare.getData(), "Compare"));
   });
+  unsubscribeCompare?.();
+  unsubscribeCompare = productCompare.subscribe((state) => {
+    const listCard = container.querySelectorAll('.yasmina-product-card');
+    listCard.forEach(card => {
+      const compareDataEl = card.querySelector(".product-card-data-js");
+      const productData = JSON.parse(compareDataEl.textContent);
+      const btnCompare = card.querySelector('.veda-compare__btn-toggle');
+      changeStatus(btnCompare, productData, state, "Compare");
+    });
+  });
+
 }
 function handleWishList() {
   const listCard = container.querySelectorAll('.yasmina-product-card');
@@ -58,7 +69,17 @@ function handleWishList() {
       productWishList.toggleWishList(productData)
       changeStatus(btnWishList, productData, productWishList.getData(), "Wishlist", true);
     });
-    productWishList.subscribe((state) => changeStatus(btnWishList, productData, productWishList.getData(), "Wishlist"));
+
+  });
+  unsubscribeWishList?.();
+  unsubscribeWishList = productWishList.subscribe((state) => {
+    const listCard = container.querySelectorAll('.yasmina-product-card');
+    listCard.forEach(card => {
+      const dataEl = card.querySelector(".product-card-data-js");
+      const productData = JSON.parse(dataEl.textContent);
+      const btnWishList = card.querySelector('.veda-wishlist__btn-toggle');
+      changeStatus(btnWishList, productData, state, "Wish List");
+    });
   });
 }
 function handleCart() {

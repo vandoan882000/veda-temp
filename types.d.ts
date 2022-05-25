@@ -673,9 +673,9 @@ declare interface Veda {
      * const { collectionsFilters } = veda.plugins;
      * const { html } = veda.utils.csr;
      * collectionsFilters(container, {
-     *   formElement: container.querySelector(".petify-filter-form"),
-     *   sortByElement: container.querySelector(".petify-sort-by"),
-     *   refineRootElement: container.querySelector(".petify-refine-root"),
+     *   formElement: container.querySelector(".filter-form-js"),
+     *   sortByElement: container.querySelector(".filter-sort-by-js"),
+     *   refineRootElement: container.querySelector(".filter-refine-js-root"),
      *   renderRefineItem: ({ item, onRemove }) => {
      *     return html`
      *       <span key=${item.value}>
@@ -688,7 +688,7 @@ declare interface Veda {
      *   },
      *   renderClearAllButton: ({ onClear }) => {
      *     return html`
-     *       <button class="petify-clear-all" onClick=${onClear}>Clear All</button>
+     *       <button class="data-shopify-id" onClick=${onClear}>Clear All</button>
      *     `;
      *   },
      *   onChange: (url, category, done) => {
@@ -696,7 +696,7 @@ declare interface Veda {
      *     done();
      *   },
      *   onChangePrice({ min, max }) {
-     *     const priceViewEl = container.querySelector(".petify-price-view");
+     *     const priceViewEl = container.querySelector(".filter-price-view-js");
      *     priceViewEl.textContent = `${min} - ${max}`;
      *   }
      * });
@@ -713,9 +713,9 @@ declare interface Veda {
      *  }">
      *    <i class="fal fa-repeat"></i>
      *  </button>
-     *  <button class="veda-compare__btn-toggle">Add</button>
+     *  <button class="compare-toggle-js">Add</button>
      *  <button class="veda-compare__badge"></button>
-     *  <div class="veda-compare__rating-custom">Rating custom 1</div>
+     *  <div class="compare-rating-js">Rating custom 1</div>
      * ```
      *
      *
@@ -740,8 +740,8 @@ declare interface Veda {
      * veda.plugins.productCompare.customCompare(veda.utils.objectParse(dataCompareOptions));
      *
      * // button add compare
-     * const btnAddCompare = document.querySelector('.veda-compare__btn-toggle');
-     * const ratingCustom = document.querySelector('.veda-compare__rating-custom');
+     * const btnAddCompare = document.querySelector('.compare-toggle-js');
+     * const ratingCustom = document.querySelector('.compare-rating-js');
      *  changeStatus(btnAddCompare, dataCompare);
      *  veda.plugins.productCompare.subscribe(() => {
      *     changeStatus(btnAddCompare, dataCompare);
@@ -756,7 +756,7 @@ declare interface Veda {
      *
      * // button popup
      * btnComparePopup.addEventListener('click', () => {
-     *   veda.plugins.productCompare.togglePopup();
+     *   veda.plugins.productCompare.toggleDraw();
      * });
      *
      * // compare badge
@@ -772,7 +772,7 @@ declare interface Veda {
     productCompare: {
       toggleProduct(product: ProductCompare): void;
       customCompare(content: CustomCompare ): void;
-      togglePopup(): void;
+      toggleDraw(): void;
       getData(): ProductCompare[];
       subscribe(listener: (state?: ProductCompare[]) => {}): void;
     };
@@ -820,7 +820,7 @@ declare interface Veda {
      * //button popup
      * const btnCart = document.querySelector('.veda-cart__popup');
      * btnCart.addEventListener('click', () => {
-     *   veda.plugins.cart.togglePopup();
+     *   veda.plugins.cart.toggleDraw();
      * });
      * // cart badge
      * const cartBadge = document.querySelector('.veda-cart__badge');
@@ -840,7 +840,7 @@ declare interface Veda {
       getData(): ProductCart[];
       subscribe(listener: (state?: ProductCart[]) => {}): void;
       addToCart(product: ProductCart): void;
-      togglePopup(): void;
+      toggleDraw(): void;
       renderCart(el : HTMLElement): void;
     }
 
@@ -861,13 +861,13 @@ declare interface Veda {
      * })
      * const btnQuickView = document.querySelector('.veda-quick-view__btn-toggle');
      * btnQuickView.addEventListener('click', () => {
-     *   veda.plugins.productQuickView.togglePopup(dataQuickView);
+     *   veda.plugins.productQuickView.toggleDraw(dataQuickView);
      * });
      * ```
      */
     productQuickView: {
       customQuickView(options: CustomQuickView ): void;
-      togglePopup(product: ProductQuickView): void;
+      toggleDraw(product: ProductQuickView): void;
       getData(): ProductQuickView;
     }
 
@@ -877,7 +877,7 @@ declare interface Veda {
      * // Wish List data in script tag
      * <script class="product-card-data-js" type="application/json">{ product }</script>
      * // button Wish List
-     * <button class="veda-wishlist__btn-toggle"><i class="fal fa-heart"></i></button>
+     * <button class="wishlist-toggle-js"><i class="fal fa-heart"></i></button>
      * <div class="veda-wishlist__badge"></div>
      * <div class="veda-wishlist__wrapper"></div>
      * ```
@@ -898,7 +898,7 @@ declare interface Veda {
      *   },
      * })
      * //
-     * const btnWishList = document.querySelector('.veda-wishlist__btn-toggle');
+     * const btnWishList = document.querySelector('.wishlist-toggle-js');
      * btnWishList.addEventListener('click', () => {
      *   veda.plugins.productWishList.toggleWishList(dataWishList);
      * });

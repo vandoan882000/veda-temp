@@ -1,54 +1,50 @@
 const uniqueId = "cartcontainer";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
-const { map , store, debounce } = veda.utils;
-const { message } = veda.plugins;
-const { html, render } = veda.utils.csr;
-const PREFIX = "yasmina";
 
-
-function customDebounceCart(fn, todo, timeout = 300) {
-  let timeoutId = -1;
-  return function (...args) {
-    todo.apply(this, args);
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      fn.apply(this, args);
-    }, timeout);
-  };
-}
-function onChangeQuantity(event, id) {
-  const currentEl = event.target;
-  const quantity = currentEl.value;
-  if (quantity == 0) {
-    veda.plugins.cart.removeCart(id);
-  } else {
-    veda.plugins.cart.updateCart(id, quantity);
-  }
-}
-function handleClickChangeQuantity(event, id) {
-  const currentEl = event.target;
-  const quantityEl = currentEl.closest('.veda-counter').querySelector('.veda-counter__input');
-  if (quantityEl.value == 0) {
-    veda.plugins.cart.removeCart(id);
-  } else {
-    veda.plugins.cart.updateCart(id, quantityEl.value);
-  }
-}
-function handleClickIncrement(event) {
-  const currentEl = event.target;
-  const quantityEl = currentEl.closest('.veda-counter').querySelector('.veda-counter__input');
-  quantityEl.value = Number(quantityEl.value) + 1;
-}
-function handleClickDecrement(event) {
-  const currentEl = event.target;
-  const quantityEl = currentEl.closest('.veda-counter').querySelector('.veda-counter__input');
-  if(Number(quantityEl.value) > 0) {
-    quantityEl.value = Number(quantityEl.value) - 1;
-  }
-}
 if(!!container) {
-
+  const { debounce } = veda.utils;
+  const { html } = veda.utils.csr;
+  function customDebounceCart(fn, todo, timeout = 300) {
+    let timeoutId = -1;
+    return function (...args) {
+      todo.apply(this, args);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        fn.apply(this, args);
+      }, timeout);
+    };
+  }
+  function onChangeQuantity(event, id) {
+    const currentEl = event.target;
+    const quantity = currentEl.value;
+    if (quantity == 0) {
+      veda.plugins.cart.removeCart(id);
+    } else {
+      veda.plugins.cart.updateCart(id, quantity);
+    }
+  }
+  function handleClickChangeQuantity(event, id) {
+    const currentEl = event.target;
+    const quantityEl = currentEl.closest('.veda-counter').querySelector('.veda-counter__input');
+    if (quantityEl.value == 0) {
+      veda.plugins.cart.removeCart(id);
+    } else {
+      veda.plugins.cart.updateCart(id, quantityEl.value);
+    }
+  }
+  function handleClickIncrement(event) {
+    const currentEl = event.target;
+    const quantityEl = currentEl.closest('.veda-counter').querySelector('.veda-counter__input');
+    quantityEl.value = Number(quantityEl.value) + 1;
+  }
+  function handleClickDecrement(event) {
+    const currentEl = event.target;
+    const quantityEl = currentEl.closest('.veda-counter').querySelector('.veda-counter__input');
+    if(Number(quantityEl.value) > 0) {
+      quantityEl.value = Number(quantityEl.value) - 1;
+    }
+  }
   veda.plugins.countdown(container);
   veda.plugins.cart.customCart({
     renderCart: (product) => {

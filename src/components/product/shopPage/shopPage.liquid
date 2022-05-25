@@ -62,7 +62,7 @@
       <div class="d:flex">
         View as:
         <a href="#" class="yasmina-shop-page__view1 p:0px_5px_0px_5px ml:10px"><i class="fal fa-list"></i></a>
-        <a href="#" class="yasmina-shop-page__view2 yasmina-shop-page__view-active p:0px_5px_0px_5px ml:10px"><i class="as fa-th"></i></a>
+        <a href="#" class="yasmina-shop-page__view2 yasmina-shop-page__view-active p:0px_5px_0px_5px ml:10px"><i class="fas fa-th"></i></a>
       </div>
       <shopify>
 
@@ -102,7 +102,7 @@
           <form id="filter-form" class="filter_form">
             <div class="d:flex whs:nowrap ai:center pos:relative mt:10px mt:0px@md filter_field sort_by pos:relative">
               <p class="mr:10px fz:15px fw:500">Sort by</p>
-              <div class="veda-select petify-sort-by">
+              <div class="veda-select filter-sort-by-js">
                 <div class="veda-select__view w:190px h:43px bd:1px_solid_#DEDEE9 pl:15px cur:pointer d:flex ai:center ff:font-secondary">
                   <div class="veda-select__label w:150px cur:pointer d:flex ai:center fz:15px fw:400 c:color-gray4 ff:font-secondary"></div>
                   <i class="fal fa-angle-down"></i>
@@ -121,59 +121,58 @@
         </shopify>
 
     </div>
-    <div data-id="products" class="row mt:20px ">
-      <div class="col-lg-9 shop-page1 pr:40px@md d:block pretify-content-collections">
-        <div class="row">
+    <div class="row mt:20px ">
+      <div class="col-lg-9 shop-page1 pr:40px@md d:block">
+        <div class="row content-collections-js">
           {% assign collection = collections[content.collection] %}
-          <script class="product-all-data" type="application/json">{{ collection.products | json }}</script>
           {% for product in collection.products limit: 9 %}
             <div class="col-md-6 col-lg-4">
-              <div class="yasmina-product-card d:flex fld:column ai:center ta:center mb:15px pb:15px">
+              <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">
                 <script class="product-card-data-js" type="application/json">{{ product | json }}</script>
-                <div class="yasmina-product-card__img w:100% pos:relative ov:hidden">
+                <div class="product-card__img w:100% pos:relative ov:hidden">
                   <div class="pet-product-card__image">
                     <a href="/pageproduct.html" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
-                      <img class="yasmina-product-card__image" src="{{ product.featured_image.src | img_url: '400x' }}" alt="{{ product.title }}">
+                      <img class="product-card-image-js" src="{{ product.featured_image.src | img_url: '400x' }}" alt="{{ product.title }}">
                     </a>
                   </div>
-                  <div class="yasmina-product-card__add-content veda-cart__btn-add-cart pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px">
-                    <a class="yasmina-product-card__add cur:pointer fz:17px pos:absolute td:none w:100% h:100% va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light c:color-light!|h">{{content.add_to_cart_text}}</a>
+                  <div class="product-card__add-content product-card-add-js d:flex jc:center ai:center pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px cur:pointer fz:17px td:none w:100% c:color-light c:color-light!|h us:none">
+                    {{content.add_to_cart_text}}
                   </div>
-                  <div class="yasmina-product-card__state pos:absolute t:5px l:5px d:flex">
+                  <div class="pos:absolute t:5px l:5px d:flex">
                     {% if product.compare_at_price > product.price and content.sale.enable %}
-                      <div class="yasmina-product-card__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                      <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
                         <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
                       </div>
                     {% endif %}
                   </div>
-                  <div class="yasmina-product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                    <div class="yasmina-product-card__icon-bg veda-wishlist__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                  <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                    <div class="product-card-js__icon-bg wishlist-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
                       <i class="fal fa-heart"></i>
                     </div>
-                    <div class="yasmina-product-card__icon-bg--hidden veda-quickview__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                    <div class="product-card-js__icon-bg--hidden quickview-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                       <i class="fal fa-eye"></i>
                     </div>
-                    <div class="yasmina-product-card__icon-bg--hidden veda-compare__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                    <div class="product-card-js__icon-bg--hidden compare-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
                       <i class="fal fa-repeat"></i>
                     </div>
                   </div>
                 </div>
 
 
-                <div class="yasmina-product-card__content d:flex fld:column jc:center ai:center">
-                  <div class="yasmina-product-card__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
-                  <a class="yasmina-product-card__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
-                  <a class="yasmina-product-card__price mt:14px" href="#">
-                    <ins class="yasmina-product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}.00</ins>
+                <div class="product-card-js__content d:flex fld:column jc:center ai:center">
+                  <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
+                  <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+                  <a class="product-card-js__price mt:14px" href="#">
+                    <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}.00</ins>
                     {% if product.compare_at_price > product.price %}
-                      <del class="yasmina-product-card__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}.00</del>
+                      <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}.00</del>
                     {% endif %}
                   </a>
 
-                  <div class="yasmina-product-card__colors d:flex">
-                    <script class="yasmina-product-card__options-json" type="application/json">{{ product.options_with_values | json }}</script>
+                  <div class="product-card-colors-js d:flex">
+                    <script class="product-card-js__options-json" type="application/json">{{ product.options_with_values | json }}</script>
                   </div>
-                  <script class="yasmina-product-card__variants-json" type="application/json">{{ product.variants | json }}</script>
+                  <script class="product-card-js__variants-json" type="application/json">{{ product.variants | json }}</script>
 
                 </div>
               </div>
@@ -192,44 +191,44 @@
         </div>
       </div>
       <div class="col-lg-9 pl:40px shop-page2 d:none">
-        <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 pr:90px" component="content">
+        <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 pr:90px content-collections-js" component="content">
           {% assign collection = collections[content.collection] %}
 
           {% for product in collection.products limit: 4 %}
-          <div class="yasmina-product-card d:flex fld:row ai:center ta:center mb:15px pb:15px">
+          <div class="product-card-js d:flex fld:row ai:center ta:center mb:15px pb:15px">
             <script class="product-card-data-js" type="application/json">{{ product | json }}</script>
-            <div class="yasmina-product-card__img miw:250px w:250px pos:relative ov:hidden">
+            <div class="product-card__img miw:250px w:250px pos:relative ov:hidden">
               <div class="pet-product-card__image miw:250px w:250px">
                 <a href="#" class="veda-image-cover d:block miw:250px w:250px" css="--aspect-ratio: 3/4">
-                  <img class="yasmina-product-card__image" src="{{ product.featured_image.src | img_url: '250x' }}" alt="{{ product.title }}">
+                  <img class="product-card-image-js" src="{{ product.featured_image.src | img_url: '250x' }}" alt="{{ product.title }}">
                 </a>
               </div>
 
-              <div class="yasmina-product-card__state pos:absolute t:5px l:5px d:flex">
+              <div class="pos:absolute t:5px l:5px d:flex">
                 {% if product.compare_at_price > product.price and content.sale.enable %}
-                  <div class="yasmina-product-card__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                  <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
                     <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
                   </div>
                 {% endif %}
               </div>
-              <div class="yasmina-product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                <div class="yasmina-product-card__icon-bg veda-wishlist__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+              <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                <div class="product-card-js__icon-bg wishlist-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
                   <i class="fal fa-heart"></i>
                 </div>
-                <div class="yasmina-product-card__icon-bg--hidden veda-quickview__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                <div class="product-card-js__icon-bg--hidden quickview-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                   <i class="fal fa-eye"></i>
                 </div>
-                <div class="yasmina-product-card__icon-bg--hidden veda-compare__btn-toggle cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                <div class="product-card-js__icon-bg--hidden compare-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
                   <i class="fal fa-repeat"></i>
                 </div>
               </div>
             </div>
 
 
-            <div class="yasmina-product-card__content d:flex fld:column jc:flex-start ai:flex-start h:100% pl:30px">
-              <div class="yasmina-product-card__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
-              <a class="yasmina-product-card__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
-              <div class="veda-compare__rating-custom">
+            <div class="product-card-js__content d:flex fld:column jc:flex-start ai:flex-start h:100% pl:30px">
+              <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
+              <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+              <div class="compare-rating-js">
                 {% if content.review_app_enable %}
                   {% case content.review_app_type %}
                     {% when 'product_reviews' %}
@@ -255,23 +254,24 @@
                   {% endcase %}
                 {% endif %}
               </div>
-              <a class="yasmina-product-card__price mt:14px" href="#">
-                <ins class="yasmina-product-card__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}.00</ins>
+              <a class="product-card-js__price mt:14px" href="#">
+                <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}.00</ins>
                 {% if product.compare_at_price > product.price %}
-                  <del class="yasmina-product-card__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}.00</del>
+                  <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}.00</del>
                 {% endif %}
               </a>
 
-              <div class="yasmina-product-card__colors d:flex">
-                <script class="yasmina-product-card__options-json" type="application/json">{{ product.options_with_values | json }}</script>
+              <div class="product-card-colors-js d:flex">
+                <script class="product-card-js__options-json" type="application/json">{{ product.options_with_values | json }}</script>
               </div>
-              <script class="yasmina-product-card__variants-json" type="application/json">{{ product.variants | json }}</script>
+              <script class="product-card-js__variants-json" type="application/json">{{ product.variants | json }}</script>
               <div class="ff:font-secondary fw:300 fz:13px c:color-gray9 ta:left mt:20px">
                 At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et.
               </div>
-              <div class="yasmina-product-card__add-content veda-cart__btn-add-cart w:244px bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px">
-                <a class="yasmina-product-card__add cur:pointer fz:17px pos:absolute td:none va:middle lh:50px t:50% l:50% trf:translate(-50%,-50%) c:color-light c:color-light!|h whs:nowrap">ADD TO CART</a>
+              <div class="product-card-add-js d:flex jc:center ai:center w:244px bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px cur:pointer fz:17px td:none va:middle lh:50px c:color-light c:color-light!|h whs:nowrap us:none">
+                {{content.add_to_cart_text}}
               </div>
+
             </div>
           </div>
           {% endfor %}
@@ -310,14 +310,14 @@
                 {%- assign min_price = arr_price | first -%}
                 {%- assign max_price = arr_price | last -%}
 
-                <form id="filter_form" class="petify-filter-form">
+                <form id="filter_form" class="filter-form-js">
 
-                    <div class="pretify-refine-wrapper product-box__refine mb:20px pos:relative">
+                    <div class="filter-refine-wrapper-js product-box__refine mb:20px pos:relative">
                       <div class="d:flex jc:space-between mb:15px">
                         <h2 class="product-box__title fz:20px fw:500 ff:font-primary">Refine By</h2>
-                        <div class="petify-clear-all mt:3px"></div>
+                        <div class="filter-clear-all-js mt:3px"></div>
                       </div>
-                      <div class="petify-refine"></div>
+                      <div class="filter-refine-js"></div>
                     </div>
                   {% if categories.enable %}
                     <div class="filter_field filter_by_categories">
@@ -379,7 +379,7 @@
                       </h2>
                       <div>
                         <span class="fz:15px fw:400 c:color-gray4">Giá: </span>
-                        <span class="petify-price-view fz:15px fw:500 c:color-gray9">{{ price.price_text }}: {{ min_price | times:100 | money }} - {{ max_price | times:100 | money }}</span>
+                        <span class="filter-price-view-js fz:15px fw:500 c:color-gray9">{{ price.price_text }}: {{ min_price | times:100 | money }} - {{ max_price | times:100 | money }}</span>
                       </div>
                     </div>
 

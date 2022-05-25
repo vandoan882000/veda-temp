@@ -25,7 +25,7 @@ class PageProduct {
   handleChangeStatus() {
     const data = productWishList.getData();
     const productEl = container.querySelector(".yasmina-page-product");
-    const btnWishlist = productEl.querySelector(".veda-wishlist__btn-toggle");
+    const btnWishlist = productEl.querySelector(".wishlist-toggle-js");
     const dataEl = productEl.querySelector(".yasmina-page-product__data");
     const newItem = JSON.parse(dataEl.textContent);
     const { id: newId } = newItem;
@@ -51,7 +51,7 @@ class PageProduct {
       });
     })
     //button add cart
-    const btnAddCart = document.querySelector('.veda-cart__btn-add-cart');
+    const btnAddCart = document.querySelector('.product-card-add-js');
     btnAddCart.addEventListener('click', debounce(() => {
       const quantityEl = document.querySelector('.yasmina-page-product__quantity');
       const itemAdd = cart.getData().filter(item => item.product_id === dataWishList.id);
@@ -61,7 +61,7 @@ class PageProduct {
         cart.addToCart(dataWishList);
       }
     }));
-    const btnWishlist = container.querySelector(".veda-wishlist__btn-toggle");
+    const btnWishlist = container.querySelector(".wishlist-toggle-js");
     btnWishlist.addEventListener("click", () => {
       productWishList.toggleWishList(dataWishList);
     })

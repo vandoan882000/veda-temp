@@ -7,6 +7,7 @@ atomic.setConfig({
     lg: "1200px",
   },
   useRtl: true,
+  cache: true,
   custom: {
     "font-primary": "var(--font-primary)",
     "font-secondary": "var(--font-secondary)",

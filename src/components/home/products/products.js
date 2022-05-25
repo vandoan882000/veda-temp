@@ -2,124 +2,150 @@ const uniqueId = "products";
 /** @type HTMLElement */
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 
-const { message, productCompare, productWishList, productQuickView, productColor, cart } = veda.plugins;
-const { debounce } = veda.utils;
-let unsubscribeCompare = undefined;
-let unsubscribeWishList = undefined;
-const PREFIX = 'yasmina';
-function changeStatus(el, productData, lstProduct, destination , messageShow = false ) {
-  let hasItem = lstProduct?.some(item => item.id === productData.id);
-  if(hasItem) {
-    el.setAttribute("data-tooltip-active",true);
-    el.style.backgroundColor = "#AF0707";
-    el.style.color = "#ffffff";
-    if (messageShow) {
-      message.success(`Added to ${destination}`);
-    }
-  } else {
-    el.setAttribute("data-tooltip-active",false);
-    el.style.backgroundColor = "#ffffff";
-    el.style.color = "#000000";
-    if (messageShow) {
-      message.error(`Removed from ${destination}`);
-    }
+if(!!container) {
+  const { message, productCompare, productWishList, productQuickView, productColor, cart } = veda.plugins;
+  let unsubscribeCompare = () => {};
+  let unsubscribeWishList = () => {};
+  let loadding = false;
+  function checkHasItem(productData, storeData) {
+    return storeData?.some((item) => item.id === productData.id);
   }
-  return hasItem;
-}
-
-function handleCompare() {
-  const listCard = container.querySelectorAll('.yasmina-product-card');
-  listCard.forEach(card => {
-    const compareDataEl = card.querySelector(".product-card-data-js");
-    const productData = JSON.parse(compareDataEl.textContent);
-    const btnCompare = card.querySelector('.veda-compare__btn-toggle');
-    const ratingCustom = card.querySelector('.veda-compare__rating-custom');
-    changeStatus(btnCompare, productData, productCompare.getData(), "Compare");
-    btnCompare.addEventListener('click', () => {
-      productCompare.toggleProduct({
-        ...productData,
-        rating: ratingCustom?.innerHTML,
-      });
-      changeStatus(btnCompare, productData, productCompare.getData(), "Compare", true);
-    });
-  });
-  unsubscribeCompare?.();
-  unsubscribeCompare = productCompare.subscribe((state) => {
-    const listCard = container.querySelectorAll('.yasmina-product-card');
-    listCard.forEach(card => {
+  function changeStatus(el, hasItem) {
+    if (hasItem()) {
+      el.setAttribute("data-tooltip-active", true);
+      el.classList.add("toggle-active-js");
+    } else {
+      el.setAttribute("data-tooltip-active", false);
+      el.classList.remove("toggle-active-js");
+    }
+    return hasItem;
+  }
+  function handleCompare() {
+    const listCard = container.querySelectorAll(".product-card-js");
+    listCard.forEach((card) => {
       const compareDataEl = card.querySelector(".product-card-data-js");
       const productData = JSON.parse(compareDataEl.textContent);
-      const btnCompare = card.querySelector('.veda-compare__btn-toggle');
-      changeStatus(btnCompare, productData, state, "Compare");
+      const btnCompareEl = card.querySelector(".compare-toggle-js");
+      const ratingCustom = card.querySelector(".compare-rating-js");
+      const hasItem = () => checkHasItem(productData, productCompare.getData());
+      changeStatus(btnCompareEl, hasItem);
+      btnCompareEl.addEventListener("click", () => {
+        productCompare.toggleProduct({
+          ...productData,
+          rating: ratingCustom?.innerHTML,
+        });
+        const tooltipText = btnCompareEl.getAttribute("data-tooltip-text");
+        const tooltipActiveText = btnCompareEl.getAttribute(
+          "data-tooltip-active-text"
+        );
+        changeStatus(btnCompareEl, hasItem);
+        if (hasItem()) {
+          tooltipText && message.success(tooltipText);
+        } else {
+          tooltipActiveText && message.error(tooltipActiveText);
+        }
+      });
     });
-  });
-
-}
-function handleWishList() {
-  const listCard = container.querySelectorAll('.yasmina-product-card');
-  listCard.forEach(card => {
-    const compareDataEl = card.querySelector(".product-card-data-js");
-    const productData = JSON.parse(compareDataEl.textContent);
-    const btnWishList = card.querySelector('.veda-wishlist__btn-toggle');
-    productQuickView.customQuickView({
-      link: "/pageproduct.html",
-    })
-    changeStatus(btnWishList, productData, productWishList.getData(), "Wishlist");
-    btnWishList.addEventListener("click", () => {
-      productWishList.toggleWishList(productData)
-      changeStatus(btnWishList, productData, productWishList.getData(), "Wishlist", true);
+    unsubscribeCompare();
+    unsubscribeCompare = productCompare.subscribe((state) => {
+      const listCard = container.querySelectorAll(".product-card-js");
+      listCard.forEach((card) => {
+        const compareDataEl = card.querySelector(".product-card-data-js");
+        const productData = JSON.parse(compareDataEl.textContent);
+        const btnCompareEl = card.querySelector(".compare-toggle-js");
+        const hasItem = () => checkHasItem(productData, state);
+        changeStatus(btnCompareEl, hasItem);
+      });
     });
-
-  });
-  unsubscribeWishList?.();
-  unsubscribeWishList = productWishList.subscribe((state) => {
-    const listCard = container.querySelectorAll('.yasmina-product-card');
-    listCard.forEach(card => {
-      const dataEl = card.querySelector(".product-card-data-js");
-      const productData = JSON.parse(dataEl.textContent);
-      const btnWishList = card.querySelector('.veda-wishlist__btn-toggle');
-      changeStatus(btnWishList, productData, state, "Wish List");
+  }
+  function handleWishList() {
+    const listCard = container.querySelectorAll(".product-card-js");
+    listCard.forEach((card) => {
+      const compareDataEl = card.querySelector(".product-card-data-js");
+      const productData = JSON.parse(compareDataEl.textContent);
+      const btnWishListEl = card.querySelector(".wishlist-toggle-js");
+      const hasItem = () =>
+        checkHasItem(productData, productWishList.getData());
+      productQuickView.customQuickView({
+        link: "/pageproduct.html",
+      });
+      changeStatus(btnWishListEl, hasItem);
+      btnWishListEl.addEventListener("click", () => {
+        productWishList.toggleWishList(productData);
+        const tooltipText = btnWishListEl.getAttribute("data-tooltip-text");
+        const tooltipActiveText = btnWishListEl.getAttribute(
+          "data-tooltip-active-text"
+        );
+        changeStatus(btnWishListEl, hasItem);
+        if (hasItem()) {
+          tooltipText && message.success(tooltipText);
+        } else {
+          tooltipActiveText && message.error(tooltipActiveText);
+        }
+      });
     });
-  });
-}
-function handleCart() {
-  const listCard = container.querySelectorAll('.yasmina-product-card');
-  listCard.forEach(card => {
-    const cartDataEl = card.querySelector(".product-card-data-js");
-    const productData = JSON.parse(cartDataEl.textContent);
-    const btnAddCart = card.querySelector('.veda-cart__btn-add-cart');
-    btnAddCart.addEventListener('click', debounce(() => {
-      cart.addToCart(productData);
-    }));
-  });
-}
-function handleQuickView() {
-  const listCard = container.querySelectorAll('.yasmina-product-card');
-  listCard.forEach(card => {
-    const cartDataEl = card.querySelector(".product-card-data-js");
-    const productData = JSON.parse(cartDataEl.textContent);
-    const btnQuickView = card.querySelector('.veda-quickview__btn-toggle');
-    btnQuickView.addEventListener("click", () => productQuickView.togglePopup(productData));
-  });
-}
-function handleColor() {
-  const listCard = container.querySelectorAll('.yasmina-product-card');
-  productColor.init({
-    onChange: (color, image, currentEl) => {
-      const currentImage = currentEl.closest(".yasmina-product-card").querySelector('.yasmina-product-card__image');
-      currentImage.src = image;
-      console.log("selected color:", color);
-    },
-  })
-  listCard.forEach(card => {
-    const cartDataEl = card.querySelector(".product-card-data-js");
-    const productData = JSON.parse(cartDataEl.textContent);
-    const colorWrapper = card.querySelector('.yasmina-product-card__colors');
-    productColor.render(colorWrapper, productData);
-  });
-}
-
-if(!!container) {
+    unsubscribeWishList();
+    unsubscribeWishList = productWishList.subscribe((state) => {
+      const listCard = container.querySelectorAll(".product-card-js");
+      listCard.forEach((card) => {
+        const dataEl = card.querySelector(".product-card-data-js");
+        const productData = JSON.parse(dataEl.textContent);
+        const btnWishList = card.querySelector(".wishlist-toggle-js");
+        const hasItem = () => checkHasItem(productData, state);
+        changeStatus(btnWishList, hasItem);
+      });
+    });
+  }
+  function handleCart() {
+    const listCard = container.querySelectorAll(".product-card-js");
+    listCard.forEach((card) => {
+      const cartDataEl = card.querySelector(".product-card-data-js");
+      const productData = JSON.parse(cartDataEl.textContent);
+      const btnAddCart = card.querySelector(".product-card-add-js");
+      btnAddCart.addEventListener("click", async (event) => {
+        event.preventDefault();
+        if (!loadding) {
+          loadding = true;
+          const currentLoaderEl = document.createElement('div');
+          currentLoaderEl.classList.add('loader');
+          btnAddCart.insertAdjacentElement('afterbegin', currentLoaderEl);
+          cart.addToCart(productData).finally(() => {
+            currentLoaderEl.remove();
+            loadding = false;
+          });
+        }
+      });
+    });
+  }
+  function handleQuickView() {
+    const listCard = container.querySelectorAll(".product-card-js");
+    listCard.forEach((card) => {
+      const cartDataEl = card.querySelector(".product-card-data-js");
+      const productData = JSON.parse(cartDataEl.textContent);
+      const btnQuickView = card.querySelector(".quickview-toggle-js");
+      btnQuickView.addEventListener("click", () =>
+        productQuickView.toggleDraw(productData)
+      );
+    });
+  }
+  function handleColor() {
+    const listCard = container.querySelectorAll(".product-card-js");
+    productColor.init({
+      onChange: (color, image, currentEl) => {
+        const currentImage = currentEl
+          .closest(".product-card-js")
+          .querySelector(".product-card-image-js");
+        currentImage.src = image;
+        console.log("selected color:", color);
+      },
+    });
+    listCard.forEach((card) => {
+      const cartDataEl = card.querySelector(".product-card-data-js");
+      const productData = JSON.parse(cartDataEl.textContent);
+      const colorWrapper = card.querySelector(".product-card-colors-js");
+      productColor.render(colorWrapper, productData);
+    });
+  }
   handleCompare();
   handleWishList();
   handleQuickView();

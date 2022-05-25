@@ -9,14 +9,10 @@ $container: "[data-id='#{$uniqueId}']";
   border: 1px solid var(--color-gray2);
   height: 100%;
 }
-
-
 .pet-product-card__image {
   overflow: hidden;
 }
-
-
-[class^="yasmina-product-card__icon-bg"] {
+[class^="product-card-js__icon-bg"] {
   position: relative;
   width: 36px;
   height: 36px;
@@ -24,15 +20,15 @@ $container: "[data-id='#{$uniqueId}']";
   background-color: white;
   margin-bottom: 10px;
 }
-.yasmina-product-card__icon-bg--hidden {
+.product-card-js__icon-bg--hidden {
   visibility: hidden;
   opacity: 0;
 }
-.yasmina-product-card__img:hover .yasmina-product-card__status .yasmina-product-card__icon-bg--hidden {
+.product-card__img:hover .product-card__status .product-card-js__icon-bg--hidden {
   visibility: visible;
   opacity: 1;
 }
-[class^="yasmina-product-card__icon-bg"] i{
+[class^="product-card-js__icon-bg"] i{
   font-size: 17px;
   position: absolute;
   top: 50%;
@@ -40,6 +36,11 @@ $container: "[data-id='#{$uniqueId}']";
   transform: translate(-50%,-50%);
   transition: all 0.3s;
 }
-.yasmina-product-card__img:hover .yasmina-product-card__add-content {
-  transform: translateY(0px);
+.product-card__img:hover .product-card__add-content {
+  transform: translateY(0);
+}
+
+.toggle-active-js {
+  background-color: #AF0707;
+  color: #ffffff;
 }

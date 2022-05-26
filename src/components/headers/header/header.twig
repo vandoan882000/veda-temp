@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_d37ec8ae-a306-478a-8463-91df86993675" %}
+{% set uniqueId = "id_ac09d53e-d478-41ec-b848-4eb1e5c41163" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -112,8 +112,8 @@
         {% if search.enable %}
           
             <form action="{{ routes.search_url }}">
-              <div class="d:flex w:160px w:260px@md h:38px">
-                <div class="w:122px w:222px@md h:38px bd:1px_solid_color-gray2 ">
+              <div class="d:flex w:160px w:260px@md h:38px jc:flex-end">
+                <div class="w:80px w:222px@md h:38px bd:1px_solid_color-gray2 ">
                   <input class="bd:none! o:none d:inline-block pl:10px fz:13px c:color-gray6 c:color-gray6|ph" type="text"
                   placeholder="{{search.placeholder}}"
                   name="q"

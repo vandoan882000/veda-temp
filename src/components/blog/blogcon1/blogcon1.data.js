@@ -23,6 +23,7 @@ const data = {
   },
   search_enable: true,
   popular_post_enable: true,
+  popular_post_text: "Popular Posts",
   popular_post_data: [
     {
       title: "Lorem ipsum dolor sit amet, consectetur orem ipsum dolor sit amet, consectetur",

@@ -53,10 +53,10 @@ const data = {
     }
   ],
   column: {
-    xs: 1,
-    sm: 2,
-    md: 3,
-    lg: 4,
+    xs: 12,
+    sm: 6,
+    md: 6,
+    lg: 3,
   }
 
 };

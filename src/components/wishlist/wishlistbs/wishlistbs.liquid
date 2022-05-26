@@ -12,7 +12,7 @@
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
   <div class="container pb:40px">
-    <h3 class="ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+    <h3 class="ff:font-primary ta:center mb:45px fz:pfs(25px,40px) fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row">
       {% assign collection = collections[content.collection] %}
       <script class="product-all-data" type="application/json">{{ collection.products | json }}</script>

@@ -27,6 +27,6 @@ const data = {
     button_ask_expert_text: "Ask an expert",
     button_add_to_cart_text: "Add to cart",
     button_buy_it_now_text: "Buy it now",
-    desciption_text: "Description",
+    description_text: "Description",
   },
 };

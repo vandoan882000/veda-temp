@@ -3,6 +3,7 @@ const uniqueId = "bestseller";
 const container = document.querySelector(`[data-id="${uniqueId}"]`);
 
 if(!!container) {
+  const { debounce } = veda.utils;
   const { message, productCompare, productWishList, productQuickView, productColor, cart } = veda.plugins;
   let unsubscribeCompare = () => {};
   let unsubscribeWishList = () => {};
@@ -183,7 +184,7 @@ if(!!container) {
   handleQuickView();
   handleCart();
   handleColor();
-  window.addEventListener("resize", event => handleSwiper(event));
+  window.addEventListener("resize", debounce(event => handleSwiper(event)));
 }
 
 

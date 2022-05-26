@@ -20,7 +20,7 @@
       {% for item in content %}
         <div class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}" component="instagram-image">
           <div class="yasmina-insta d:flex jc:center cur:pointer">
-            <a href="#" class="veda-image-cover d:block w:100%" css="--aspect-ratio: 0.86">
+            <a href="#" class="veda-image-cover d:block w:100% ar:0.86" css="--aspect-ratio: 0.86">
               <img class="yasmina-insta__img" src={{item.src_image | img_url: ''}} alt="insta">
             </a>
           </div>

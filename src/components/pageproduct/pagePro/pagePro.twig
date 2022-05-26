@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_3db19c83-66a0-4cf4-84e1-8e32e0aae889" %}
+{% set uniqueId = "id_19c2a64d-6c39-4008-b788-3e3feecef610" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -1045,30 +1045,34 @@ checked{% endif %}
       </div>
     </div>
     <div class="row">
-      <div class="">
+      <div class="d:flex fld:column ai:center">
         <h2 class="ta:center mt:85px fz:35px mb:17px ff:font-primary c:color-dark fw:600">{{content.description_text}}</h2>
-        <p class="ta:center fz:15px mb:30px ff:font-secondary c:color-dark fw:400">
-
+        <p class="w:100% w:700px@sm ta:center fz:15px mb:30px ff:font-secondary c:color-dark fw:400">
+          {{product.description | truncatewords(100)| striptags}}
         </p>
       </div>
       <div class="col-lg-12 d:flex fxw:wrap">
-        <div class="w:100% w:50%@sm ta:center">
-          <img class="w:500px h:467px" src="../../../img/pageproduct1.png" alt="">
+        <div class="w:100% w:50%@sm ta:center d:flex jc:center">
+          <div class="w:500px ar:6/5">
+            <img src="../../../img/pageproduct1.png" alt="">
+          </div>
         </div>
         <div class="d:flex fld:column jc:center ai:center w:100% w:50%@sm ta:center mt:10px mt:0px@sm">
-          <h5 class="fz:15px ff:font-primary c:color-dark fw:600 mb:15px">LAMCORPER OSTIQUE AMATTIS</h5>
-          <h2 class="fz:45px ff:font-primary c:color-dark fw:500 mb:10px">100% Hand-made</h2>
-          <p class="fz:15px ff:font-secondary c:color-dark fw:400">Temporibus autem quibusdam et aut officiis debitis aut rerum <br/>necessitatibus saepe eveniet ut et voluptates repudiandae sint et <br/>molestiae non recusandae.</p>
+          <h5 class="fz:pfs(13px,15px) ff:font-primary c:color-dark fw:600 mb:15px">LAMCORPER OSTIQUE AMATTIS</h5>
+          <h2 class="fz:pfs(30px,45px) ff:font-primary c:color-dark fw:500 mb:10px">100% Hand-made</h2>
+          <p class="w:85% fz:pfs(13px,15px) ff:font-secondary c:color-dark fw:400">{{product.content | truncatewords(40)| striptags}}</p>
         </div>
       </div>
       <div class="col-lg-12 d:flex mt:30px fxw:wrap">
         <div class="d:flex fld:column jc:center ai:center w:100% w:50%@sm ta:center mb:10px mb:0px@sm">
-          <h5 class="fz:15px ff:font-primary c:color-dark fw:600 mb:15px">LAMCORPER OSTIQUE AMATTIS</h5>
-          <h2 class="fz:45px ff:font-primary c:color-dark fw:500 mb:10px">Wiloke Shop</h2>
-          <p class="fz:15px ff:font-secondary c:color-dark fw:400">Temporibus autem quibusdam et aut officiis debitis aut rerum <br/>necessitatibus saepe eveniet ut et voluptates repudiandae sint et <br/>molestiae non recusandae.</p>
+          <h5 class="fz:pfs(13px,15px) ff:font-primary c:color-dark fw:600 mb:15px">LAMCORPER OSTIQUE AMATTIS</h5>
+          <h2 class="fz:pfs(30px,45px) ff:font-primary c:color-dark fw:500 mb:10px">Wiloke Shop</h2>
+          <p class="w:85% fz:pfs(13px,15px) ff:font-secondary c:color-dark fw:400 ta:center">{{product.content | truncatewords(40)| striptags}}</p>
         </div>
-        <div class="w:100% w:50%@sm ta:center">
-          <img class="w:500px h:467px" src="../../../img/pageproduct2.png" alt="">
+        <div class="w:100% w:50%@sm ta:center d:flex jc:center">
+          <div class="w:500px ar:6/5">
+            <img src="../../../img/pageproduct2.png" alt="">
+          </div>
         </div>
       </div>
     </div>

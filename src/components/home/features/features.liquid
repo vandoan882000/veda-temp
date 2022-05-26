@@ -15,25 +15,26 @@
     <div class="row jc:center">
       {% for item in content %}
         <div class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}">
-          <div class="yasmina-trend mih:295px pos:relative ov:hidden" component="trending">
-            <a class="d:block" href="#" >
-              <img class="yasmina-trend__img w:100% h:100% t:0 l:0" src={{item.src_image | img_url: ''}} alt="trend">
+          <div class="yasmina-trend pos:relative ov:hidden" component="trending">
+            <a class="d:block w:100% ar:1.1 pos:relative" href="#" >
+              <img class="yasmina-trend__img w:100% h:100%" src={{item.src_image | img_url: ''}} alt="trend">
+              {% if item.position == "left" %}
+                <div class="yasmina-trend__content pos:absolute b:20% l:10% bgc:color-dark fw:600 fz:pfs(26px,45px) pt:pfs(3px,10px) pb:pfs(3px,10px) pl:pfs(10px,20px) pr:pfs(10px,20px) c:color-light">
+                  {{item.label}}
+                </div>
+              {% endif %}
+              {% if item.position == "center" %}
+                <div class="yasmina-trend__content pos:absolute t:50% l:50% trf:translate(-50%,-50%) w:max-content bgc:color-dark fw:600 fz:pfs(26px,45px) lh:65px pt:pfs(3px,10px) pb:pfs(3px,10px) pl:pfs(10px,20px) pr:pfs(10px,20px) c:color-light">
+                  {{item.label}}
+                </div>
+              {% endif %}
+              {% if item.position == "right" %}
+                <div class="yasmina-trend__content pos:absolute t:20% r:10% bgc:color-dark fw:600 fz:pfs(26px,45px) pt:pfs(3px,10px) pb:pfs(3px,10px) pl:pfs(10px,20px) pr:pfs(10px,20px) c:color-light">
+                  {{item.label}}
+                </div>
+              {% endif %}
             </a>
-            {% if item.position == "left" %}
-              <div class="yasmina-trend__content pos:absolute b:20% l:10% bgc:color-dark fw:600 fz:pfs(45px,35px) lh:65px p:10px_20px_10px_20px c:color-light">
-                <div>{{item.label}}</div>
-              </div>
-            {% endif %}
-            {% if item.position == "center" %}
-              <div class="yasmina-trend__content pos:absolute t:50% l:50% trf:translate(-50%,-50%) w:max-content bgc:color-dark fw:600 fz:pfs(45px,35px) lh:65px p:10px_20px_10px_20px c:color-light">
-                <div>{{item.label}}</div>
-              </div>
-            {% endif %}
-            {% if item.position == "right" %}
-              <div class="yasmina-trend__content pos:absolute t:20% r:10% bgc:color-dark fw:600 fz:pfs(45px,35px) lh:65px p:10px_20px_10px_20px c:color-light">
-                <div>{{item.label}}</div>
-              </div>
-            {% endif %}
+
           </div>
         </div>
       {% endfor %}

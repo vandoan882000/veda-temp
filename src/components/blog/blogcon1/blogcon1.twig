@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_e21c878a-4cc0-423c-9e18-48cc55d1e0d1" %}
+{% set uniqueId = "id_22feb953-c9df-402f-bc12-64566a541bbc" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -129,7 +129,7 @@
             {% endif %}
             {% if popular_post_enable %}
               <div class="product-box__popular-post mt:10px mb:10px">
-                <h2 class="product-box__title fz:20px fw:500 mt:15px mb:15px ff:font-primary">Popular Post</h2>
+                <h2 class="product-box__title fz:20px fw:500 mt:15px mb:15px ff:font-primary">{{popular_post_text}}</h2>
                 <div class="product-box__content fz:15px d:flex fld:column ai:flex-start">
                   {% for item in popular_post_data %}
                     <a href="#" class="product-box__box-post mb:20px d:flex jc:center ai:flex-start">

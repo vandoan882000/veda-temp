@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_d5a248ff-8f7a-4c53-8df1-aa8f4123e2d4" %}
+{% set uniqueId = "id_e2cef4fa-21dd-4d74-b445-0531bf3612cd" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -23,7 +23,7 @@
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
   <div class="container pb:40px">
-    <h3 class="ff:font-primary ta:center mb:45px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+    <h3 class="ff:font-primary ta:center mb:45px fz:pfs(25px,40px) fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row">
       {% set collection = collections[content.collection] %}
       <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>

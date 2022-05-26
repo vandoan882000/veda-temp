@@ -11,21 +11,19 @@
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
   <div class="container">
+    <h3 class="ff:font-primary ta:center mb:25px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
     <div class="row">
-      <h3 class="ff:font-primary ta:center mb:25px fz:40px fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
-      <div component="category" class="row row-cols-lg-{{column.lg}} row-cols-md-{{column.md}} row-cols-sm-{{column.sm}} row-cols-{{column.xs}}">
-        {% for item in category limit: 8 %}
-          <div class="col">
-            <div class="yasmina-category pos:relative w:100% h:210px ov:hidden z:2 cur:pointer" component="category">
-              <a href="#">
-                <img class="pos:absolute t:0 l:0 z:-1 w:100% h:100% trs:all_0.3s" src={{item.background_image}} alt="category">
-              </a>
-              <div class="yasmina-category__title pos:absolute t:50% l:50% trf:translate(-50%,-50%) c:color-light-freeze w:100% fw:600 fz:17px tt:uppercase ta:center z:9 tt:uppercase">{{item.label}}</div>
-              <div class="yasmina-overlay bgc:color-dark op:0 w:100% h:100% trs:all_0.5s"></div>
-            </div>
+      {% for item in category limit: 8 %}
+        <div component="category" class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}">
+          <div class="yasmina-category pos:relative w:100% h:210px ov:hidden z:2 cur:pointer" component="category">
+            <a href="#" class="w:100% ar:8/5">
+              <img class="pos:absolute t:0 l:0 z:-1 w:100% h:100% trs:all_0.3s" src={{item.background_image}} alt="category">
+            </a>
+            <div class="yasmina-category__title pos:absolute t:50% l:50% trf:translate(-50%,-50%) c:color-light-freeze w:100% fw:600 fz:17px tt:uppercase ta:center z:9 tt:uppercase">{{item.label}}</div>
+            <div class="yasmina-overlay bgc:color-dark op:0 w:100% h:100% trs:all_0.5s"></div>
           </div>
-        {% endfor %}
-      </div>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>

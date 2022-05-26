@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_582ea0b8-1727-4bf8-8002-2c584d748992" %}
+{% set uniqueId = "id_5e25eed0-b7cc-4882-aa68-904cd3c9e9c5" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -31,7 +31,7 @@
       {% for item in content %}
         <div class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}" component="instagram-image">
           <div class="yasmina-insta d:flex jc:center cur:pointer">
-            <a href="#" class="veda-image-cover d:block w:100%" css="--aspect-ratio: 0.86">
+            <a href="#" class="veda-image-cover d:block w:100% ar:0.86" css="--aspect-ratio: 0.86">
               <img class="yasmina-insta__img" src={{item.src_image | img_url('')}} alt="insta">
             </a>
           </div>

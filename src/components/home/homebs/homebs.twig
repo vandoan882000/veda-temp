@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_c0e4df21-3823-4e8f-8490-871ce134d78c" %}
+{% set uniqueId = "id_d61d3347-518e-42b1-a2e6-1bd0de0626a4" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -36,11 +36,11 @@
           }"
         >
           <div class="swiper">
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper {{ }}">
               {% set collection = collections[content.collection] %}
               <script class="product-all-data" type="application/json">{{ collection.products | json_encode()}}</script>
               {% for product in collection.products | slice(0, 6) %}
-                <div component="swipers" class="swiper-slide col-lg-3 mt:0px!">
+                <div component="swipers" class="swiper-slide col-xs-9 col-sm-9 col-md-3 col-lg-3 mt:0px!">
                   <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">
                     <script class="product-card-data-js" type="application/json">{{ product | json_encode()}}</script>
                     <div class="product-card__img w:100% pos:relative ov:hidden">

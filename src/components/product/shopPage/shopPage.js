@@ -278,7 +278,7 @@ if (!!container) {
     },
     async onChange({ url, category, done }) {
       try {
-        const sectionId = container.getAttribute("data-shopify-id");
+        const sectionId = container.querySelector("[data-shopify-id]").getAttribute("data-shopify-id");
         if (category) {
           url.pathname = `/product/${category}`;
         }
@@ -309,4 +309,5 @@ if (!!container) {
       }
     },
   });
+
 }

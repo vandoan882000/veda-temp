@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_b8c1eb8a-4664-4002-b9b2-d1042a8bf43b" %}
+{% set uniqueId = "id_3db19c83-66a0-4cf4-84e1-8e32e0aae889" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -99,7 +99,7 @@
         <a href="#" class="veda-image-zoom veda-image-cover yasmina-page-product__image d:block w:100%" css="--aspect-ratio: 3/4"  data-image-zoom-src="{{ image.src }}" data-image-zoom="2">
           <img class="w:100% veda-image-cover yasmina-page-product__img" src="{{ product.featured_image.src | img_url('900x')}}"  alt="">
         </a>
-        <button class="w:490px h:60px lh:44px bgc:transparent c:color-gray9 bd:1px_solid_color-gray4 ai:center jc:center mt:35px fw:500 fz:15px maw:334px ta:center bdrs:0px! bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> <i class="far fa-question mr:10px fw:400 fz:15px bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> </i>Ask an expert</button>
+        <button class="w:90% w:490px@sm h:60px lh:44px bgc:transparent c:color-gray9 bd:1px_solid_color-gray4 ai:center jc:center mt:35px fw:500 fz:15px maw:334px ta:center bdrs:0px! bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> <i class="far fa-question mr:10px fw:400 fz:15px bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h"> </i>{{content.button_ask_expert_text}}</button>
       </div>
       <div class="col-lg-6">
         <div class="yasmina-page-product">
@@ -925,7 +925,7 @@
           <p class="yasmina-page-product__availability mb:16px ff:font-primary c:color-dark fz:15px fw:300">Availability: {{product.variants.length}} in stock</p>
           <p class="yasmina-page-product__type mb:16px ff:font-primary c:color-dark fz:15px fw:300">Product Type: {{product.type}}</p>
           <h3 class="yasmina-page-product__price mb:25px fz:25px ff:font-primary c:color-dark fw:500">${{product.price}}.00</h3>
-          <div class="yasmina-page-product__description ff:font-secondary c:color-dark fz:13px fw:300">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et...</div>
+          <div class="yasmina-page-product__description ff:font-secondary c:color-dark fz:13px fw:300">{{product.description | truncatewords(100)| striptags}}</div>
           <p class="yasmina-page-product-color mb:7px mt:29px ff:font-primary c:color-dark fz:15px fw:300">Color : {{product.options_with_values[1].selected_value}}</p>
           <div class="d:flex mb:45px">
             {% for item in product.variants %}
@@ -967,14 +967,14 @@
 
           </div>
           <p class="yasmina-page-product__sizes mb:7px ff:font-primary c:color-dark fz:15px fw:300">Size : {{product.options_with_values[0].selected_value}}</p>
-          <div class="mb:30px d:flex">
+          <div class="mb:30px d:flex fxw:wrap">
             {% for itemoption in product.options_with_values %}
 
               {% if itemoption.name == "Size" %}
 
                   {% for item in itemoption.values %}
 
-                    <label class="veda-radio d:flex pos:relative ai:center jc:center w:70px h:34px mr:10px ta:center cur:pointer ff:font-primary fz:15px" style="--size: 15px;--color: var(--color-gray9)">
+                    <label class="veda-radio d:flex pos:relative ai:center jc:center w:70px h:34px mr:10px ta:center cur:pointer ff:font-primary fz:15px mt:10px mt:0px@sm " style="--size: 15px;--color: var(--color-gray9)">
                       <div class="veda-radio__inner">
                         <input type="radio"  data-label="{{ item }}" name="yasmina-product-page-radio-size" value="{{ item }}" class="yasmina-page-product__size-input" {% if item == itemoption.selected_value %}
 checked{% endif %}
@@ -1000,13 +1000,14 @@ checked{% endif %}
 
 
           </div>
-          <div class="d:flex ai:center">
+          <div class="d:flex ai:center fxw:wrap">
             <input class="yasmina-page-product__quantity w:85px! h:50px bdrs:0px! ta:center fw:300 fz:15px bd:1px_solid_color-gray4" type="number" value="1" min="1">
-            <button class="product-card-add-js h:50px d:flex ai:center jc:center mah:50px ml:10px mr:10px ff:font-primary bgc:color-dark bd:none! c:color-light cur:pointer fw:500 bdrs:0px! fz:15px lts:0.15px fw:500 bdrs:0px! bgc:color-dark!|h c:color-light!|h miw:236px ta:center p:0px">ADD TO CART</button>
-            <div class="wishlist-toggle-js w:50px h:50px bd:1px_solid_color-gray4 d:flex ai:center jc:center mr:10px cur:pointer bgc:color-dark|h c:red|h">
+            <div class="w:10px"></div>
+            <button class="product-card-add-js h:50px d:flex ai:center jc:center mah:50px mr:10px ff:font-primary bgc:color-dark bd:none! c:color-light cur:pointer fw:500 bdrs:0px! fz:15px lts:0.15px fw:500 bdrs:0px! bgc:color-dark!|h c:color-light!|h w:120px w:236px@sm ta:center p:0px mt:10px mt:10px@sm mb:10px mb:10px@sm tt:uppercase">{{content.button_add_to_cart_text}}</button>
+            <div class="wishlist-toggle-js w:50px h:50px bd:1px_solid_color-gray4 d:flex ai:center jc:center mr:10px cur:pointer bgc:color-dark|h c:red|h mt:10px mt:10px@sm mb:10px mb:10px@sm">
               <i class="far fa-heart fz:15px fw:400"></i>
             </div>
-            <div class="w:50px h:50px bd:1px_solid_color-gray4 d:flex ai:center jc:center cur:pointer bgc:color-dark|h c:red|h">
+            <div class="w:50px h:50px bd:1px_solid_color-gray4 d:flex ai:center jc:center cur:pointer bgc:color-dark|h c:red|h mt:10px mt:10px@sm mb:10px mb:10px@sm">
               <i class="fas fa-share-alt fz:15px fw:400"></i>
             </div>
           </div>
@@ -1014,7 +1015,7 @@ checked{% endif %}
             <input class="mr:10px" type="checkbox"> <p class="ff:font-primary fz:12px fw:300 c:color-dark">I Agree With The Tearms & Conditions</p>
           </div>
 
-          <button class="w:490px h:60px lh:44px bgc:transparent c:color-gray9 bd:1px_solid_color-gray4 ai:center jc:center mt:30px fz:15px fw:500 bdrs:0px! bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h">BUY IT NOW</button>
+          <button class="w:200px w:490px@sm h:60px lh:44px bgc:transparent c:color-gray9 bd:1px_solid_color-gray4 ai:center jc:center mt:30px fz:15px fw:500 bdrs:0px! bgc:transparent!|h c:color-gray9!|h bd:1px_solid_color-gray4!|h tt:uppercase">{{content.button_buy_it_now_text}}</button>
           <div class="d:flex mt:20px ai:center">
             <a href="#"><i class="fas fa-eye mr:10px c:color-dark fw:400"></i></a>
             <p class="fw:300 fz:12px c:color-dark"> 250 customers are viewing this product</p>
@@ -1045,39 +1046,39 @@ checked{% endif %}
     </div>
     <div class="row">
       <div class="">
-        <h2 class="ta:center mt:85px fz:35px mb:17px ff:font-primary c:color-dark fw:600">Description</h2>
+        <h2 class="ta:center mt:85px fz:35px mb:17px ff:font-primary c:color-dark fw:600">{{content.description_text}}</h2>
         <p class="ta:center fz:15px mb:30px ff:font-secondary c:color-dark fw:400">
-          At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque <br/>corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui <br/>officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+
         </p>
       </div>
-      <div class="col-lg-12 d:flex ">
-        <div class="w:50% ta:center">
+      <div class="col-lg-12 d:flex fxw:wrap">
+        <div class="w:100% w:50%@sm ta:center">
           <img class="w:500px h:467px" src="../../../img/pageproduct1.png" alt="">
         </div>
-        <div class="d:flex fld:column jc:center ai:center w:50% ta:center">
+        <div class="d:flex fld:column jc:center ai:center w:100% w:50%@sm ta:center mt:10px mt:0px@sm">
           <h5 class="fz:15px ff:font-primary c:color-dark fw:600 mb:15px">LAMCORPER OSTIQUE AMATTIS</h5>
           <h2 class="fz:45px ff:font-primary c:color-dark fw:500 mb:10px">100% Hand-made</h2>
           <p class="fz:15px ff:font-secondary c:color-dark fw:400">Temporibus autem quibusdam et aut officiis debitis aut rerum <br/>necessitatibus saepe eveniet ut et voluptates repudiandae sint et <br/>molestiae non recusandae.</p>
         </div>
       </div>
-      <div class="col-lg-12 d:flex mt:30px">
-        <div class="d:flex fld:column jc:center ai:center w:50% ta:center">
+      <div class="col-lg-12 d:flex mt:30px fxw:wrap">
+        <div class="d:flex fld:column jc:center ai:center w:100% w:50%@sm ta:center mb:10px mb:0px@sm">
           <h5 class="fz:15px ff:font-primary c:color-dark fw:600 mb:15px">LAMCORPER OSTIQUE AMATTIS</h5>
           <h2 class="fz:45px ff:font-primary c:color-dark fw:500 mb:10px">Wiloke Shop</h2>
           <p class="fz:15px ff:font-secondary c:color-dark fw:400">Temporibus autem quibusdam et aut officiis debitis aut rerum <br/>necessitatibus saepe eveniet ut et voluptates repudiandae sint et <br/>molestiae non recusandae.</p>
         </div>
-        <div class="w:50% ta:center">
+        <div class="w:100% w:50%@sm ta:center">
           <img class="w:500px h:467px" src="../../../img/pageproduct2.png" alt="">
         </div>
       </div>
     </div>
     <div class="row">
       <h2 class="ta:center fz:35px mt:90px fw:600 c:color-dark">Review({{comment.articles[0].comments.length}})</h2>
-      <div class="col-lg-6 pr:100px">
+      <div class="col-lg-6 pr:0px pr:100px@sm">
         <h4 class="fz:20px fw:500 c:color-dark">{{comment.articles[0].comments.length}} REVIEW FOR TRAIL RUNNING SHOE</h4>
         {% for item in comment.articles[0].comments %}
 
-          <div class="d:flex mt:20px mb:5px ">
+          <div class="d:flex mt:20px mb:5px">
             <img class="w:60px h:60px bdrs:30px" src="../../../img/insta1.png" alt="">
             <div class="ml:10px w:87%">
               <h5 class="fz:15px fw:500 c:color-dark"><a class="fz:15px fw:500 c:color-dark c:color-gray9!|h" href="#">{{item.author}}</a><span class="fz:12px c:color-gray3 fw:400"> - {{item.updated_at | date("%b %d, %Y")}}</span></h5>
@@ -1930,7 +1931,7 @@ checked{% endif %}
             <i class="fas fa-star c:#C4C4C4"></i>
           </div>
           <h2 class="fz:15px! mt:20px fw:500 c:color-dark ff:font-primary">BODY REVIEW(1500)</h2>
-          <textarea class="bgc:#F2F2F7! c:#929292 bd:none! w:641px h:119px bdrs:0px! ff:font-primary fz:14px fz:14px||placeholder fw:400||placeholder c:color-gray4||placeholder ff:font-primary||placeholder" name="review_body" id="" cols="30" rows="6" placeholder="Write your comments here"></textarea>
+          <textarea class="bgc:#F2F2F7! c:#929292 bd:none! w:100% h:119px bdrs:0px! ff:font-primary fz:14px fz:14px||placeholder fw:400||placeholder c:color-gray4||placeholder ff:font-primary||placeholder" name="review_body" id="review_body" placeholder="Write your comments here"></textarea>
           <button type="submit" class="maw:236px h:52px mt:30px ml:0px bdrs:0px! fw:500 fz:15px c:color-light! bgc:color-dark! bd:1px_solid_color-dark ff:font-primary c:color-light!|h bgc:color-dark!|h bd:1px_solid_color-dark|h">SUBMIT REVIEW</button><br/>
           <input class="fl:left mt:10px ff:font-primary bd:1px_solid_color-gray4" type="checkbox"> <p class="fz:11px fl:left ml:5px mt:10px ff:font-primary fw:400 c:color-gray4">Write your comments here </p>
         </form>
@@ -1945,15 +1946,15 @@ checked{% endif %}
   </div>
 </section>
 {% include '../../wishlist/wishlistbs/render.twig' %}
-<section class="bgc:#F2F2F7 h:300px d:flex fld:column ai:center jc:center ta:center">
+<section class="bgc:#F2F2F7 h:320px h:300px@sm d:flex fld:column ai:center jc:center ta:center">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 d:flex fld:column ai:center jc:center ta:center">
         <h2 class="fz:35px mb:25px fw:500 c:color-dark">Sign-up for LogoNews</h2>
         <p class="fz:15px mb:10px fw:400 c:color-dark">Stay informed about the latest style advice and product launches.<br/> Learn more about our emails and our Privacy Policy.</p>
-        <div class="d:flex ai:center jc:center ta:center">
-          <input class="h:40px w:283px! bd:none! bgc:color-light! fw:400 fz:9px ff:font-quinary c:color-gray4! bdrs:0px! bgc:color-light!|h fw:400||placeholder fz:9px||placeholder c:color-gray4!||placeholder" type="text" placeholder="Email address">
-          <button class="h:40px fz:12px p:10px_20px_10px_20px ml:10px c:color-light! bgc:color-dark bdrs:0px! bgc:color-dark|h bd:1px_solid_color-dark bd:1px_solid_color-dark!|h ">SUBSCRIBE</button>
+        <div class="d:flex fxw:wrap ai:center jc:center ta:center">
+          <input class="h:40px w:100% w:283px@sm! bd:none! bgc:color-light! fw:400 fz:9px ff:font-quinary c:color-gray4! bdrs:0px! bgc:color-light!|h fw:400||placeholder fz:9px||placeholder c:color-gray4!||placeholder" type="text" placeholder="Email address">
+          <button class="h:40px fz:12px p:10px_20px_10px_20px ml:10px c:color-light! bgc:color-dark bdrs:0px! bgc:color-dark|h bd:1px_solid_color-dark bd:1px_solid_color-dark!|h mt:10px mt:0px@xs">SUBSCRIBE</button>
         </div>
       </div>
     </div>

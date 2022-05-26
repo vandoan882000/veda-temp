@@ -15,8 +15,8 @@ const data = {
     },
   },
   content: {
-    title: "Set Your Style",
-    heading: "INSTILEY",
+    sub_title: "Set Your Style",
+    title: "INSTILEY",
     description:
       "Neque porro quisquam est qui dolorem ipsum quia dolor <br/>sit amet consectetur adipisci velit sed quia non numquam <br/>eius modi tempora incidunto.",
     button: [

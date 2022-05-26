@@ -25,15 +25,15 @@ const data = {
   popular_post_enable: true,
   popular_post_data: [
     {
-      title: "Lorem ipsum dolor sit amet, consectetur...",
+      title: "Lorem ipsum dolor sit amet, consectetur orem ipsum dolor sit amet, consectetur",
       srcImg: "../../img/post1.png"
     },
     {
-      title: "Nisl natoque sed cursus purus. Pellent amet...",
+      title: "Nisl natoque sed cursus purus. Pellent amet orem ipsum dolor sit amet, consectetur",
       srcImg: "../../img/post2.png"
     },
     {
-      title: "A arcu malesuada mauris consequat est ...",
+      title: "A arcu malesuada mauris consequat est orem ipsum dolor sit amet, consectetur",
       srcImg: "../../img/post3.png"
     }
   ],

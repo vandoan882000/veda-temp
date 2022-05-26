@@ -56,7 +56,7 @@
                           {% endif %}
                         </a>
                         {% if item.children | length > 0 %}
-                          <ul class="pet-nav__sub-list pos:absolute t:0 l:100% z:999 w:220px bd:1px_solid_color-gray2 bdrs:10px trs:0.3s bgc:color-light">
+                          <ul class="pet-nav__sub-list pos:absolute t:50px l:100% z:999 w:220px bd:1px_solid_color-gray2 bdrs:10px trs:0.3s bgc:color-light">
                             {% for item in item.children %}
                               {% assign hasMegaMenu = item.hasMegaMenu %}
                               <li class="pet-nav__list-item bdb:1px_solid_color-gray2 bdb:0|lc">

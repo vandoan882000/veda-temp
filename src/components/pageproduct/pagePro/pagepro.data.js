@@ -22,9 +22,7 @@ const data = {
     collection: "tuong",
     review_app_enable: true,
     review_app_type: "ali_reviews",
-    review_app: {
-      enable: true,
-      app: "product_reviews", // "product_reviews" or "rivyo_reviews" or "loox_reviews""
-    },
+    review_comment_enable: true,
+    review_comment_type: "other",
   },
 };

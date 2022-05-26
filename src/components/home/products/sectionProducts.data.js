@@ -25,6 +25,11 @@ const data = {
       text: "Sale",
       design: "",
     },
+    sale_enable: true,
+    sale_text: "Sale",
+    sale_design: "",
     add_to_cart_text: "Add to cart",
+    add_to_cart_design: "",
+    quantity_product_displayed: 8,
   },
 };

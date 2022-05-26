@@ -21,7 +21,7 @@
           <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">
             <script class="product-card-data-js" type="application/json">{{ product | json }}</script>
             <div class="product-card__img w:100% pos:relative ov:hidden">
-              <div class="pet-product-card__image">
+              <div class="ov:hidden">
                 <a href="/pageproduct.html" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
                   <img class="product-card-image-js" src="{{ product.featured_image.src | img_url: '400x' }}" alt="{{ product.title }}">
                 </a>
@@ -37,13 +37,13 @@
                 {% endif %}
               </div>
               <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                <div class="product-card-js__icon-bg wishlist-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                <div class="wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
                   <i class="fal fa-heart"></i>
                 </div>
-                <div class="product-card-js__icon-bg--hidden quickview-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                   <i class="fal fa-eye"></i>
                 </div>
-                <div class="product-card-js__icon-bg--hidden compare-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
                   <i class="fal fa-repeat"></i>
                 </div>
               </div>

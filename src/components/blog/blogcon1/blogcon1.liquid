@@ -69,12 +69,12 @@
               <img class="product-card-image-js" src={{item.image.src | img_url: '769x'}} alt="Blog Img">
             </a>
             <div class="blog__infor mt:20px mb:13px">
-              <a href="#" class="d:inline-block mr:25px c:color-dark fz:15px fw:400 ff:font-primary"><i class="fal fa-alarm-clock fz:14px d:inline-block mr:5px cur:pointer"></i>{{item.image.updated_at}}</a>
+              <a href="#" class="d:inline-block mr:25px c:color-dark fz:15px fw:400 ff:font-primary"><i class="fal fa-alarm-clock fz:14px d:inline-block mr:5px cur:pointer"></i>{{item.image.updated_at | date: "%b %d, %Y"}}</a>
               <a href="#" class="d:inline-block mr:25px c:color-dark fz:15px fw:400 ff:font-primary"><i class="fal fa-archive fz:14px d:inline-block mr:5px cur:pointer"></i>Tips & Tricks</a>
               <a href="#" class="d:inline-block mr:25px c:color-dark fz:15px fw:400 ff:font-primary"><i class="fal fa-gingerbread-man fz:14px d:inline-block mr:5px cur:pointer"></i>Fashion, store, shopify</a>
             </div>
-            <a class="blog__title mb:10px mt:10px fz:pfs(20px,35px) c:color-dark ff:font-primary fw:500 cur:pointer tt:capitalize">{{item.title}}</a>
-            <p class="blog__description fz:14px fw:400 ff:font-secondary c:color-dark mt:3px lh:24px">{{item.content}}</p>
+            <a class="blog__title mb:10px mt:10px fz:pfs(20px,35px) c:color-dark ff:font-primary fw:500 cur:pointer tt:capitalize">{{item.title | capitalize }}</a>
+            <p class="blog__description fz:14px fw:400 ff:font-secondary c:color-dark mt:3px lh:24px">{{item.content | truncatewords: 100}}</p>
             <button class="ff:font-primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:17px_81px_17px_81px cur:pointer m:22px_5px_5px_5px fw:500 bdrs:0px! fz:pfs(12px,15px) lts:0.15px ml:0px!">Read More</button>
           </div>
         {% endfor %}
@@ -116,7 +116,7 @@
                   {% for item in popular_post_data %}
                     <a href="#" class="product-box__box-post mb:20px d:flex jc:center ai:flex-start">
                       <img src={{item.srcImg | img_url: ''}} alt="">
-                      <h2 class="ml:10px fw:500 c:color-dark fz:15px">{{item.title}}</h2>
+                      <h2 class="ml:10px fw:500 c:color-dark fz:15px">{{item.title | truncate: 50}}</h2>
                     </a>
                   {% endfor %}
                 </div>

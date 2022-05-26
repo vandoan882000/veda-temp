@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_fbd39a34-f63a-465d-974f-773cdad1be1e" %}
+{% set uniqueId = "id_d37ec8ae-a306-478a-8463-91df86993675" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -67,7 +67,7 @@
                           {% endif %}
                         </a>
                         {% if item.children | length > 0 %}
-                          <ul class="pet-nav__sub-list pos:absolute t:0 l:100% z:999 w:220px bd:1px_solid_color-gray2 bdrs:10px trs:0.3s bgc:color-light">
+                          <ul class="pet-nav__sub-list pos:absolute t:50px l:100% z:999 w:220px bd:1px_solid_color-gray2 bdrs:10px trs:0.3s bgc:color-light">
                             {% for item in item.children %}
                               {% set hasMegaMenu = item.hasMegaMenu %}
                               <li class="pet-nav__list-item bdb:1px_solid_color-gray2 bdb:0|lc">

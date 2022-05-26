@@ -107,7 +107,7 @@ if(!!container) {
         if (!loadding) {
           loadding = true;
           const currentLoaderEl = document.createElement('div');
-          currentLoaderEl.classList.add('loader');
+          currentLoaderEl.classList = 'loader w:20px h:20px';
           btnAddCart.insertAdjacentElement('afterbegin', currentLoaderEl);
           cart.addToCart(productData).finally(() => {
             currentLoaderEl.remove();

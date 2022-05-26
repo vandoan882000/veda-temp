@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_77c1f42d-5ea7-4a38-863f-dc1b8108ca1e" %}
+{% set uniqueId = "id_b54c3411-bfd8-481e-bdba-4c1409c6337f" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -146,8 +146,8 @@
               <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">
                 <script class="product-card-data-js" type="application/json">{{ product | json_encode()}}</script>
                 <div class="product-card__img w:100% pos:relative ov:hidden">
-                  <div class="pet-product-card__image">
-                    <a href="/pageproduct.html" class="veda-image-cover d:block" css="--aspect-ratio: 3/4">
+                  <div class="ov:hidden">
+                    <a href="/pageproduct.html" class="veda-image-cover d:block ar:3/4" >
                       <img class="product-card-image-js" src="{{ product.featured_image.src | img_url('400x')}}" alt="{{ product.title }}">
                     </a>
                   </div>
@@ -162,13 +162,13 @@
                     {% endif %}
                   </div>
                   <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                    <div class="product-card-js__icon-bg wishlist-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                    <div class="wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
                       <i class="fal fa-heart"></i>
                     </div>
-                    <div class="product-card-js__icon-bg--hidden quickview-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                    <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                       <i class="fal fa-eye"></i>
                     </div>
-                    <div class="product-card-js__icon-bg--hidden compare-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                    <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
                       <i class="fal fa-repeat"></i>
                     </div>
                   </div>
@@ -218,7 +218,7 @@
           <div class="product-card-js d:flex fld:row ai:center ta:center mb:15px pb:15px">
             <script class="product-card-data-js" type="application/json">{{ product | json_encode()}}</script>
             <div class="product-card__img miw:250px w:250px pos:relative ov:hidden">
-              <div class="pet-product-card__image miw:250px w:250px">
+              <div class="ov:hidden miw:250px w:250px">
                 <a href="#" class="veda-image-cover d:block miw:250px w:250px" css="--aspect-ratio: 3/4">
                   <img class="product-card-image-js" src="{{ product.featured_image.src | img_url('250x')}}" alt="{{ product.title }}">
                 </a>
@@ -232,13 +232,13 @@
                 {% endif %}
               </div>
               <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                <div class="product-card-js__icon-bg wishlist-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                <div class="product-card-js__icon-bg wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
                   <i class="fal fa-heart"></i>
                 </div>
-                <div class="product-card-js__icon-bg--hidden quickview-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
                   <i class="fal fa-eye"></i>
                 </div>
-                <div class="product-card-js__icon-bg--hidden compare-toggle-js cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
                   <i class="fal fa-repeat"></i>
                 </div>
               </div>
@@ -1063,7 +1063,7 @@
               </div>
               <script class="product-card-js__variants-json" type="application/json">{{ product.variants | json_encode()}}</script>
               <div class="ff:font-secondary fw:300 fz:13px c:color-gray9 ta:left mt:20px">
-                At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et.
+                {{product.description | truncatewords(50)| striptags }}
               </div>
               <div class="product-card-add-js d:flex jc:center ai:center w:244px bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px cur:pointer fz:17px td:none va:middle lh:50px c:color-light c:color-light!|h whs:nowrap us:none">
                 {{content.add_to_cart_text}}
@@ -1147,7 +1147,7 @@
                       <h2 class="product-box__title fz:20px fw:500 mb:0px ff:font-primary mt:22px">{{color.title}}</h2>
                       <div class="d:flex flw:wrap">
                         {% for color in tag_colors %}
-                          <div class="yasmina-circle__active pos:relative d:inline-block w:40px h:40px bdrs:20px m:10px_6px_0px_6px cur:pointer p:4px bgcp:content-box bgc:{{color}}" style="background-color:{{color}}">
+                          <div class="yasmina-circle__active pos:relative d:inline-block w:40px h:40px bdrs:20px m:10px_6px_0px_6px cur:pointer p:4px bgcp:content-box bgc:{{color | lower}}" style="background-color:{{color}}">
                               <label class="w:40px h:40px cur:pointer">
                                   <input class="yasmina-filter-input-color v:hidden" type="checkbox" name="filter.v.option.color" value="{{ color}}" data-label="{{color}}"/>
                                   <div class="w:40px h:40px pos:absolute t:0px l:0px bd:1px_solid_color-gray2 bdrs:20px"></div>

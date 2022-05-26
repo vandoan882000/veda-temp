@@ -42,8 +42,12 @@ const data = {
     },
   ],
   new_letter: {
+    enable: true,
     title: "NEW LETTTER",
-    name: "Get 15% off your first purchaxse! Plus,<br/> be the first to know about sales, new<br/> product launches!",
+    description: "Get 15% off your first purchaxse! Plus,<br/> be the first to know about sales, new<br/> product launches!",
+    placeholder: "Email address",
+    button_text: "Join",
+    success_message: "Success",
     icons: [
       {
         icon: "fab fa-facebook-f"

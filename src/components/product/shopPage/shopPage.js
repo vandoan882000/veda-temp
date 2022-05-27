@@ -158,40 +158,6 @@ if (!!container) {
     handleCart();
     handleColor();
   }
-  class Tags extends Component {
-    constructor(props) {
-      super(props);
-      this.el = document.querySelector(".yasmina-product-box__tags");
-      this.tags = this.getTags();
-    }
-    getTags() {
-      let tags = [];
-      const lstData = container.querySelectorAll(".product-card-data-js");
-      lstData.forEach(dataEl => {
-        const data = objectParse(dataEl.textContent);
-        data.tags.forEach(tag => {
-          if (!tags.includes(tag)) {
-            tags.push(tag);
-          }
-        })
-      })
-      return tags;
-    }
-    render() {
-      const { tags } = this;
-      return html`
-          ${tags.map(tag => html`
-          <div class="d:flex pos:relative ai:center h:28px jc:center mr:5px ta:center cur:pointer ff:font-primary fz:15px p:2px_5px_2px_5px mb:10px">
-              <label class="w:100% h:28px cur:pointer cur:pointer d:flex jc:center">
-                  <input class="yasmina-filter-input-tag pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="${tag}" data-label="${tag}"/>
-                  <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
-                  <span class="ta:center lh:28px fz:15px fw:400 c:color-gray9">${tag}</span>
-              </label>
-          </div>
-          `)}
-      `;
-    }
-  }
   class ViewAs {
     constructor() {
       this.view1 = container.querySelector(".yasmina-shop-page__view1");
@@ -230,7 +196,6 @@ if (!!container) {
   }
   productActions();
   new ViewAs();
-  render(html`<${Tags} />`, container.querySelector(".yasmina-product-box__tags"));
   async function getContentCollections(url) {
     const domParser = new DOMParser();
     const res = await fetch(url);

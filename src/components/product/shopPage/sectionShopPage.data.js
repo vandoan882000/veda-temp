@@ -124,48 +124,6 @@ const data = {
       enable: true,
       app: "product_reviews", // "product_reviews" or "rivyo_reviews" or "loox_reviews""
     },
-    filter_tags: [
-      {
-        value: "New",
-        checked: true,
-      },
-      {
-        value: "Sale",
-        checked: false,
-      },
-      {
-        value: "Hot",
-        checked: false,
-      },
-      {
-        value: "Trending",
-        checked: false,
-      },
-      {
-        value: "Best Seller",
-        checked: false,
-      },
-      {
-        value: "New",
-        checked: false,
-      },
-      {
-        value: "Sale",
-        checked: false,
-      },
-      {
-        value: "Hot",
-        checked: false,
-      },
-      {
-        value: "Trending",
-        checked: false,
-      },
-      {
-        value: "Best Seller",
-        checked: false,
-      }
-    ],
     sale: {
       enable: true,
       text: "Sale",

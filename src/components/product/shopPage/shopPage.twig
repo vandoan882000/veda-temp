@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_f4ad8010-0594-45c3-917c-c429917a5ae1" %}
+{% set uniqueId = "id_8e0b9260-d184-454c-af77-3359dfcb96ed" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -24,55 +24,57 @@
   {% endif %}
   <div data-shopify-id="{{ section.id }}"></div>
   <div class="container pt:35px">
-    {% if request.page_type != 'index' or request.page_type != 'list-collections' %}
-      <nav role="navigation" aria-label="breadcrumbs">
-          <a href="{{ routes.root_url }}" title="Home">Home</a>
-          {% if 'page' in request.page_type %}
-            <span aria-hidden="true">/</span>
-            <span>{{ page.title }}</span>
-          {% elseif 'product' in request.page_type %}
-            {% if collection.url %}
+    
+      {% if request.page_type != 'index' or request.page_type != 'list-collections' %}
+        <nav role="navigation" aria-label="breadcrumbs">
+            <a href="{{ routes.root_url }}" title="Home">Home</a>
+            {% if 'page' in request.page_type %}
               <span aria-hidden="true">/</span>
-              {{ collection.title | link_to(collection.url)}}
-            {% endif %}
-            <span aria-hidden="true">/</span>
-            <span>{{ product.title }}</span>
-          {% elseif 'collection' in request.page_type and collection.handle %}
-            <span aria-hidden="true">/</span>
-            {% if current_tags %}
-              {% set url %}
+              <span>{{ page.title }}</span>
+            {% elseif 'product' in request.page_type %}
+              {% if collection.url %}
+                <span aria-hidden="true">/</span>
+                {{ collection.title | link_to(collection.url)}}
+              {% endif %}
+              <span aria-hidden="true">/</span>
+              <span>{{ product.title }}</span>
+            {% elseif 'collection' in request.page_type and collection.handle %}
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+                {% set url %}
 /collections/{{ collection.handle }}{% endset %}
-              {{ collection.title | link_to(url)}}
+                {{ collection.title | link_to(url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
+                <span>{{ collection.title }}</span>
+              {% endif %}
+            {% elseif request.page_type == 'blog' %}
               <span aria-hidden="true">/</span>
-              <span>{{ current_tags | join(" + ")}}</span>
-            {% else %}
-              <span>{{ collection.title }}</span>
-            {% endif %}
-          {% elseif request.page_type == 'blog' %}
-            <span aria-hidden="true">/</span>
-            {% if current_tags %}
+              {% if current_tags %}
+                {{ blog.title | link_to(blog.url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
+                <span>{{ blog.title }}</span>
+              {% endif %}
+            {% elseif request.page_type == 'article' %}
+              <span aria-hidden="true">/</span>
               {{ blog.title | link_to(blog.url)}}
               <span aria-hidden="true">/</span>
-              <span>{{ current_tags | join(" + ")}}</span>
+              <span>{{ article.title }}</span>
+            {% elseif request.page_type == 'cart' %}
+              <span aria-hidden="true">/</span>
+              <span>Cart</span>
             {% else %}
-              <span>{{ blog.title }}</span>
+              <span aria-hidden="true">/</span>
+              <span>{{ page_title }}</span>
             {% endif %}
-          {% elseif request.page_type == 'article' %}
-            <span aria-hidden="true">/</span>
-            {{ blog.title | link_to(blog.url)}}
-            <span aria-hidden="true">/</span>
-            <span>{{ article.title }}</span>
-          {% elseif request.page_type == 'cart' %}
-            <span aria-hidden="true">/</span>
-            <span>Cart</span>
-          {% else %}
-            <span aria-hidden="true">/</span>
-            <span>{{ page_title }}</span>
-          {% endif %}
-      </nav>
-    
+        </nav>
+      
 {% endif %}
 
+    
     <div class="view-as mb:20px d:flex ai:center jc:space-between mt:30px fz:15px c:color-dark flw:wrap w:75% pr:35px@md">
       <div class="d:flex">
         View as:

@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_99f7d158-67fc-45f9-8db9-1d297fbd0f9d" %}
+{% set uniqueId = "id_6da4b3f7-c780-48b8-8d70-1879aa370b19" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -23,73 +23,75 @@
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
   <div class="direct fz:15px c:color-gray4 mb:33px ml:5%">
-    {% if request.page_type != 'index' or request.page_type != 'list-collections' %}
+    
+      {% if request.page_type != 'index' or request.page_type != 'list-collections' %}
 
-      <nav role="navigation" aria-label="breadcrumbs">
-          <a href="{{ routes.root_url }}" title="Home">Home</a>
-          {% if 'page' in request.page_type %}
-
-            <span aria-hidden="true">/</span>
-            <span>{{ page.title }}</span>
-          {% elseif 'product' in request.page_type %}
-
-            {% if collection.url %}
+        <nav role="navigation" aria-label="breadcrumbs">
+            <a href="{{ routes.root_url }}" title="Home">Home</a>
+            {% if 'page' in request.page_type %}
 
               <span aria-hidden="true">/</span>
-              {{ collection.title | link_to(collection.url)}}
-            {% endif %}
+              <span>{{ page.title }}</span>
+            {% elseif 'product' in request.page_type %}
 
-            <span aria-hidden="true">/</span>
-            <span>{{ product.title }}</span>
-          {% elseif 'collection' in request.page_type and collection.handle %}
+              {% if collection.url %}
 
-            <span aria-hidden="true">/</span>
-            {% if current_tags %}
+                <span aria-hidden="true">/</span>
+                {{ collection.title | link_to(collection.url)}}
+              {% endif %}
 
-              {% set url %}
+              <span aria-hidden="true">/</span>
+              <span>{{ product.title }}</span>
+            {% elseif 'collection' in request.page_type and collection.handle %}
+
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+
+                {% set url %}
 /collections/{{ collection.handle }}{% endset %}
 
-              {{ collection.title | link_to(url)}}
+                {{ collection.title | link_to(url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
+
+                <span>{{ collection.title }}</span>
+              {% endif %}
+
+            {% elseif request.page_type == 'blog' %}
+
               <span aria-hidden="true">/</span>
-              <span>{{ current_tags | join(" + ")}}</span>
-            {% else %}
+              {% if current_tags %}
 
-              <span>{{ collection.title }}</span>
-            {% endif %}
+                {{ blog.title | link_to(blog.url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
 
-          {% elseif request.page_type == 'blog' %}
+                <span>{{ blog.title }}</span>
+              {% endif %}
 
-            <span aria-hidden="true">/</span>
-            {% if current_tags %}
+            {% elseif request.page_type == 'article' %}
 
+              <span aria-hidden="true">/</span>
               {{ blog.title | link_to(blog.url)}}
               <span aria-hidden="true">/</span>
-              <span>{{ current_tags | join(" + ")}}</span>
+              <span>{{ article.title }}</span>
+            {% elseif request.page_type == 'cart' %}
+
+              <span aria-hidden="true">/</span>
+              <span>Cart</span>
             {% else %}
 
-              <span>{{ blog.title }}</span>
+              <span aria-hidden="true">/</span>
+              <span>{{ page_title }}</span>
             {% endif %}
 
-          {% elseif request.page_type == 'article' %}
-
-            <span aria-hidden="true">/</span>
-            {{ blog.title | link_to(blog.url)}}
-            <span aria-hidden="true">/</span>
-            <span>{{ article.title }}</span>
-          {% elseif request.page_type == 'cart' %}
-
-            <span aria-hidden="true">/</span>
-            <span>Cart</span>
-          {% else %}
-
-            <span aria-hidden="true">/</span>
-            <span>{{ page_title }}</span>
-          {% endif %}
-
-      </nav>
-    
+        </nav>
+      
 {% endif %}
 
+    
   </div>
   <div class="container">
     <h3 class="login__title mb:30px ta:center fz:35px fw:500 ff:font-primary fw:500">Log In</h3>

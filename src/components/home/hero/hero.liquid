@@ -23,14 +23,14 @@
             {% if content.button | length == 1 %}
             <div class="yasmina-btn__container">
               {% for item in content.button %}
-                <button class="yasmina-btn__primary bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} pt:20px pb:20px pl:pfs(16px,86px) pr:pfs(16px,86px) cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px lts:0.15px">{{item.label}}</button>
+                <button class="w:auto bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} pt:20px pb:20px pl:pfs(16px,86px) pr:pfs(16px,86px) cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px">{{item.label}}</button>
               {% endfor %}
             </div>
             {% endif %}
             {% if content.button | length > 1 %}
             <div class="yasmina-btn__container">
               {% for item in content.button %}
-                <button class="yasmina-btn__primary bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} p:20px_12px_20px_12px p:20px_42px_20px_42px@sm w:198px h:60px ta:center cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:14px lts:0.15px">{{item.label}}</button>
+                <button class="w:auto bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} pt:20px pb:20px pl:pfs(20px,49px) pr:pfs(20px,49px) w:198px h:60px ta:center cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:14px">{{item.label}}</button>
               {% endfor %}
             </div>
             {% endif %}

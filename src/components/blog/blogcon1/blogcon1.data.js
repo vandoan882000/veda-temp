@@ -20,8 +20,11 @@ const data = {
   },
   content: {
     blog: "tuong",
+    read_more_text: "Read More",
   },
   search_enable: true,
+  search_text: "Search",
+  search_placeholder: "Search",
   popular_post_enable: true,
   popular_post_text: "Popular Posts",
   popular_post_data: [
@@ -51,4 +54,6 @@ const data = {
     },
   ],
   newsletter_enable: true,
+  newsletter_text: "Newsletter Signup",
+  newsletter_description: "At vero eos et accusamus et iusto odio dignis ducimus qui blandi praesen volupta deleniti at corrupti quos dolores et quas molestias excep sint.",
 };

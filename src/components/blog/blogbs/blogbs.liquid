@@ -15,7 +15,6 @@
     <div class="row">
       <shopify>
         {% assign collection = collections[content.collection] %}
-        <script class="product-all-data" type="application/json">{{ collection.products | json }}</script>
         {% for product in collection.products limit: 4 %}
           <div class="col-lg-3 mt:0px!">
             <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">

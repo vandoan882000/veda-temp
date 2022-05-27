@@ -14,5 +14,16 @@ const data = {
       left: 0,
     },
   },
+  content: {
+    login_text: "Login",
+    login_description: "Lorem ipsum dolor sit amet, consectetur adipiscing",
+    login_email_placeholder: "Email",
+    login_password_placeholder: "Password",
+    new_customer_text: "New Customer",
+    new_customer_description: "Sign up for early Sale access plus tailored<br/>new arrivals, trends and promotions. To opt<br/>out, click unsubscribe in our emails.",
+    register_text: "Register",
+    forgot_password_text: "Forgot Password",
+    sign_in_text: "Sign In",
+  }
 
 };

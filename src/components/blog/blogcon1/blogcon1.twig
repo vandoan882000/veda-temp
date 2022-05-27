@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_8945d7a0-e81a-426c-a9de-b6779b22b4fa" %}
+{% set uniqueId = "id_e12808be-9ba7-4982-9141-a0db1216fb0f" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -91,7 +91,7 @@
             </div>
             <a class="blog__title mb:10px mt:10px fz:pfs(20px,35px) c:color-dark ff:font-primary fw:500 cur:pointer tt:capitalize">{{item.title | capitalize }}</a>
             <p class="blog__description fz:14px fw:400 ff:font-secondary c:color-dark mt:3px lh:24px">{{item.content | truncatewords(100)}}</p>
-            <button class="ff:font-primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light pt:17px pb:17px pr:pfs(15px,81px) pl:pfs(15px,81px) cur:pointer m:22px_5px_5px_5px fw:500 bdrs:0px! fz:pfs(12px,15px) lts:0.15px ml:0px!">Read More</button>
+            <button class="ff:font-primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light pt:17px pb:17px pr:pfs(15px,81px) pl:pfs(15px,81px) cur:pointer m:22px_5px_5px_5px fw:500 bdrs:0px! fz:pfs(12px,15px) lts:0.15px ml:0px!">{{content.read_more_text}}</button>
           </div>
         
 
@@ -112,19 +112,17 @@
             {% if search_enable %}
               <form action="{{ routes.search_url }}">
                 <div class="product-box__search mb:15px">
-                  <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Search</h2>
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">{{search_text}}</h2>
                   <div class="product-box__box-search d:flex ai:center bd:1px_solid_color-gray2">
                     <button class="p:10px bd:1px_solid_color-light bd:1px_solid_color-light|h! bgc:color-light! c:color-gray9! bgc:color-light|h! c:color-gray9|h!" type="submit"><i class="fal fa-search cur:pointer"></i></button>
                     <input class="h:40px! w:90%! bd:none! o:none c:color-gray4 fz:15px c:color-gray4||placeholder pl:0px! fz:15px||placeholder" type="text"
-                    placeholder="Search"
+                    placeholder="{{search_placeholder}}"
                     name="q"
                     value="{{ search.terms | escape }}"
                     />
                     <input type="hidden" name="type" value="product,page" />
                     <input type="hidden" name="options[unavailable_products]" value="hide" />
                     <input type="hidden" name="options[prefix]" value="last" />
-
-
                   </div>
                 </div>
               </form>
@@ -133,12 +131,13 @@
               <div class="product-box__popular-post mt:10px mb:10px">
                 <h2 class="product-box__title fz:20px fw:500 mt:15px mb:15px ff:font-primary">{{popular_post_text}}</h2>
                 <div class="product-box__content fz:15px d:flex fld:column ai:flex-start">
-                  {% for item in popular_post_data %}
+                  {% set blog = blogs[content.blog] %}
+                  {% for item in blog.articles %}
                     <a href="#" class="product-box__box-post mb:20px d:flex jc:center ai:flex-start">
                       <div class="w:64px ar:1.28">
-                        <img class="w:100%" src={{item.srcImg | img_url('')}} alt="">
+                        <img class="w:100%" src={{item.image.src | img_url('100x')}} alt="">
                       </div>
-                      <div class="w:80% ml:10px fw:500 c:color-dark fz:15px">{{item.title | slice(0,50 - "..."|length) ~ "..."}}</div>
+                      <div class="w:80% ml:10px fw:500 c:color-dark fz:15px tt:lowercase">{{item.title | slice(0,50  - "..."|length) ~ "..."| capitalize}}</div>
                     </a>
                   
 
@@ -173,9 +172,9 @@
             {% endif %}
             {% if newsletter_enable %}
               <div class="product-box__newsletter">
-                <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Newsletter Signup</h2>
+                <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">{{newsletter_text}}</h2>
                 <div class="product-box__content">
-                  <p class="fz:13px ff:font-secondary c:color-dark">At vero eos et accusamus et iusto odio dignis ducimus qui blandi praesen volupta deleniti at corrupti quos dolores et quas molestias excep sint.</p>
+                  <p class="fz:13px ff:font-secondary c:color-dark">{{newsletter_description}}</p>
                   
       {% set form = {"address1":"Address 1","address2":"Address 2","author":"Author","body":"body","city":"city","company":"company","country":"country","email":"email","errors":[],"first_name":"first_name","password_needed":"password_needed","phone":"phone","province":"province","set_as_default_checkbox":"set_as_default_checkbox","zip":"zip"} %}
       <form method="post" action="/contact#contact_form" accept-charset="UTF-8" id="contact_form" class="contact-form">

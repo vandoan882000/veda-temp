@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_23f64f62-6d00-4b7e-b5a0-2800566e789e" %}
+{% set uniqueId = "id_f9e4ff5f-a114-4ec7-a4e9-0be46ec79d55" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -22,13 +22,14 @@
   {% if general_settings.background_overlay_enable %}
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
+  {% set shop = shop %}
   <div class="container">
     <div class="row jc:center">
       <div class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}" component="navigation">
-        <div class="nvd-footer__logo ff:font-tertiary fw:700 fz:35px lh:46px pb:20px c:color-light">{{heading.title}}</div>
+        <div class="nvd-footer__logo ff:font-tertiary fw:700 fz:35px lh:46px pb:20px c:color-light">{{shop.name}}</div>
         <ul class="nvd-footer-list fw:700 pb:25px pl:0 list-style:none pb:20px">
-          <li class="nvd-footer-list__list pb:20px c:color-light"><a href="tel:+1234567890" class="nvd-footer-list__link op:0.7 c:color-light fw:400">Call Us: +123-456-7890</a></li>
-          <li class="nvd-footer-list__list pb:20px c:color-light"><a href="mailto:Info@example.com" class="nvd-footer-list__link op:0.7 c:color-light fw:400">Info@example.com</a></li>
+          <li class="nvd-footer-list__list pb:20px c:color-light"><a href="tel:{{shop.phone}}" class="nvd-footer-list__link op:0.7 c:color-light fw:400">Call Us: {{shop.phone}}</a></li>
+          <li class="nvd-footer-list__list pb:20px c:color-light"><a href="mailto:{{shop.email}}" class="nvd-footer-list__link op:0.7 c:color-light fw:400">{{shop.email}}</a></li>
           <li class="nvd-footer-list__list pb:20px c:color-light"> <a class="nvd-footer-list__link op:0.7 c:color-light fw:400">Monday till Friday 10 to 6 EST</a></li>
         </ul>
       </div>

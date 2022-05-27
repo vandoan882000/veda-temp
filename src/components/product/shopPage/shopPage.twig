@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_cee51a37-c2b9-40c5-ab5c-f041b0cc37a8" %}
+{% set uniqueId = "id_f4ad8010-0594-45c3-917c-c429917a5ae1" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -146,64 +146,87 @@ selected="true"{% endif %}
       
         <div class="col-lg-9 shop-page1 pr:40px@md d:block">
           <div class="row content-collections-js">
-            {% set collection = collection %}
-            {% for product in collection.products | slice(0, 9) %}
-              <div class="col-md-6 col-lg-4">
-                <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">
-                  <script class="product-card-data-js" type="application/json">{{ product | json_encode()}}</script>
-                  <div class="product-card__img w:100% pos:relative ov:hidden">
-                    <div class="ov:hidden">
-                      <a href="/pageproduct.html" class="veda-image-cover d:block ar:3/4" >
-                        <img class="product-card-image-js" src="{{ product.featured_image.src | img_url('400x')}}" alt="{{ product.title }}">
-                      </a>
-                    </div>
-                    <div class="product-card__add-content product-card-add-js d:flex jc:center ai:center pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px cur:pointer fz:17px td:none w:100% c:color-light c:color-light!|h us:none">
-                      {{content.add_to_cart_text}}
-                    </div>
-                    <div class="pos:absolute t:5px l:5px d:flex">
-                      {% if product.compare_at_price > product.price and content.sale.enable %}
-                        <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
-                          <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
+            
+              {% set collection = collection %}
+              {% for product in collection.products | slice(0, 9) %}
+                <div class="col-md-6 col-lg-4">
+                  <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">
+                    <script class="product-card-data-js" type="application/json">
+                      {
+                        id: {{ product.id | json_encode()}},
+                        title: {{ product.title | json_encode()}},
+                        vendor: {{ product.vendor | json_encode()}},
+                        handle: {{ product.handle | json_encode()}},
+                        available: {{ product.available | json_encode()}},
+                        content: {{ product.content | json_encode()}},
+                        description: {{ product.description | json_encode()}},
+                        featured_image: {{ product.featured_image | json_encode()}},
+                        images: {{ product.images | json_encode()}},
+                        options: {{ product.options | json_encode()}},
+                        price_max: {{ product.price_max | json_encode()}},
+                        price_min: {{ product.price_min | json_encode()}},
+                        type: {{ product.type | json_encode()}},
+                        tags: {{ product.tags | json_encode()}},
+                        variants: {{ product.variants | json_encode()}},
+                        price: {{ product.price | json_encode()}},
+                        options_with_values: {{ product.options_with_values | json_encode()}},
+
+                      }
+                    </script>
+                    <div class="product-card__img w:100% pos:relative ov:hidden">
+                      <div class="ov:hidden">
+                        <a href="/pageproduct.html" class="veda-image-cover d:block ar:3/4" >
+                          <img class="product-card-image-js" src="{{ product.featured_image.src | img_url('400x')}}" alt="{{ product.title }}">
+                        </a>
+                      </div>
+                      <div class="product-card__add-content product-card-add-js d:flex jc:center ai:center pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px cur:pointer fz:17px td:none w:100% c:color-light c:color-light!|h us:none">
+                        {{content.add_to_cart_text}}
+                      </div>
+                      <div class="pos:absolute t:5px l:5px d:flex">
+                        {% if product.compare_at_price > product.price and content.sale.enable %}
+                          <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                            <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
+                          </div>
+                        {% endif %}
+                      </div>
+                      <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                        <div class="wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                          <i class="fal fa-heart"></i>
                         </div>
-                      {% endif %}
-                    </div>
-                    <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                      <div class="wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
-                        <i class="fal fa-heart"></i>
-                      </div>
-                      <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
-                        <i class="fal fa-eye"></i>
-                      </div>
-                      <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
-                        <i class="fal fa-repeat"></i>
+                        <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                          <i class="fal fa-eye"></i>
+                        </div>
+                        <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                          <i class="fal fa-repeat"></i>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
 
-                  <div class="product-card-js__content d:flex fld:column jc:center ai:center">
-                    <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
-                    <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
-                    <a class="product-card-js__price mt:14px" href="#">
-                      <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}.00</ins>
-                      {% if product.compare_at_price > product.price %}
-                        <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}.00</del>
-                      {% endif %}
-                    </a>
+                    <div class="product-card-js__content d:flex fld:column jc:center ai:center">
+                      <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
+                      <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+                      <a class="product-card-js__price mt:14px" href="#">
+                        <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">{{ product.price | money }}</ins>
+                        {% if product.compare_at_price > product.price %}
+                          <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">{{ product.compare_at_price | money }}</del>
+                        {% endif %}
+                      </a>
 
-                    <div class="product-card-colors-js d:flex">
-                      <script class="product-card-js__options-json" type="application/json">{{ product.options_with_values | json_encode()}}</script>
+                      <div class="product-card-colors-js d:flex">
+                        <script class="product-card-js__options-json" type="application/json">{{ product.options_with_values | json_encode()}}</script>
+                      </div>
+                      <script class="product-card-js__variants-json" type="application/json">{{ product.variants | json_encode()}}</script>
+
                     </div>
-                    <script class="product-card-js__variants-json" type="application/json">{{ product.variants | json_encode()}}</script>
-
                   </div>
                 </div>
-              </div>
-            
+              
 
 {% endfor %}
 
 
+            
 
             <div class="col-md-12 mb:140px">
               <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1" component="content">
@@ -221,44 +244,66 @@ selected="true"{% endif %}
       
         <div class="col-lg-9 shop-page2 d:none">
           <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 content-collections-js" component="content">
-            {% set collection = collection %}
-            {% for product in collection.products | slice(0, 4) %}
-            <div class="product-card-js d:flex fld:row ai:center ta:center mb:15px pb:15px fxw:wrap">
-              <script class="product-card-data-js" type="application/json">{{ product | json_encode()}}</script>
-              <div class="product-card__img w:250px pos:relative ov:hidden mr:0px mr:30px@sm">
-                <div class="ov:hidden w:100%">
-                  <a href="#" class="veda-image-cover d:block w:100%" css="--aspect-ratio: 3/4">
-                    <img class="product-card-image-js" src="{{ product.featured_image.src | img_url('250x')}}" alt="{{ product.title }}">
-                  </a>
-                </div>
+            
+              {% set collection = collection %}
+              {% for product in collection.products | slice(0, 4) %}
+                <div class="product-card-js d:flex fld:row ai:center ta:center mb:15px pb:15px fxw:wrap">
+                  <script class="product-card-data-js" type="application/json">
+                    {
+                      id: {{ product.id | json_encode()}},
+                      title: {{ product.title | json_encode()}},
+                      vendor: {{ product.vendor | json_encode()}},
+                      handle: {{ product.handle | json_encode()}},
+                      available: {{ product.available | json_encode()}},
+                      content: {{ product.content | json_encode()}},
+                      description: {{ product.description | json_encode()}},
+                      featured_image: {{ product.featured_image | json_encode()}},
+                      images: {{ product.images | json_encode()}},
+                      options: {{ product.options | json_encode()}},
+                      price_max: {{ product.price_max | json_encode()}},
+                      price_min: {{ product.price_min | json_encode()}},
+                      type: {{ product.type | json_encode()}},
+                      tags: {{ product.tags | json_encode()}},
+                      variants: {{ product.variants | json_encode()}},
+                      price: {{ product.price | json_encode()}},
+                      options_with_values: {{ product.options_with_values | json_encode()}},
 
-                <div class="pos:absolute t:5px l:5px d:flex">
-                  {% if product.compare_at_price > product.price and content.sale.enable %}
-                    <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
-                      <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
+                    }
+                  </script>
+                  <div class="product-card__img w:250px pos:relative ov:hidden mr:0px mr:30px@sm">
+                    <div class="ov:hidden w:100%">
+                      <a href="#" class="veda-image-cover d:block w:100%" css="--aspect-ratio: 3/4">
+                        <img class="product-card-image-js" src="{{ product.featured_image.src | img_url('250x')}}" alt="{{ product.title }}">
+                      </a>
                     </div>
-                  {% endif %}
-                </div>
-                <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
-                  <div class="product-card-js__icon-bg wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
-                    <i class="fal fa-heart"></i>
+
+                    <div class="pos:absolute t:5px l:5px d:flex">
+                      {% if product.compare_at_price > product.price and content.sale.enable %}
+                        <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                          <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                      <div class="product-card-js__icon-bg wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                        <i class="fal fa-heart"></i>
+                      </div>
+                      <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                        <i class="fal fa-eye"></i>
+                      </div>
+                      <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                        <i class="fal fa-repeat"></i>
+                      </div>
+                    </div>
                   </div>
-                  <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
-                    <i class="fal fa-eye"></i>
-                  </div>
-                  <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
-                    <i class="fal fa-repeat"></i>
-                  </div>
-                </div>
-              </div>
-              <div class="product-card-js__content d:flex fld:column jc:flex-start ai:flex-start h:100%">
-                <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
-                <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
-                <div class="compare-rating-js">
-                  {% if content.review_app_enable %}
-                    
-                      {% if content.review_app_type == 'product_reviews' %}
+                  <div class="product-card-js__content d:flex fld:column jc:flex-start ai:flex-start h:100%">
+                    <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
+                    <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+                    <div class="compare-rating-js">
+                      {% if content.review_app_enable %}
                         
+                          {% if content.review_app_type == 'product_reviews' %}
+                            
 {% if builderMode %}
   <div
     class="wc_product_review_badge"
@@ -588,9 +633,9 @@ selected="true"{% endif %}
   <div class="wc_product_review_badge" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}"></div>
 {% endif %}
 
-                        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-                      {% elseif content.review_app_type == 'rivyo_reviews' %}
-                        
+                            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                          {% elseif content.review_app_type == 'rivyo_reviews' %}
+                            
 {% if builderMode %}
   <div
     class="wc_product_review_badge"
@@ -920,8 +965,8 @@ selected="true"{% endif %}
   <div class="wc_product_review_badge" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}"></div>
 {% endif %}
 
-                      {% elseif content.review_app_type == 'loox_reviews' %}
-                        
+                          {% elseif content.review_app_type == 'loox_reviews' %}
+                            
 {% if builderMode %}
   <div class="loox-rating" data-id="6819476635711" data-rating="4.9" data-raters="30" title="4.9 rating (30 votes)" aria-label="4.9 rating (30 votes)" data-rating-upgraded="1">
     <i class="loox-icon loox-star"></i>
@@ -934,8 +979,8 @@ selected="true"{% endif %}
   <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
 {% endif %}
 
-                      {% elseif content.review_app_type == 'ali_reviews' %}
-                        
+                          {% elseif content.review_app_type == 'ali_reviews' %}
+                            
 {% if builderMode %}
 <div product-id="6708257652793" class="arv-collection arv-collection--6708257652793">
 	<style>
@@ -1003,16 +1048,16 @@ selected="true"{% endif %}
   <div product-id="{{ product.id }}" class="arv-collection arv-collection--{{ product.id }}"></div>
 {% endif %}
 
-                      {% elseif content.review_app_type == 'stamped_reviews' %}
-                        
+                          {% elseif content.review_app_type == 'stamped_reviews' %}
+                            
 {% if builderMode %}
 <div class="stamped-reviews-rating" data-count="6"><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span></div>
 {% else %}
   <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}" data-product-type="{{product.type}}" data-product-title="{{product.title}}"  style="display: inline-block;">{{ product.metafields.stamped.badge }}</span>
 {% endif %}
 
-                      {% elseif content.review_app_type == 'judge_me_reviews' %}
-                        
+                          {% elseif content.review_app_type == 'judge_me_reviews' %}
+                            
 {% if builderMode %}
   <div class="jdgm-widget jdgm-preview-badge jdgm-preview-badge--with-link jdgm--done-setup"
     data-id="3784779038780" data-template="index" data-auto-install="false">
@@ -1037,9 +1082,9 @@ selected="true"{% endif %}
   {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product %}
 {% endif %}
 
-                      {% elseif content.review_app_type == 'other' %}
-                        {% if builderMode %}
-                          
+                          {% elseif content.review_app_type == 'other' %}
+                            {% if builderMode %}
+                              
 <div class="d:inline-flex ai:center fz:14px c:#feaa01">
   <i class="fas fa-star"></i>
   <i class="fas fa-star"></i>
@@ -1048,46 +1093,45 @@ selected="true"{% endif %}
   <i class="fas fa-star"></i>
 </div>
 
-                        {% else %}
-                          {{ content.review_app_html }}
-                        {% endif %}
-                        {% else %}
-                    
+                            {% else %}
+                              {{ content.review_app_html }}
+                            {% endif %}
+                            {% else %}
+                        
 {% endif %}
 
-                  {% endif %}
-                </div>
-                <a class="product-card-js__price mt:14px" href="#">
-                  <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">${{ product.price }}.00</ins>
-                  {% if product.compare_at_price > product.price %}
-                    <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">${{ product.compare_at_price }}.00</del>
-                  {% endif %}
-                </a>
+                      {% endif %}
+                    </div>
+                    <a class="product-card-js__price mt:14px" href="#">
+                      <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">{{ product.price | money }}</ins>
+                      {% if product.compare_at_price > product.price %}
+                        <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">{{ product.compare_at_price | money }}</del>
+                      {% endif %}
+                    </a>
 
-                <div class="product-card-colors-js d:flex">
-                </div>
-                <div class="w:100% ff:font-secondary fw:300 fz:13px c:color-gray9 ta:left mt:20px">
-                  {{product.description | truncatewords(50)| striptags }}
-                </div>
-                <div class="product-card-add-js d:flex jc:center ai:center w:pfs(140px,244px) bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px cur:pointer fz:17px td:none va:middle lh:50px c:color-light c:color-light!|h whs:nowrap us:none">
-                  {{content.add_to_cart_text}}
-                </div>
+                    <div class="product-card-colors-js d:flex">
+                    </div>
+                    <div class="w:100% ff:font-secondary fw:300 fz:13px c:color-gray9 ta:left mt:20px">
+                      {{product.description | truncatewords(50)| striptags }}
+                    </div>
+                    <div class="product-card-add-js d:flex jc:center ai:center w:pfs(140px,244px) bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px cur:pointer fz:17px td:none va:middle lh:50px c:color-light c:color-light!|h whs:nowrap us:none">
+                      {{content.add_to_cart_text}}
+                    </div>
 
-              </div>
-            </div>
-            
+                  </div>
+                </div>
+              
 
 {% endfor %}
 
 
+            
           </div>
-
         </div>
       
       <div data-id="yasmina-filter" class="col-lg-3">
         <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 d:flex ai:center jc:center">
           <div class="product-box maw:330px w:100% h:auto bd:1px_solid_color-gray2 p:15px_20px_30px_20px mb:10px">
-
             
               <form action="{{ routes.search_url }}">
                 <div class="product-box__search mb:15px">
@@ -1218,7 +1262,7 @@ selected="true"{% endif %}
                       </div>
                     </div>
                   </div>
-                 {% endif %}
+                {% endif %}
                 {% if brands.enable %}
                   <div class="filter_field filter_by_brand">
                     <h2 class="product-box__title fz:20px fw:500 mb:10px ff:font-primary mt:30px">{{brands.title}}</h2>
@@ -1262,7 +1306,7 @@ selected="true"{% endif %}
                       {% for tag in content.filter_tags %}
                         <div class="d:flex pos:relative ai:center h:28px jc:center mr:5px ta:center cur:pointer ff:font-primary fz:15px p:2px_5px_2px_5px mb:10px">
                             <label class="w:100% h:28px cur:pointer cur:pointer d:flex jc:center">
-                                <input class="yasmina-asdasdas pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="{{ tag.value }}" data-label="{{tag.value}}"/>
+                                <input class="yasmina-filter-input-tag pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="{{ tag.value }}" data-label="{{tag.value}}"/>
                                 <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
                                 <span class="ta:center lh:28px fz:15px fw:400 c:color-gray9">{{ tag.value }}</span>
                             </label>

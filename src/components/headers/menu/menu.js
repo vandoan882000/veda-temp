@@ -11,7 +11,7 @@ if(!!container) {
     productCompare.customCompare(veda.utils.objectParse(dataCompareOptions));
     //button popup
     btnComparePopup.addEventListener('click', () => {
-      productCompare.toggleDraw();
+      productCompare.togglePopup();
     });
     // compare badge
     const compareBadge = document.querySelector('.veda-compare__badge');

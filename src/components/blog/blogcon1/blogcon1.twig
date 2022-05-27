@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_c7cce641-8f36-4ede-bc39-e3b3eef6d2b6" %}
+{% set uniqueId = "id_9f78f30e-5f3f-45a9-942e-0ea178230378" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -77,7 +77,7 @@
     <div class="row">
       <div class="col-xs-11 col-sm-11 col-md-9 col-lg-9 pr:50px@md">
         {% set blog = blogs[content.blog] %}
-        {% for item in blog.articles %}
+        {% for item in blog.articles | slice(0, 4) %}
           <div class="blog pb:55px fz:15px">
             <a href="#" class="veda-image-cover d:block w:100%" css="--aspect-ratio: 1.6">
               <img class="product-card-image-js" src={{item.image.src | img_url('769x')}} alt="Blog Img">
@@ -152,9 +152,15 @@
             {% if tag_enable %}
               <div class="product-box__tag mb:30px">
                 <h2 class="product-box__title fz:20px mt:20px fw:500 mb:15px ff:font-primary">Tags</h2>
-                <div class="product-box__content">
-                  {% for item in tag_data%}
-                    <a href="#" class="product-box__box-tag d:inline-block bd:1px_solid_color-gray2 p:2px_5px_2px_5px mb:10px ta:center cur:pointer ff:font-primary fz:15px c:color-dark c:color-dark!|h">{{item.name}}</a>
+                <div class="yasmina-product-box__tags d:flex flw:wrap">
+                  {% for tag in blog.all_tags %}
+                    <div class="d:flex pos:relative ai:center h:28px jc:center mr:5px ta:center cur:pointer ff:font-primary fz:15px p:2px_5px_2px_5px mb:10px">
+                        <label class="w:100% h:28px cur:pointer cur:pointer d:flex jc:center">
+                            <input class="yasmina-filter-input-tag pos:absolute v:hidden" type="checkbox" name="filter.blog.tag" value="{{ tag }}" data-label="{{tag | lower}}"/>
+                            <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
+                            <span class="ta:center lh:28px fz:15px fw:400 c:color-gray9">{{ tag }}</span>
+                        </label>
+                    </div>
                   
 
 {% endfor %}

@@ -37,7 +37,7 @@ const data = {
   metafields: null,
   money_format: "Kz{{amount}}",
   money_with_currency_format: "Kz{{amount}} AOA",
-  name: "lemanhtuong1",
+  name: "Yasmina",
   password_message: null,
   permanent_domain: null,
   phone: "096396243545",

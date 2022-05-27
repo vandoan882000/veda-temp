@@ -8,6 +8,7 @@ if (!!container) {
   const { Component, html, render} = veda.utils.csr;
   const { collectionsFilters } = veda.plugins;
   const { message, productCompare, productWishList, productQuickView, productColor, cart } = veda.plugins;
+  const { objectParse } = veda.utils;
   let unsubscribeCompare = () => {};
   let unsubscribeWishList = () => {};
   let loadding = false;
@@ -28,7 +29,7 @@ if (!!container) {
     const listCard = container.querySelectorAll(".product-card-js");
     listCard.forEach((card) => {
       const compareDataEl = card.querySelector(".product-card-data-js");
-      const productData = JSON.parse(compareDataEl.textContent);
+      const productData = objectParse(compareDataEl.textContent);
       const btnCompareEl = card.querySelector(".compare-toggle-js");
       const ratingCustom = card.querySelector(".compare-rating-js");
       const hasItem = () => checkHasItem(productData, productCompare.getData());
@@ -55,7 +56,7 @@ if (!!container) {
       const listCard = container.querySelectorAll(".product-card-js");
       listCard.forEach((card) => {
         const compareDataEl = card.querySelector(".product-card-data-js");
-        const productData = JSON.parse(compareDataEl.textContent);
+        const productData = objectParse(compareDataEl.textContent);
         const btnCompareEl = card.querySelector(".compare-toggle-js");
         const hasItem = () => checkHasItem(productData, state);
         changeStatus(btnCompareEl, hasItem);
@@ -66,7 +67,7 @@ if (!!container) {
     const listCard = container.querySelectorAll(".product-card-js");
     listCard.forEach((card) => {
       const compareDataEl = card.querySelector(".product-card-data-js");
-      const productData = JSON.parse(compareDataEl.textContent);
+      const productData = objectParse(compareDataEl.textContent);
       const btnWishListEl = card.querySelector(".wishlist-toggle-js");
       const hasItem = () =>
         checkHasItem(productData, productWishList.getData());
@@ -93,7 +94,7 @@ if (!!container) {
       const listCard = container.querySelectorAll(".product-card-js");
       listCard.forEach((card) => {
         const dataEl = card.querySelector(".product-card-data-js");
-        const productData = JSON.parse(dataEl.textContent);
+        const productData = objectParse(dataEl.textContent);
         const btnWishList = card.querySelector(".wishlist-toggle-js");
         const hasItem = () => checkHasItem(productData, state);
         changeStatus(btnWishList, hasItem);
@@ -104,14 +105,14 @@ if (!!container) {
     const listCard = container.querySelectorAll(".product-card-js");
     listCard.forEach((card) => {
       const cartDataEl = card.querySelector(".product-card-data-js");
-      const productData = JSON.parse(cartDataEl.textContent);
+      const productData = objectParse(cartDataEl.textContent);
       const btnAddCart = card.querySelector(".product-card-add-js");
       btnAddCart.addEventListener("click", async (event) => {
         event.preventDefault();
         if (!loadding) {
           loadding = true;
           const currentLoaderEl = document.createElement('div');
-          currentLoaderEl.classList.add('loader');
+          currentLoaderEl.classList = 'loader w:20px h:20px';
           btnAddCart.insertAdjacentElement('afterbegin', currentLoaderEl);
           cart.addToCart(productData).finally(() => {
             currentLoaderEl.remove();
@@ -125,10 +126,10 @@ if (!!container) {
     const listCard = container.querySelectorAll(".product-card-js");
     listCard.forEach((card) => {
       const cartDataEl = card.querySelector(".product-card-data-js");
-      const productData = JSON.parse(cartDataEl.textContent);
+      const productData = objectParse(cartDataEl.textContent);
       const btnQuickView = card.querySelector(".quickview-toggle-js");
       btnQuickView.addEventListener("click", () =>
-        productQuickView.toggleDraw(productData)
+        productQuickView.togglePopup(productData)
       );
     });
   }
@@ -145,7 +146,7 @@ if (!!container) {
     });
     listCard.forEach((card) => {
       const cartDataEl = card.querySelector(".product-card-data-js");
-      const productData = JSON.parse(cartDataEl.textContent);
+      const productData = objectParse(cartDataEl.textContent);
       const colorWrapper = card.querySelector(".product-card-colors-js");
       productColor.render(colorWrapper, productData);
     });
@@ -167,7 +168,7 @@ if (!!container) {
       let tags = [];
       const lstData = container.querySelectorAll(".product-card-data-js");
       lstData.forEach(dataEl => {
-        const data = JSON.parse(dataEl.textContent);
+        const data = objectParse(dataEl.textContent);
         data.tags.forEach(tag => {
           if (!tags.includes(tag)) {
             tags.push(tag);

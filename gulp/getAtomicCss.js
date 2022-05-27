@@ -1,4 +1,4 @@
-const { atomic } = require("mota-css");
+const { atomic, pfs, rtl } = require("mota-css");
 
 atomic.setConfig({
   breakpoints: {
@@ -102,6 +102,22 @@ atomic.customValue((value) => {
       .replace(/\)\.\d*/g, ")");
   }
   return value;
+});
+
+atomic.plugins([rtl(), pfs()]);
+
+function log(arr) {
+  return console.log(
+    ...arr.map(([text, color]) => `\x1b[${color}m${text}\x1b[0m`)
+  );
+}
+
+atomic.on("invalid", (diagnostic) => {
+  const { message, className, css } = diagnostic;
+  log([
+    [`[${message}]`, 31],
+    [`(class: "${className}" -> css: "${css}")`, 35],
+  ]);
 });
 
 exports.setAtomicCss = (str) => {

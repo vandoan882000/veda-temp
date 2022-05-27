@@ -59,7 +59,7 @@
           {% endif %}
       </nav>
     {% endunless %}
-    <div class="view-as mb:20px d:flex ai:center jc:space-between mt:30px fz:15px c:color-dark flw:wrap w:75% pr:40px@md">
+    <div class="view-as mb:20px d:flex ai:center jc:space-between mt:30px fz:15px c:color-dark flw:wrap w:75% pr:35px@md">
       <div class="d:flex">
         View as:
         <a href="#" class="yasmina-shop-page__view1 p:0px_5px_0px_5px ml:10px"><i class="fal fa-list"></i></a>
@@ -103,14 +103,14 @@
             <div class="d:flex whs:nowrap ai:center pos:relative mt:10px mt:0px@md filter_field sort_by pos:relative">
               <p class="mr:10px fz:15px fw:500">Sort by</p>
               <div class="veda-select filter-sort-by-js">
-                <div class="veda-select__view w:190px h:43px bd:1px_solid_#DEDEE9 pl:15px cur:pointer d:flex ai:center ff:font-secondary">
-                  <div class="veda-select__label w:150px cur:pointer d:flex ai:center fz:15px fw:400 c:color-gray4 ff:font-secondary"></div>
+                <div class="veda-select__view w:pfs(130px,190px) h:43px bd:1px_solid_#DEDEE9 pl:15px cur:pointer d:flex ai:center ff:font-secondary">
+                  <div class="veda-select__label w:pfs(100px,150px) cur:pointer d:flex ai:center fz:pfs(12px,15px) fw:400 c:color-gray4 ff:font-secondary"></div>
                   <i class="fal fa-angle-down"></i>
                 </div>
-                <div class="veda-select__options select-custom pos:absolute t:50px w:190px z:100 bgc:color-light bd:1px_solid_#DEDEE9">
-                  {% assign first_sort = my_collection_sort | first %}
+                <div class="veda-select__options select-custom pos:absolute t:50px w:pfs(130px,190px) z:100 bgc:color-light bd:1px_solid_#DEDEE9">
+                  {% assign first_sort_option = my_collection_sort | first %}
                   {% for option in my_collection_sort %}
-                    <div class="veda-select__option select-custom__item w:188px h:43px fz:15px fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="{{ option.name | escape }}" {% if first_sort.name  == option.name %}selected="true"{% endif %} >{{ option.value | escape }}</div>
+                    <div class="veda-select__option select-custom__item w:pfs(128px,188px) h:43px fz:pfs(12px,15px) fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="{{ option.name | escape }}" {% if first_sort_option.name  == option.name %}selected="true"{% endif %} >{{ option.value | escape }}</div>
                   {% endfor %}
 
                 </div>
@@ -193,15 +193,15 @@
 
       </shopify>
       <shopify>
-        <div class="col-lg-9 pl:40px shop-page2 d:none">
-          <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 pr:90px content-collections-js" component="content">
+        <div class="col-lg-9 shop-page2 d:none">
+          <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 content-collections-js" component="content">
             {% assign collection = collection %}
             {% for product in collection.products limit: 4 %}
-            <div class="product-card-js d:flex fld:row ai:center ta:center mb:15px pb:15px">
+            <div class="product-card-js d:flex fld:row ai:center ta:center mb:15px pb:15px fxw:wrap">
               <script class="product-card-data-js" type="application/json">{{ product | json }}</script>
-              <div class="product-card__img miw:250px w:250px pos:relative ov:hidden">
-                <div class="ov:hidden miw:250px w:250px">
-                  <a href="#" class="veda-image-cover d:block miw:250px w:250px" css="--aspect-ratio: 3/4">
+              <div class="product-card__img w:250px pos:relative ov:hidden mr:0px mr:30px@sm">
+                <div class="ov:hidden w:100%">
+                  <a href="#" class="veda-image-cover d:block w:100%" css="--aspect-ratio: 3/4">
                     <img class="product-card-image-js" src="{{ product.featured_image.src | img_url: '250x' }}" alt="{{ product.title }}">
                   </a>
                 </div>
@@ -225,9 +225,7 @@
                   </div>
                 </div>
               </div>
-
-
-              <div class="product-card-js__content d:flex fld:column jc:flex-start ai:flex-start h:100% pl:30px">
+              <div class="product-card-js__content d:flex fld:column jc:flex-start ai:flex-start h:100%">
                 <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
                 <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
                 <div class="compare-rating-js">
@@ -264,13 +262,11 @@
                 </a>
 
                 <div class="product-card-colors-js d:flex">
-                  <script class="product-card-js__options-json" type="application/json">{{ product.options_with_values | json }}</script>
                 </div>
-                <script class="product-card-js__variants-json" type="application/json">{{ product.variants | json }}</script>
-                <div class="ff:font-secondary fw:300 fz:13px c:color-gray9 ta:left mt:20px">
+                <div class="w:100% ff:font-secondary fw:300 fz:13px c:color-gray9 ta:left mt:20px">
                   {{product.description | truncatewords: 50 | strip_html }}
                 </div>
-                <div class="product-card-add-js d:flex jc:center ai:center w:244px bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px cur:pointer fz:17px td:none va:middle lh:50px c:color-light c:color-light!|h whs:nowrap us:none">
+                <div class="product-card-add-js d:flex jc:center ai:center w:pfs(140px,244px) bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px cur:pointer fz:17px td:none va:middle lh:50px c:color-light c:color-light!|h whs:nowrap us:none">
                   {{content.add_to_cart_text}}
                 </div>
 
@@ -360,7 +356,7 @@
                   {% if size.enable %}
                     <div class="filter_field filter_by_size">
                       <h2 class="product-box__title fz:20px mt:30px fw:500 mb:15px ff:font-primary">{{size.title}}</h2>
-                      <div class="d:flex mb:30px">
+                      <div class="d:flex mb:30px fxw:wrap">
                         {% for size in tag_sizes %}
                           <div class="d:flex pos:relative ai:center jc:center w:40px h:40px mr:5px ta:center cur:pointer ff:font-primary fz:15px">
                               <label class="yasmina-filter-box-size w:40px h:40px cur:pointer cur:pointer bgc:color-gray9|h! c:color-light|h!">
@@ -393,11 +389,11 @@
                         <div class="veda-slider__track h:5px bgc:color-gray3"></div>
                         <div class="veda-slider__tracked h:5px bgc:color-gray9"></div>
                       </div>
-                      <div class="d:flex mt:13px">
+                      <div class="d:flex mt:13px fxw:wrap fld:column fld:row@sm">
                         <div class="mr:10px">
                           <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px! fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" id="gte" name="filter.v.price.gte" data-label="{{ min_price | times:100 | money }}" value="{{ min_price }}" min="{{ min_price }}" max="{{ max_price }}" data-button="disabled" placeholder="{{ price.from_text }}" >
                         </div>
-                        <div>
+                        <div class="mt:10px mt:0px@sm">
                           <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px! fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" data-button="disabled" data-label="{{ max_price | times:100 | money }}" placeholder="{{ price.to_text }}" name="filter.v.price.lte" value="{{ max_price }}" min="{{ min_price }}" max="{{ max_price }}">
                         </div>
                       </div>

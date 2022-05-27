@@ -75,7 +75,7 @@
             </div>
             <a class="blog__title mb:10px mt:10px fz:pfs(20px,35px) c:color-dark ff:font-primary fw:500 cur:pointer tt:capitalize">{{item.title | capitalize }}</a>
             <p class="blog__description fz:14px fw:400 ff:font-secondary c:color-dark mt:3px lh:24px">{{item.content | truncatewords: 100}}</p>
-            <button class="ff:font-primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light p:17px_81px_17px_81px cur:pointer m:22px_5px_5px_5px fw:500 bdrs:0px! fz:pfs(12px,15px) lts:0.15px ml:0px!">Read More</button>
+            <button class="ff:font-primary bgc:color-dark bgc:color-dark!|h bd:none! c:color-light pt:17px pb:17px pr:pfs(15px,81px) pl:pfs(15px,81px) cur:pointer m:22px_5px_5px_5px fw:500 bdrs:0px! fz:pfs(12px,15px) lts:0.15px ml:0px!">Read More</button>
           </div>
         {% endfor %}
         <div class="d:flex jc:center">
@@ -115,8 +115,10 @@
                 <div class="product-box__content fz:15px d:flex fld:column ai:flex-start">
                   {% for item in popular_post_data %}
                     <a href="#" class="product-box__box-post mb:20px d:flex jc:center ai:flex-start">
-                      <img src={{item.srcImg | img_url: ''}} alt="">
-                      <h2 class="ml:10px fw:500 c:color-dark fz:15px">{{item.title | truncate: 50}}</h2>
+                      <div class="w:64px ar:1.28">
+                        <img class="w:100%" src={{item.srcImg | img_url: ''}} alt="">
+                      </div>
+                      <div class="w:80% ml:10px fw:500 c:color-dark fz:15px">{{item.title | truncate: 50}}</div>
                     </a>
                   {% endfor %}
                 </div>
@@ -155,9 +157,9 @@
                         </div>
                       {% else %}
                         <input type="hidden" name="contact[tags]" value="newsletter" />
-                        <input class="bd:none! o:none w:70% h:100% bdend:1px_solid_gray3! c:color-gray3 c:color-gray3||placeholder! fz:15px! fz:15px||pl! fw:400 fw:400||placeholder! ff:font-primary!" type="text" placeholder="Your email" name="contact[email]"
+                        <input class="bd:none! o:none w:pfs(55%,70%) h:100% bdend:1px_solid_gray3! c:color-gray3 c:color-gray3||placeholder! fz:15px! fz:pfs(12px,15px)||placeholder! fw:400 fw:400||placeholder! ff:font-primary!" type="text" placeholder="Your email" name="contact[email]"
                         autocorrect="off" autocapitalize="off">
-                        <button class="fz:15px fw:500 ff:font-primary bdrs:0 w:30% h:100% bgc:color-dark bgc:color-dark!|h c:color-light bd:none" type="submit" aria-label="dasdas">GET!</button>
+                        <button class="fz:pfs(12px,15px) fw:500 ff:font-primary bdrs:0 h:100% bgc:color-dark bgc:color-dark!|h c:color-light bd:none ta:center" type="submit" aria-label="get">GET!</button>
                         <p class="result"></p>
                         <p class="result-error"></p>
                       {% endif %}

@@ -5,8 +5,9 @@ const container = document.querySelector(`[data-id="${uniqueId}"]`);
 
 if(!!container) {
   const { message, productCompare, productWishList, cart } = veda.plugins;
+  const menuTextConfig = JSON.parse(container.querySelector(".menu-text-config-js").textContent);
   function initCompare() {
-    const btnComparePopup = document.querySelector('.veda-compare__popup');
+    const btnComparePopup = document.querySelector('.veda-compare-toggle-js');
     const dataCompareOptions = btnComparePopup.getAttribute('data-options');
     productCompare.customCompare(veda.utils.objectParse(dataCompareOptions));
     //button popup
@@ -14,7 +15,7 @@ if(!!container) {
       productCompare.togglePopup();
     });
     // compare badge
-    const compareBadge = document.querySelector('.veda-compare__badge');
+    const compareBadge = document.querySelector('.veda-compare-badge-js');
     compareBadge.innerHTML = productCompare.getData().length;
     productCompare.getData().length ? compareBadge.style.display = 'flex' : compareBadge.style.display = 'none';
     productCompare.subscribe((state) => {
@@ -23,8 +24,11 @@ if(!!container) {
     });
   }
   function initWishList() {
+    productWishList.customWishList({
+      link: "/pageproduct.html",
+    });
     //wishlist badge
-    const wishlistBadge = document.querySelector('.veda-wishlist__badge');
+    const wishlistBadge = document.querySelector('.veda-wishlist-badge-js');
     wishlistBadge.innerHTML = productWishList.getData()?.length??"0";
     productWishList.getData().length ? wishlistBadge.style.display = 'flex' : wishlistBadge.style.display = 'none';
     productWishList.subscribe((state) => {
@@ -38,29 +42,29 @@ if(!!container) {
       api: "https://624eadac53326d0cfe5dba36.mockapi.io/cart",
       onSuccess: (type) => {
         if(type === 'add') {
-          message.success("Add to cart");
+          message.success(menuTextConfig.add_to_cart_success_text);
         }
         if(type === 'delete') {
-          message.success("Remove from cart");
+          message.success(menuTextConfig.remove_from_cart_success_text);
         }
       },
       onError: (type) => {
         if(type === 'add') {
-          message.error("Add to cart error");
+          message.error(menuTextConfig.add_to_cart_error_text);
         }
         if(type === 'delete') {
-          message.error("Remove from cart error");
+          message.error(menuTextConfig.remove_from_cart_error_text);
         }
       },
       totalPrice: 12345,
     })
     // button popup
-    const btnCart = document.querySelector('.veda-cart__popup');
+    const btnCart = document.querySelector('.veda-cart-toggle-js');
     btnCart.addEventListener('click', () => {
     cart.toggleDraw();
     });
     // cart badge
-    const cartBadge = document.querySelector('.veda-cart__badge');
+    const cartBadge = document.querySelector('.veda-cart-badge-js');
     cartBadge.innerHTML = cart.getData()?.length??"0";
     cart.getData().length ? cartBadge.style.display = 'flex' : cartBadge.style.display = 'none';
     cart.subscribe((state) => {

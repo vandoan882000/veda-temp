@@ -28,25 +28,28 @@ if(!!containers) {
         const compareDataEl = card.querySelector(".product-card-data-js");
         const productData = objectParse(compareDataEl.textContent);
         const btnCompareEl = card.querySelector(".compare-toggle-js");
-        const ratingCustom = card.querySelector(".compare-rating-js");
-        const hasItem = () => checkHasItem(productData, productCompare.getData());
-        changeStatus(btnCompareEl, hasItem);
-        btnCompareEl.addEventListener("click", () => {
-          productCompare.toggleProduct({
-            ...productData,
-            rating: ratingCustom?.innerHTML,
-          });
-          const tooltipText = btnCompareEl.getAttribute("data-tooltip-text");
-          const tooltipActiveText = btnCompareEl.getAttribute(
-            "data-tooltip-active-text"
-          );
+        if(!!btnCompareEl) {
+          const ratingCustom = card.querySelector(".compare-rating-js");
+          const hasItem = () => checkHasItem(productData, productCompare.getData());
           changeStatus(btnCompareEl, hasItem);
-          if (hasItem()) {
-            tooltipText && message.success(tooltipText);
-          } else {
-            tooltipActiveText && message.error(tooltipActiveText);
-          }
-        });
+          btnCompareEl.addEventListener("click", () => {
+            productCompare.toggleProduct({
+              ...productData,
+              rating: ratingCustom?.innerHTML,
+            });
+            const tooltipText = btnCompareEl.getAttribute("data-tooltip-text");
+            const tooltipActiveText = btnCompareEl.getAttribute(
+              "data-tooltip-active-text"
+            );
+            changeStatus(btnCompareEl, hasItem);
+            if (hasItem()) {
+              tooltipText && message.success(tooltipText);
+            } else {
+              tooltipActiveText && message.error(tooltipActiveText);
+            }
+          });
+        }
+
       });
       unsubscribeCompare();
       unsubscribeCompare = productCompare.subscribe((state) => {
@@ -66,11 +69,7 @@ if(!!containers) {
         const compareDataEl = card.querySelector(".product-card-data-js");
         const productData = objectParse(compareDataEl.textContent);
         const btnWishListEl = card.querySelector(".wishlist-toggle-js");
-        const hasItem = () =>
-          checkHasItem(productData, productWishList.getData());
-        productQuickView.customQuickView({
-          link: "/pageproduct.html",
-        });
+        const hasItem = () => checkHasItem(productData, productWishList.getData());
         changeStatus(btnWishListEl, hasItem);
         btnWishListEl.addEventListener("click", () => {
           productWishList.toggleWishList(productData);
@@ -108,11 +107,11 @@ if(!!containers) {
           event.preventDefault();
           if (!loadding) {
             loadding = true;
-            const currentLoaderEl = document.createElement('div');
-            currentLoaderEl.classList = 'loader w:20px h:20px';
-            btnAddCart.insertAdjacentElement('afterbegin', currentLoaderEl);
+            const spinner = "<div class='veda-spinner' style='--spinner-color:red'></div>";
+            btnAddCart.insertAdjacentHTML('afterbegin', spinner);
             cart.addToCart(productData).finally(() => {
-              currentLoaderEl.remove();
+              const currentSpinner = btnAddCart.querySelector('.veda-spinner');
+              currentSpinner.remove();
               loadding = false;
             });
           }

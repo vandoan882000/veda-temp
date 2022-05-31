@@ -36,6 +36,12 @@ const data = {
       link: "#"
     }
   ],
+  text_menu_config: {
+    add_to_cart_success_text: "Add to cart",
+    add_to_cart_error_text: "Add to cart error",
+    remove_from_cart_success_text: "Remove from cart",
+    remove_from_cart_error_text: "Remove from cart error",
+  }
 
 
 };

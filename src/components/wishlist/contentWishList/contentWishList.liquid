@@ -68,11 +68,16 @@
           <div class="veda-wishlist__wrapper miw:960px" data-id="wishlist"></div>
         </div>
         <div class="d:flex jc:center mt:40px">
-          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_color-dark bgc:color-dark c:color-light cur:pointer mr:5px fw:600 ">1</div>
-          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9 bgc:color-light c:color-dark cur:pointer mr:5px fw:600">2</div>
-          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9  bgc:color-light c:color-dark cur:pointer mr:5px fw:600">3</div>
-          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9 bgc:color-light c:color-dark cur:pointer mr:5px fw:600">4</div>
-          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9  bgc:color-light c:color-dark cur:pointer mr:5px"><i class="fas fa-long-arrow-right"></i></div>
+          {% for i in (1..4) %}
+            <div class="d:flex pos:relative ai:center jc:center w:50px h:50px mr:5px ta:center cur:pointer ff:font-primary fz:15px">
+              <label class="yasmina-filter-box-size pos:absolute w:50px! h:50px cur:pointer cur:pointer bgc:color-gray9|h! c:color-light|h!">
+                <input class="yasmina-filter-input-size pos:absolute v:hidden" type="radio" name="paging"  value="1" {% if i == 1 %}checked{% endif %}/>
+                <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2 z:-1"></div>
+                <span class="ta:center lh:50px fz:15px fw:400 c:color-gray9">{{i}}</span>
+              </label>
+            </div>
+          {% endfor %}
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9 bgc:color-light c:color-dark cur:pointer mr:5px"><i class="far fa-arrow-right"></i></div>
         </div>
       </div>
     </div>

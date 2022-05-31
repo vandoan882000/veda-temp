@@ -57,17 +57,18 @@ if(container) {
           const quantityEl = document.querySelector('.yasmina-page-product__quantity');
           const itemAdd = cart.getData().filter(item => item.product_id === dataWishList.id);
           loadding = true;
-          const currentLoaderEl = document.createElement('div');
-          currentLoaderEl.classList = 'loader w:20px h:20px';
-          btnAddCart.insertAdjacentElement('afterbegin', currentLoaderEl);
+          const spinner = "<div class='veda-spinner' style='--spinner-color:red'></div>";
+          btnAddCart.insertAdjacentHTML('afterbegin', spinner);
           if(itemAdd.length > 0) {
             cart.updateCart(itemAdd[0].id, Number(itemAdd[0].quantity) + Number(quantityEl.value)).finally(() => {
-              currentLoaderEl.remove();
+              const currentSpinner = btnAddCart.querySelector('.veda-spinner');
+              currentSpinner.remove();
               loadding = false;
             });
           } else {
             cart.addToCart(dataWishList).finally(() => {
-              currentLoaderEl.remove();
+              const currentSpinner = btnAddCart.querySelector('.veda-spinner');
+              currentSpinner.remove();
               loadding = false;
             });
           }

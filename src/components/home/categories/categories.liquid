@@ -15,10 +15,10 @@
     <div class="row">
       {% for item in category limit: 8 %}
         <div component="category" class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}">
-          <div class="pos:relative w:100% ov:hidden z:2 cur:pointer" component="category">
-            <a href="#" class="yasmina-category* w:100% ar:1.43">
+          <div class="yasmina-category pos:relative w:100% ov:hidden z:2 cur:pointer" component="category">
+            <a href="#" class="w:100% ar:1.43">
               <img class="trf:scale(1.1)*yasmina-category-hover z:-1 w:100% trs:all_0.3s" src={{item.background_image}} alt="category">
-              <div class="yasmina-category__title pos:absolute t:50% l:50% trf:translate(-50%,-50%) c:color-light-freeze fw:600 fz:17px tt:uppercase ta:center z:9 tt:uppercase fit-content">{{item.label}}</div>
+              <div class="yasmina-category__title pos:absolute t:50% l:50% trf:translate(-50%,-50%) c:color-light-freeze fw:600 fz:17px tt:uppercase ta:center z:9 tt:uppercase fit-content w:100%">{{item.label}}</div>
             </a>
             <div class="yasmina-overlay pos:absolute t:0 l:0 bgc:color-dark op:0 w:100% h:100% trs:all_0.5s z:999"></div>
           </div>

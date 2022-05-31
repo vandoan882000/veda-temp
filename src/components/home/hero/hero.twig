@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_a036630e-e89f-4332-bb28-0d0f5f94cff5" %}
+{% set uniqueId = "id_f3a662e0-63cf-4f80-9d6a-f5b1b642dfeb" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -45,7 +45,7 @@
             {% if content.button | length > 1 %}
             <div class="yasmina-btn__container">
               {% for item in content.button %}
-                <button class="w:auto bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} pt:20px pb:20px pl:pfs(20px,49px) pr:pfs(20px,49px) w:198px h:60px ta:center cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:14px">{{item.label}}</button>
+                <button class="w:auto bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} pt:20px pb:20px pl:pfs(20px,48px) pr:pfs(20px,48px) w:pfs(120px,198px) h:60px ta:center cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:14px">{{item.label}}</button>
               
 
 {% endfor %}

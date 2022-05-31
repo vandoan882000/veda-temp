@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_55370f92-ade4-4d93-b34e-ffc1252062f6" %}
+{% set uniqueId = "id_069a0f1a-01e7-4970-a415-9e0b0a8e7e9e" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -18,7 +18,7 @@
 {% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
 
 
-<section data-id="bestseller" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+<section data-id="products" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
   {% if general_settings.background_overlay_enable %}
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
@@ -84,9 +84,7 @@
                         </a>
 
                         <div class="product-card-colors-js d:flex">
-                          <script class="product-card-js__options-json" type="application/json">{{ product.options_with_values | json_encode()}}</script>
                         </div>
-                        <script class="product-card-js__variants-json" type="application/json">{{ product.variants | json_encode()}}</script>
 
                       </div>
                     </div>

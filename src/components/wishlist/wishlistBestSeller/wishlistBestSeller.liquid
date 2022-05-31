@@ -7,15 +7,15 @@
 %}
 
 
-<section data-id="bestseller" class="pt:80px" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+<section data-id="products" class="pt:80px" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
   {% if general_settings.background_overlay_enable %}
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
   <div class="container pb:40px">
     <h3 class="ff:font-primary ta:center mb:45px fz:pfs(25px,40px) fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+    {% assign collection = collections[content.collection] %}
     <div class="row">
       <shopify>
-        {% assign collection = collections[content.collection] %}
         {% for product in collection.products limit: 4 %}
           <div class="col-lg-3 mt:0px!">
             <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">
@@ -92,6 +92,5 @@
         {% endfor %}
       </shopify>
     </div>
-
   </div>
 </section>

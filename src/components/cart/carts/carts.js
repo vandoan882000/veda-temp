@@ -45,6 +45,13 @@ if(!!container) {
       quantityEl.value = Number(quantityEl.value) - 1;
     }
   }
+  function getImage(image) {
+    if(typeof image === "string") {
+      return image;
+    } else {
+      return image.src;
+    }
+  }
   veda.plugins.countdown(container);
   veda.plugins.cart.customCart({
     renderCart: (product) => {
@@ -52,11 +59,11 @@ if(!!container) {
         <tr class="card-cart fz:15px bd:none bdb:1px_solid_color-gray2">
           <td class="card-cart__content bd:none pt:30px pb:30px d:flex pl:0px!">
             <a href="#" class="veda-image-cover d:block w:140px bd:none! h:132px" css="--aspect-ratio: 4/4">
-              <img src=${product.featured_image.src} alt="product-card"></img>
+              <img src=${getImage(product.featured_image)} alt="product-card"></img>
               </a>
               <div class="card-cart__name pl:20px c:color-primary">
                 <div class="card-cart__title c:color-dark mb:10px fw:500 fz:15px">${product.title}</div>
-                ${product.options_with_values[1]? html`<div class="mb:10px c:color-gray6 fz:15px fw:500">Color: ${product.options_with_values[1]?.selected_value}</div>` : ""}
+                ${product.options_with_values?.[1]? html`<div class="mb:10px c:color-gray6 fz:15px fw:500">Color: ${product.options_with_values?.[1]?.selected_value}</div>` : ""}
                 <a class="yasmina-card-cart__remove td:none bd:none c:color-primary fz:13px fw:400 cur:pointer" onClick=${() => veda.plugins.cart.removeCart(product.id)}>Remove</a>
               </div>
             </td>

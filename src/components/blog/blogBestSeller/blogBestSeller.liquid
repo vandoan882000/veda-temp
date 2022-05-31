@@ -6,7 +6,7 @@
   assign sectionPadding = 'padding-top: ' | append: general_settings.padding.top | append: 'px;padding-right: ' | append: general_settings.padding.right | append: 'px;padding-bottom: ' | append: general_settings.padding.bottom | append: 'px;padding-left: ' | append: general_settings.padding.left | append: 'px;'
 %}
 
-<section data-id="bestseller" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+<section data-id="products" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
   {% if general_settings.background_overlay_enable %}
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
@@ -70,7 +70,6 @@
         {% endfor %}
       </shopify>
     </div>
-
   </div>
 </section>
 <section class="bgc:#F2F2F7 h:300px d:flex fld:column ai:center jc:center ta:center">

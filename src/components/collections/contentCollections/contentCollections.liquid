@@ -1,0 +1,510 @@
+{% liquid
+  if general_settings.background_fixed assign backgroundFixed = 'fixed' else assign backgroundFixed = 'scroll' endif
+  if general_settings.background_type == 'color' assign backgroundColor = 'background-color: ' | append: general_settings.background_color | append: ';' else assign backgroundColor = '' endif
+  if general_settings.background_type == 'image' assign backgroundImage = 'background-image: url(' | append: general_settings.background_image | append:
+  ');background-attachment: ' | append: backgroundFixed | append: ';background-size: ' | append: general_settings.background_size | append: ';' else assign backgroundImage = '' endif
+  assign sectionPadding = 'padding-top: ' | append: general_settings.padding.top | append: 'px;padding-right: ' | append: general_settings.padding.right | append: 'px;padding-bottom: ' | append: general_settings.padding.bottom | append: 'px;padding-left: ' | append: general_settings.padding.left | append: 'px;'
+%}
+
+
+<section data-id="shoppage" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
+  <shopify><div data-shopify-id="{{ section.id }}"></div></shopify>
+  <div class="container pt:35px">
+    <shopify>
+      {% unless request.page_type == 'index' or request.page_type == 'list-collections' %}
+        <nav role="navigation" aria-label="breadcrumbs">
+            <a href="{{ routes.root_url }}" title="Home">Home</a>
+            {% if request.page_type contains 'page' %}
+              <span aria-hidden="true">/</span>
+              <span>{{ page.title }}</span>
+            {% elsif request.page_type contains 'product' %}
+              {% if collection.url %}
+                <span aria-hidden="true">/</span>
+                {{ collection.title | link_to: collection.url }}
+              {% endif %}
+              <span aria-hidden="true">/</span>
+              <span>{{ product.title }}</span>
+            {% elsif request.page_type contains 'collection' and collection.handle %}
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+                {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+                {{ collection.title | link_to: url }}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join: " + " }}</span>
+              {% else %}
+                <span>{{ collection.title }}</span>
+              {% endif %}
+            {% elsif request.page_type == 'blog' %}
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+                {{ blog.title | link_to: blog.url }}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join: " + " }}</span>
+              {% else %}
+                <span>{{ blog.title }}</span>
+              {% endif %}
+            {% elsif request.page_type == 'article' %}
+              <span aria-hidden="true">/</span>
+              {{ blog.title | link_to: blog.url }}
+              <span aria-hidden="true">/</span>
+              <span>{{ article.title }}</span>
+            {% elsif request.page_type == 'cart' %}
+              <span aria-hidden="true">/</span>
+              <span>Cart</span>
+            {% else %}
+              <span aria-hidden="true">/</span>
+              <span>{{ page_title }}</span>
+            {% endif %}
+        </nav>
+      {% endunless %}
+    </shopify>
+    <div class="view-as mb:20px d:flex ai:center jc:space-between mt:30px fz:15px c:color-dark flw:wrap w:75% pr:35px@md">
+      <div class="d:flex">
+        View as:
+        <a href="#" class="yasmina-shop-page__view1 p:0px_5px_0px_5px ml:10px"><i class="fal fa-list"></i></a>
+        <a href="#" class="yasmina-shop-page__view2 yasmina-shop-page__view-active p:0px_5px_0px_5px ml:10px"><i class="fas fa-th"></i></a>
+      </div>
+      <shopify>
+
+          {% capture searchParams %}
+          {% assign pageUrlWithHost = content_for_header | split:'"pageurl":"' | last | split:'"' | first |
+              replace:'\/','/' |
+              replace:'%20',' ' |
+              replace:'\u0026','&'
+            %}
+
+          {{ pageUrlWithHost | split: "?" | last }}
+
+          {% endcapture %}
+
+
+          {{ searchParams }}
+
+
+
+          {% assign filters = searchParams | split: "&" %}
+          {% for filter in filters %}
+          {% assign filterKey = filter | split: "=" | first | url_decode | strip %}
+          {% assign filterValue = filter | split: "=" | last | url_decode | strip %}
+          {% case filterKey %}
+            {% when "sort_by" %}
+              {% assign sort_by = filterValue  %}
+          {% endcase %}
+          {% endfor %}
+
+          {% assign collection_prs = collection.products %}
+          {%- assign arr_price = collection_prs | map:'price_min' | uniq | sort -%}
+          {%- assign min_price = arr_price | first -%}
+          {%- assign max_price = arr_price | last -%}
+
+          {% assign my_collection_sort = collection.sort_options %}
+          <form id="filter-form" class="filter_form">
+            <div class="d:flex whs:nowrap ai:center pos:relative mt:10px mt:0px@md filter_field sort_by pos:relative">
+              <p class="mr:10px fz:15px fw:500">Sort by</p>
+              <div class="veda-select filter-sort-by-js">
+                <div class="veda-select__view w:pfs(130px,190px) h:43px bd:1px_solid_#DEDEE9 pl:15px cur:pointer d:flex ai:center ff:font-secondary">
+                  <div class="veda-select__label w:pfs(100px,150px) cur:pointer d:flex ai:center fz:pfs(12px,15px) fw:400 c:color-gray4 ff:font-secondary"></div>
+                  <i class="fal fa-angle-down"></i>
+                </div>
+                <div class="veda-select__options select-custom pos:absolute t:50px w:pfs(130px,190px) z:100 bgc:color-light bd:1px_solid_#DEDEE9">
+                  {% assign first_sort_option = my_collection_sort | first %}
+                  {% for option in my_collection_sort %}
+                    <div class="veda-select__option select-custom__item w:pfs(128px,188px) h:43px fz:pfs(12px,15px) fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="{{ option.value | escape }}" {% if first_sort_option.name  == option.name %}selected="true"{% endif %} >{{ option.name | escape }}</div>
+                  {% endfor %}
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </shopify>
+
+    </div>
+    <div class="row mt:20px ">
+      <shopify>
+        <div class="col-lg-9 shop-page1 pr:40px@md d:block">
+          <div class="row content-collections-js">
+            <shopify>
+              {% assign collection = collection %}
+              {% for product in collection.products limit: 9 %}
+                <div class="col-md-6 col-lg-4">
+                  <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">
+                    <script class="product-card-data-js" type="application/json">
+                      {
+                        id: {{ product.id | json }},
+                        title: {{ product.title | json }},
+                        vendor: {{ product.vendor | json }},
+                        handle: {{ product.handle | json }},
+                        available: {{ product.available | json }},
+                        content: {{ product.content | json }},
+                        description: {{ product.description | json }},
+                        featured_image: {{ product.featured_image | json }},
+                        images: {{ product.images | json }},
+                        options: {{ product.options | json }},
+                        price_max: {{ product.price_max | json }},
+                        price_min: {{ product.price_min | json }},
+                        type: {{ product.type | json }},
+                        tags: {{ product.tags | json }},
+                        variants: {{ product.variants | json }},
+                        price: {{ product.price | json }},
+                        options_with_values: {{ product.options_with_values | json }},
+
+                      }
+                    </script>
+                    <div class="product-card__img w:100% pos:relative ov:hidden">
+                      <div class="ov:hidden">
+                        <a href="/pageproduct.html" class="veda-image-cover d:block ar:3/4" >
+                          <img class="product-card-image-js" src="{{ product.featured_image.src | img_url: '400x' }}" alt="{{ product.title }}">
+                        </a>
+                      </div>
+                      <div class="product-card__add-content product-card-add-js d:flex jc:center ai:center pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px cur:pointer fz:17px td:none w:100% c:color-light c:color-light!|h us:none">
+                        {{content.add_to_cart_text}}
+                      </div>
+                      <div class="pos:absolute t:5px l:5px d:flex">
+                        {% if product.compare_at_price > product.price and content.sale.enable %}
+                          <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                            <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
+                          </div>
+                        {% endif %}
+                      </div>
+                      <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                        <div class="wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                          <i class="fal fa-heart"></i>
+                        </div>
+                        <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                          <i class="fal fa-eye"></i>
+                        </div>
+                        <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                          <i class="fal fa-repeat"></i>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="product-card-js__content d:flex fld:column jc:center ai:center">
+                      <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
+                      <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+                      <a class="product-card-js__price mt:14px" href="#">
+                        <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">{{ product.price | money }}</ins>
+                        {% if product.compare_at_price > product.price %}
+                          <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">{{ product.compare_at_price | money }}</del>
+                        {% endif %}
+                      </a>
+
+                      <div class="product-card-colors-js d:flex">
+                        <script class="product-card-js__options-json" type="application/json">{{ product.options_with_values | json }}</script>
+                      </div>
+                      <script class="product-card-js__variants-json" type="application/json">{{ product.variants | json }}</script>
+
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </shopify>
+
+            <div class="col-md-12 mb:140px">
+              <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1" component="content">
+                {% for i in (1..4) %}
+                  <div class="d:flex pos:relative ai:center jc:center w:50px h:50px mr:5px ta:center cur:pointer ff:font-primary fz:15px">
+                    <label class="yasmina-filter-box-size pos:absolute w:50px! h:50px cur:pointer cur:pointer bgc:color-gray9|h! c:color-light|h!">
+                      <input class="yasmina-filter-input-size pos:absolute v:hidden" type="radio" name="paging"  value="1" {% if i == 1 %}checked{% endif %}/>
+                      <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2 z:-1"></div>
+                      <span class="ta:center lh:50px fz:15px fw:400 c:color-gray9">{{i}}</span>
+                    </label>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </shopify>
+      <shopify>
+        <div class="col-lg-9 shop-page2 d:none">
+          <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 content-collections-js" component="content">
+            <shopify>
+              {% assign collection = collection %}
+              {% for product in collection.products limit: 4 %}
+                <div class="product-card-js d:flex fld:row ai:center ta:center mb:15px pb:15px fxw:wrap">
+                  <script class="product-card-data-js" type="application/json">
+                    {
+                      id: {{ product.id | json }},
+                      title: {{ product.title | json }},
+                      vendor: {{ product.vendor | json }},
+                      handle: {{ product.handle | json }},
+                      available: {{ product.available | json }},
+                      content: {{ product.content | json }},
+                      description: {{ product.description | json }},
+                      featured_image: {{ product.featured_image | json }},
+                      images: {{ product.images | json }},
+                      options: {{ product.options | json }},
+                      price_max: {{ product.price_max | json }},
+                      price_min: {{ product.price_min | json }},
+                      type: {{ product.type | json }},
+                      tags: {{ product.tags | json }},
+                      variants: {{ product.variants | json }},
+                      price: {{ product.price | json }},
+                      options_with_values: {{ product.options_with_values | json }},
+
+                    }
+                  </script>
+                  <div class="product-card__img w:250px pos:relative ov:hidden mr:0px mr:30px@sm">
+                    <div class="ov:hidden w:100%">
+                      <a href="#" class="veda-image-cover d:block w:100%" css="--aspect-ratio: 3/4">
+                        <img class="product-card-image-js" src="{{ product.featured_image.src | img_url: '250x' }}" alt="{{ product.title }}">
+                      </a>
+                    </div>
+
+                    <div class="pos:absolute t:5px l:5px d:flex">
+                      {% if product.compare_at_price > product.price and content.sale.enable %}
+                        <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                          <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                      <div class="product-card-js__icon-bg wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                        <i class="fal fa-heart"></i>
+                      </div>
+                      <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                        <i class="fal fa-eye"></i>
+                      </div>
+                      <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                        <i class="fal fa-repeat"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="product-card-js__content d:flex fld:column jc:flex-start ai:flex-start h:100%">
+                    <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
+                    <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+                    <div class="compare-rating-js">
+                      {% if content.review_app_enable %}
+                        {% case content.review_app_type %}
+                          {% when 'product_reviews' %}
+                            <rivio-review-badge item="product" />
+                            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                          {% when 'rivyo_reviews' %}
+                            <rivio-review-badge item="product" />
+                          {% when 'loox_reviews' %}
+                            <loox-review-badge item="product" />
+                          {% when 'ali_reviews' %}
+                            <ali-review-badge item="product" />
+                          {% when 'stamped_reviews' %}
+                            <stamped-review-badge item="product" />
+                          {% when 'judge_me_reviews' %}
+                            <judge-me-review-badge item="product" />
+                          {% when 'other' %}
+                            {% if builderMode %}
+                              <review-badge item="product" />
+                            {% else %}
+                              {{ content.review_app_html }}
+                            {% endif %}
+                            {% else %}
+                        {% endcase %}
+                      {% endif %}
+                    </div>
+                    <a class="product-card-js__price mt:14px" href="#">
+                      <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">{{ product.price | money }}</ins>
+                      {% if product.compare_at_price > product.price %}
+                        <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">{{ product.compare_at_price | money }}</del>
+                      {% endif %}
+                    </a>
+
+                    <div class="product-card-colors-js d:flex">
+                    </div>
+                    <div class="w:100% ff:font-secondary fw:300 fz:13px c:color-gray9 ta:left mt:20px">
+                      {{product.description | truncatewords: 50 | strip_html }}
+                    </div>
+                    <div class="product-card-add-js d:flex jc:center ai:center w:pfs(140px,244px) bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px cur:pointer fz:17px td:none va:middle lh:50px c:color-light c:color-light!|h whs:nowrap us:none">
+                      {{content.add_to_cart_text}}
+                    </div>
+
+                  </div>
+                </div>
+              {% endfor %}
+            </shopify>
+          </div>
+        </div>
+      </shopify>
+      <div data-id="yasmina-filter" class="col-lg-3">
+        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 d:flex ai:center jc:center">
+          <div class="product-box maw:330px w:100% h:auto bd:1px_solid_color-gray2 p:15px_20px_30px_20px mb:10px">
+            <shopify>
+              <form action="{{ routes.search_url }}">
+                <div class="product-box__search mb:15px">
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Search</h2>
+                  <div class="product-box__box-search d:flex ai:center bd:1px_solid_color-gray2">
+                    <button class="p:10px bd:1px_solid_color-light bd:1px_solid_color-light|h! bgc:color-light! c:color-gray9! bgc:color-light|h! c:color-gray9|h!" type="submit"><i class="fal fa-search cur:pointer"></i></button>
+                    <input class="h:40px! w:90%! bd:none! o:none c:color-gray4 fz:15px c:color-gray4||placeholder pl:0px! fz:15px||placeholder" type="text"
+                    placeholder="Search"
+                    name="q"
+                    value="{{ search.terms | escape }}"
+                    />
+                    <input type="hidden" name="type" value="product,page" />
+                    <input type="hidden" name="options[unavailable_products]" value="hide" />
+                    <input type="hidden" name="options[prefix]" value="last" />
+
+
+                  </div>
+                </div>
+
+                </form>
+
+
+                {% assign my_collection = collections[content.collection] %}
+                {% assign collection_prs = my_collection.products %}
+                {%- assign arr_price = collection_prs | map:'price_min' | uniq | sort -%}
+                {%- assign min_price = arr_price | first -%}
+                {%- assign max_price = arr_price | last -%}
+
+                <form id="filter_form" class="filter-form-js">
+
+                    <div class="filter-refine-wrapper-js product-box__refine mb:20px pos:relative">
+                      <div class="d:flex jc:space-between mb:15px">
+                        <h2 class="product-box__title fz:20px fw:500 ff:font-primary">Refine By</h2>
+                        <div class="filter-clear-all-js mt:3px"></div>
+                      </div>
+                      <div class="filter-refine-js"></div>
+                    </div>
+                  {% if categories.enable %}
+                    <div class="filter_field filter_by_categories">
+                      <h2 class="product-box__title fz:20px fw:500 mb:8px ff:font-primary">Categories</h2>
+                      <div>
+                        <div class="d:flex fld:column">
+                          {% for category in categories_data %}
+                            <div class="d:flex ai:center mb:10px pos:relative">
+                              <div class="w:5px h:5px bgc:color-gray4 bdrs:50% mr:7px"></div>
+                              <input class="yasmina-filter-input-radio v:hidden" type="radio" id="{{category.value}}" name="filter.v.category" value="{{category.value}}" data-label="{{category.label}}">
+                              <label class="fz:15px fw:400 c:color-gray9 cur:pointer" for="{{category.value}}">{{category.label}}</label>
+                              <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
+                            </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% assign tag_colors = color.colors | split: "," %}
+                  {% if color.enable %}
+                    <div class="filter_field filter_by_color">
+                      <h2 class="product-box__title fz:20px fw:500 mb:0px ff:font-primary mt:22px">{{color.title}}</h2>
+                      <div class="d:flex flw:wrap">
+                        {% for color in tag_colors %}
+                          <div class="yasmina-circle__active pos:relative d:inline-block w:40px h:40px bdrs:20px m:10px_6px_0px_6px cur:pointer p:4px bgcp:content-box bgc:{{color | downcase}}" style="background-color:{{color}}">
+                              <label class="w:40px h:40px cur:pointer">
+                                  <input class="yasmina-filter-input-color v:hidden" type="checkbox" name="filter.v.option.color" value="{{color | downcase}}" data-label="{{color}}"/>
+                                  <div class="w:40px h:40px pos:absolute t:0px l:0px bd:1px_solid_color-gray2 bdrs:20px"></div>
+                              </label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  {% assign tag_sizes = size.sizes | split: "," %}
+                  {% if size.enable %}
+                    <div class="filter_field filter_by_size">
+                      <h2 class="product-box__title fz:20px mt:30px fw:500 mb:15px ff:font-primary">{{size.title}}</h2>
+                      <div class="d:flex mb:30px fxw:wrap">
+                        {% for size in tag_sizes %}
+                          <div class="d:flex pos:relative ai:center jc:center w:40px h:40px mr:5px ta:center cur:pointer ff:font-primary fz:15px">
+                              <label class="yasmina-filter-box-size w:40px h:40px cur:pointer cur:pointer bgc:color-gray9|h! c:color-light|h!">
+                                  <input class="yasmina-filter-input-size pos:absolute v:hidden" type="checkbox" name="filter.v.option.size" data-label="{{ size }}" value="{{ size | downcase}}"/>
+                                  <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2 z:-1"></div>
+                                  <span class="ta:center lh:40px fz:15px fw:400 c:color-gray9">{{ size }}</span>
+                              </label>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  {% if price.enable %}
+                  <div>
+                    <div class="d:flex jc:space-between ai:center mb:15px">
+                      <h2 class="product-box__title fz:20px fw:500 ff:font-primary" css="{{ price.title_design }}">
+                        {{ price.title }}
+                      </h2>
+                      <div>
+                        <span class="fz:15px fw:400 c:color-gray4">Giá: </span>
+                        <span class="filter-price-view-js fz:15px fw:500 c:color-gray9">{{ price.price_text }}: {{ min_price | times:100 | money }} - {{ max_price | times:100 | money }}</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="veda-slider petify-price-range" data-options="{ min: {{ min_price }}, max: {{ max_price }} }">
+                        <div class="veda-slider__thumb w:10px h:10px bgc:color-gray9" data-index="0"></div>
+                        <div class="veda-slider__thumb w:10px h:10px bgc:color-gray9" data-index="1"></div>
+                        <div class="veda-slider__track h:5px bgc:color-gray3"></div>
+                        <div class="veda-slider__tracked h:5px bgc:color-gray9"></div>
+                      </div>
+                      <div class="d:flex mt:13px fxw:wrap fld:column fld:row@sm">
+                        <div class="mr:10px">
+                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px! fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" id="gte" name="filter.v.price.gte" data-label="{{ min_price | times:100 | money }}" value="{{ min_price }}" min="{{ min_price }}" max="{{ max_price }}" data-button="disabled" placeholder="{{ price.from_text }}" >
+                        </div>
+                        <div class="mt:10px mt:0px@sm">
+                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px! fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" data-button="disabled" data-label="{{ max_price | times:100 | money }}" placeholder="{{ price.to_text }}" name="filter.v.price.lte" value="{{ max_price }}" min="{{ min_price }}" max="{{ max_price }}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+                {% if brands.enable %}
+                  <div class="filter_field filter_by_brand">
+                    <h2 class="product-box__title fz:20px fw:500 mb:10px ff:font-primary mt:30px">{{brands.title}}</h2>
+                    <div>
+                      <div class="d:flex fld:column">
+                        {% for brand in brands_data %}
+                          <div class="d:flex ai:center mb:10px pos:relative">
+                            <input class="yasmina-filter-input-radio v:hidden" type="checkbox" id="{{brand.value}}" name="filter.v.brand" value="{{brand.value}}" data-label="{{brand.label}}">
+                            <label class="fz:15px fw:400 c:color-gray9 cur:pointer ml:12px" for="{{brand.value}}">{{brand.label}}</label>
+                            <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+                {% if availability.enable %}
+                  <div class="filter_field filter_by_availability">
+                    <h2 class="product-box__title fz:20px fw:500 mt:20px mb:10px ff:font-primary">{{availability.title}}</h2>
+                    <div class="d:flex ai:center mb:10px pos:relative">
+                      <input class="yasmina-filter-input-radio v:hidden" type="radio" id="in_stock" name="filter.v.availability" value="1" data-label="{{availability.in_stock_text}}">
+                      <label class="fz:15px fw:400 c:color-gray9 cur:pointer! ml:12px" for="in_stock">{{availability.in_stock_text}}</label>
+                      <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
+                    </div>
+                    <div class="d:flex ai:center pos:relative">
+                      <input class="yasmina-filter-input-radio v:hidden" type="radio" id="out_stock" name="filter.v.availability" value="0" data-label="{{availability.out_of_stock_text}}">
+                      <label class="fz:15px fw:400 c:color-gray9 cur:pointer! ml:12px" for="out_stock">{{availability.out_of_stock_text}}</label>
+                      <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
+                    </div>
+                  </div>
+                {% endif %}
+                {% assign collection = collection %}
+                <div class="filter_field filter_by_tags">
+                  <h2 class="product-box__title fz:20px fw:500 mb:10px ff:font-primary mt:30px">Tags</h2>
+                  <div>
+                    <div class="yasmina-product-box__tags d:flex flw:wrap">
+                      {% for tag in collection.all_tags %}
+                        <div class="d:flex pos:relative ai:center h:28px jc:center mr:5px ta:center cur:pointer ff:font-primary fz:15px p:2px_5px_2px_5px mb:10px">
+                          <label class="w:100% h:28px cur:pointer cur:pointer d:flex jc:center">
+                              <input class="yasmina-filter-input-tag pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="{{tag | downcase}}" data-label="{{tag }}"/>
+                              <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
+                              <span class="ta:center lh:28px fz:15px fw:400 c:color-gray9">{{tag}}</span>
+                          </label>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </shopify>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

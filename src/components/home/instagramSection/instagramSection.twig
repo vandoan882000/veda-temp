@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_ef78f66c-fbcd-43ec-aeb6-9535fdfd2b86" %}
+{% set uniqueId = "id_690730ab-5555-4d3f-86e2-974ac8755b3d" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -17,18 +17,24 @@
 {% endif %}
 {% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
 
-<section data-id="giftsection" class="p:0px_60px@md" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+
+<section data-id="insta" class="veda-section" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
   {% if general_settings.background_overlay_enable %}
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
   <div class="container">
-    <div class="row mt:0px">
+    <h3 class="ff:font-primary ta:center mb:45px fz:pfs(25px,40px) fw:500" css="{{ heading.design }}">{{ heading.text }}</h3>
+		<p class="yasmina-insta__description ta:center mt:-24px mb:35px c:color-dark fw:400 lh:23px fz:14px ff:font-secondary lts:0.15px">
+      {{ description }}
+    </p>
+    <div class="row ai:center jc:center">
       {% for item in content %}
-
-        <div class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}} mt:0px">
-          <a class="yasmina-gift d:flex h:84px jc:center ai:center fw:500 cur:pointer w:100% c:color-dark fz:17px ta:center" component="gift" href="#">
-            <i class="{{item.icon}} pr:15px fz:23px fw:300"></i><span>{{item.label}}</span>
-          </a>
+        <div class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}" component="instagram-image">
+          <div class="yasmina-insta d:flex jc:center cur:pointer">
+            <a href="#" class="veda-image-cover d:block w:100% ar:0.86" css="--aspect-ratio: 0.86">
+              <img class="yasmina-insta__img" src={{item.src_image | img_url('')}} alt="insta">
+            </a>
+          </div>
         </div>
       
 
@@ -36,5 +42,6 @@
 
 
     </div>
+
   </div>
 </section>

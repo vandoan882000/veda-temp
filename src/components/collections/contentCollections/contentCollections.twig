@@ -1,0 +1,1343 @@
+
+{% set uniqueId = "id_42c97cb3-d25e-4246-873d-52aab3654833" %}
+{% if general_settings.background_fixed %}
+{% set backgroundFixed = 'fixed' %}
+{% else %}
+{% set backgroundFixed = 'scroll' %}
+{% endif %}
+{% if general_settings.background_type == 'color' %}
+{% set backgroundColor = 'background-color: ' ~  general_settings.background_color ~  ';' %}
+{% else %}
+{% set backgroundColor = '' %}
+{% endif %}
+{% if general_settings.background_type == 'image' %}
+{% set backgroundImage = 'background-image: url(' ~  general_settings.background_image ~  ');background-attachment: ' ~  backgroundFixed ~  ';background-size: ' ~  general_settings.background_size ~  ';' %}
+{% else %}
+{% set backgroundImage = '' %}
+{% endif %}
+{% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
+
+
+<section data-id="shoppage" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
+  <div data-shopify-id="{{ section.id }}"></div>
+  <div class="container pt:35px">
+    
+      {% if request.page_type != 'index' or request.page_type != 'list-collections' %}
+        <nav role="navigation" aria-label="breadcrumbs">
+            <a href="{{ routes.root_url }}" title="Home">Home</a>
+            {% if 'page' in request.page_type %}
+              <span aria-hidden="true">/</span>
+              <span>{{ page.title }}</span>
+            {% elseif 'product' in request.page_type %}
+              {% if collection.url %}
+                <span aria-hidden="true">/</span>
+                {{ collection.title | link_to(collection.url)}}
+              {% endif %}
+              <span aria-hidden="true">/</span>
+              <span>{{ product.title }}</span>
+            {% elseif 'collection' in request.page_type and collection.handle %}
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+                {% set url %}
+/collections/{{ collection.handle }}{% endset %}
+                {{ collection.title | link_to(url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
+                <span>{{ collection.title }}</span>
+              {% endif %}
+            {% elseif request.page_type == 'blog' %}
+              <span aria-hidden="true">/</span>
+              {% if current_tags %}
+                {{ blog.title | link_to(blog.url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ current_tags | join(" + ")}}</span>
+              {% else %}
+                <span>{{ blog.title }}</span>
+              {% endif %}
+            {% elseif request.page_type == 'article' %}
+              <span aria-hidden="true">/</span>
+              {{ blog.title | link_to(blog.url)}}
+              <span aria-hidden="true">/</span>
+              <span>{{ article.title }}</span>
+            {% elseif request.page_type == 'cart' %}
+              <span aria-hidden="true">/</span>
+              <span>Cart</span>
+            {% else %}
+              <span aria-hidden="true">/</span>
+              <span>{{ page_title }}</span>
+            {% endif %}
+        </nav>
+      
+{% endif %}
+
+    
+    <div class="view-as mb:20px d:flex ai:center jc:space-between mt:30px fz:15px c:color-dark flw:wrap w:75% pr:35px@md">
+      <div class="d:flex">
+        View as:
+        <a href="#" class="yasmina-shop-page__view1 p:0px_5px_0px_5px ml:10px"><i class="fal fa-list"></i></a>
+        <a href="#" class="yasmina-shop-page__view2 yasmina-shop-page__view-active p:0px_5px_0px_5px ml:10px"><i class="fas fa-th"></i></a>
+      </div>
+      
+
+          {% set searchParams %}
+          {% set pageUrlWithHost = content_for_header | split('"pageurl":"')| last | split('"')| first | replace('\/','/')| replace('%20',' ')| replace('\u0026','&')%}
+
+          {{ pageUrlWithHost | split("?")| last }}
+
+          {% endset %}
+
+
+          {{ searchParams }}
+
+
+
+          {% set filters = searchParams | split("&")%}
+          {% for filter in filters %}
+          {% set filterKey = filter | split("=")| first | url_decode | trim %}
+          {% set filterValue = filter | split("=")| last | url_decode | trim %}
+          
+            {% if filterKey == "sort_by" %}
+              {% set sort_by = filterValue %}
+          
+{% endif %}
+
+          
+
+{% endfor %}
+
+
+
+          {% set collection_prs = collection.products %}
+          {% set arr_price = collection_prs | map('price_min')| uniq | sort %}
+          {% set min_price = arr_price | first %}
+          {% set max_price = arr_price | last %}
+
+          {% set my_collection_sort = collection.sort_options %}
+          <form id="filter-form" class="filter_form">
+            <div class="d:flex whs:nowrap ai:center pos:relative mt:10px mt:0px@md filter_field sort_by pos:relative">
+              <p class="mr:10px fz:15px fw:500">Sort by</p>
+              <div class="veda-select filter-sort-by-js">
+                <div class="veda-select__view w:pfs(130px,190px) h:43px bd:1px_solid_#DEDEE9 pl:15px cur:pointer d:flex ai:center ff:font-secondary">
+                  <div class="veda-select__label w:pfs(100px,150px) cur:pointer d:flex ai:center fz:pfs(12px,15px) fw:400 c:color-gray4 ff:font-secondary"></div>
+                  <i class="fal fa-angle-down"></i>
+                </div>
+                <div class="veda-select__options select-custom pos:absolute t:50px w:pfs(130px,190px) z:100 bgc:color-light bd:1px_solid_#DEDEE9">
+                  {% set first_sort_option = my_collection_sort | first %}
+                  {% for option in my_collection_sort %}
+                    <div class="veda-select__option select-custom__item w:pfs(128px,188px) h:43px fz:pfs(12px,15px) fw:400 pl:15px cur:pointer bgc:#DEDEE9!|h d:flex ai:center bd:none! ff:font-secondary" value="{{ option.value | escape }}" {% if first_sort_option.name == option.name %}
+selected="true"{% endif %}
+ >{{ option.name | escape }}</div>
+                  
+
+{% endfor %}
+
+
+
+                </div>
+              </div>
+            </div>
+          </form>
+        
+
+    </div>
+    <div class="row mt:20px ">
+      
+        <div class="col-lg-9 shop-page1 pr:40px@md d:block">
+          <div class="row content-collections-js">
+            
+              {% set collection = collection %}
+              {% for product in collection.products | slice(0, 9) %}
+                <div class="col-md-6 col-lg-4">
+                  <div class="product-card-js d:flex fld:column ai:center ta:center mb:15px pb:15px">
+                    <script class="product-card-data-js" type="application/json">
+                      {
+                        id: {{ product.id | json_encode()}},
+                        title: {{ product.title | json_encode()}},
+                        vendor: {{ product.vendor | json_encode()}},
+                        handle: {{ product.handle | json_encode()}},
+                        available: {{ product.available | json_encode()}},
+                        content: {{ product.content | json_encode()}},
+                        description: {{ product.description | json_encode()}},
+                        featured_image: {{ product.featured_image | json_encode()}},
+                        images: {{ product.images | json_encode()}},
+                        options: {{ product.options | json_encode()}},
+                        price_max: {{ product.price_max | json_encode()}},
+                        price_min: {{ product.price_min | json_encode()}},
+                        type: {{ product.type | json_encode()}},
+                        tags: {{ product.tags | json_encode()}},
+                        variants: {{ product.variants | json_encode()}},
+                        price: {{ product.price | json_encode()}},
+                        options_with_values: {{ product.options_with_values | json_encode()}},
+
+                      }
+                    </script>
+                    <div class="product-card__img w:100% pos:relative ov:hidden">
+                      <div class="ov:hidden">
+                        <a href="/pageproduct.html" class="veda-image-cover d:block ar:3/4" >
+                          <img class="product-card-image-js" src="{{ product.featured_image.src | img_url('400x')}}" alt="{{ product.title }}">
+                        </a>
+                      </div>
+                      <div class="product-card__add-content product-card-add-js d:flex jc:center ai:center pos:absolute b:0 l:0 w:100% bgc:color-dark h:50px trf:translateY(50px) trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px cur:pointer fz:17px td:none w:100% c:color-light c:color-light!|h us:none">
+                        {{content.add_to_cart_text}}
+                      </div>
+                      <div class="pos:absolute t:5px l:5px d:flex">
+                        {% if product.compare_at_price > product.price and content.sale.enable %}
+                          <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                            <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
+                          </div>
+                        {% endif %}
+                      </div>
+                      <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                        <div class="wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                          <i class="fal fa-heart"></i>
+                        </div>
+                        <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                          <i class="fal fa-eye"></i>
+                        </div>
+                        <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                          <i class="fal fa-repeat"></i>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="product-card-js__content d:flex fld:column jc:center ai:center">
+                      <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
+                      <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+                      <a class="product-card-js__price mt:14px" href="#">
+                        <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">{{ product.price | money }}</ins>
+                        {% if product.compare_at_price > product.price %}
+                          <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">{{ product.compare_at_price | money }}</del>
+                        {% endif %}
+                      </a>
+
+                      <div class="product-card-colors-js d:flex">
+                        <script class="product-card-js__options-json" type="application/json">{{ product.options_with_values | json_encode()}}</script>
+                      </div>
+                      <script class="product-card-js__variants-json" type="application/json">{{ product.variants | json_encode()}}</script>
+
+                    </div>
+                  </div>
+                </div>
+              
+
+{% endfor %}
+
+
+            
+
+            <div class="col-md-12 mb:140px">
+              <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1" component="content">
+                {% for i in (1..4) %}
+                  <div class="d:flex pos:relative ai:center jc:center w:50px h:50px mr:5px ta:center cur:pointer ff:font-primary fz:15px">
+                    <label class="yasmina-filter-box-size pos:absolute w:50px! h:50px cur:pointer cur:pointer bgc:color-gray9|h! c:color-light|h!">
+                      <input class="yasmina-filter-input-size pos:absolute v:hidden" type="radio" name="paging"  value="1" {% if i == 1 %}
+checked{% endif %}
+/>
+                      <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2 z:-1"></div>
+                      <span class="ta:center lh:50px fz:15px fw:400 c:color-gray9">{{i}}</span>
+                    </label>
+                  </div>
+                
+
+{% endfor %}
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      
+      
+        <div class="col-lg-9 shop-page2 d:none">
+          <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 content-collections-js" component="content">
+            
+              {% set collection = collection %}
+              {% for product in collection.products | slice(0, 4) %}
+                <div class="product-card-js d:flex fld:row ai:center ta:center mb:15px pb:15px fxw:wrap">
+                  <script class="product-card-data-js" type="application/json">
+                    {
+                      id: {{ product.id | json_encode()}},
+                      title: {{ product.title | json_encode()}},
+                      vendor: {{ product.vendor | json_encode()}},
+                      handle: {{ product.handle | json_encode()}},
+                      available: {{ product.available | json_encode()}},
+                      content: {{ product.content | json_encode()}},
+                      description: {{ product.description | json_encode()}},
+                      featured_image: {{ product.featured_image | json_encode()}},
+                      images: {{ product.images | json_encode()}},
+                      options: {{ product.options | json_encode()}},
+                      price_max: {{ product.price_max | json_encode()}},
+                      price_min: {{ product.price_min | json_encode()}},
+                      type: {{ product.type | json_encode()}},
+                      tags: {{ product.tags | json_encode()}},
+                      variants: {{ product.variants | json_encode()}},
+                      price: {{ product.price | json_encode()}},
+                      options_with_values: {{ product.options_with_values | json_encode()}},
+
+                    }
+                  </script>
+                  <div class="product-card__img w:250px pos:relative ov:hidden mr:0px mr:30px@sm">
+                    <div class="ov:hidden w:100%">
+                      <a href="#" class="veda-image-cover d:block w:100%" css="--aspect-ratio: 3/4">
+                        <img class="product-card-image-js" src="{{ product.featured_image.src | img_url('250x')}}" alt="{{ product.title }}">
+                      </a>
+                    </div>
+
+                    <div class="pos:absolute t:5px l:5px d:flex">
+                      {% if product.compare_at_price > product.price and content.sale.enable %}
+                        <div class="product-card-js__sale d:flex jc:center ai:center w:60px h:30px bgc:#219653 mr:5px bdrs:2px">
+                          <p class="fz:16px pos:absolute z:10 fw:600 c:color-light">{{ content.sale.text}}</p>
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="product-card__status pos:absolute t:10px r:10px w:35px h:127px">
+                      <div class="product-card-js__icon-bg wishlist-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h" data-tooltip="Add to wishlist" data-tooltip-position="left" data-tooltip-active=true data-tooltip-text="Add to wishlist" data-tooltip-active-text="Remove from wishlist">
+                        <i class="fal fa-heart"></i>
+                      </div>
+                      <div class="product-card__icon-hidden quickview-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Quick view" data-tooltip-text="Quick view" data-tooltip-position="left" data-tooltip-active=false >
+                        <i class="fal fa-eye"></i>
+                      </div>
+                      <div class="product-card__icon-hidden compare-toggle-js pos:relative d:flex ai:center jc:center w:36px h:36px bdrs:50% bgc:color-light fz:17px c:color-gray9 mb:10px cur:pointer bgc:color-dark!|h c:color-light!|h v:hidden op:0" data-tooltip="Compare to other products" data-tooltip-position="left" data-tooltip-active=false data-tooltip-text="Add to compare" data-tooltip-active-text="Remove from compare">
+                        <i class="fal fa-repeat"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="product-card-js__content d:flex fld:column jc:flex-start ai:flex-start h:100%">
+                    <div class="product-card-js__brand c:color-gray5 mt:11px fz:14px">{{product.vendor}}</div>
+                    <a class="product-card-js__name fz:16px mt:15px c:color-dark" href="/pageproduct.html">{{product.title}}</a>
+                    <div class="compare-rating-js">
+                      {% if content.review_app_enable %}
+                        
+                          {% if content.review_app_type == 'product_reviews' %}
+                            
+{% if builderMode %}
+  <div
+    class="wc_product_review_badge"
+    data-handle=""
+    data-product_id="4615395934271"
+    >
+    <div
+      class="wc_review_badge_inner wc_show_rating_badge_1"
+      data-handle=""
+      data-rating="4.5"
+      data-count="17"
+      data-title="4.5 (17 Reviews)"
+    >
+      <span class="wc_review_badge_star">
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+      </span>
+      <span class="wc_product_review_title">
+        <span class="wc_product_review_avg_badge_count">4.5</span>
+        <span class="wc_product_review_text">
+          <span class="wc_avg_bracket">(</span>17
+          <span class="wc_product_review_avg_badge_text"> Reviews</span>
+          <span class="wc_avg_bracket">)</span>
+        </span>
+      </span>
+    </div>
+    <div class="wc_product_badge_hover" id="product_badge_hover_1">
+      <p class="avg_badge">4.5 out of 5 stars</p>
+      <ul class="wc_review_graph">
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="5"
+            data-count="11"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              5
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:65%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">65%</span>
+              <span class="wc_graph_review_count">(11)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="4"
+            data-count="4"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              4
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:24%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">24%</span>
+              <span class="wc_graph_review_count">(4)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="3"
+            data-count="2"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              3
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:12%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">12%</span>
+              <span class="wc_graph_review_count">(2)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="2"
+            data-count="0"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              2
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">0%</span>
+              <span class="wc_graph_review_count">(0)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="1"
+            data-count="0"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              1
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">0%</span>
+              <span class="wc_graph_review_count">(0)</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% else %}
+  <div class="wc_product_review_badge" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}"></div>
+{% endif %}
+
+                            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                          {% elseif content.review_app_type == 'rivyo_reviews' %}
+                            
+{% if builderMode %}
+  <div
+    class="wc_product_review_badge"
+    data-handle=""
+    data-product_id="4615395934271"
+    >
+    <div
+      class="wc_review_badge_inner wc_show_rating_badge_1"
+      data-handle=""
+      data-rating="4.5"
+      data-count="17"
+      data-title="4.5 (17 Reviews)"
+    >
+      <span class="wc_review_badge_star">
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+        <em class="wc_icon_color">
+          <svg
+            fill="#ffcf47"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Capa_1"
+            x="0px"
+            y="0px"
+            width="20px"
+            height="20px"
+            viewBox="0 0 475.075 475.075"
+            style="enable-background:new 0 0 475.075 475.075;"
+            xml:space="preserve"
+          >
+            <g>
+              <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+            </g>
+          </svg>
+        </em>
+      </span>
+      <span class="wc_product_review_title">
+        <span class="wc_product_review_avg_badge_count">4.5</span>
+        <span class="wc_product_review_text">
+          <span class="wc_avg_bracket">(</span>17
+          <span class="wc_product_review_avg_badge_text"> Reviews</span>
+          <span class="wc_avg_bracket">)</span>
+        </span>
+      </span>
+    </div>
+    <div class="wc_product_badge_hover" id="product_badge_hover_1">
+      <p class="avg_badge">4.5 out of 5 stars</p>
+      <ul class="wc_review_graph">
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="5"
+            data-count="11"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              5
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:65%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">65%</span>
+              <span class="wc_graph_review_count">(11)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="4"
+            data-count="4"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              4
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:24%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">24%</span>
+              <span class="wc_graph_review_count">(4)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="3"
+            data-count="2"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              3
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:12%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">12%</span>
+              <span class="wc_graph_review_count">(2)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="2"
+            data-count="0"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              2
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">0%</span>
+              <span class="wc_graph_review_count">(0)</span>
+            </div>
+          </div>
+        </li>
+        <li class="wc_star_graph_li wc_wf_cls">
+          <div
+            class="wc_rating_filter"
+            data-rating="1"
+            data-count="0"
+            data-click-rating=""
+          >
+            <div class="wc_graph_star rating_icon_color">
+              1
+              <svg
+                fill="#ffcf47"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                width="20px"
+                height="20px"
+                viewBox="0 0 475.075 475.075"
+                style="enable-background:new 0 0 475.075 475.075;"
+                xml:space="preserve"
+              >
+                <g>
+                  <path d="M475.075,186.573c0-7.043-5.328-11.42-15.992-13.135L315.766,152.6L251.529,22.694c-3.614-7.804-8.281-11.704-13.99-11.704   c-5.708,0-10.372,3.9-13.989,11.704L159.31,152.6L15.986,173.438C5.33,175.153,0,179.53,0,186.573c0,3.999,2.38,8.567,7.139,13.706   l103.924,101.068L86.51,444.096c-0.381,2.666-0.57,4.575-0.57,5.712c0,3.997,0.998,7.374,2.996,10.136   c1.997,2.766,4.993,4.142,8.992,4.142c3.428,0,7.233-1.137,11.42-3.423l128.188-67.386l128.197,67.386   c4.004,2.286,7.81,3.423,11.416,3.423c3.819,0,6.715-1.376,8.713-4.142c1.992-2.758,2.991-6.139,2.991-10.136   c0-2.471-0.096-4.374-0.287-5.712l-24.555-142.749l103.637-101.068C472.604,195.33,475.075,190.76,475.075,186.573z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="wc_graph_value">
+              <div class="wc_graph_bar">
+                <div class="wc_graph_bar_color" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="wc_graph_per_count">
+              <span class="wc_graph_bar_persent">0%</span>
+              <span class="wc_graph_review_count">(0)</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% else %}
+  <div class="wc_product_review_badge" data-handle="{{ product.handle }}" data-product_id="{{ product.id }}"></div>
+{% endif %}
+
+                          {% elseif content.review_app_type == 'loox_reviews' %}
+                            
+{% if builderMode %}
+  <div class="loox-rating" data-id="6819476635711" data-rating="4.9" data-raters="30" title="4.9 rating (30 votes)" aria-label="4.9 rating (30 votes)" data-rating-upgraded="1">
+    <i class="loox-icon loox-star"></i>
+    <i class="loox-icon loox-star"></i>
+    <i class="loox-icon loox-star"></i>
+    <i class="loox-icon loox-star"></i>
+    <i class="loox-icon loox-star"></i>&nbsp;<span>(30)</span>
+  </div>
+{% else %}
+  <div class="loox-rating" data-id="{{ product.id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div>
+{% endif %}
+
+                          {% elseif content.review_app_type == 'ali_reviews' %}
+                            
+{% if builderMode %}
+<div product-id="6708257652793" class="arv-collection arv-collection--6708257652793">
+	<style>
+		.arv-collection .rating-symbol-foreground > span,
+		.arv-collection .alr-rating-symbol-foreground > span,
+		.arv-collection .rating-symbol-background,
+		.arv-collection .alr-rating-symbol-background,
+		#alireview-review-widget-badge .rating-symbol-foreground > span,
+		.alireview-review-widget-badge .rating-symbol-foreground > span,
+		#alireview-review-widget-badge .rating-symbol-background,
+		.alireview-review-widget-badge .rating-symbol-background,
+		#alireview-review-widget-badge .alr-rating-symbol-foreground > span,
+		.alireview-review-widget-badge .alr-rating-symbol-foreground > span,
+		#alireview-review-widget-badge .alr-rating-symbol-background,
+		.alireview-review-widget-badge .alr-rating-symbol-background {
+			color: #FAAD14 !important;
+		}
+		.arv-collection .alr-icon-star:before,
+		#alireview-review-widget-badge .alr-icon-star:before {
+			content: "005" !important;
+		}
+	</style>
+	<div class="alrv-prod-rating-6708257652793 ">
+
+		<span class="alr-wrapper-rating">
+
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: hidden;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: auto;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: hidden;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: auto;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: hidden;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: auto;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: hidden;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: auto;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+			<div class="alr-rating-symbol">
+				<div class="alr-rating-symbol-background alr-icon-star" style="visibility: visible;"></div>
+				<div class="alr-rating-symbol-foreground" style="width: 70%;">
+					<span class="alr-icon-star"></span>
+				</div>
+			</div>
+		</span>
+
+		<span class="alrv-prod-rating__text">
+			15 reviews
+		</span>
+	</div>
+</div>
+{% else %}
+  <div product-id="{{ product.id }}" class="arv-collection arv-collection--{{ product.id }}"></div>
+{% endif %}
+
+                          {% elseif content.review_app_type == 'stamped_reviews' %}
+                            
+{% if builderMode %}
+<div class="stamped-reviews-rating" data-count="6"><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span><span><i class="stamped-fa stamped-fa-star stamped-style-color-star" role="none"></i></span></div>
+{% else %}
+  <span class="stamped-product-reviews-badge stamped-main-badge" data-id="{{ product.id }}" data-product-sku="{{ product.handle }}" data-product-type="{{product.type}}" data-product-title="{{product.title}}"  style="display: inline-block;">{{ product.metafields.stamped.badge }}</span>
+{% endif %}
+
+                          {% elseif content.review_app_type == 'judge_me_reviews' %}
+                            
+{% if builderMode %}
+  <div class="jdgm-widget jdgm-preview-badge jdgm-preview-badge--with-link jdgm--done-setup"
+    data-id="3784779038780" data-template="index" data-auto-install="false">
+    <div class="jdgm-prev-badge" data-average-rating="4.62" data-number-of-reviews="37"
+      data-number-of-questions="6"> <span class="jdgm-prev-badge__stars" data-score="4.62" tabindex="0"
+        aria-label="4.62 stars" role="button"> <span class="jdgm-star jdgm--on"></span><span
+          class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--on"></span><span
+          class="jdgm-star jdgm--on"></span><span class="jdgm-star jdgm--half"></span> </span> <span
+        class="jdgm-prev-badge__text">4.62</span>
+      <span class="jdgm-qa-badge ">
+
+        <span class="jdgm-qa-badge__icon" style="color: inherit;">
+        </span>
+
+        <span class="jdgm-qa-badge__text">
+          6 questions
+        </span>
+      </span>
+    </div>
+  </div>
+{% else %}
+  {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product %}
+{% endif %}
+
+                          {% elseif content.review_app_type == 'other' %}
+                            {% if builderMode %}
+                              
+<div class="d:inline-flex ai:center fz:14px c:#feaa01">
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+  <i class="fas fa-star"></i>
+</div>
+
+                            {% else %}
+                              {{ content.review_app_html }}
+                            {% endif %}
+                            {% else %}
+                        
+{% endif %}
+
+                      {% endif %}
+                    </div>
+                    <a class="product-card-js__price mt:14px" href="#">
+                      <ins class="product-card-js__cost fw:500 fz:15px c:color-primary td:none">{{ product.price | money }}</ins>
+                      {% if product.compare_at_price > product.price %}
+                        <del class="product-card-js__cost--before fw:500 fz:15px c:#9E9E9E">{{ product.compare_at_price | money }}</del>
+                      {% endif %}
+                    </a>
+
+                    <div class="product-card-colors-js d:flex">
+                    </div>
+                    <div class="w:100% ff:font-secondary fw:300 fz:13px c:color-gray9 ta:left mt:20px">
+                      {{product.description | truncatewords(50)| striptags }}
+                    </div>
+                    <div class="product-card-add-js d:flex jc:center ai:center w:pfs(140px,244px) bgc:color-dark h:50px trs:all_0.3s ta:center lts:0.15px fw:600 fz:17px pos:relative mt:25px cur:pointer fz:17px td:none va:middle lh:50px c:color-light c:color-light!|h whs:nowrap us:none">
+                      {{content.add_to_cart_text}}
+                    </div>
+
+                  </div>
+                </div>
+              
+
+{% endfor %}
+
+
+            
+          </div>
+        </div>
+      
+      <div data-id="yasmina-filter" class="col-lg-3">
+        <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 d:flex ai:center jc:center">
+          <div class="product-box maw:330px w:100% h:auto bd:1px_solid_color-gray2 p:15px_20px_30px_20px mb:10px">
+            
+              <form action="{{ routes.search_url }}">
+                <div class="product-box__search mb:15px">
+                  <h2 class="product-box__title fz:20px fw:500 mb:15px ff:font-primary">Search</h2>
+                  <div class="product-box__box-search d:flex ai:center bd:1px_solid_color-gray2">
+                    <button class="p:10px bd:1px_solid_color-light bd:1px_solid_color-light|h! bgc:color-light! c:color-gray9! bgc:color-light|h! c:color-gray9|h!" type="submit"><i class="fal fa-search cur:pointer"></i></button>
+                    <input class="h:40px! w:90%! bd:none! o:none c:color-gray4 fz:15px c:color-gray4||placeholder pl:0px! fz:15px||placeholder" type="text"
+                    placeholder="Search"
+                    name="q"
+                    value="{{ search.terms | escape }}"
+                    />
+                    <input type="hidden" name="type" value="product,page" />
+                    <input type="hidden" name="options[unavailable_products]" value="hide" />
+                    <input type="hidden" name="options[prefix]" value="last" />
+
+
+                  </div>
+                </div>
+
+                </form>
+
+
+                {% set my_collection = collections[content.collection] %}
+                {% set collection_prs = my_collection.products %}
+                {% set arr_price = collection_prs | map('price_min')| uniq | sort %}
+                {% set min_price = arr_price | first %}
+                {% set max_price = arr_price | last %}
+
+                <form id="filter_form" class="filter-form-js">
+
+                    <div class="filter-refine-wrapper-js product-box__refine mb:20px pos:relative">
+                      <div class="d:flex jc:space-between mb:15px">
+                        <h2 class="product-box__title fz:20px fw:500 ff:font-primary">Refine By</h2>
+                        <div class="filter-clear-all-js mt:3px"></div>
+                      </div>
+                      <div class="filter-refine-js"></div>
+                    </div>
+                  {% if categories.enable %}
+                    <div class="filter_field filter_by_categories">
+                      <h2 class="product-box__title fz:20px fw:500 mb:8px ff:font-primary">Categories</h2>
+                      <div>
+                        <div class="d:flex fld:column">
+                          {% for category in categories_data %}
+                            <div class="d:flex ai:center mb:10px pos:relative">
+                              <div class="w:5px h:5px bgc:color-gray4 bdrs:50% mr:7px"></div>
+                              <input class="yasmina-filter-input-radio v:hidden" type="radio" id="{{category.value}}" name="filter.v.category" value="{{category.value}}" data-label="{{category.label}}">
+                              <label class="fz:15px fw:400 c:color-gray9 cur:pointer" for="{{category.value}}">{{category.label}}</label>
+                              <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
+                            </div>
+                          
+
+{% endfor %}
+
+
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                  {% set tag_colors = color.colors | split(",")%}
+                  {% if color.enable %}
+                    <div class="filter_field filter_by_color">
+                      <h2 class="product-box__title fz:20px fw:500 mb:0px ff:font-primary mt:22px">{{color.title}}</h2>
+                      <div class="d:flex flw:wrap">
+                        {% for color in tag_colors %}
+                          <div class="yasmina-circle__active pos:relative d:inline-block w:40px h:40px bdrs:20px m:10px_6px_0px_6px cur:pointer p:4px bgcp:content-box bgc:{{color | lower}}" style="background-color:{{color}}">
+                              <label class="w:40px h:40px cur:pointer">
+                                  <input class="yasmina-filter-input-color v:hidden" type="checkbox" name="filter.v.option.color" value="{{color | lower}}" data-label="{{color}}"/>
+                                  <div class="w:40px h:40px pos:absolute t:0px l:0px bd:1px_solid_color-gray2 bdrs:20px"></div>
+                              </label>
+                          </div>
+                        
+
+{% endfor %}
+
+
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  {% set tag_sizes = size.sizes | split(",")%}
+                  {% if size.enable %}
+                    <div class="filter_field filter_by_size">
+                      <h2 class="product-box__title fz:20px mt:30px fw:500 mb:15px ff:font-primary">{{size.title}}</h2>
+                      <div class="d:flex mb:30px fxw:wrap">
+                        {% for size in tag_sizes %}
+                          <div class="d:flex pos:relative ai:center jc:center w:40px h:40px mr:5px ta:center cur:pointer ff:font-primary fz:15px">
+                              <label class="yasmina-filter-box-size w:40px h:40px cur:pointer cur:pointer bgc:color-gray9|h! c:color-light|h!">
+                                  <input class="yasmina-filter-input-size pos:absolute v:hidden" type="checkbox" name="filter.v.option.size" data-label="{{ size }}" value="{{ size | lower}}"/>
+                                  <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2 z:-1"></div>
+                                  <span class="ta:center lh:40px fz:15px fw:400 c:color-gray9">{{ size }}</span>
+                              </label>
+                          </div>
+                        
+
+{% endfor %}
+
+
+                      </div>
+                    </div>
+                  {% endif %}
+
+                  {% if price.enable %}
+                  <div>
+                    <div class="d:flex jc:space-between ai:center mb:15px">
+                      <h2 class="product-box__title fz:20px fw:500 ff:font-primary" css="{{ price.title_design }}">
+                        {{ price.title }}
+                      </h2>
+                      <div>
+                        <span class="fz:15px fw:400 c:color-gray4">Giá: </span>
+                        <span class="filter-price-view-js fz:15px fw:500 c:color-gray9">{{ price.price_text }}: {{ min_price | times(100)| money }} - {{ max_price | times(100)| money }}</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="veda-slider petify-price-range" data-options="{ min: {{ min_price }}, max: {{ max_price }} }">
+                        <div class="veda-slider__thumb w:10px h:10px bgc:color-gray9" data-index="0"></div>
+                        <div class="veda-slider__thumb w:10px h:10px bgc:color-gray9" data-index="1"></div>
+                        <div class="veda-slider__track h:5px bgc:color-gray3"></div>
+                        <div class="veda-slider__tracked h:5px bgc:color-gray9"></div>
+                      </div>
+                      <div class="d:flex mt:13px fxw:wrap fld:column fld:row@sm">
+                        <div class="mr:10px">
+                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px! fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" id="gte" name="filter.v.price.gte" data-label="{{ min_price | times(100)| money }}" value="{{ min_price }}" min="{{ min_price }}" max="{{ max_price }}" data-button="disabled" placeholder="{{ price.from_text }}" >
+                        </div>
+                        <div class="mt:10px mt:0px@sm">
+                          <input class="w:100px! h:30px! lh:30px bd:1px_solid_color-gray3! bdrs:0px! fz:13px! fz:13px||placeholder! c:color-gray9! c:color-gray3||placeholder!" type="number" data-button="disabled" data-label="{{ max_price | times(100)| money }}" placeholder="{{ price.to_text }}" name="filter.v.price.lte" value="{{ max_price }}" min="{{ min_price }}" max="{{ max_price }}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+                {% if brands.enable %}
+                  <div class="filter_field filter_by_brand">
+                    <h2 class="product-box__title fz:20px fw:500 mb:10px ff:font-primary mt:30px">{{brands.title}}</h2>
+                    <div>
+                      <div class="d:flex fld:column">
+                        {% for brand in brands_data %}
+                          <div class="d:flex ai:center mb:10px pos:relative">
+                            <input class="yasmina-filter-input-radio v:hidden" type="checkbox" id="{{brand.value}}" name="filter.v.brand" value="{{brand.value}}" data-label="{{brand.label}}">
+                            <label class="fz:15px fw:400 c:color-gray9 cur:pointer ml:12px" for="{{brand.value}}">{{brand.label}}</label>
+                            <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
+                          </div>
+                        
+
+{% endfor %}
+
+
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+                {% if availability.enable %}
+                  <div class="filter_field filter_by_availability">
+                    <h2 class="product-box__title fz:20px fw:500 mt:20px mb:10px ff:font-primary">{{availability.title}}</h2>
+                    <div class="d:flex ai:center mb:10px pos:relative">
+                      <input class="yasmina-filter-input-radio v:hidden" type="radio" id="in_stock" name="filter.v.availability" value="1" data-label="{{availability.in_stock_text}}">
+                      <label class="fz:15px fw:400 c:color-gray9 cur:pointer! ml:12px" for="in_stock">{{availability.in_stock_text}}</label>
+                      <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
+                    </div>
+                    <div class="d:flex ai:center pos:relative">
+                      <input class="yasmina-filter-input-radio v:hidden" type="radio" id="out_stock" name="filter.v.availability" value="0" data-label="{{availability.out_of_stock_text}}">
+                      <label class="fz:15px fw:400 c:color-gray9 cur:pointer! ml:12px" for="out_stock">{{availability.out_of_stock_text}}</label>
+                      <div class="w:5px h:5px bgc:color-gray2 bdrs:50% mr:7px pos:absolute"></div>
+                    </div>
+                  </div>
+                {% endif %}
+                {% set collection = collection %}
+                <div class="filter_field filter_by_tags">
+                  <h2 class="product-box__title fz:20px fw:500 mb:10px ff:font-primary mt:30px">Tags</h2>
+                  <div>
+                    <div class="yasmina-product-box__tags d:flex flw:wrap">
+                      {% for tag in collection.all_tags %}
+                        <div class="d:flex pos:relative ai:center h:28px jc:center mr:5px ta:center cur:pointer ff:font-primary fz:15px p:2px_5px_2px_5px mb:10px">
+                          <label class="w:100% h:28px cur:pointer cur:pointer d:flex jc:center">
+                              <input class="yasmina-filter-input-tag pos:absolute v:hidden" type="checkbox" name="filter.v.tag" value="{{tag | lower}}" data-label="{{tag }}"/>
+                              <div class="pos:absolute w:100% h:100% bd:1px_solid_color-gray2"></div>
+                              <span class="ta:center lh:28px fz:15px fw:400 c:color-gray9">{{tag}}</span>
+                          </label>
+                        </div>
+                      
+
+{% endfor %}
+
+
+                    </div>
+                  </div>
+                </div>
+              </form>
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

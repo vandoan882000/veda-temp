@@ -1,0 +1,113 @@
+
+{% set uniqueId = "id_a08421d9-cb35-47c6-9a84-b643e45d7d3d" %}
+{% if general_settings.background_fixed %}
+{% set backgroundFixed = 'fixed' %}
+{% else %}
+{% set backgroundFixed = 'scroll' %}
+{% endif %}
+{% if general_settings.background_type == 'color' %}
+{% set backgroundColor = 'background-color: ' ~  general_settings.background_color ~  ';' %}
+{% else %}
+{% set backgroundColor = '' %}
+{% endif %}
+{% if general_settings.background_type == 'image' %}
+{% set backgroundImage = 'background-image: url(' ~  general_settings.background_image ~  ');background-attachment: ' ~  backgroundFixed ~  ';background-size: ' ~  general_settings.background_size ~  ';' %}
+{% else %}
+{% set backgroundImage = '' %}
+{% endif %}
+{% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
+
+<section css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
+  <div class="container">
+    <div class="direct fz:15px c:color-gray4 mt:30px mb:33px">
+      
+        {% if request.page_type != 'index' or request.page_type != 'list-collections' %}
+
+          <nav role="navigation" aria-label="breadcrumbs">
+              <a href="{{ routes.root_url }}" title="Home">Home</a>
+              {% if 'page' in request.page_type %}
+
+                <span aria-hidden="true">/</span>
+                <span>{{ page.title }}</span>
+              {% elseif 'product' in request.page_type %}
+
+                {% if collection.url %}
+
+                  <span aria-hidden="true">/</span>
+                  {{ collection.title | link_to(collection.url)}}
+                {% endif %}
+
+                <span aria-hidden="true">/</span>
+                <span>{{ product.title }}</span>
+              {% elseif 'collection' in request.page_type and collection.handle %}
+
+                <span aria-hidden="true">/</span>
+                {% if current_tags %}
+
+                  {% set url %}
+/collections/{{ collection.handle }}{% endset %}
+
+                  {{ collection.title | link_to(url)}}
+                  <span aria-hidden="true">/</span>
+                  <span>{{ current_tags | join(" + ")}}</span>
+                {% else %}
+
+                  <span>{{ collection.title }}</span>
+                {% endif %}
+
+              {% elseif request.page_type == 'blog' %}
+
+                <span aria-hidden="true">/</span>
+                {% if current_tags %}
+
+                  {{ blog.title | link_to(blog.url)}}
+                  <span aria-hidden="true">/</span>
+                  <span>{{ current_tags | join(" + ")}}</span>
+                {% else %}
+
+                  <span>{{ blog.title }}</span>
+                {% endif %}
+
+              {% elseif request.page_type == 'article' %}
+
+                <span aria-hidden="true">/</span>
+                {{ blog.title | link_to(blog.url)}}
+                <span aria-hidden="true">/</span>
+                <span>{{ article.title }}</span>
+              {% elseif request.page_type == 'cart' %}
+
+                <span aria-hidden="true">/</span>
+                <span>Cart</span>
+              {% else %}
+
+                <span aria-hidden="true">/</span>
+                <span>{{ page_title }}</span>
+              {% endif %}
+
+          </nav>
+        
+{% endif %}
+
+      
+    </div>
+    <div class="fw:500 fz:35px c:color-dark mt:-5px mb:75px">Wish Lists</div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row row-cols-lg-12 row-cols-md-12 row-cols-sm-12 row-cols-12 wishlist ov:auto">
+          <div class="veda-wishlist__wrapper miw:960px" data-id="wishlist"></div>
+        </div>
+        <div class="d:flex jc:center mt:40px">
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_color-dark bgc:color-dark c:color-light cur:pointer mr:5px fw:600 ">1</div>
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9 bgc:color-light c:color-dark cur:pointer mr:5px fw:600">2</div>
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9  bgc:color-light c:color-dark cur:pointer mr:5px fw:600">3</div>
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9 bgc:color-light c:color-dark cur:pointer mr:5px fw:600">4</div>
+          <div class="w:50px h:50px d:flex ai:center jc:center fz:15px ff:font-secondary bd:1px_solid_#DEDEE9  bgc:color-light c:color-dark cur:pointer mr:5px"><i class="fas fa-long-arrow-right"></i></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

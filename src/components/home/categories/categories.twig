@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_1e14b3b0-460a-42b8-951a-801f19fb69fd" %}
+{% set uniqueId = "id_79d8040d-517b-4a4f-a529-c05b142754bd" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -26,9 +26,9 @@
     <div class="row">
       {% for item in category | slice(0, 8) %}
         <div component="category" class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}">
-          <div class="yasmina-category pos:relative w:100% ov:hidden z:2 cur:pointer" component="category">
-            <a href="#" class="w:100% ar:1.43">
-              <img class="z:-1 w:100% trs:all_0.3s" src={{item.background_image}} alt="category">
+          <div class="pos:relative w:100% ov:hidden z:2 cur:pointer" component="category">
+            <a href="#" class="yasmina-category* w:100% ar:1.43">
+              <img class="trf:scale(1.1)*yasmina-category-hover z:-1 w:100% trs:all_0.3s" src={{item.background_image}} alt="category">
               <div class="yasmina-category__title pos:absolute t:50% l:50% trf:translate(-50%,-50%) c:color-light-freeze fw:600 fz:17px tt:uppercase ta:center z:9 tt:uppercase fit-content">{{item.label}}</div>
             </a>
             <div class="yasmina-overlay pos:absolute t:0 l:0 bgc:color-dark op:0 w:100% h:100% trs:all_0.5s z:999"></div>

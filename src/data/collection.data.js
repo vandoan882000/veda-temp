@@ -2165,36 +2165,36 @@ const data = {
   sort_by: "best-selling",
   sort_options: [
     {
-      name: "manual",
-      value: "Featured",
+      name: "Featured",
+      value: "manual",
     },
     {
-      name: "best-selling",
-      value: "Best Selling",
+      name: "Best Selling",
+      value: "best-selling",
     },
     {
-      name: "title-ascending",
-      value: "Alphabetically, A-Z",
+      name: "Alphabetically, A-Z",
+      value: "title-ascending",
     },
     {
-      name: "title-descending",
-      value: "Alphabetically, Z-A",
+      name: "Alphabetically, Z-A",
+      value: "title-descending",
     },
     {
-      name: "price-ascending",
-      value: "Price, low to high",
+      name: "Price, low to high",
+      value: "price-ascending",
     },
     {
-      name: "price-descending",
-      value: "Price, high to low",
+      name: "Price, high to low",
+      value: "price-descending",
     },
     {
-      name: "created-ascending",
-      value: "Date, old to new",
+      name: "Date, old to new",
+      value: "created-ascending",
     },
     {
-      name: "created-descending",
-      value: "Date, new to old",
+      name: "Date, new to old",
+      value: "created-descending",
     },
   ],
   template_suffix: "",

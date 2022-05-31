@@ -1,4 +1,4 @@
-const { atomic, pfs, rtl } = require("mota-css");
+const { atomic, pfs, rtl, groupHover } = require("mota-css");
 
 atomic.setConfig({
   breakpoints: {
@@ -104,7 +104,7 @@ atomic.customValue((value) => {
   return value;
 });
 
-atomic.plugins([rtl(), pfs()]);
+atomic.plugins([rtl(), pfs(), groupHover()]);
 
 function log(arr) {
   return console.log(

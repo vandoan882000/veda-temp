@@ -13,26 +13,26 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}">
-        <div class="yasmina-banner d:flex {% if content.position == "left" %}jc:flex-start{% endif %}{% if content.position == "right" %}jc:flex-end{% endif %} c:{{content.color}} mih:626px pos:relative">
-          <div class="yasmina-banner__content d:flex fld:column jc:center ai:center w:100% w:50%@md ta:center z:9">
-            <p class="yasmina-banner__text fw:500 fz:pfs(15px,20px)">{{content.sub_title}}</p>
-            <div class="yasmina-banner__title c:{{content.color}} fw:700 fz:pfs(25px,50px)">{{content.title}}</div>
-            <p class="yasmina-banner__description ff:font-secondary mb:30px fz:14px lh:23px fw:400 lts:0.15px">
+        <div class="d:flex {% if content.position == "left" %}jc:flex-start{% endif %}{% if content.position == "right" %}jc:flex-end{% endif %} c:{{content.color}} mih:626px pos:relative">
+          <div class="d:flex fld:column jc:center ai:center w:100% w:50%@md ta:center z:9">
+            <p class="fw:500 fz:pfs(15px,20px)">{{content.sub_title}}</p>
+            <div class="c:{{content.color}} fw:700 fz:pfs(25px,50px)">{{content.title}}</div>
+            <p class="ff:font-secondary mb:30px fz:14px lh:23px fw:400 lts:0.15px">
               {{content.description}}
             </p>
             {% if content.button | length == 1 %}
-            <div class="yasmina-btn__container">
-              {% for item in content.button %}
-                <button class="w:auto bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} pt:20px pb:20px pl:pfs(16px,86px) pr:pfs(16px,86px) cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px">{{item.label}}</button>
-              {% endfor %}
-            </div>
+              <div>
+                {% for item in content.button %}
+                  <button class="w:auto bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} pt:20px pb:20px pl:pfs(16px,86px) pr:pfs(16px,86px) cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:17px">{{item.label}}</button>
+                {% endfor %}
+              </div>
             {% endif %}
             {% if content.button | length > 1 %}
-            <div class="yasmina-btn__container">
-              {% for item in content.button %}
-                <button class="w:auto bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} pt:20px pb:20px pl:pfs(20px,48px) pr:pfs(20px,48px) w:pfs(120px,198px) h:60px ta:center cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:14px">{{item.label}}</button>
-              {% endfor %}
-            </div>
+              <div>
+                {% for item in content.button %}
+                  <button class="w:auto bgc:{{item.bgc}} bgc:{{item.bgc}}|h! bd:none! c:{{item.color}} pt:20px pb:20px pl:pfs(20px,48px) pr:pfs(20px,48px) w:pfs(120px,198px) h:60px ta:center cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:14px">{{item.label}}</button>
+                {% endfor %}
+              </div>
             {% endif %}
           </div>
         </div>

@@ -80,13 +80,13 @@
         </ul>
       {% endif %}
       <div class="d:flex jc:center m:0 pr:15px pr:30px@md">
-        {% if search.enable %}
+        {% if search_enable %}
           <shopify>
             <form action="{{ routes.search_url }}">
               <div class="d:flex w:pfs(140px,260px) h:38px jc:flex-end">
                 <div class="w:pfs(70px,222px) h:38px bd:1px_solid_color-gray2 ">
                   <input class="bd:none! o:none d:inline-block pl:10px fz:13px c:color-gray6 c:color-gray6|ph" type="text"
-                  placeholder="{{search.placeholder}}"
+                  placeholder="{{search_placeholder}}"
                   name="q"
                   value="{{ search.terms | escape }}"
                   />
@@ -94,7 +94,9 @@
                   <input type="hidden" name="options[unavailable_products]" value="hide" />
                   <input type="hidden" name="options[prefix]" value="last" />
                 </div>
-                <button class="w:38px h:38px fz:22px bgc:color-dark c:color-light cur:pointer d:inline-block pos:relative bgc:color-dark|h! bd:1px_solid_color-gray9! bdrs:0px!" type="submit"><i class="fal fa-search pos:absolute t:50% l:50% trf:translate(-50%,-50%) fz:19px cur:pointer"></i></button>
+                <button class="w:38px h:38px fz:22px bgc:color-dark c:color-light cur:pointer d:inline-block pos:relative bgc:color-dark|h! bd:1px_solid_color-gray9! bdrs:0px!" type="submit">
+                  <i class="{{search_icon}} pos:absolute t:50% l:50% trf:translate(-50%,-50%) fz:19px cur:pointer"></i>
+                </button>
               </div>
 
             </form>

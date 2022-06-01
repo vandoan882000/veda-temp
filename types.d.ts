@@ -856,9 +856,6 @@ declare interface Veda {
      * // Javascript Example
      *
      * const dataQuickView = JSON.parse(document.querySelector(".product-card-data-js").textContent);
-     * veda.plugins.productQuickView.customQuickView({
-     *  link: "/pageproduct.html",
-     * })
      * const btnQuickView = document.querySelector('.veda-quick-view__btn-toggle');
      * btnQuickView.addEventListener('click', () => {
      *   veda.plugins.productQuickView.toggleDraw(dataQuickView);

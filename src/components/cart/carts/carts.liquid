@@ -11,7 +11,7 @@
   {% if general_settings.background_overlay_enable %}
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
-  <div class="direct fz:15px c:color-gray4 mb:33px ml:5%">
+  <div class="fz:15px c:color-gray4 mb:33px ml:5%">
     <shopify>
       {% unless request.page_type == 'index' or request.page_type == 'list-collections' %}
         <nav role="navigation" aria-label="breadcrumbs">
@@ -64,21 +64,21 @@
   <div class="container">
     <div class="row jc:center">
       <div class="col-lg-12">
-        <div class="nvd-cart-header d:flex fld:column jc:center ai:center">
-          <div class="nvd-cart-header__title mb:30px fz:pfs(25px,35px) fw:500 c:color-gray9 ta:center">Shopping Cart</div>
-          <div class="nvd-cart-header__description mb:30px fz:pfs(16px,25px) c:color-gray9 ta:center">
+        <div class="d:flex fld:column jc:center ai:center">
+          <div class="mb:30px fz:pfs(25px,35px) fw:500 c:color-gray9 ta:center">Shopping Cart</div>
+          <div class="mb:30px fz:pfs(16px,25px) c:color-gray9 ta:center">
             These products are limited, checkout within:</div>
-          <div class="nvd-cart-header__times mb:30px d:flex jc:center ai:center w:pfs(200px,500px) h:100px  bd:1px_solid_color-gray4 veda-countdown ta:center" data-options="{ timestamp: 1658000000744 }">
-            <div class="nvd-cart-header__time-number fz:pfs(15px,35px) fw:900 veda-countdown__days c:color-gray9">1</div>
-            <div class="nvd-cart-header__time fz:pfs(13px,23px) c:color-gray4 mr:2px mr:30px@md ml:pfs(2px,7px)  fw:400">days</div>
-            <div class="nvd-cart-header__time-number fz:pfs(15px,35px) fw:900 veda-countdown__hours c:color-gray9">17</div>
-            <div class="nvd-cart-header__time fz:pfs(13px,23px) c:color-gray4 mr:2px mr:30px@md ml:pfs(2px,7px)  fw:400">hrs</div>
-            <div class="nvd-cart-header__time-number fz:pfs(15px,35px) fw:900 veda-countdown__minutes c:color-gray9">30</div>
-            <div class="nvd-cart-header__time fz:pfs(13px,23px) c:color-gray4 mr:2px mr:30px@md ml:pfs(2px,7px)  fw:400">mins</div>
-            <div class="nvd-cart-header__time-number fz:pfs(15px,35px) fw:900 veda-countdown__seconds c:color-gray9">23</div>
-            <div class="nvd-cart-header__time fz:pfs(13px,23px) c:color-gray4 ml:pfs(2px,7px) fw:400">secs</div>
+          <div class="mb:30px d:flex jc:center ai:center w:pfs(200px,500px) h:100px  bd:1px_solid_color-gray4 veda-countdown ta:center" data-options="{ timestamp: 1658000000744 }">
+            <div class="fz:pfs(15px,35px) fw:900 veda-countdown__days c:color-gray9">1</div>
+            <div class="fz:pfs(13px,23px) c:color-gray4 mr:2px mr:30px@md ml:pfs(2px,7px)  fw:400">days</div>
+            <div class="fz:pfs(15px,35px) fw:900 veda-countdown__hours c:color-gray9">17</div>
+            <div class="fz:pfs(13px,23px) c:color-gray4 mr:2px mr:30px@md ml:pfs(2px,7px)  fw:400">hrs</div>
+            <div class="fz:pfs(15px,35px) fw:900 veda-countdown__minutes c:color-gray9">30</div>
+            <div class="fz:pfs(13px,23px) c:color-gray4 mr:2px mr:30px@md ml:pfs(2px,7px)  fw:400">mins</div>
+            <div class="fz:pfs(15px,35px) fw:900 veda-countdown__seconds c:color-gray9">23</div>
+            <div class="fz:pfs(13px,23px) c:color-gray4 ml:pfs(2px,7px) fw:400">secs</div>
           </div>
-          <div class="nvd-cart-header__state fz:pfs(15px,20px) mb:30px c:color-gray9 ta:center">Buy $69.00 more to enjoy FREE Shipping</div>
+          <div class="fz:pfs(15px,20px) mb:30px c:color-gray9 ta:center">Buy $69.00 more to enjoy FREE Shipping</div>
           <div class="veda-slider w:100% w:580px@md" >
             <div class="veda-slider__thumb w:19px h:19px bgc:#FEAA01" data-index="0"></div>
             <div class="veda-slider__track h:5px"></div>

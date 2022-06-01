@@ -14,10 +14,9 @@ const data = {
       left: 0,
     },
   },
-  search: {
-    enable: true,
-    placeholder: "Search",
-  },
+  search_enable: true,
+  search_icon: "fal fa-search",
+  search_placeholder: "Search",
   navigation: {
     arrow: true,
     menu: [

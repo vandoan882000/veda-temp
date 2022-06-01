@@ -8,8 +8,10 @@ if(!!container) {
   const menuTextConfig = JSON.parse(container.querySelector(".menu-text-config-js").textContent);
   function initCompare() {
     const btnComparePopup = document.querySelector('.veda-compare-toggle-js');
+    if(!btnComparePopup) {
+      return;
+    }
     const dataCompareOptions = btnComparePopup.getAttribute('data-options');
-    console.log(dataCompareOptions);
     productCompare.customCompare(veda.utils.objectParse(dataCompareOptions));
     //button popup
     btnComparePopup.addEventListener('click', () => {
@@ -27,6 +29,9 @@ if(!!container) {
   function initWishList() {
     //wishlist badge
     const wishlistBadge = document.querySelector('.veda-wishlist-badge-js');
+    if(!wishlistBadge) {
+      return;
+    }
     wishlistBadge.innerHTML = productWishList.getData()?.length??"0";
     productWishList.getData().length ? wishlistBadge.style.display = 'flex' : wishlistBadge.style.display = 'none';
     productWishList.subscribe((state) => {
@@ -58,6 +63,9 @@ if(!!container) {
     })
     // button popup
     const btnCart = document.querySelector('.veda-cart-toggle-js');
+    if(!btnCart) {
+      return;
+    }
     btnCart.addEventListener('click', () => {
     cart.toggleDraw();
     });

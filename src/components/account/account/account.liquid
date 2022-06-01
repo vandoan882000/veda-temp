@@ -11,7 +11,7 @@
   {% if general_settings.background_overlay_enable %}
     <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
   {% endif %}
-  <div class="direct fz:15px c:color-gray4 mb:33px ml:5%">
+  <div class="fz:15px c:color-gray4 mb:33px ml:5%">
     <shopify>
       {% unless request.page_type == 'index' or request.page_type == 'list-collections' %}
         <nav role="navigation" aria-label="breadcrumbs">
@@ -62,17 +62,17 @@
     </shopify>
   </div>
   <div class="container">
-    <h3 class="login__title mb:30px ta:center fz:35px fw:500 ff:font-primary fw:500">{{content.login_text}}</h3>
-    <p class="login__description mb:55px ta:center mt:-25px fz:25px ff:font-primary fw:400">
+    <h3 class="mb:30px ta:center fz:35px fw:500 ff:font-primary fw:500">{{content.login_text}}</h3>
+    <p class="mb:55px ta:center mt:-25px fz:25px ff:font-primary fw:400">
       {{content.login_description}}
     </p>
     {% assign collection = collections[content.collection] %}
     <div class="row jc:center pb:80px">
       <div class="col-lg-5">
-				<div class="register pr:100px@md w:90% d:flex fld:column ai:flex-end@md">
-					<div class="register__content">
-						<h4 class="register__title mb:25px fz:20px ff:font-primary fw:400">{{content.new_customer_text}}</h4>
-						<p class="register__description mb:40px ff:font-primary fw:400 fz:15px c:color-dark">
+				<div class="pr:100px@md w:90% d:flex fld:column ai:flex-end@md">
+					<div>
+						<h4 class="mb:25px fz:20px ff:font-primary fw:400">{{content.new_customer_text}}</h4>
+						<p class="mb:40px ff:font-primary fw:400 fz:15px c:color-dark">
               {{content.new_customer_description}}
             </p>
 						<button class="bgc:color-dark bgc:color-dark|h bd:none! c:color-light p:20px_0px_20px_0px p:20px_114px_20px_114px@md cur:pointer m:5px_5px_5px_5px fw:500 bdrs:0px! ff:font-primary fz:15px lts:0.15px w:100% m:0!">{{content.register_text}}</button>
@@ -80,8 +80,8 @@
 				</div>
 			</div>
 			<div class="col-lg-5">
-				<div class="sign-in w:100% w:500px@md d:flex fld:column">
-					<h3 class="sign-in__title mb:20px fz:25px ff:font-primary fw:400">{{content.login_text}}</h3>
+				<div class="w:100% w:500px@md d:flex fld:column">
+					<h3 class="mb:20px fz:25px ff:font-primary fw:400">{{content.login_text}}</h3>
           <form action="">
             <input class="w:100%! w:500px!@md h:50px bd:1px_solid_color-gray3! pl:16px! c:color-gray3! bdrs:0px! fz:15px fw:400 fz:15px||placeholder fw:400||placeholder" type="text" placeholder="{{content.login_email_placeholder}}"/>
             <div class="mb:20px!"></div>

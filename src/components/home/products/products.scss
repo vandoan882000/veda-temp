@@ -1,13 +1,6 @@
 $uniqueId: 'products';
 $container: "[data-id='#{$uniqueId}']";
 
-.product-card__img:hover .product-card__status .product-card__icon-hidden {
-  visibility: visible;
-  opacity: 1;
-}
-.product-card__img:hover .product-card__add-content {
-  transform: translateY(0);
-}
 .toggle-active-js {
   background-color: #AF0707 !important;
   color: #ffffff !important;

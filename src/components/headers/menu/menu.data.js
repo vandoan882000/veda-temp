@@ -36,6 +36,14 @@ const data = {
       link: "#"
     }
   ],
+  account_enable: true,
+  account_icon: "fal fa-user",
+  compare_enable: true,
+  compare_icon: "fal fa-repeat",
+  wishlist_enable: true,
+  wishlist_icon: "fal fa-heart",
+  cart_enable: true,
+  cart_icon: "fal fa-shopping-bag",
   text_menu_config: {
     add_to_cart_success_text: "Add to cart",
     add_to_cart_error_text: "Add to cart error",

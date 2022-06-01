@@ -30,6 +30,13 @@ const data = {
     sale_design: "",
     add_to_cart_text: "Add to cart",
     add_to_cart_design: "",
+    wishlist_enable: true,
+    wishlist_icon: "fal fa-heart",
+    quickview_enable: true,
+    quickview_icon: "fal fa-eye",
+    compare_enable: true,
+    compare_icon: "fal fa-repeat",
     quantity_product_displayed: 8,
   },
+
 };

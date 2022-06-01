@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_8afa38e2-a9cb-4225-911a-0d8cf2acdd1e" %}
+{% set uniqueId = "id_11686de0-0bb9-4e46-8b3d-d57d7bd4dde5" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -25,10 +25,10 @@
   <div class="container d:flex ai:center jc:space-between maw:100% p:0">
       <div class="h:60px! ovy:hidden">
         <div class="ovx:auto h:80px">
-          <ul class="yasmina-menu d:flex ai:center m:0 p:0 h:60px list-style:none pl:15px!@md">
+          <ul class="d:flex ai:center m:0 p:0 h:60px list-style:none pl:15px!@md">
             {% for item in navigation %}
-              <li class="yasmina-menu__list d:inline-block bdr:1px_solid_color-light bd:none|lc">
-                <a href={{item.link}} class="yasmina-menu__link--primary w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap tt:uppercase">{{item.label}}</a>
+              <li class="d:inline-block bdr:1px_solid_color-light bd:none|lc">
+                <a href={{item.link}} class="w:100% pl:15px pr:15px fz:17px fw:800 cur:pointer c:color-light whs:nowrap tt:uppercase">{{item.label}}</a>
               </li>
             
 
@@ -40,21 +40,31 @@
       </div>
       <div>
         <div class="h:100% d:flex jc:flex-end ai:center c:color-light fz:20px pr:15px pr:30px@md">
-          <a href="/account.html"><i class="fal fa-user ml:10px mr:10px cur:pointer c:color-light"></i></a>
-          <span class="veda-compare-toggle-js pos:relative cur:pointer" data-options='{
-            compareOptionsTitle: {{ compareOptionsTitle | split(', ')| json_encode()}},
-          }'>
-            <i class="fal fa-repeat ml:10px mr:10px cur:pointer c:color-light"></i>
-            <div class="veda-compare-badge-js d:flex jc:center ai:center c:color-light pos:absolute b:50% l:75% miw:16px h:16px fz:9px bdrs:8px bgc:red fw:500 pl:2px pr:2px"></div>
-          </span>
-          <a href="/wishlist.html" class="pos:relative c:color-light|h! c:color-light!">
-            <i class="fal fa-heart ml:10px mr:10px cur:pointer c:color-light c:color-light|h!"></i>
-            <div class="veda-wishlist-badge-js d:flex jc:center ai:center c:color-light pos:absolute b:50% l:75% miw:16px h:16px fz:9px bdrs:8px bgc:red fw:500 c:color-light! pl:2px pr:2px"></div>
+          {% if account_enable %}
+          <a href="/account.html">
+            <i class="{{account_icon}} ml:10px mr:10px cur:pointer c:color-light"></i>
           </a>
-          <span class="veda-cart-toggle-js pos:relative">
-            <i class="fal fa-shopping-bag ml:10px mr:10px cur:pointer c:color-light"></i>
-            <div class="veda-cart-badge-js d:flex jc:center ai:center c:color-light pos:absolute b:50% l:75% miw:16px h:16px fz:9px bdrs:8px bgc:red fw:500 pl:2px pr:2px"></div>
-          </span>
+          {% endif %}
+          {% if compare_enable %}
+            <span class="veda-compare-toggle-js pos:relative cur:pointer" data-options='{
+              compareOptionsTitle: {{ compareOptionsTitle | split(', ')| json_encode()}},
+            }'>
+              <i class="{{compare_icon}} ml:10px mr:10px cur:pointer c:color-light"></i>
+              <div class="veda-compare-badge-js d:flex jc:center ai:center c:color-light pos:absolute b:50% l:75% miw:16px h:16px fz:9px bdrs:8px bgc:red fw:500 pl:2px pr:2px"></div>
+            </span>
+          {% endif %}
+          {% if wishlist_enable %}
+            <a href="/wishlist.html" class="pos:relative c:color-light|h! c:color-light!">
+              <i class="{{wishlist_icon}} ml:10px mr:10px cur:pointer c:color-light c:color-light|h!"></i>
+              <div class="veda-wishlist-badge-js d:flex jc:center ai:center c:color-light pos:absolute b:50% l:75% miw:16px h:16px fz:9px bdrs:8px bgc:red fw:500 c:color-light! pl:2px pr:2px"></div>
+            </a>
+          {% endif %}
+          {% if cart_enable %}
+            <span class="veda-cart-toggle-js pos:relative">
+              <i class="{{cart_icon}} ml:10px mr:10px cur:pointer c:color-light"></i>
+              <div class="veda-cart-badge-js d:flex jc:center ai:center c:color-light pos:absolute b:50% l:75% miw:16px h:16px fz:9px bdrs:8px bgc:red fw:500 pl:2px pr:2px"></div>
+            </span>
+          {% endif %}
         </div>
       </div>
 

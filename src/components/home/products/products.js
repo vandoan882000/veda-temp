@@ -28,27 +28,28 @@ if(!!containers) {
         const compareDataEl = card.querySelector(".product-card-data-js");
         const productData = objectParse(compareDataEl.textContent);
         const btnCompareEl = card.querySelector(".compare-toggle-js");
-        if(!!btnCompareEl) {
-          const ratingCustom = card.querySelector(".compare-rating-js");
-          const hasItem = () => checkHasItem(productData, productCompare.getData());
-          changeStatus(btnCompareEl, hasItem);
-          btnCompareEl.addEventListener("click", () => {
-            productCompare.toggleProduct({
-              ...productData,
-              rating: ratingCustom?.innerHTML,
-            });
-            const tooltipText = btnCompareEl.getAttribute("data-tooltip-text");
-            const tooltipActiveText = btnCompareEl.getAttribute(
-              "data-tooltip-active-text"
-            );
-            changeStatus(btnCompareEl, hasItem);
-            if (hasItem()) {
-              tooltipText && message.success(tooltipText);
-            } else {
-              tooltipActiveText && message.error(tooltipActiveText);
-            }
-          });
+        const ratingCustom = card.querySelector(".compare-rating-js");
+        if(!btnCompareEl) {
+          return;
         }
+        const hasItem = () => checkHasItem(productData, productCompare.getData());
+        changeStatus(btnCompareEl, hasItem);
+        btnCompareEl.addEventListener("click", () => {
+          productCompare.toggleProduct({
+            ...productData,
+            rating: ratingCustom?.innerHTML,
+          });
+          const tooltipText = btnCompareEl.getAttribute("data-tooltip-text");
+          const tooltipActiveText = btnCompareEl.getAttribute(
+            "data-tooltip-active-text"
+          );
+          changeStatus(btnCompareEl, hasItem);
+          if (hasItem()) {
+            tooltipText && message.success(tooltipText);
+          } else {
+            tooltipActiveText && message.error(tooltipActiveText);
+          }
+        });
 
       });
       unsubscribeCompare();
@@ -69,6 +70,9 @@ if(!!containers) {
         const compareDataEl = card.querySelector(".product-card-data-js");
         const productData = objectParse(compareDataEl.textContent);
         const btnWishListEl = card.querySelector(".wishlist-toggle-js");
+        if(!btnWishListEl) {
+          return;
+        }
         const hasItem = () => checkHasItem(productData, productWishList.getData());
         changeStatus(btnWishListEl, hasItem);
         btnWishListEl.addEventListener("click", () => {
@@ -103,6 +107,9 @@ if(!!containers) {
         const cartDataEl = card.querySelector(".product-card-data-js");
         const productData = objectParse(cartDataEl.textContent);
         const btnAddCart = card.querySelector(".product-card-add-js");
+        if(!btnAddCart) {
+          return;
+        }
         btnAddCart.addEventListener("click", async (event) => {
           event.preventDefault();
           if (!loadding) {
@@ -124,6 +131,9 @@ if(!!containers) {
         const cartDataEl = card.querySelector(".product-card-data-js");
         const productData = objectParse(cartDataEl.textContent);
         const btnQuickView = card.querySelector(".quickview-toggle-js");
+        if(!btnQuickView) {
+          return;
+        }
         btnQuickView.addEventListener("click", () =>
           productQuickView.togglePopup(productData)
         );
@@ -144,6 +154,9 @@ if(!!containers) {
         const cartDataEl = card.querySelector(".product-card-data-js");
         const productData = objectParse(cartDataEl.textContent);
         const colorWrapper = card.querySelector(".product-card-colors-js");
+        if(!colorWrapper) {
+          return;
+        }
         productColor.render(colorWrapper, productData);
       });
     }

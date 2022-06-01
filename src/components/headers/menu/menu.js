@@ -9,6 +9,7 @@ if(!!container) {
   function initCompare() {
     const btnComparePopup = document.querySelector('.veda-compare-toggle-js');
     const dataCompareOptions = btnComparePopup.getAttribute('data-options');
+    console.log(dataCompareOptions);
     productCompare.customCompare(veda.utils.objectParse(dataCompareOptions));
     //button popup
     btnComparePopup.addEventListener('click', () => {
@@ -24,9 +25,6 @@ if(!!container) {
     });
   }
   function initWishList() {
-    productWishList.customWishList({
-      link: "/pageproduct.html",
-    });
     //wishlist badge
     const wishlistBadge = document.querySelector('.veda-wishlist-badge-js');
     wishlistBadge.innerHTML = productWishList.getData()?.length??"0";

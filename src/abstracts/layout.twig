@@ -30,14 +30,13 @@
 <body>
   <div id="root">
     {% block header %}
-
       {% include "../components/headers/menu/render.twig" %}
       {% include "../components/headers/header/render.twig" %}
     {% endblock %}
     {% block body %}{% endblock %}
 
     {% block footer %}
-       {% include "../components/footers/footers/render.twig" %}
+      {% include "../components/footers/footers/render.twig" %}
     {% endblock %}
     <div class="overlay"></div>
   </div>

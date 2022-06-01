@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_2da82137-51a5-4420-87bf-a580b630c80a" %}
+{% set uniqueId = "id_8afa38e2-a9cb-4225-911a-0d8cf2acdd1e" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -41,12 +41,9 @@
       <div>
         <div class="h:100% d:flex jc:flex-end ai:center c:color-light fz:20px pr:15px pr:30px@md">
           <a href="/account.html"><i class="fal fa-user ml:10px mr:10px cur:pointer c:color-light"></i></a>
-          <span class="veda-compare-toggle-js pos:relative cur:pointer" data-options="{
-            header: {
-              title: 'Compare',
-              description: 'Compare description1',
-            },
-          }">
+          <span class="veda-compare-toggle-js pos:relative cur:pointer" data-options='{
+            compareOptionsTitle: {{ compareOptionsTitle | split(', ')| json_encode()}},
+          }'>
             <i class="fal fa-repeat ml:10px mr:10px cur:pointer c:color-light"></i>
             <div class="veda-compare-badge-js d:flex jc:center ai:center c:color-light pos:absolute b:50% l:75% miw:16px h:16px fz:9px bdrs:8px bgc:red fw:500 pl:2px pr:2px"></div>
           </span>

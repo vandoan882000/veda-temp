@@ -4,9 +4,7 @@ $container: "[data-id='#{$uniqueId}']";
 .yasmina-category:hover .yasmina-category__title {
   text-decoration: underline;
 }
-.yasmina-category:hover img{
-  transform: scale(1.1);
-}
+
 .yasmina-category:hover .yasmina-overlay {
   opacity: 0.2;
 }

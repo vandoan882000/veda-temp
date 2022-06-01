@@ -1,0 +1,53 @@
+
+{% set uniqueId = "id_4bf4ed74-2bef-48f9-8522-5a61ea397ea5" %}
+{% if general_settings.background_fixed %}
+{% set backgroundFixed = 'fixed' %}
+{% else %}
+{% set backgroundFixed = 'scroll' %}
+{% endif %}
+{% if general_settings.background_type == 'color' %}
+{% set backgroundColor = 'background-color: ' ~  general_settings.background_color ~  ';' %}
+{% else %}
+{% set backgroundColor = '' %}
+{% endif %}
+{% if general_settings.background_type == 'image' %}
+{% set backgroundImage = 'background-image: url(' ~  general_settings.background_image ~  ');background-attachment: ' ~  backgroundFixed ~  ';background-size: ' ~  general_settings.background_size ~  ';' %}
+{% else %}
+{% set backgroundImage = '' %}
+{% endif %}
+{% set sectionPadding = 'padding-top: ' ~  general_settings.padding.top ~  'px;padding-right: ' ~  general_settings.padding.right ~  'px;padding-bottom: ' ~  general_settings.padding.bottom ~  'px;padding-left: ' ~  general_settings.padding.left ~  'px;' %}
+
+
+<section data-id="hero1" class="mah:274px h:274px" css="{{ backgroundColor }}{{ backgroundImage }}{{ sectionPadding }}">
+  {% if general_settings.background_overlay_enable %}
+    <div class="pos:absolute ins:0 z:-1" css="background-color: {{ general_settings.background_overlay_color }}"></div>
+  {% endif %}
+  <div class="container maw:none">
+    <div class="row mt:0px">
+      <div class="col-md-12">
+          <div class="c:white">
+            <div class="jc:flex-start d:flex fld:column ai:center w:50%@md w:100% ta:center z:9">
+              <div class="fw:600 fz:pfs(20px,35px) ff:font-primary mt:20px">INSTILEY</div>
+              <p class="ff:font-secondary mt:10px mb:30px fz:pfs(12px,14px)">
+                {{content.description}}
+              </p>
+              <div>
+                {% for item in content.button %}
+                  {% if content.color_dark %}
+                    <button class="bgc:color-dark bgc:color-dark!|h bd:none! c:color-light c:color-light!|h p:10px_15px_10px_15px p:20px_47px_20px_47px@md cur:pointer m:5px_5px_5px_5px fw:600 bdrs:0px! fz:(15px,17px) lts:0.15px">{{item.name}}</button>
+                  {% endif %}
+                  {% if content.color_light %}
+                    <button class="bgc:color-light bgc:color-light!|h bd:none! c:color-dark c:color-dark!|h p:10px_15px_10px_15px p:20px_47px_20px_47px@md cur:pointer ml:5px mr:5px fw:600 bdrs:0px! fz:(15px,17px) lts:0.15px">{{item.name}}</button>
+                  {% endif %}
+                
+
+{% endfor %}
+
+
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>

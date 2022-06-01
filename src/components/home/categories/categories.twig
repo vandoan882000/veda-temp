@@ -1,5 +1,5 @@
 
-{% set uniqueId = "id_6039be78-fc3e-4221-b55a-16642981e405" %}
+{% set uniqueId = "id_5987ee68-d0dd-4266-820c-66631171543f" %}
 {% if general_settings.background_fixed %}
 {% set backgroundFixed = 'fixed' %}
 {% else %}
@@ -26,7 +26,7 @@
     <div class="row">
       {% for item in category | slice(0, 8) %}
         <div component="category" class="col-xs-{{column.xs}} col-sm-{{column.sm}} col-md-{{column.md}} col-lg-{{column.lg}}">
-          <div class="yasmina-category pos:relative w:100% ov:hidden z:2 cur:pointer" component="category">
+          <div class="yasmina-category* pos:relative w:100% ov:hidden z:2 cur:pointer" component="category">
             <a href="#" class="w:100% ar:1.43">
               <img class="trf:scale(1.1)*yasmina-category-hover z:-1 w:100% trs:all_0.3s" src={{item.background_image}} alt="category">
               <div class="yasmina-category__title pos:absolute t:50% l:50% trf:translate(-50%,-50%) c:color-light-freeze fw:600 fz:17px tt:uppercase ta:center z:9 tt:uppercase fit-content w:100%">{{item.label}}</div>
